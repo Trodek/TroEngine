@@ -19,6 +19,12 @@
     <Filter Include="Source\Engine\Modules">
       <UniqueIdentifier>{3390e966-b45c-446c-9068-2b15f4549f9c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Editor">
+      <UniqueIdentifier>{600285da-6d3a-4c21-8967-47d47cee4591}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\ImGUI">
+      <UniqueIdentifier>{a3b8584c-3070-49b8-be2f-154836bf29e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -68,6 +74,21 @@
     </ClCompile>
     <ClCompile Include="Engine\Timer.cpp">
       <Filter>Source\Engine\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\imgui.cpp">
+      <Filter>Source\Editor\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\imgui_demo.cpp">
+      <Filter>Source\Editor\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\imgui_draw.cpp">
+      <Filter>Source\Editor\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\imgui_impl_sdl.cpp">
+      <Filter>Source\Editor\ImGUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ModuleGUI.cpp">
+      <Filter>Source\Engine\Modules</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -121,6 +142,30 @@
     </ClInclude>
     <ClInclude Include="Engine\Timer.h">
       <Filter>Source\Engine\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\stb_rect_pack.h">
+      <Filter>Source\Editor\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\stb_textedit.h">
+      <Filter>Source\Editor\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\stb_truetype.h">
+      <Filter>Source\Editor\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\imconfig.h">
+      <Filter>Source\Editor\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\imgui.h">
+      <Filter>Source\Editor\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\imgui_impl_sdl.h">
+      <Filter>Source\Editor\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\imgui_internal.h">
+      <Filter>Source\Editor\ImGUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ModuleGUI.h">
+      <Filter>Source\Engine\Modules</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

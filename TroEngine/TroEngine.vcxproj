@@ -22,11 +22,16 @@
     <ClCompile Include="Engine\Application.cpp" />
     <ClCompile Include="Engine\Color.cpp" />
     <ClCompile Include="Engine\glmath.cpp" />
+    <ClCompile Include="Engine\imgui.cpp" />
+    <ClCompile Include="Engine\imgui_demo.cpp" />
+    <ClCompile Include="Engine\imgui_draw.cpp" />
+    <ClCompile Include="Engine\imgui_impl_sdl.cpp" />
     <ClCompile Include="Engine\Light.cpp" />
     <ClCompile Include="Engine\log.cpp" />
     <ClCompile Include="Engine\Main.cpp" />
     <ClCompile Include="Engine\ModuleAudio.cpp" />
     <ClCompile Include="Engine\ModuleCamera3D.cpp" />
+    <ClCompile Include="Engine\ModuleGUI.cpp" />
     <ClCompile Include="Engine\ModuleInput.cpp" />
     <ClCompile Include="Engine\ModulePhysics3D.cpp" />
     <ClCompile Include="Engine\ModuleRenderer3D.cpp" />
@@ -41,10 +46,15 @@
     <ClInclude Include="Engine\Color.h" />
     <ClInclude Include="Engine\glmath.h" />
     <ClInclude Include="Engine\Globals.h" />
+    <ClInclude Include="Engine\imconfig.h" />
+    <ClInclude Include="Engine\imgui.h" />
+    <ClInclude Include="Engine\imgui_impl_sdl.h" />
+    <ClInclude Include="Engine\imgui_internal.h" />
     <ClInclude Include="Engine\Light.h" />
     <ClInclude Include="Engine\Module.h" />
     <ClInclude Include="Engine\ModuleAudio.h" />
     <ClInclude Include="Engine\ModuleCamera3D.h" />
+    <ClInclude Include="Engine\ModuleGUI.h" />
     <ClInclude Include="Engine\ModuleInput.h" />
     <ClInclude Include="Engine\ModulePhysics3D.h" />
     <ClInclude Include="Engine\ModuleRenderer3D.h" />
@@ -53,6 +63,9 @@
     <ClInclude Include="Engine\p2Point.h" />
     <ClInclude Include="Engine\PhysBody3D.h" />
     <ClInclude Include="Engine\Primitive.h" />
+    <ClInclude Include="Engine\stb_rect_pack.h" />
+    <ClInclude Include="Engine\stb_textedit.h" />
+    <ClInclude Include="Engine\stb_truetype.h" />
     <ClInclude Include="Engine\Timer.h" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
