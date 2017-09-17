@@ -125,6 +125,12 @@ update_status Application::Update()
 	}
 
 	FinishUpdate();
+
+	if (close_app)
+	{
+		ret = UPDATE_STOP;
+	}
+
 	return ret;
 }
 
@@ -138,6 +144,11 @@ bool Application::CleanUp()
 	}
 
 	return ret;
+}
+
+void Application::CloseApp()
+{
+	close_app = true;
 }
 
 void Application::AddModule(Module* mod)

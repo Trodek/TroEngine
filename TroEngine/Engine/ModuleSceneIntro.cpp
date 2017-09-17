@@ -36,7 +36,16 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	ImGui::Text("Simon La Xupa");
+	ImGui::Begin("TestWindow", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
+		ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_ShowBorders |
+		ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoTitleBar);
+
+	if (ImGui::Button("Close App", ImVec2(200, 30)))
+	{
+		App->CloseApp();
+	}
+
+	ImGui::End();
 
 	ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
 	ImGui::ShowTestWindow(&show_test_window);
