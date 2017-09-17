@@ -1,4 +1,6 @@
 #include "Application.h"
+#include "Brofiler/Brofiler.h"
+
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
@@ -7,6 +9,7 @@
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
 #include "ModuleGUI.h"
+
 
 Application::Application()
 {
@@ -93,6 +96,7 @@ void Application::FinishUpdate()
 // Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()
 {
+	BROFILER_CATEGORY("UpdateLogic", Profiler::Color::Azure);
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
 

@@ -7,6 +7,10 @@
 #pragma comment( lib, "Engine/SDL/libx86/SDL2.lib" )
 #pragma comment( lib, "Engine/SDL/libx86/SDL2main.lib" )
 
+//Brofiler implementation
+#include "Brofiler/Brofiler.h"
+#pragma comment( lib, "Engine/Brofiler/ProfilerCore32.lib" )
+
 enum main_states
 {
 	MAIN_CREATION,
@@ -27,6 +31,7 @@ int main(int argc, char ** argv)
 
 	while (state != MAIN_EXIT)
 	{
+		BROFILER_FRAME("Main");
 		switch (state)
 		{
 		case MAIN_CREATION:
