@@ -5,13 +5,13 @@
 #include "Application.h"
 #include "ModuleWindow.h"
 
-ModuleGUI::ModuleGUI(Application* app, bool start_enabled) : Module(app, start_enabled) 
+ModuleGUI::ModuleGUI(bool start_enabled) : Module(start_enabled) 
 {}
 
 ModuleGUI::~ModuleGUI()
 {}
 
-bool ModuleGUI::Init()
+bool ModuleGUI::Awake()
 {
 	bool ret = false;
 

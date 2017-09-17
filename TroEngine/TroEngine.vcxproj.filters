@@ -25,6 +25,27 @@
     <Filter Include="Source\Editor\ImGUI">
       <UniqueIdentifier>{a3b8584c-3070-49b8-be2f-154836bf29e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\Modules\Audio">
+      <UniqueIdentifier>{1680ecfb-1c6e-487b-8cd3-50560d36e56c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Modules\Window">
+      <UniqueIdentifier>{228e6176-00c8-48c8-9fa5-344b714a0b56}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Modules\GUI">
+      <UniqueIdentifier>{21fb220f-73f9-41fe-b683-a25b969627f0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Modules\Camera">
+      <UniqueIdentifier>{c2f19a7e-23d0-4812-aeec-0149fe80cfb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Modules\Physics">
+      <UniqueIdentifier>{a8ecdc33-c4e2-4ac3-8833-d53eaf0178cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Modules\Renderer">
+      <UniqueIdentifier>{91e94ac1-5485-4333-88bc-4528277cc239}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Modules\Input">
+      <UniqueIdentifier>{2fc5f601-8f9e-4c2d-a35a-43c4f7435088}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -48,25 +69,7 @@
     <ClCompile Include="Engine\Primitive.cpp">
       <Filter>Source\Engine\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\ModuleAudio.cpp">
-      <Filter>Source\Engine\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\ModuleCamera3D.cpp">
-      <Filter>Source\Engine\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\ModuleInput.cpp">
-      <Filter>Source\Engine\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\ModulePhysics3D.cpp">
-      <Filter>Source\Engine\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\ModuleRenderer3D.cpp">
-      <Filter>Source\Engine\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\ModuleSceneIntro.cpp">
-      <Filter>Source\Engine\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\ModuleWindow.cpp">
       <Filter>Source\Engine\Modules</Filter>
     </ClCompile>
     <ClCompile Include="Engine\log.cpp">
@@ -87,8 +90,26 @@
     <ClCompile Include="Engine\imgui_impl_sdl.cpp">
       <Filter>Source\Editor\ImGUI</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\ModuleAudio.cpp">
+      <Filter>Source\Engine\Modules\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ModuleWindow.cpp">
+      <Filter>Source\Engine\Modules\Window</Filter>
+    </ClCompile>
     <ClCompile Include="Engine\ModuleGUI.cpp">
-      <Filter>Source\Engine\Modules</Filter>
+      <Filter>Source\Engine\Modules\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ModuleCamera3D.cpp">
+      <Filter>Source\Engine\Modules\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ModulePhysics3D.cpp">
+      <Filter>Source\Engine\Modules\Physics</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ModuleRenderer3D.cpp">
+      <Filter>Source\Engine\Modules\Renderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ModuleInput.cpp">
+      <Filter>Source\Engine\Modules\Input</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -119,25 +140,7 @@
     <ClInclude Include="Engine\Module.h">
       <Filter>Source\Engine\Modules</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\ModuleAudio.h">
-      <Filter>Source\Engine\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\ModuleCamera3D.h">
-      <Filter>Source\Engine\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\ModuleInput.h">
-      <Filter>Source\Engine\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\ModulePhysics3D.h">
-      <Filter>Source\Engine\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\ModuleRenderer3D.h">
-      <Filter>Source\Engine\Modules</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\ModuleSceneIntro.h">
-      <Filter>Source\Engine\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\ModuleWindow.h">
       <Filter>Source\Engine\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Timer.h">
@@ -164,8 +167,26 @@
     <ClInclude Include="Engine\imgui_internal.h">
       <Filter>Source\Editor\ImGUI</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\ModuleAudio.h">
+      <Filter>Source\Engine\Modules\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ModuleWindow.h">
+      <Filter>Source\Engine\Modules\Window</Filter>
+    </ClInclude>
     <ClInclude Include="Engine\ModuleGUI.h">
-      <Filter>Source\Engine\Modules</Filter>
+      <Filter>Source\Engine\Modules\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ModuleCamera3D.h">
+      <Filter>Source\Engine\Modules\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ModulePhysics3D.h">
+      <Filter>Source\Engine\Modules\Physics</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ModuleRenderer3D.h">
+      <Filter>Source\Engine\Modules\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ModuleInput.h">
+      <Filter>Source\Engine\Modules\Input</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

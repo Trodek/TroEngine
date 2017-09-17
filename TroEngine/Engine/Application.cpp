@@ -2,17 +2,17 @@
 
 Application::Application()
 {
-	window = new ModuleWindow(this);
-	input = new ModuleInput(this);
-	audio = new ModuleAudio(this, true);
-	scene_intro = new ModuleSceneIntro(this);
-	renderer3D = new ModuleRenderer3D(this);
-	camera = new ModuleCamera3D(this);
-	physics = new ModulePhysics3D(this);
-	gui = new ModuleGUI(this);
+	window = new ModuleWindow();
+	input = new ModuleInput();
+	audio = new ModuleAudio();
+	scene_intro = new ModuleSceneIntro();
+	renderer3D = new ModuleRenderer3D();
+	camera = new ModuleCamera3D();
+	physics = new ModulePhysics3D();
+	gui = new ModuleGUI();
 
 	// The order of calls is very important!
-	// Modules will Init() Start() and Update in this order
+	// Modules will Awake() Start() and Update in this order
 	// They will CleanUp() in reverse order
 
 	// Main Modules
@@ -47,16 +47,16 @@ bool Application::Init()
 {
 	bool ret = true;
 
-	// Call Init() in all modules
+	// Call Awake() in all modules
 	std::list<Module*>::iterator item = list_modules.begin();
 
 	while(item != list_modules.end() && ret == true)
 	{
-		ret = (*item)->Init();
+		ret = (*item)->Awake();
 		++item;
 	}
 
-	// After all Init calls we call Start() in all modules
+	// After all Awake calls we call Start() in all modules
 	LOG("Application Start --------------");
 	item = list_modules.begin();
 

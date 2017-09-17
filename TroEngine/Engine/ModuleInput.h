@@ -16,10 +16,10 @@ class ModuleInput : public Module
 {
 public:
 	
-	ModuleInput(Application* app, bool start_enabled = true);
+	ModuleInput(bool start_enabled = true);
 	~ModuleInput();
 
-	bool Init();
+	bool Awake();
 	update_status PreUpdate(float dt);
 	bool CleanUp();
 

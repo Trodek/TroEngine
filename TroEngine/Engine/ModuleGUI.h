@@ -7,10 +7,10 @@
 class ModuleGUI : public Module
 {
 public:
-	ModuleGUI(Application* app, bool start_enabled = true);
+	ModuleGUI(bool start_enabled = true);
 	~ModuleGUI();
 
-	bool Init();
+	bool Awake();
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();
