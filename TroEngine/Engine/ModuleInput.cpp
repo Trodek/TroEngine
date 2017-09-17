@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
+#include "ModuleRenderer3D.h"
 #include "imgui.h"
 #include "imgui_impl_sdl.h"
 

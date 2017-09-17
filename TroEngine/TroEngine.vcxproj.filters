@@ -72,9 +72,6 @@
     <ClCompile Include="Engine\ModuleSceneIntro.cpp">
       <Filter>Source\Engine\Modules</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\log.cpp">
-      <Filter>Source\Engine\Tools</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Timer.cpp">
       <Filter>Source\Engine\Tools</Filter>
     </ClCompile>
@@ -110,6 +107,9 @@
     </ClCompile>
     <ClCompile Include="Engine\ModuleInput.cpp">
       <Filter>Source\Engine\Modules\Input</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Globals.cpp">
+      <Filter>Source\Engine</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -1,4 +1,12 @@
 #include "Application.h"
+#include "ModuleWindow.h"
+#include "ModuleInput.h"
+#include "ModuleAudio.h"
+#include "ModuleSceneIntro.h"
+#include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
+#include "ModulePhysics3D.h"
+#include "ModuleGUI.h"
 
 Application::Application()
 {
@@ -12,7 +20,7 @@ Application::Application()
 	gui = new ModuleGUI();
 
 	// The order of calls is very important!
-	// Modules will Awake() Start() and Update in this order
+	// Modules will Awake() Start() and Update() in this order
 	// They will CleanUp() in reverse order
 
 	// Main Modules

@@ -1,6 +1,8 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
+#include "ModuleCamera3D.h"
+#include "ModuleWindow.h"
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
@@ -74,7 +76,7 @@ bool ModuleRenderer3D::Awake()
 			ret = false;
 		}
 		
-		GLfloat LightModelAmbient[] = {0.5f, 0.5f, 0.5f, 1.0f};
+		GLfloat LightModelAmbient[] = {0.6f, 0.6f, 0.6f, 1.0f};
 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
 		
 		lights[0].ref = GL_LIGHT0;
