@@ -36,16 +36,16 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	ImGui::Begin("TestWindow", 0, ImGuiWindowFlags_NoResize | ImGuiWindowFlags_NoMove |
-		ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_ShowBorders |
-		ImGuiWindowFlags_NoSavedSettings | ImGuiWindowFlags_NoTitleBar);
-
-	if (ImGui::Button("Close App", ImVec2(200, 30)))
+	if(ImGui::BeginMainMenuBar())
 	{
-		App->CloseApp();
-	}
+		if (ImGui::BeginMenu("Close App"))
+		{
+			App->CloseApp();
+			ImGui::EndMenu();
+		}
 
-	ImGui::End();
+		ImGui::EndMainMenuBar();
+	};
 
 	ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
 	ImGui::ShowTestWindow(&show_test_window);
