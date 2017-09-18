@@ -18,6 +18,34 @@ bool ModuleGUI::Awake()
 	if (ImGui_ImplSdlGL2_Init(App->window->window))
 		ret = true;
 	
+	SetGUIColors();
+
+	return ret;
+}
+
+update_status ModuleGUI::PreUpdate(float dt)
+{
+	ImGui_ImplSdlGL2_NewFrame(App->window->window);
+
+	return UPDATE_CONTINUE;
+}
+
+update_status ModuleGUI::PostUpdate(float dt)
+{
+	ImGui::Render();
+
+	return UPDATE_CONTINUE;
+}
+
+bool ModuleGUI::CleanUp()
+{
+	ImGui_ImplSdlGL2_Shutdown();
+
+	return true;
+}
+
+void ModuleGUI::SetGUIColors()
+{
 	//Set GUI Style
 	ImGuiStyle& style = ImGui::GetStyle();
 	style.Colors[ImGuiCol_Text] = ImVec4(0.00f, 0.00f, 0.00f, 1.00f);
@@ -63,27 +91,4 @@ bool ModuleGUI::Awake()
 	style.Colors[ImGuiCol_PlotHistogramHovered] = ImVec4(1.00f, 0.60f, 0.00f, 1.00f);
 	style.Colors[ImGuiCol_TextSelectedBg] = ImVec4(0.00f, 0.00f, 1.00f, 0.33f);
 	style.Colors[ImGuiCol_ModalWindowDarkening] = ImVec4(1.00f, 1.00f, 1.00f, 1.00f);
-
-	return ret;
-}
-
-update_status ModuleGUI::PreUpdate(float dt)
-{
-	ImGui_ImplSdlGL2_NewFrame(App->window->window);
-
-	return UPDATE_CONTINUE;
-}
-
-update_status ModuleGUI::PostUpdate(float dt)
-{
-	ImGui::Render();
-
-	return UPDATE_CONTINUE;
-}
-
-bool ModuleGUI::CleanUp()
-{
-	ImGui_ImplSdlGL2_Shutdown();
-
-	return true;
 }
