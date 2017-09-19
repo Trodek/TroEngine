@@ -38,14 +38,34 @@ update_status ModuleSceneIntro::Update(float dt)
 {
 	if(ImGui::BeginMainMenuBar())
 	{
-		if (ImGui::BeginMenu("Close App"))
+		if (ImGui::BeginMenu("File"))
 		{
-			App->CloseApp();
+			if (ImGui::MenuItem("Close App"))
+			{
+				App->CloseApp();
+			}
+			ImGui::EndMenu();
+		}
+
+		if (ImGui::BeginMenu("Help"))
+		{
+			if (ImGui::MenuItem("About",NULL,&show_about))
+			{
+			}		
 			ImGui::EndMenu();
 		}
 
 		ImGui::EndMainMenuBar();
 	};
+
+	if (show_about)
+	{
+		ImGui::Begin("TroEngine v0.0.1", &show_about);
+		
+		ImGui::Text("Engine mantained by Iban Mas Ortega (Trodek) ");
+
+		ImGui::End();
+	}
 
 	ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
 	ImGui::ShowTestWindow(&show_test_window);
