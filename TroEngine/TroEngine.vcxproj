@@ -49,6 +49,9 @@
     <ClInclude Include="Engine\imgui_impl_sdl.h" />
     <ClInclude Include="Engine\imgui_internal.h" />
     <ClInclude Include="Engine\Light.h" />
+    <ClInclude Include="Engine\MathBuildConfig.h" />
+    <ClInclude Include="Engine\MathGeoLib.h" />
+    <ClInclude Include="Engine\MathGeoLibFwd.h" />
     <ClInclude Include="Engine\Module.h" />
     <ClInclude Include="Engine\ModuleAudio.h" />
     <ClInclude Include="Engine\ModuleCamera3D.h" />

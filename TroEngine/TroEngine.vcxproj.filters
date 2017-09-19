@@ -43,6 +43,9 @@
     <Filter Include="Source\Engine\Modules\Input">
       <UniqueIdentifier>{2fc5f601-8f9e-4c2d-a35a-43c4f7435088}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\Tools\Math">
+      <UniqueIdentifier>{a6e1bbd2-5d16-428b-9fd1-da0e43712b35}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -172,6 +175,15 @@
     </ClInclude>
     <ClInclude Include="Engine\EditorScene.h">
       <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\MathBuildConfig.h">
+      <Filter>Source\Engine\Tools\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\MathGeoLibFwd.h">
+      <Filter>Source\Engine\Tools\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\MathGeoLib.h">
+      <Filter>Source\Engine\Tools\Math</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

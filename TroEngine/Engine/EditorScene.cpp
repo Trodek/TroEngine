@@ -50,7 +50,11 @@ update_status EditorScene::Update(float dt)
 		{
 			if (ImGui::MenuItem("About",NULL,&show_about))
 			{
-			}		
+			}
+			if (ImGui::MenuItem("GitHub"))
+			{
+				ShellExecute(NULL, "open", "https://github.com/Trodek/TroEngine", NULL, NULL, SW_SHOWMAXIMIZED);
+			}
 			ImGui::EndMenu();
 		}
 
