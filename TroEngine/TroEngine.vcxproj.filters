@@ -60,9 +60,6 @@
     <ClCompile Include="Engine\Light.cpp">
       <Filter>Source\Engine\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\PhysBody3D.cpp">
-      <Filter>Source\Engine\Helpers</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Primitive.cpp">
       <Filter>Source\Engine\Helpers</Filter>
     </ClCompile>
@@ -123,9 +120,6 @@
       <Filter>Source\Engine\Containers</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Light.h">
-      <Filter>Source\Engine\Helpers</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\PhysBody3D.h">
       <Filter>Source\Engine\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Primitive.h">

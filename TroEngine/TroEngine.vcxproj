@@ -36,7 +36,6 @@
     <ClCompile Include="Engine\ModuleRenderer3D.cpp" />
     <ClCompile Include="Engine\EditorScene.cpp" />
     <ClCompile Include="Engine\ModuleWindow.cpp" />
-    <ClCompile Include="Engine\PhysBody3D.cpp" />
     <ClCompile Include="Engine\Primitive.cpp" />
     <ClCompile Include="Engine\Timer.cpp" />
   </ItemGroup>
@@ -59,7 +58,6 @@
     <ClInclude Include="Engine\EditorScene.h" />
     <ClInclude Include="Engine\ModuleWindow.h" />
     <ClInclude Include="Engine\p2Point.h" />
-    <ClInclude Include="Engine\PhysBody3D.h" />
     <ClInclude Include="Engine\Primitive.h" />
     <ClInclude Include="Engine\stb_rect_pack.h" />
     <ClInclude Include="Engine\stb_textedit.h" />

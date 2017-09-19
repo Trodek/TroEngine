@@ -3,7 +3,6 @@
 #include "EditorScene.h"
 #include "ModuleCamera3D.h"
 #include "Primitive.h"
-#include "PhysBody3D.h"
 #include "imgui.h"
 
 EditorScene::EditorScene(bool start_enabled) : Module(start_enabled)
