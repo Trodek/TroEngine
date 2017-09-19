@@ -33,7 +33,6 @@
     <ClCompile Include="Engine\ModuleCamera3D.cpp" />
     <ClCompile Include="Engine\ModuleGUI.cpp" />
     <ClCompile Include="Engine\ModuleInput.cpp" />
-    <ClCompile Include="Engine\ModulePhysics3D.cpp" />
     <ClCompile Include="Engine\ModuleRenderer3D.cpp" />
     <ClCompile Include="Engine\ModuleSceneIntro.cpp" />
     <ClCompile Include="Engine\ModuleWindow.cpp" />
@@ -56,7 +55,6 @@
     <ClInclude Include="Engine\ModuleCamera3D.h" />
     <ClInclude Include="Engine\ModuleGUI.h" />
     <ClInclude Include="Engine\ModuleInput.h" />
-    <ClInclude Include="Engine\ModulePhysics3D.h" />
     <ClInclude Include="Engine\ModuleRenderer3D.h" />
     <ClInclude Include="Engine\ModuleSceneIntro.h" />
     <ClInclude Include="Engine\ModuleWindow.h" />
@@ -155,6 +153,7 @@
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
       <SubSystem>Windows</SubSystem>
+      <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">

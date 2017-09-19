@@ -12,7 +12,6 @@ class ModuleAudio;
 class ModuleSceneIntro;
 class ModuleRenderer3D;
 class ModuleCamera3D;
-class ModulePhysics3D;
 class ModuleGUI;
 
 class Application
@@ -24,7 +23,6 @@ public:
 	ModuleSceneIntro* scene_intro;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
-	ModulePhysics3D* physics;
 	ModuleGUI* gui;
 
 private:

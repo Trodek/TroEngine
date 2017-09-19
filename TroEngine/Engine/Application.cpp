@@ -7,7 +7,6 @@
 #include "ModuleSceneIntro.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
-#include "ModulePhysics3D.h"
 #include "ModuleGUI.h"
 
 
@@ -19,7 +18,6 @@ Application::Application()
 	scene_intro = new ModuleSceneIntro();
 	renderer3D = new ModuleRenderer3D();
 	camera = new ModuleCamera3D();
-	physics = new ModulePhysics3D();
 	gui = new ModuleGUI();
 
 	// The order of calls is very important!
@@ -32,7 +30,7 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
-	AddModule(physics);
+	//AddModule(physics);
 	
 	// Scenes
 	AddModule(scene_intro);

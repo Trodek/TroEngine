@@ -37,9 +37,6 @@
     <Filter Include="Source\Engine\Modules\Camera">
       <UniqueIdentifier>{c2f19a7e-23d0-4812-aeec-0149fe80cfb3}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Engine\Modules\Physics">
-      <UniqueIdentifier>{a8ecdc33-c4e2-4ac3-8833-d53eaf0178cc}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Engine\Modules\Renderer">
       <UniqueIdentifier>{91e94ac1-5485-4333-88bc-4528277cc239}</UniqueIdentifier>
     </Filter>
@@ -98,9 +95,6 @@
     </ClCompile>
     <ClCompile Include="Engine\ModuleCamera3D.cpp">
       <Filter>Source\Engine\Modules\Camera</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\ModulePhysics3D.cpp">
-      <Filter>Source\Engine\Modules\Physics</Filter>
     </ClCompile>
     <ClCompile Include="Engine\ModuleRenderer3D.cpp">
       <Filter>Source\Engine\Modules\Renderer</Filter>
@@ -178,9 +172,6 @@
     </ClInclude>
     <ClInclude Include="Engine\ModuleCamera3D.h">
       <Filter>Source\Engine\Modules\Camera</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\ModulePhysics3D.h">
-      <Filter>Source\Engine\Modules\Physics</Filter>
     </ClInclude>
     <ClInclude Include="Engine\ModuleRenderer3D.h">
       <Filter>Source\Engine\Modules\Renderer</Filter>
