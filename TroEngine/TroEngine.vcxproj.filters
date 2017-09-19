@@ -66,9 +66,6 @@
     <ClCompile Include="Engine\Primitive.cpp">
       <Filter>Source\Engine\Helpers</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\ModuleSceneIntro.cpp">
-      <Filter>Source\Engine\Modules</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Timer.cpp">
       <Filter>Source\Engine\Tools</Filter>
     </ClCompile>
@@ -105,6 +102,9 @@
     <ClCompile Include="Engine\Globals.cpp">
       <Filter>Source\Engine</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\EditorScene.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Application.h">
@@ -132,9 +132,6 @@
       <Filter>Source\Engine\Helpers</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Module.h">
-      <Filter>Source\Engine\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\ModuleSceneIntro.h">
       <Filter>Source\Engine\Modules</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Timer.h">
@@ -178,6 +175,9 @@
     </ClInclude>
     <ClInclude Include="Engine\ModuleInput.h">
       <Filter>Source\Engine\Modules\Input</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\EditorScene.h">
+      <Filter>Source\Editor</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

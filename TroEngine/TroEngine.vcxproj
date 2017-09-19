@@ -34,7 +34,7 @@
     <ClCompile Include="Engine\ModuleGUI.cpp" />
     <ClCompile Include="Engine\ModuleInput.cpp" />
     <ClCompile Include="Engine\ModuleRenderer3D.cpp" />
-    <ClCompile Include="Engine\ModuleSceneIntro.cpp" />
+    <ClCompile Include="Engine\EditorScene.cpp" />
     <ClCompile Include="Engine\ModuleWindow.cpp" />
     <ClCompile Include="Engine\PhysBody3D.cpp" />
     <ClCompile Include="Engine\Primitive.cpp" />
@@ -56,7 +56,7 @@
     <ClInclude Include="Engine\ModuleGUI.h" />
     <ClInclude Include="Engine\ModuleInput.h" />
     <ClInclude Include="Engine\ModuleRenderer3D.h" />
-    <ClInclude Include="Engine\ModuleSceneIntro.h" />
+    <ClInclude Include="Engine\EditorScene.h" />
     <ClInclude Include="Engine\ModuleWindow.h" />
     <ClInclude Include="Engine\p2Point.h" />
     <ClInclude Include="Engine\PhysBody3D.h" />

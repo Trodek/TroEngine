@@ -1,20 +1,20 @@
 #include "Globals.h"
 #include "Application.h"
-#include "ModuleSceneIntro.h"
+#include "EditorScene.h"
 #include "ModuleCamera3D.h"
 #include "Primitive.h"
 #include "PhysBody3D.h"
 #include "imgui.h"
 
-ModuleSceneIntro::ModuleSceneIntro(bool start_enabled) : Module(start_enabled)
+EditorScene::EditorScene(bool start_enabled) : Module(start_enabled)
 {
 }
 
-ModuleSceneIntro::~ModuleSceneIntro()
+EditorScene::~EditorScene()
 {}
 
 // Load assets
-bool ModuleSceneIntro::Start()
+bool EditorScene::Start()
 {
 	LOG("Loading Intro assets");
 	bool ret = true;
@@ -26,7 +26,7 @@ bool ModuleSceneIntro::Start()
 }
 
 // Load assets
-bool ModuleSceneIntro::CleanUp()
+bool EditorScene::CleanUp()
 {
 	LOG("Unloading Intro scene");
 
@@ -34,7 +34,7 @@ bool ModuleSceneIntro::CleanUp()
 }
 
 // Update
-update_status ModuleSceneIntro::Update(float dt)
+update_status EditorScene::Update(float dt)
 {
 	if(ImGui::BeginMainMenuBar())
 	{
@@ -77,7 +77,7 @@ update_status ModuleSceneIntro::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
-void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
+void EditorScene::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 	
 }

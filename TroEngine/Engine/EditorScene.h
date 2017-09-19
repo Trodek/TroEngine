@@ -6,11 +6,11 @@
 struct PhysBody3D;
 struct PhysMotor3D;
 
-class ModuleSceneIntro : public Module
+class EditorScene : public Module
 {
 public:
-	ModuleSceneIntro(bool start_enabled = true);
-	~ModuleSceneIntro();
+	EditorScene(bool start_enabled = true);
+	~EditorScene();
 
 	bool Start();
 	update_status Update(float dt);
