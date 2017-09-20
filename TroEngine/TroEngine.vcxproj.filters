@@ -46,6 +46,21 @@
     <Filter Include="Source\Engine\Tools\Math">
       <UniqueIdentifier>{a6e1bbd2-5d16-428b-9fd1-da0e43712b35}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\Tools\Math\Geometry">
+      <UniqueIdentifier>{2c8b25c0-274b-4207-9ab6-6538821da4fb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Tools\Math\Math">
+      <UniqueIdentifier>{471e8852-2cb2-4692-a1c6-8d027617bd07}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Tools\Math\Random">
+      <UniqueIdentifier>{0a49cd15-ae1d-44b7-9cdd-b68738138294}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Tools\Math\Clock">
+      <UniqueIdentifier>{0c12d6ad-ee88-4d6d-9349-f2dc8da32ba4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Tools\Math\Algorithm">
+      <UniqueIdentifier>{f58d271d-9e95-4a03-8682-e98f1933641c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -104,6 +119,114 @@
     </ClCompile>
     <ClCompile Include="Engine\EditorScene.cpp">
       <Filter>Source\Editor</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Geometry\AABB.cpp">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Geometry\Capsule.cpp">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Geometry\Circle.cpp">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Geometry\Frustum.cpp">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Geometry\Line.cpp">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Geometry\LineSegment.cpp">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Geometry\OBB.cpp">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Geometry\PBVolume.cpp">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Geometry\Plane.cpp">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Geometry\Polygon.cpp">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Geometry\Polyhedron.cpp">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Geometry\Ray.cpp">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Geometry\Sphere.cpp">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Geometry\Triangle.cpp">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Geometry\TriangleMesh.cpp">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\BitOps.cpp">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\Callstack.cpp">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\float2.cpp">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\float3.cpp">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\float3x3.cpp">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\float3x4.cpp">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\float4.cpp">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\float4d.cpp">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\float4x4.cpp">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\grisu3.c">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\grisu3_cpp.cpp">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\MathFunc.cpp">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\MathLog.cpp">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\MathOps.cpp">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\Polynomial.cpp">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\Quat.cpp">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\SSEMath.cpp">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Math\TransformOps.cpp">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Time\Clock.cpp">
+      <Filter>Source\Engine\Tools\Math\Clock</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Algorithm\Random\LCG.cpp">
+      <Filter>Source\Engine\Tools\Math\Random</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Algorithm\GJK.cpp">
+      <Filter>Source\Engine\Tools\Math\Algorithm</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -185,5 +308,208 @@
     <ClInclude Include="Engine\MathGeoLib.h">
       <Filter>Source\Engine\Tools\Math</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\Geometry\AABB.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\AABB2D.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\Capsule.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\Circle.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\Frustum.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\GeometryAll.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\GeomType.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\HitInfo.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\KDTree.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\Line.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\LineSegment.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\OBB.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\PBVolume.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\Plane.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\Polygon.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\Polyhedron.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\QuadTree.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\Ray.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\Sphere.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\Triangle.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry\TriangleMesh.h">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\assume.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\BitOps.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Callstack.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\FixedPoint.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\float2.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\float3.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\float3x3.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\float3x4.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\float4.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\float4_neon.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\float4_sse.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\float4d.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\float4x4.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\float4x4_neon.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\float4x4_sse.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\FloatCmp.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\grisu3.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\InclWindows.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\MathAll.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\MathConstants.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\MathFunc.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\MathLog.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\MathNamespace.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\MathTypes.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\MatrixProxy.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\myassert.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Polynomial.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Quat.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\quat_simd.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Rect.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\Reinterpret.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\simd.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\sse_mathfun.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\SSEMath.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Math\TransformOps.h">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Time\Clock.h">
+      <Filter>Source\Engine\Tools\Math\Clock</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Algorithm\Random\LCG.h">
+      <Filter>Source\Engine\Tools\Math\Random</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Algorithm\GJK.h">
+      <Filter>Source\Engine\Tools\Math\Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Algorithm\SAT.h">
+      <Filter>Source\Engine\Tools\Math\Algorithm</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Engine\Geometry\KDTree.inl">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </None>
+    <None Include="Engine\Geometry\QuadTree.inl">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </None>
+    <None Include="Engine\Geometry\TriangleMesh_IntersectRay_AVX.inl">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </None>
+    <None Include="Engine\Geometry\TriangleMesh_IntersectRay_CPP.inl">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </None>
+    <None Include="Engine\Geometry\TriangleMesh_IntersectRay_SSE.inl">
+      <Filter>Source\Engine\Tools\Math\Geometry</Filter>
+    </None>
+    <None Include="Engine\Math\float2.inl">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </None>
+    <None Include="Engine\Math\Matrix.inl">
+      <Filter>Source\Engine\Tools\Math\Math</Filter>
+    </None>
   </ItemGroup>
 </Project>

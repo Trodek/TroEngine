@@ -15,6 +15,9 @@
 /** @file Clock.cpp
 	@brief */
 
+//Hacking the config. ASK RIC
+#define WIN32
+
 #if defined(__unix__) || defined(__native_client__) || defined(__EMSCRIPTEN__) || defined(ANDROID) || defined(__APPLE__) || defined (__CYGWIN__)
 #include <time.h>
 #include <errno.h>
