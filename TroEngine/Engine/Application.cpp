@@ -9,6 +9,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleGUI.h"
 #include "EditorConsole.h"
+#include "Algorithm\Random\LCG.h"
 
 Application::Application()
 {
@@ -148,6 +149,16 @@ bool Application::CleanUp()
 void Application::CloseApp()
 {
 	close_app = true;
+}
+
+float Application::RandFloat()
+{ 
+	return random_generator.FloatIncl(0.0f, 1.0f);
+}
+
+int Application::RandRange(int min, int max)
+{
+	return random_generator.Int(min, max);
 }
 
 void Application::AddModule(Module* mod)

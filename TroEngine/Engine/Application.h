@@ -38,6 +38,8 @@ private:
 
 	bool	close_app = false;
 
+	LCG		random_generator;
+
 public:
 
 	Application();
@@ -48,6 +50,9 @@ public:
 	bool CleanUp();
 
 	void CloseApp();
+
+	float RandFloat();
+	int RandRange(int min, int max);
 
 private:
 
