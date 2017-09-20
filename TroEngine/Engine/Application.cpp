@@ -65,7 +65,7 @@ bool Application::Init()
 	}
 
 	// After all Awake calls we call Start() in all modules
-	LOG("Application Start --------------");
+	EDITOR_LOG("Application Start --------------");
 	item = list_modules.begin();
 
 	while(item != list_modules.end() && ret == true)

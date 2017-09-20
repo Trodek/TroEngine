@@ -15,7 +15,7 @@ EditorScene::~EditorScene()
 // Load assets
 bool EditorScene::Start()
 {
-	LOG("Loading Intro assets");
+	EDITOR_LOG("Loading Intro assets");
 	bool ret = true;
 
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
@@ -27,7 +27,7 @@ bool EditorScene::Start()
 // Load assets
 bool EditorScene::CleanUp()
 {
-	LOG("Unloading Intro scene");
+	EDITOR_LOG("Unloading Intro scene");
 
 	return true;
 }
@@ -51,10 +51,7 @@ update_status EditorScene::Update(float dt)
 			if (ImGui::MenuItem("About",NULL,&show_about))
 			{
 			}
-			if (ImGui::MenuItem("GitHub"))
-			{
-				ShellExecute(NULL, "open", "https://github.com/Trodek/TroEngine", NULL, NULL, SW_SHOWMAXIMIZED);
-			}
+			
 			ImGui::EndMenu();
 		}
 
@@ -65,7 +62,12 @@ update_status EditorScene::Update(float dt)
 	{
 		ImGui::Begin("TroEngine v0.0.1", &show_about);
 		
-		ImGui::Text("Engine mantained by Iban Mas Ortega (Trodek) ");
+		ImGui::Text("Engine mantained by Iban Mas Ortega (Trodek)");
+
+		if (ImGui::Button("GitHub Repository"))
+		{
+			ShellExecute(NULL, "open", "https://github.com/Trodek/TroEngine", NULL, NULL, SW_SHOWMAXIMIZED);
+		}
 
 		ImGui::End();
 	}
@@ -73,7 +75,7 @@ update_status EditorScene::Update(float dt)
 	ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
 	ImGui::ShowTestWindow(&show_test_window);
 
-	Plane p(0, 1, 0, 0);
+	PPlane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
 
