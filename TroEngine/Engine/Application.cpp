@@ -8,7 +8,10 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleGUI.h"
+#include "EditorConsole.h"
+#include "EditorGUI.h"
 
+#include "Algorithm\Random\LCG.h"
 
 Application::Application()
 {
@@ -19,6 +22,8 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D();
 	camera = new ModuleCamera3D();
 	gui = new ModuleGUI();
+	console = new EditorConsole();
+	editor_gui = new EditorGUI();
 
 	// The order of calls is very important!
 	// Modules will Awake() Start() and Update() in this order
@@ -27,6 +32,8 @@ Application::Application()
 	// Main Modules
 	AddModule(window);
 	AddModule(gui);
+	AddModule(editor_gui);
+	AddModule(console);
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
@@ -65,7 +72,7 @@ bool Application::Init()
 	}
 
 	// After all Awake calls we call Start() in all modules
-	LOG("Application Start --------------");
+	EDITOR_LOG("Application Start --------------");
 	item = list_modules.begin();
 
 	while(item != list_modules.end() && ret == true)
@@ -146,6 +153,16 @@ bool Application::CleanUp()
 void Application::CloseApp()
 {
 	close_app = true;
+}
+
+float Application::RandFloat()
+{ 
+	return random_generator.FloatIncl(0.0f, 1.0f);
+}
+
+int Application::RandRange(int min, int max)
+{
+	return random_generator.Int(min, max);
 }
 
 void Application::AddModule(Module* mod)

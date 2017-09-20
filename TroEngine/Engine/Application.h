@@ -4,6 +4,9 @@
 #include "Globals.h"
 #include "Timer.h"
 #include "Module.h"
+#include <time.h>
+#include "MathGeoLibFwd.h"
+#include "MathGeoLib.h"
 
 class Module;
 class ModuleWindow;
@@ -13,6 +16,8 @@ class EditorScene;
 class ModuleRenderer3D;
 class ModuleCamera3D;
 class ModuleGUI;
+class EditorConsole;
+class EditorGUI;
 
 class Application
 {
@@ -24,6 +29,8 @@ public:
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 	ModuleGUI* gui;
+	EditorConsole* console;
+	EditorGUI* editor_gui;
 
 private:
 
@@ -32,6 +39,8 @@ private:
 	std::list<Module*> list_modules;
 
 	bool	close_app = false;
+
+	LCG		random_generator;
 
 public:
 
@@ -43,6 +52,9 @@ public:
 	bool CleanUp();
 
 	void CloseApp();
+
+	float RandFloat();
+	int RandRange(int min, int max);
 
 private:
 
