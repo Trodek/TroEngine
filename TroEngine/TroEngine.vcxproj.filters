@@ -231,6 +231,9 @@
     <ClCompile Include="Engine\EditorConsole.cpp">
       <Filter>Source\Editor</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\EditorGUI.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Application.h">
@@ -492,6 +495,9 @@
       <Filter>Source\Engine\Tools\Math\Algorithm</Filter>
     </ClInclude>
     <ClInclude Include="Engine\EditorConsole.h">
+      <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\EditorGUI.h">
       <Filter>Source\Editor</Filter>
     </ClInclude>
   </ItemGroup>

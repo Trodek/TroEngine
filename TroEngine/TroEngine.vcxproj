@@ -24,6 +24,7 @@
     <ClCompile Include="Engine\Application.cpp" />
     <ClCompile Include="Engine\Color.cpp" />
     <ClCompile Include="Engine\EditorConsole.cpp" />
+    <ClCompile Include="Engine\EditorGUI.cpp" />
     <ClCompile Include="Engine\Geometry\AABB.cpp" />
     <ClCompile Include="Engine\Geometry\Capsule.cpp" />
     <ClCompile Include="Engine\Geometry\Circle.cpp" />
@@ -83,6 +84,7 @@
     <ClInclude Include="Engine\Application.h" />
     <ClInclude Include="Engine\Color.h" />
     <ClInclude Include="Engine\EditorConsole.h" />
+    <ClInclude Include="Engine\EditorGUI.h" />
     <ClInclude Include="Engine\Geometry\AABB.h" />
     <ClInclude Include="Engine\Geometry\AABB2D.h" />
     <ClInclude Include="Engine\Geometry\Capsule.h" />

@@ -35,25 +35,6 @@ bool EditorScene::CleanUp()
 // Update
 update_status EditorScene::Update(float dt)
 {
-	CreateEditorGUI();
-
-	if (show_about)
-	{
-		ImGui::Begin("TroEngine v0.0.1", &show_about);
-
-		ImGui::Text("Engine mantained by Iban Mas Ortega (Trodek)");
-
-		if (ImGui::Button("GitHub Repository"))
-		{
-			ShellExecute(NULL, "open", "https://github.com/Trodek/TroEngine", NULL, NULL, SW_SHOWMAXIMIZED);
-		}
-
-		ImGui::End();
-	}
-
-	//ImGui::SetNextWindowPos(ImVec2(650, 20), ImGuiCond_FirstUseEver);
-	//ImGui::ShowTestWindow(&show_test_window);
-
 	PPlane p(0, 1, 0, 0);
 	p.axis = true;
 	p.Render();
@@ -64,42 +45,4 @@ update_status EditorScene::Update(float dt)
 void EditorScene::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 	
-}
-
-void EditorScene::CreateEditorGUI() const
-{
-	if (ImGui::BeginMainMenuBar())
-	{
-		if (ImGui::BeginMenu("File"))
-		{
-			if (ImGui::MenuItem("Close App"))
-			{
-				App->CloseApp();
-			}
-			ImGui::EndMenu();
-		}
-
-		if (ImGui::BeginMenu("Tools"))
-		{
-			if (ImGui::MenuItem("Math Test"))
-			{
-				
-			}
-			ImGui::EndMenu();
-		}
-
-		if (ImGui::BeginMenu("Help"))
-		{
-			if (ImGui::MenuItem("About", NULL, &show_about))
-			{
-			}
-
-			ImGui::EndMenu();
-		}
-
-		ImGui::EndMainMenuBar();
-	};
-
-
-
 }

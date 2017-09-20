@@ -9,6 +9,8 @@
 #include "ModuleCamera3D.h"
 #include "ModuleGUI.h"
 #include "EditorConsole.h"
+#include "EditorGUI.h"
+
 #include "Algorithm\Random\LCG.h"
 
 Application::Application()
@@ -21,6 +23,7 @@ Application::Application()
 	camera = new ModuleCamera3D();
 	gui = new ModuleGUI();
 	console = new EditorConsole();
+	editor_gui = new EditorGUI();
 
 	// The order of calls is very important!
 	// Modules will Awake() Start() and Update() in this order
@@ -29,6 +32,7 @@ Application::Application()
 	// Main Modules
 	AddModule(window);
 	AddModule(gui);
+	AddModule(editor_gui);
 	AddModule(console);
 	AddModule(camera);
 	AddModule(input);
