@@ -16,6 +16,7 @@ class EditorScene;
 class ModuleRenderer3D;
 class ModuleCamera3D;
 class ModuleGUI;
+class EditorConsole;
 
 class Application
 {
@@ -27,6 +28,7 @@ public:
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 	ModuleGUI* gui;
+	EditorConsole* console;
 
 private:
 

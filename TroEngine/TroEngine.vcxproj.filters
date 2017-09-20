@@ -228,6 +228,9 @@
     <ClCompile Include="Engine\Algorithm\GJK.cpp">
       <Filter>Source\Engine\Tools\Math\Algorithm</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\EditorConsole.cpp">
+      <Filter>Source\Editor</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Application.h">
@@ -487,6 +490,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Algorithm\SAT.h">
       <Filter>Source\Engine\Tools\Math\Algorithm</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\EditorConsole.h">
+      <Filter>Source\Editor</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

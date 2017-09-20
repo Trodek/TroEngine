@@ -8,7 +8,7 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleGUI.h"
-
+#include "EditorConsole.h"
 
 Application::Application()
 {
@@ -19,6 +19,7 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D();
 	camera = new ModuleCamera3D();
 	gui = new ModuleGUI();
+	console = new EditorConsole();
 
 	// The order of calls is very important!
 	// Modules will Awake() Start() and Update() in this order
@@ -27,6 +28,7 @@ Application::Application()
 	// Main Modules
 	AddModule(window);
 	AddModule(gui);
+	AddModule(console);
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
