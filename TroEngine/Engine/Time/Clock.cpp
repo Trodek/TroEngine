@@ -15,8 +15,10 @@
 /** @file Clock.cpp
 	@brief */
 
-//Hacking the config. ASK RIC
+#ifdef _WIN32 //Visual Studio changed default define
 #define WIN32
+#endif // _WIN32
+
 
 #if defined(__unix__) || defined(__native_client__) || defined(__EMSCRIPTEN__) || defined(ANDROID) || defined(__APPLE__) || defined (__CYGWIN__)
 #include <time.h>
