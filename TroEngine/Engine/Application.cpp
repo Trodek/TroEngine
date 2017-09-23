@@ -43,6 +43,8 @@ Application::Application()
 
 	// Renderer last!
 	AddModule(renderer3D);
+
+	organization = "UPC CITM";
 }
 
 Application::~Application()

@@ -1,7 +1,7 @@
 #include "EditorConsole.h"
 #include "imgui.h"
 
-EditorConsole::EditorConsole()
+EditorConsole::EditorConsole(): Module(true)
 {
 }
 

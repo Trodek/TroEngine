@@ -32,6 +32,8 @@ public:
 	EditorConsole* console;
 	EditorGUI* editor_gui;
 
+	std::string organization;
+
 private:
 
 	Timer	ms_timer;

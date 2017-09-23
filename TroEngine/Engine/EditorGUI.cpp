@@ -1,5 +1,6 @@
 #include "EditorGUI.h"
 #include "Application.h"
+#include "ModuleWindow.h"
 #include "imgui.h"
 
 EditorGUI::EditorGUI()
@@ -12,6 +13,12 @@ EditorGUI::~EditorGUI()
 
 bool EditorGUI::Awake()
 {
+	new_title = new char[150];
+	std::strcpy(new_title, App->window->title.c_str());
+
+	new_org = new char[150];
+	std::strcpy(new_org, App->organization.c_str());
+
 	return true;
 }
 
@@ -21,7 +28,8 @@ update_status EditorGUI::Update(float dt)
 	AboutPanel();
 	GUIConfig();
 	MathTest();
-
+	Config();
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -31,6 +39,10 @@ void EditorGUI::CreateGUI()
 	{
 		if (ImGui::BeginMenu("File"))
 		{
+			if (ImGui::MenuItem("Configuration##menu", NULL, &show_config))
+			{
+			}
+
 			if (ImGui::MenuItem("Close App"))
 			{
 				App->CloseApp();
@@ -38,13 +50,16 @@ void EditorGUI::CreateGUI()
 			ImGui::EndMenu();
 		}
 
-		if (ImGui::BeginMenu("Tools"))
+		if (ImGui::BeginMenu("View"))
 		{
-			if (ImGui::MenuItem("Math Test"), NULL, &show_math_test)
+			if (ImGui::MenuItem("Math Test##menu", NULL, &show_math_test))
 			{
 			}
-			
+			if (ImGui::MenuItem("GUI Config", NULL, &show_test_window))
+			{
 
+			}
+			
 			ImGui::EndMenu();
 		}
 
@@ -54,11 +69,7 @@ void EditorGUI::CreateGUI()
 			{
 			}
 
-			if (ImGui::MenuItem("GUI Config", NULL, &show_test_window))
-			{	
-			}
-
-
+			
 			ImGui::EndMenu();
 		}
 
@@ -94,9 +105,9 @@ void EditorGUI::GUIConfig()
 
 void EditorGUI::MathTest()
 {
-	if (!show_math_test)
+	if (show_math_test)
 	{
-		ImGui::Begin("Math Test##panel", &show_math_test,ImGuiWindowFlags_AlwaysAutoResize);
+		ImGui::Begin("Math Test##panel", &show_math_test, ImGuiWindowFlags_AlwaysAutoResize);
 
 		// Rand Float
 		if (ImGui::Button("Generate random float"))
@@ -125,7 +136,7 @@ void EditorGUI::MathTest()
 
 		ImGui::Separator();
 
-		//Create x bounding boxes n check contacts
+		//Create x bounding boxes and check contacts
 		ImGui::PushItemWidth(75);
 		ImGui::InputInt("Min X", &min_x);
 		ImGui::SameLine(125);
@@ -153,7 +164,6 @@ void EditorGUI::MathTest()
 				//Reset variables
 				contacts = 0;
 				aabb_objects.clear();
-				graphical_objects.clear();
 				EDITOR_LOG("--------Math Test---------");
 
 				//Create Objects
@@ -172,11 +182,6 @@ void EditorGUI::MathTest()
 					vec max_point(rand_x, rand_z, rand_y);
 
 					aabb_objects.push_back(AABB(min_point, max_point));
-
-					PCube cube(max_point.x - min_point.x, max_point.y - min_point.y, max_point.z - min_point.z);
-					cube.SetPos(min_point.x, min_point.y, min_point.z);
-
-					graphical_objects.push_back(cube);
 				}
 
 				EDITOR_LOG("Created %d AABB objects", num_obj);
@@ -202,19 +207,45 @@ void EditorGUI::MathTest()
 			ImGui::SameLine(110);
 			ImGui::Text("%d", contacts);
 			ImGui::SameLine(125);
-			ImGui::Text("Contacts");
-			
+			ImGui::Text("Contacts");		
 		}
-
 
 		ImGui::End();
+	}
+}
 
-		if (graphical_objects.size() > 0)
+void EditorGUI::Config()
+{
+	if (show_config)
+	{
+		ImGui::Begin("Configuration##panel", &show_config, ImGuiWindowFlags_AlwaysAutoResize);
+
+		if (ImGui::CollapsingHeader("Application")) 
 		{
-			for (std::list<PCube>::iterator c = graphical_objects.begin(); c != graphical_objects.end(); ++c)
+			if (ImGui::InputText("App Name", new_title, 150))
 			{
-				c->Render();
+				if (App->window->title != new_title)
+				{
+					App->window->SetTitle(new_title);
+				}
+			}
+
+			if (ImGui::InputText("Organization", new_org, 150))
+			{
+				if (App->organization != new_org)
+				{
+					App->organization = new_org;
+				}
+			}
+
+			if (!ImGui::SliderInt("Max FPS", &new_fps, 0, 200))
+			{
+
 			}
 		}
+		ImGui::CollapsingHeader("Window");
+		ImGui::CollapsingHeader("Hardware");
+
+		ImGui::End();
 	}
 }
