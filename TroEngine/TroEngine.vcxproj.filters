@@ -64,6 +64,9 @@
     <Filter Include="Source\Engine\Tools\GPU">
       <UniqueIdentifier>{92ce65b7-dd30-4059-8d59-7d288cc71bcc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\Tools\Memory">
+      <UniqueIdentifier>{20be8cad-90e9-4790-bc72-96e0016bbb78}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">

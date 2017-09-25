@@ -4,6 +4,7 @@
 #include "gpudetect\DeviceId.h"
 #include <locale>
 #include <codecvt>
+//#include "mmgr\mmgr.h"
 
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
@@ -17,6 +18,8 @@
 
 #include "Algorithm\Random\LCG.h"
 #include "imgui.h"
+
+#define GRAPH_DATA 75
 
 Application::Application()
 {
@@ -151,10 +154,10 @@ void Application::FrameRateCalculations()
 
 	fps_log.push_back(frames_on_last_update);
 
-	if (fps_log.size() > 75)
+	if (fps_log.size() > GRAPH_DATA)
 		fps_log.erase(fps_log.begin());
 
-	if (ms_log.size() > 75)
+	if (ms_log.size() > GRAPH_DATA)
 		ms_log.erase(ms_log.begin());
 }
 
@@ -194,6 +197,11 @@ update_status Application::Update()
 	}
 
 	ms_log.push_back(logic_timer.ReadMs());
+	
+	//mem_log.push_back(m_getMemoryStatistics().totalActualMemory);
+	//
+	//if (mem_log.size() > GRAPH_DATA)
+	//	mem_log.erase(mem_log.begin());
 
 	FinishUpdate();
 
@@ -266,6 +274,8 @@ void Application::ConfigGUI()
 		ImGui::PlotHistogram("##fps", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
 		sprintf_s(title, 25, "Logic ms: %.1f", ms_log[ms_log.size() - 1]);
 		ImGui::PlotHistogram("##logicms", &ms_log[0], ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));
+		//sprintf_s(title, 25, "Memory Consumption");
+		//ImGui::PlotHistogram("##memchart", &mem_log[0], mem_log.size(), 0, title, 0.0f, 50000.0f, ImVec2(310, 100));
 	}
 }
 

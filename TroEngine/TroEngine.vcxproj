@@ -67,6 +67,7 @@
     <ClCompile Include="Engine\Math\Quat.cpp" />
     <ClCompile Include="Engine\Math\SSEMath.cpp" />
     <ClCompile Include="Engine\Math\TransformOps.cpp" />
+    <ClCompile Include="Engine\mmgr\mmgr.cpp" />
     <ClCompile Include="Engine\ModuleAudio.cpp" />
     <ClCompile Include="Engine\ModuleCamera3D.cpp" />
     <ClCompile Include="Engine\ModuleGUI.cpp" />
@@ -154,6 +155,8 @@
     <ClInclude Include="Engine\Math\SSEMath.h" />
     <ClInclude Include="Engine\Math\sse_mathfun.h" />
     <ClInclude Include="Engine\Math\TransformOps.h" />
+    <ClInclude Include="Engine\mmgr\mmgr.h" />
+    <ClInclude Include="Engine\mmgr\nommgr.h" />
     <ClInclude Include="Engine\Module.h" />
     <ClInclude Include="Engine\ModuleAudio.h" />
     <ClInclude Include="Engine\ModuleCamera3D.h" />

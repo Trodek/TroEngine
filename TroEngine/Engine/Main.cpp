@@ -1,7 +1,6 @@
 #include <stdlib.h>
 #include "Application.h"
 #include "Globals.h"
-
 #include "SDL/include/SDL.h"
 
 #pragma comment( lib, "Engine/SDL/libx86/SDL2.lib" )

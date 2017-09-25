@@ -77,7 +77,14 @@ void EditorGUI::AboutPanel()
 	{
 		ImGui::Begin("TroEngine v0.0.1", &show_about);
 
+		ImGui::Text("3D Engine based on OpenGL 2.1");
 		ImGui::Text("Engine mantained by Iban Mas Ortega (Trodek)");
+		ImGui::Text("Libraries Used:");
+		ImGui::BulletText("SDL2.0");
+		ImGui::BulletText("OpenGL 2.1");
+		ImGui::BulletText("MathGeoLib");
+		ImGui::BulletText("ImGui 1.52");
+		ImGui::TextWrapped("This engine is under de MIT License.");
 
 		if (ImGui::Button("GitHub Repository"))
 		{
@@ -223,7 +230,6 @@ void EditorGUI::Config()
 
 		//Ask app for hardware details
 		App->HardwareConfig();
-		ImGui::CollapsingHeader("Window");
 		
 
 		ImGui::End();

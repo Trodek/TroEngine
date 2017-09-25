@@ -50,6 +50,7 @@ private:
 	int					new_fps = 0;
 	std::vector<float>	fps_log;
 	std::vector<float>	ms_log;
+	std::vector<float>	mem_log;
 	PerfTimer			logic_timer;
 
 	// Engine debug info
