@@ -6,6 +6,7 @@
 #include "PerfTimer.h"
 #include "Module.h"
 #include <time.h>
+#include <vector>
 #include "MathGeoLibFwd.h"
 #include "MathGeoLib.h"
 
@@ -35,18 +36,21 @@ public:
 
 private:
 
-	std::list<Module*> list_modules;
+	std::list<Module*>	list_modules;
 
-	bool	close_app = false;
+	bool				close_app = false;
 
-	LCG		random_generator;
+	LCG					random_generator;
 
 	std::string organization;
 
 	//Congiguration
-	char* new_title;
-	char* new_org;
-	int new_fps = 0;
+	char*				new_title;
+	char*				new_org;
+	int					new_fps = 0;
+	std::vector<float>	fps_log;
+	std::vector<float>	ms_log;
+	PerfTimer			logic_timer;
 
 	// Engine debug info
 	int					capped_ms = -1;

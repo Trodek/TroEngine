@@ -142,9 +142,16 @@ void Application::FrameRateCalculations()
 
 	if (capped_ms > 0 && last_frame_ms < capped_ms)
 	{
-		PerfTimer t;
 		SDL_Delay(capped_ms - last_frame_ms);
 	}
+
+	fps_log.push_back(frames_on_last_update);
+
+	if (fps_log.size() > 75)
+		fps_log.erase(fps_log.begin());
+
+	if (ms_log.size() > 75)
+		ms_log.erase(ms_log.begin());
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
@@ -153,6 +160,9 @@ update_status Application::Update()
 	BROFILER_CATEGORY("UpdateLogic", Profiler::Color::Azure);
 
 	update_status ret = UPDATE_CONTINUE;
+
+	logic_timer.Start();
+
 	PrepareUpdate();
 
 	std::list<Module*>::iterator item = list_modules.begin();
@@ -178,6 +188,8 @@ update_status Application::Update()
 		ret = (*item)->PostUpdate(dt);
 		++item;
 	}
+
+	ms_log.push_back(logic_timer.ReadMs());
 
 	FinishUpdate();
 
@@ -244,6 +256,12 @@ void Application::ConfigGUI()
 		{
 			CapFPS(new_fps);
 		}
+
+		char title[25];
+		sprintf_s(title, 25, "FPS: %.1f", fps_log[fps_log.size() - 1]);
+		ImGui::PlotHistogram("##fps", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
+		sprintf_s(title, 25, "Logic ms: %.1f", ms_log[ms_log.size() - 1]);
+		ImGui::PlotHistogram("##logicms", &ms_log[0], ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));
 	}
 }
 
