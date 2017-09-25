@@ -1,5 +1,9 @@
 #include "Application.h"
 #include "Brofiler/Brofiler.h"
+#include "SDL\include\SDL_cpuinfo.h"
+#include "gpudetect\DeviceId.h"
+#include <locale>
+#include <codecvt>
 
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
@@ -262,6 +266,67 @@ void Application::ConfigGUI()
 		ImGui::PlotHistogram("##fps", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
 		sprintf_s(title, 25, "Logic ms: %.1f", ms_log[ms_log.size() - 1]);
 		ImGui::PlotHistogram("##logicms", &ms_log[0], ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));
+	}
+}
+
+void Application::HardwareConfig()
+{
+	if (ImGui::CollapsingHeader("Hardware"))
+	{
+		//CPU
+		ImGui::Text("CPU:");
+		ImGui::Text("Cache: "); ImGui::SameLine(); ImGui::Text("%d", SDL_GetCPUCacheLineSize());
+		ImGui::Text("CPUs: "); ImGui::SameLine(); ImGui::Text("%d", SDL_GetCPUCount());
+		ImGui::Text("RAM Memory: "); ImGui::SameLine(); ImGui::Text("%d", SDL_GetSystemRAM());
+		ImGui::Text("Caps: "); ImGui::SameLine();
+		std::string caps;
+		if (SDL_Has3DNow)
+			caps += "3DNow";
+		if (SDL_HasAVX())
+			caps += ", AVX";
+		if (SDL_HasAVX2())
+			caps += ", AVX2";
+		if (SDL_HasAltiVec())
+			caps += ", AltiVec";
+		if (SDL_HasMMX())
+			caps += ", MMX";
+		if (SDL_HasRDTSC())
+			caps += ", RDTSC";
+		if (SDL_HasSSE())
+			caps += ", SSE";
+		if (SDL_HasSSE2())
+			caps += ", SSE2";
+		if (SDL_HasSSE3())
+			caps += ", SSE3";
+		if (SDL_HasSSE41())
+			caps += ", SSE41";
+		if (SDL_HasSSE42())
+			caps += ", SSE42";
+		ImGui::TextWrapped(caps.c_str());
+
+		ImGui::Separator();
+		//GPU
+		ImGui::Text("GPU:");
+		
+		uint vendorid, deviceid;
+		Uint64 vm, vm_curr, vm_a, vm_r;
+		std::wstring brand;
+
+		getGraphicsDeviceInfo(&vendorid, &deviceid, &brand, &vm, &vm_curr, &vm_a, &vm_r);
+
+		ImGui::Text("Vendor ID: "); ImGui::SameLine(); ImGui::Text("%d", vendorid);
+		ImGui::Text("Device ID: "); ImGui::SameLine(); ImGui::Text("%d", deviceid);
+
+		using convert_type = std::codecvt_utf8<wchar_t>;
+		std::wstring_convert<convert_type, wchar_t> converter;
+
+		std::string brand_str = converter.to_bytes(brand);
+		ImGui::Text("Brand: "); ImGui::SameLine(); ImGui::Text(brand_str.c_str());
+		ImGui::Text("Video Memory: "); ImGui::SameLine(); ImGui::Text("%d", vm);
+		ImGui::Text("Video Memory On Use: "); ImGui::SameLine(); ImGui::Text("%d", vm_curr);
+		ImGui::Text("Video Memory Available: "); ImGui::SameLine(); ImGui::Text("%d", vm_a);
+		ImGui::Text("Video Memory Reserved: "); ImGui::SameLine(); ImGui::Text("%d", vm_r);
+
 	}
 }
 

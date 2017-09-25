@@ -214,10 +214,17 @@ void EditorGUI::Config()
 	{
 		ImGui::Begin("Configuration##panel", &show_config, ImGuiWindowFlags_AlwaysAutoResize);
 
+		//Ask app for Application config
 		App->ConfigGUI();
 
+		//Ask other modules for their config
+		App->window->ConfigGUI();
+		
+
+		//Ask app for hardware details
+		App->HardwareConfig();
 		ImGui::CollapsingHeader("Window");
-		ImGui::CollapsingHeader("Hardware");
+		
 
 		ImGui::End();
 	}

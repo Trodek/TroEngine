@@ -41,6 +41,7 @@
     <ClCompile Include="Engine\Geometry\Triangle.cpp" />
     <ClCompile Include="Engine\Geometry\TriangleMesh.cpp" />
     <ClCompile Include="Engine\glmath.cpp" />
+    <ClCompile Include="Engine\gpudetect\DeviceId.cpp" />
     <ClCompile Include="Engine\imgui.cpp" />
     <ClCompile Include="Engine\imgui_demo.cpp" />
     <ClCompile Include="Engine\imgui_draw.cpp" />
@@ -109,6 +110,7 @@
     <ClInclude Include="Engine\Geometry\TriangleMesh.h" />
     <ClInclude Include="Engine\glmath.h" />
     <ClInclude Include="Engine\Globals.h" />
+    <ClInclude Include="Engine\gpudetect\DeviceId.h" />
     <ClInclude Include="Engine\imconfig.h" />
     <ClInclude Include="Engine\imgui.h" />
     <ClInclude Include="Engine\imgui_impl_sdl.h" />

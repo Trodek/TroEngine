@@ -61,6 +61,9 @@
     <Filter Include="Source\Engine\Tools\Math\Algorithm">
       <UniqueIdentifier>{f58d271d-9e95-4a03-8682-e98f1933641c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\Tools\GPU">
+      <UniqueIdentifier>{92ce65b7-dd30-4059-8d59-7d288cc71bcc}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -236,6 +239,9 @@
     </ClCompile>
     <ClCompile Include="Engine\PerfTimer.cpp">
       <Filter>Source\Engine\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\gpudetect\DeviceId.cpp">
+      <Filter>Source\Engine\Tools\GPU</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -505,6 +511,9 @@
     </ClInclude>
     <ClInclude Include="Engine\PerfTimer.h">
       <Filter>Source\Engine\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\gpudetect\DeviceId.h">
+      <Filter>Source\Engine\Tools\GPU</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

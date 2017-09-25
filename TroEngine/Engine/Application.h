@@ -78,6 +78,7 @@ public:
 	int RandRange(int min, int max);
 
 	void ConfigGUI();
+	void HardwareConfig();
 
 private:
 
