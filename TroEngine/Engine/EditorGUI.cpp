@@ -1,5 +1,6 @@
 #include "EditorGUI.h"
 #include "Application.h"
+#include "ModuleWindow.h"
 #include "imgui.h"
 
 EditorGUI::EditorGUI()
@@ -21,7 +22,8 @@ update_status EditorGUI::Update(float dt)
 	AboutPanel();
 	GUIConfig();
 	MathTest();
-
+	Config();
+	
 	return UPDATE_CONTINUE;
 }
 
@@ -31,6 +33,10 @@ void EditorGUI::CreateGUI()
 	{
 		if (ImGui::BeginMenu("File"))
 		{
+			if (ImGui::MenuItem("Configuration##menu", NULL, &show_config))
+			{
+			}
+
 			if (ImGui::MenuItem("Close App"))
 			{
 				App->CloseApp();
@@ -38,13 +44,16 @@ void EditorGUI::CreateGUI()
 			ImGui::EndMenu();
 		}
 
-		if (ImGui::BeginMenu("Tools"))
+		if (ImGui::BeginMenu("View"))
 		{
-			if (ImGui::MenuItem("Math Test"), NULL, &show_math_test)
+			if (ImGui::MenuItem("Math Test##menu", NULL, &show_math_test))
 			{
 			}
-			
+			if (ImGui::MenuItem("GUI Config", NULL, &show_test_window))
+			{
 
+			}
+			
 			ImGui::EndMenu();
 		}
 
@@ -54,11 +63,7 @@ void EditorGUI::CreateGUI()
 			{
 			}
 
-			if (ImGui::MenuItem("GUI Config", NULL, &show_test_window))
-			{	
-			}
-
-
+			
 			ImGui::EndMenu();
 		}
 
@@ -72,11 +77,18 @@ void EditorGUI::AboutPanel()
 	{
 		ImGui::Begin("TroEngine v0.0.1", &show_about);
 
+		ImGui::Text("3D Engine based on OpenGL 2.1");
 		ImGui::Text("Engine mantained by Iban Mas Ortega (Trodek)");
+		ImGui::Text("Libraries Used:");
+		ImGui::BulletText("SDL2.0");
+		ImGui::BulletText("OpenGL 2.1");
+		ImGui::BulletText("MathGeoLib");
+		ImGui::BulletText("ImGui 1.52");
+		ImGui::TextWrapped("This engine is under de MIT License.");
 
 		if (ImGui::Button("GitHub Repository"))
 		{
-			ShellExecute(NULL, "open", "https://github.com/Trodek/TroEngine", NULL, NULL, SW_SHOWMAXIMIZED);
+			App->OpenWebPage("https://github.com/Trodek/TroEngine");
 		}
 
 		ImGui::End();
@@ -94,9 +106,9 @@ void EditorGUI::GUIConfig()
 
 void EditorGUI::MathTest()
 {
-	if (!show_math_test)
+	if (show_math_test)
 	{
-		ImGui::Begin("Math Test##panel", &show_math_test,ImGuiWindowFlags_AlwaysAutoResize);
+		ImGui::Begin("Math Test##panel", &show_math_test, ImGuiWindowFlags_AlwaysAutoResize);
 
 		// Rand Float
 		if (ImGui::Button("Generate random float"))
@@ -125,7 +137,7 @@ void EditorGUI::MathTest()
 
 		ImGui::Separator();
 
-		//Create x bounding boxes n check contacts
+		//Create x bounding boxes and check contacts
 		ImGui::PushItemWidth(75);
 		ImGui::InputInt("Min X", &min_x);
 		ImGui::SameLine(125);
@@ -153,7 +165,6 @@ void EditorGUI::MathTest()
 				//Reset variables
 				contacts = 0;
 				aabb_objects.clear();
-				graphical_objects.clear();
 				EDITOR_LOG("--------Math Test---------");
 
 				//Create Objects
@@ -172,11 +183,6 @@ void EditorGUI::MathTest()
 					vec max_point(rand_x, rand_z, rand_y);
 
 					aabb_objects.push_back(AABB(min_point, max_point));
-
-					PCube cube(max_point.x - min_point.x, max_point.y - min_point.y, max_point.z - min_point.z);
-					cube.SetPos(min_point.x, min_point.y, min_point.z);
-
-					graphical_objects.push_back(cube);
 				}
 
 				EDITOR_LOG("Created %d AABB objects", num_obj);
@@ -202,19 +208,30 @@ void EditorGUI::MathTest()
 			ImGui::SameLine(110);
 			ImGui::Text("%d", contacts);
 			ImGui::SameLine(125);
-			ImGui::Text("Contacts");
-			
+			ImGui::Text("Contacts");		
 		}
-
 
 		ImGui::End();
+	}
+}
 
-		if (graphical_objects.size() > 0)
-		{
-			for (std::list<PCube>::iterator c = graphical_objects.begin(); c != graphical_objects.end(); ++c)
-			{
-				c->Render();
-			}
-		}
+void EditorGUI::Config()
+{
+	if (show_config)
+	{
+		ImGui::Begin("Configuration##panel", &show_config, ImGuiWindowFlags_AlwaysAutoResize);
+
+		//Ask app for Application config
+		App->ConfigGUI();
+
+		//Ask other modules for their config
+		App->window->ConfigGUI();
+		
+
+		//Ask app for hardware details
+		App->HardwareConfig();
+		
+
+		ImGui::End();
 	}
 }

@@ -8,19 +8,26 @@ class Timer
 {
 public:
 
-	// Constructor
+	// Constructors
 	Timer();
+	~Timer();
 
 	void Start();
+	Uint32 Read() const;
+	float ReadSec() const;
+	void SubstractTimeFromStart(float sec);
 	void Stop();
+	void PauseOn();
+	void PauseOff();
 
-	Uint32 Read();
+	bool IsActive();
+
 
 private:
-
-	bool	running;
 	Uint32	started_at;
-	Uint32	stopped_at;
+	bool	paused = false;
+	Uint32  paused_at = 0;
+	bool	active = false;
 };
 
 #endif //__TIMER_H__

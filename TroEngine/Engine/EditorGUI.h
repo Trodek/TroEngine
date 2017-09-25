@@ -20,11 +20,13 @@ private:
 	void AboutPanel();
 	void GUIConfig();
 	void MathTest();
+	void Config();
 
 private:
+	bool show_math_test = false;
 	bool show_about = false;
 	bool show_test_window = false;
-	bool show_math_test = false;
+	bool show_config = false;
 
 	//Math Test variables
 	float rand_float = 0.0f;
@@ -45,7 +47,8 @@ private:
 	int num_obj = 0;
 	int contacts = 0;
 	std::list<AABB> aabb_objects;
-	std::list<PCube> graphical_objects;
+
+	
 
 };
 

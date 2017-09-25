@@ -58,3 +58,7 @@ enum update_status
 	    }                            \
                               \
     }
+
+// Performance macros
+#define PERF_START(timer) timer.Start()
+#define PERF_PEEK(timer) EDITOR_LOG("%s took %f ms", __FUNCTION__, timer.ReadMs())
