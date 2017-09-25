@@ -13,12 +13,6 @@ EditorGUI::~EditorGUI()
 
 bool EditorGUI::Awake()
 {
-	new_title = new char[150];
-	std::strcpy(new_title, App->window->title.c_str());
-
-	new_org = new char[150];
-	std::strcpy(new_org, App->organization.c_str());
-
 	return true;
 }
 
@@ -220,29 +214,8 @@ void EditorGUI::Config()
 	{
 		ImGui::Begin("Configuration##panel", &show_config, ImGuiWindowFlags_AlwaysAutoResize);
 
-		if (ImGui::CollapsingHeader("Application")) 
-		{
-			if (ImGui::InputText("App Name", new_title, 150))
-			{
-				if (App->window->title != new_title)
-				{
-					App->window->SetTitle(new_title);
-				}
-			}
+		App->ConfigGUI();
 
-			if (ImGui::InputText("Organization", new_org, 150))
-			{
-				if (App->organization != new_org)
-				{
-					App->organization = new_org;
-				}
-			}
-
-			if (!ImGui::SliderInt("Max FPS", &new_fps, 0, 200))
-			{
-
-			}
-		}
 		ImGui::CollapsingHeader("Window");
 		ImGui::CollapsingHeader("Hardware");
 

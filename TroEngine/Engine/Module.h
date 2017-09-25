@@ -48,6 +48,11 @@ public:
 		return true;
 	}
 
+	virtual void ConfigGUI()
+	{
+
+	}
+
 	virtual void OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 	{}
 

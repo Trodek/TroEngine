@@ -234,6 +234,9 @@
     <ClCompile Include="Engine\EditorGUI.cpp">
       <Filter>Source\Editor</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\PerfTimer.cpp">
+      <Filter>Source\Engine\Tools</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Application.h">
@@ -499,6 +502,9 @@
     </ClInclude>
     <ClInclude Include="Engine\EditorGUI.h">
       <Filter>Source\Editor</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\PerfTimer.h">
+      <Filter>Source\Engine\Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

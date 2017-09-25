@@ -3,6 +3,7 @@
 #include <list>
 #include "Globals.h"
 #include "Timer.h"
+#include "PerfTimer.h"
 #include "Module.h"
 #include <time.h>
 #include "MathGeoLibFwd.h"
@@ -32,17 +33,31 @@ public:
 	EditorConsole* console;
 	EditorGUI* editor_gui;
 
-	std::string organization;
-
 private:
 
-	Timer	ms_timer;
-	float	dt;
 	std::list<Module*> list_modules;
 
 	bool	close_app = false;
 
 	LCG		random_generator;
+
+	std::string organization;
+
+	//Congiguration
+	char* new_title;
+	char* new_org;
+	int new_fps = 0;
+
+	// Engine debug info
+	int					capped_ms = -1;
+	PerfTimer			ptimer;
+	Uint64				frame_count = 0;
+	Timer				startup_time;
+	Timer				frame_time;
+	Timer				last_sec_frame_time;
+	Uint32				last_sec_frame_count = 0;
+	Uint32				prev_last_sec_frame_count = 0;
+	float				dt = 0.0f;
 
 public:
 
@@ -58,11 +73,16 @@ public:
 	float RandFloat();
 	int RandRange(int min, int max);
 
+	void ConfigGUI();
+
 private:
 
 	void AddModule(Module* mod);
 	void PrepareUpdate();
 	void FinishUpdate();
+
+	void CapFPS(float fps);
+	void FrameRateCalculations();
 };
 
 extern Application* App;

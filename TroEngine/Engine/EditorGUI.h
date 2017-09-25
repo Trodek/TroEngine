@@ -48,10 +48,7 @@ private:
 	int contacts = 0;
 	std::list<AABB> aabb_objects;
 
-	//Congiguration
-	char* new_title;
-	char* new_org;
-	int new_fps;
+	
 
 };
 

@@ -90,6 +90,6 @@ int main(int argc, char ** argv)
 	}
 
 	delete App;
-	EDITOR_LOG("Exiting game '%s'...\n", TITLE);
+	EDITOR_LOG("Exiting '%s'...\n", TITLE);
 	return main_return;
 }

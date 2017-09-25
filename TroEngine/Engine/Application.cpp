@@ -12,6 +12,7 @@
 #include "EditorGUI.h"
 
 #include "Algorithm\Random\LCG.h"
+#include "imgui.h"
 
 Application::Application()
 {
@@ -45,6 +46,12 @@ Application::Application()
 	AddModule(renderer3D);
 
 	organization = "UPC CITM";
+
+	new_title = new char[150];
+	std::strcpy(new_title, window->title.c_str());
+
+	new_org = new char[150];
+	std::strcpy(new_org, organization.c_str());
 }
 
 Application::~Application()
@@ -63,6 +70,8 @@ Application::~Application()
 bool Application::Init()
 {
 	bool ret = true;
+
+	PERF_START(ptimer);
 
 	// Call Awake() in all modules
 	std::list<Module*>::iterator item = list_modules.begin();
@@ -83,26 +92,66 @@ bool Application::Init()
 		++item;
 	}
 	
-	ms_timer.Start();
+	PERF_PEEK(ptimer);
+
 	return ret;
 }
 
 // ---------------------------------------------
 void Application::PrepareUpdate()
 {
-	dt = (float)ms_timer.Read() / 1000.0f;
-	ms_timer.Start();
+	frame_count++;
+	last_sec_frame_count++;
+
+	dt = frame_time.ReadSec();
+	frame_time.Start();
 }
 
 // ---------------------------------------------
 void Application::FinishUpdate()
 {
+	FrameRateCalculations();
+}
+
+void Application::CapFPS(float fps)
+{
+	if (fps > 0)
+	{
+		capped_ms = (1000 / fps);
+		EDITOR_LOG("FPS capped to %.2f", fps);
+	}
+	else if (fps == 0)
+	{
+		capped_ms = 0;
+	}
+}
+
+void Application::FrameRateCalculations()
+{
+	if (last_sec_frame_time.Read() > 1000)
+	{
+		last_sec_frame_time.Start();
+		prev_last_sec_frame_count = last_sec_frame_count;
+		last_sec_frame_count = 0;
+	}
+
+	float avg_fps = float(frame_count) / startup_time.ReadSec();
+	float seconds_since_startup = startup_time.ReadSec();
+	Uint32 last_frame_ms = frame_time.Read();
+	Uint32 frames_on_last_update = prev_last_sec_frame_count;
+
+	if (capped_ms > 0 && last_frame_ms < capped_ms)
+	{
+		PerfTimer t;
+		SDL_Delay(capped_ms - last_frame_ms);
+	}
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()
 {
 	BROFILER_CATEGORY("UpdateLogic", Profiler::Color::Azure);
+
 	update_status ret = UPDATE_CONTINUE;
 	PrepareUpdate();
 
@@ -142,6 +191,8 @@ update_status Application::Update()
 
 bool Application::CleanUp()
 {
+	PERF_START(ptimer);
+
 	bool ret = true;
 
 	for (std::list<Module*>::iterator it = list_modules.begin(); it != list_modules.end() && ret == true; ++it)
@@ -150,6 +201,8 @@ bool Application::CleanUp()
 	}
 
 	return ret;
+
+	PERF_PEEK(ptimer);
 }
 
 void Application::CloseApp()
@@ -165,6 +218,33 @@ float Application::RandFloat()
 int Application::RandRange(int min, int max)
 {
 	return random_generator.Int(min, max);
+}
+
+void Application::ConfigGUI()
+{
+	if (ImGui::CollapsingHeader("Application"))
+	{
+		if (ImGui::InputText("App Name", new_title, 150))
+		{
+			if (App->window->title != new_title)
+			{
+				window->SetTitle(new_title);
+			}
+		}
+
+		if (ImGui::InputText("Organization", new_org, 150))
+		{
+			if (App->organization != new_org)
+			{
+				organization = new_org;
+			}
+		}
+
+		if (ImGui::SliderInt("Max FPS", &new_fps, 0, 200))
+		{
+			CapFPS(new_fps);
+		}
+	}
 }
 
 void Application::AddModule(Module* mod)
