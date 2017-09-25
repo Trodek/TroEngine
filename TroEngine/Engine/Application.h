@@ -81,6 +81,8 @@ public:
 	void ConfigGUI();
 	void HardwareConfig();
 
+	void OpenWebPage(const char* url);
+
 private:
 
 	void AddModule(Module* mod);

@@ -88,7 +88,7 @@ void EditorGUI::AboutPanel()
 
 		if (ImGui::Button("GitHub Repository"))
 		{
-			ShellExecute(NULL, "open", "https://github.com/Trodek/TroEngine", NULL, NULL, SW_SHOWMAXIMIZED);
+			App->OpenWebPage("https://github.com/Trodek/TroEngine");
 		}
 
 		ImGui::End();

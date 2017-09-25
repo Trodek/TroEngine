@@ -4,7 +4,7 @@
 #include "gpudetect\DeviceId.h"
 #include <locale>
 #include <codecvt>
-//#include "mmgr\mmgr.h"
+#include "mmgr\mmgr.h"
 
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
@@ -198,10 +198,10 @@ update_status Application::Update()
 
 	ms_log.push_back(logic_timer.ReadMs());
 	
-	//mem_log.push_back(m_getMemoryStatistics().totalActualMemory);
-	//
-	//if (mem_log.size() > GRAPH_DATA)
-	//	mem_log.erase(mem_log.begin());
+	mem_log.push_back(m_getMemoryStatistics().totalActualMemory);
+	
+	if (mem_log.size() > GRAPH_DATA)
+		mem_log.erase(mem_log.begin());
 
 	FinishUpdate();
 
@@ -274,8 +274,17 @@ void Application::ConfigGUI()
 		ImGui::PlotHistogram("##fps", &fps_log[0], fps_log.size(), 0, title, 0.0f, 100.0f, ImVec2(310, 100));
 		sprintf_s(title, 25, "Logic ms: %.1f", ms_log[ms_log.size() - 1]);
 		ImGui::PlotHistogram("##logicms", &ms_log[0], ms_log.size(), 0, title, 0.0f, 40.0f, ImVec2(310, 100));
-		//sprintf_s(title, 25, "Memory Consumption");
-		//ImGui::PlotHistogram("##memchart", &mem_log[0], mem_log.size(), 0, title, 0.0f, 50000.0f, ImVec2(310, 100));
+		sprintf_s(title, 25, "Memory Consumption");
+		ImGui::PlotHistogram("##memchart", &mem_log[0], mem_log.size(), 0, title, 0.0f, 20000.0f, ImVec2(310, 100));
+		ImGui::Text("Total Reported Mem: %d", m_getMemoryStatistics().totalReportedMemory);
+		ImGui::Text("Total Actual Mem: %d", m_getMemoryStatistics().totalActualMemory);
+		ImGui::Text("Peak Reported Mem: %d", m_getMemoryStatistics().peakReportedMemory);
+		ImGui::Text("Peak Actual Mem: %d", m_getMemoryStatistics().peakActualMemory);
+		ImGui::Text("Accumulated Reported Mem: %d", m_getMemoryStatistics().accumulatedReportedMemory);
+		ImGui::Text("Accumulated Actual Mem: %d", m_getMemoryStatistics().accumulatedActualMemory);
+		ImGui::Text("Accumulated Alloc Unit Count: %d", m_getMemoryStatistics().accumulatedAllocUnitCount);
+		ImGui::Text("Total Alloc Unit Count: %d", m_getMemoryStatistics().totalAllocUnitCount);
+		ImGui::Text("Peak Alloc Unit Count: %d", m_getMemoryStatistics().peakAllocUnitCount);
 	}
 }
 
@@ -338,6 +347,11 @@ void Application::HardwareConfig()
 		ImGui::Text("Video Memory Reserved: "); ImGui::SameLine(); ImGui::Text("%d", vm_r);
 
 	}
+}
+
+void Application::OpenWebPage(const char * url)
+{
+	ShellExecute(NULL, "open", url, NULL, NULL, SW_SHOWMAXIMIZED);
 }
 
 void Application::AddModule(Module* mod)

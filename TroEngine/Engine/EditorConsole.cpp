@@ -11,6 +11,7 @@ EditorConsole::~EditorConsole()
 
 bool EditorConsole::Awake()
 {
+	accept_lines = true;
 	return true;
 }
 
@@ -19,6 +20,13 @@ update_status EditorConsole::Update(float dt)
 	CreateConsole();
 
 	return UPDATE_CONTINUE;
+}
+
+bool EditorConsole::CleanUp()
+{
+	accept_lines = false;
+	console_lines.clear();
+	return true;
 }
 
 void EditorConsole::AddLine(const char * new_line)

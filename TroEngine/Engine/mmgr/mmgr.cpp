@@ -1466,7 +1466,7 @@ void	m_deallocator(const char *sourceFile, const unsigned int sourceLine, const 
 			// Wipe the deallocated RAM with a new pattern. This doen't actually do us much good in debug mode under WIN32,
 			// because Microsoft's memory debugging & tracking utilities will wipe it right after we do. Oh well.
 
-			wipeWithPattern(au, releasedPattern);
+			//wipeWithPattern(au, releasedPattern); //FUCK THAT SHIT!!!!
 
 			// Do the deallocation
 
