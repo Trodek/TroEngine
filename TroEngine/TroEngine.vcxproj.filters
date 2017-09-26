@@ -67,6 +67,9 @@
     <Filter Include="Source\Engine\Tools\Memory">
       <UniqueIdentifier>{e8793d86-d1f1-4120-b5ab-16af8a76681f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\Tools\ParsonJSON">
+      <UniqueIdentifier>{01f3ae59-337d-40a3-84ed-f016f8c30b9c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -248,6 +251,12 @@
     </ClCompile>
     <ClCompile Include="Engine\mmgr\mmgr.cpp">
       <Filter>Source\Engine\Tools\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Parson\parson.c">
+      <Filter>Source\Engine\Tools\ParsonJSON</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\JSONManager.cpp">
+      <Filter>Source\Engine\Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -526,6 +535,12 @@
     </ClInclude>
     <ClInclude Include="Engine\mmgr\nommgr.h">
       <Filter>Source\Engine\Tools\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Parson\parson.h">
+      <Filter>Source\Engine\Tools\ParsonJSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\JSONManager.h">
+      <Filter>Source\Engine\Tools</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -15,6 +15,7 @@
 #include "ModuleGUI.h"
 #include "EditorConsole.h"
 #include "EditorGUI.h"
+#include "JSONManager.h"
 
 #include "Algorithm\Random\LCG.h"
 #include "imgui.h"
@@ -32,6 +33,7 @@ Application::Application()
 	gui = new ModuleGUI();
 	console = new EditorConsole();
 	editor_gui = new EditorGUI();
+	json = new JSONManager();
 
 	// The order of calls is very important!
 	// Modules will Awake() Start() and Update() in this order
@@ -45,6 +47,7 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
+	AddModule(json);
 	
 	// Scenes
 	AddModule(scene_intro);

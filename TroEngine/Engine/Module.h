@@ -2,6 +2,7 @@
 #define __MODULE__
 
 #include "Globals.h"
+#include <string>
 
 class Application;
 struct PhysBody3D;
@@ -10,6 +11,7 @@ class Module
 {
 private:
 	bool enabled;
+	std::string name;
 
 public:
 	Module(bool start_enabled = true)
@@ -59,6 +61,16 @@ public:
 	bool IsEnabled() const
 	{
 		return enabled;
+	}
+
+	void SetName(const char* name)
+	{
+		this->name = name;
+	}
+	
+	const char* GetName() const
+	{
+		return name.c_str();
 	}
 };
 

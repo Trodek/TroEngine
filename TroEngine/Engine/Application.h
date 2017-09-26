@@ -20,6 +20,7 @@ class ModuleCamera3D;
 class ModuleGUI;
 class EditorConsole;
 class EditorGUI;
+class JSONManager;
 
 class Application
 {
@@ -33,6 +34,7 @@ public:
 	ModuleGUI* gui;
 	EditorConsole* console;
 	EditorGUI* editor_gui;
+	JSONManager* json;
 
 private:
 
