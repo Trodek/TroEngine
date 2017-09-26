@@ -11,7 +11,7 @@ public:
 	EditorConsole();
 	~EditorConsole();
 
-	bool Awake();
+	bool Awake(JSONDoc* config);
 	update_status Update(float dt);
 	bool CleanUp();
 

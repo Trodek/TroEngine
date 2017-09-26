@@ -16,7 +16,7 @@ public:
 	// Destructor
 	virtual ~ModuleWindow();
 
-	bool Awake();
+	bool Awake(JSONDoc* config);
 	bool CleanUp();
 
 	void SetTitle(const char* title);

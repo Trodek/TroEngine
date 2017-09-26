@@ -12,7 +12,7 @@ public:
 	EditorGUI();
 	~EditorGUI();
 
-	bool Awake();
+	bool Awake(JSONDoc* config);
 	update_status Update(float dt);
 
 private:

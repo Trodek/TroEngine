@@ -12,7 +12,7 @@ ModuleAudio::~ModuleAudio()
 {}
 
 // Called before render is available
-bool ModuleAudio::Awake()
+bool ModuleAudio::Awake(JSONDoc* config)
 {
 	EDITOR_LOG("Loading Audio Mixer");
 	bool ret = true;

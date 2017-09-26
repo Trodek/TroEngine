@@ -83,12 +83,16 @@ bool Application::Init()
 
 	PERF_START(ptimer);
 
+	JSONDoc* config = LoadConfig();
+
+	if (config == nullptr)
+		config = CreateDefaultConfig();
 	// Call Awake() in all modules
 	std::list<Module*>::iterator item = list_modules.begin();
 
 	while(item != list_modules.end() && ret == true)
 	{
-		ret = (*item)->Awake();
+		ret = (*item)->Awake(config);
 		++item;
 	}
 
@@ -162,6 +166,34 @@ void Application::FrameRateCalculations()
 
 	if (ms_log.size() > GRAPH_DATA)
 		ms_log.erase(ms_log.begin());
+}
+
+JSONDoc * Application::LoadConfig()
+{
+	return json->LoadJSONFile("config.json");
+}
+
+JSONDoc * Application::CreateDefaultConfig()
+{
+	JSONDoc* config = nullptr;
+
+	config = json->CreateJSONFile("config.json");
+
+	config->SetNumber("window.width", 1280);
+	config->SetNumber("window.height", 980);
+	config->SetNumber("window.screen_size", 1);
+	config->SetString("window.window_mode", "windowed");
+	config->SetBool("window.resizable", true);
+
+	config->SetString("app.title", "TroEngine");
+	config->SetString("app.organization", "UPC CITM");
+	config->SetNumber("app.max_fps", 0);
+
+	config->SetBool("renderer.vsync", true);
+
+	config->SaveFile();
+
+	return config;
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules

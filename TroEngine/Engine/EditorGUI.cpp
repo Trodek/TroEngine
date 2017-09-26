@@ -11,7 +11,7 @@ EditorGUI::~EditorGUI()
 {
 }
 
-bool EditorGUI::Awake()
+bool EditorGUI::Awake(JSONDoc* config)
 {
 	return true;
 }

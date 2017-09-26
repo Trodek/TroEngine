@@ -18,7 +18,7 @@ ModuleWindow::~ModuleWindow()
 }
 
 // Called before render is available
-bool ModuleWindow::Awake()
+bool ModuleWindow::Awake(JSONDoc* config)
 {
 	EDITOR_LOG("Init SDL window & surface");
 	bool ret = true;

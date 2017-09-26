@@ -1,0 +1,17 @@
+{
+    "window": {
+        "width": 1280,
+        "height": 980,
+        "screen_size": 1,
+        "window_mode": "windowed",
+        "resizable": true
+    },
+    "app": {
+        "title": "TroEngine",
+        "organization": "UPC CITM",
+        "max_fps": 0
+    },
+    "renderer": {
+        "vsync": true
+    }
+}

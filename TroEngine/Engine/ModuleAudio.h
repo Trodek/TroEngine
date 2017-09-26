@@ -14,7 +14,7 @@ public:
 	ModuleAudio(bool start_enabled = true);
 	~ModuleAudio();
 
-	bool Awake();
+	bool Awake(JSONDoc* config);
 	bool CleanUp();
 
 	// Play a music file

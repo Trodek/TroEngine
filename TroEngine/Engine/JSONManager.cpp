@@ -14,7 +14,7 @@ JSONManager::~JSONManager()
 {
 }
 
-bool JSONManager::Awake()
+bool JSONManager::Awake(JSONDoc* config)
 {
 	bool ret = true;
 

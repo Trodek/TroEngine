@@ -9,7 +9,7 @@ EditorConsole::~EditorConsole()
 {
 }
 
-bool EditorConsole::Awake()
+bool EditorConsole::Awake(JSONDoc* config)
 {
 	accept_lines = true;
 	return true;

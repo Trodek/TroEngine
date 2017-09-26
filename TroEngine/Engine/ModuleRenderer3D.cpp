@@ -20,7 +20,7 @@ ModuleRenderer3D::~ModuleRenderer3D()
 {}
 
 // Called before render is available
-bool ModuleRenderer3D::Awake()
+bool ModuleRenderer3D::Awake(JSONDoc* config)
 {
 	EDITOR_LOG("Creating 3D Renderer context");
 	bool ret = true;

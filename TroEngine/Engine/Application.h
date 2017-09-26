@@ -93,6 +93,9 @@ private:
 
 	void CapFPS(float fps);
 	void FrameRateCalculations();
+
+	JSONDoc* LoadConfig();
+	JSONDoc* CreateDefaultConfig();
 };
 
 extern Application* App;

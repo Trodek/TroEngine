@@ -10,7 +10,7 @@ public:
 	ModuleGUI(bool start_enabled = true);
 	~ModuleGUI();
 
-	bool Awake();
+	bool Awake(JSONDoc* config);
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
 	bool CleanUp();

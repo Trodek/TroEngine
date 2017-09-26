@@ -11,7 +11,7 @@ ModuleGUI::ModuleGUI(bool start_enabled) : Module(start_enabled)
 ModuleGUI::~ModuleGUI()
 {}
 
-bool ModuleGUI::Awake()
+bool ModuleGUI::Awake(JSONDoc* config)
 {
 	bool ret = false;
 

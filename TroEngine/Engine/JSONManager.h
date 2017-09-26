@@ -35,7 +35,7 @@ public:
 	JSONManager(bool start_enabled = true);
 	~JSONManager();
 
-	bool Awake();
+	bool Awake(JSONDoc* config);
 	bool CleanUp();
 
 	JSONDoc* LoadJSONFile(const char* path);

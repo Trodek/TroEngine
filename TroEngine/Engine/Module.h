@@ -5,7 +5,7 @@
 #include <string>
 
 class Application;
-struct PhysBody3D;
+class JSONDoc;
 
 class Module
 {
@@ -20,7 +20,7 @@ public:
 	virtual ~Module()
 	{}
 
-	virtual bool Awake()
+	virtual bool Awake(JSONDoc* config)
 	{
 		return true;
 	}
@@ -54,9 +54,6 @@ public:
 	{
 
 	}
-
-	virtual void OnCollision(PhysBody3D* body1, PhysBody3D* body2)
-	{}
 
 	bool IsEnabled() const
 	{

@@ -21,7 +21,7 @@ ModuleInput::~ModuleInput()
 }
 
 // Called before render is available
-bool ModuleInput::Awake()
+bool ModuleInput::Awake(JSONDoc* config)
 {
 	EDITOR_LOG("Init SDL input event system");
 	bool ret = true;
