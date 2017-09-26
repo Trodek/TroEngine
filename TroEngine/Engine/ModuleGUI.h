@@ -15,7 +15,7 @@ public:
 	update_status PostUpdate(float dt);
 	bool CleanUp();
 
-	void SetGUIColors();
+	void SetGUIColors(float _alpha = 1.0f);
 };
 
 #endif // !__MODULEGUI__

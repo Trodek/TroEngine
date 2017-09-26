@@ -190,13 +190,13 @@ update_status Application::Update()
 
 	item = list_modules.begin();
 
+	ms_log.push_back(logic_timer.ReadMs());
+
 	while(item != list_modules.end() && ret == UPDATE_CONTINUE)
 	{
 		ret = (*item)->PostUpdate(dt);
 		++item;
 	}
-
-	ms_log.push_back(logic_timer.ReadMs());
 	
 	mem_log.push_back(m_getMemoryStatistics().totalActualMemory);
 	
