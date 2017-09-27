@@ -12,9 +12,9 @@ public:
 
 	bool Awake(JSONDoc* config);
 	update_status PreUpdate(float dt);
-	update_status PostUpdate(float dt);
 	bool CleanUp();
 
+	void RenderGUI();
 	void SetGUIColors(float _alpha = 1.0f);
 };
 

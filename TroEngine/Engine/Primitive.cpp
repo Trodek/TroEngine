@@ -4,6 +4,8 @@
 #include <gl/GLU.h>
 #include "Primitive.h"
 #include "glut/glut.h"
+#include "Application.h"
+#include "ModuleRenderer3D.h"
 
 #pragma comment (lib, "Engine/glut/glut32.lib")
 
@@ -57,10 +59,7 @@ void Primitive::Render() const
 
 	glColor3f(color.r, color.g, color.b);
 
-	if(wire)
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	else
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	App->renderer3D->SetCurrentPolygonMode();
 
 	InnerRender();
 

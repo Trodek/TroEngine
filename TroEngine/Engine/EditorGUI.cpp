@@ -1,6 +1,7 @@
 #include "EditorGUI.h"
 #include "Application.h"
 #include "ModuleWindow.h"
+#include "ModuleRenderer3D.h"
 #include "imgui.h"
 
 EditorGUI::EditorGUI()
@@ -226,6 +227,7 @@ void EditorGUI::Config()
 
 		//Ask other modules for their config
 		App->window->ConfigGUI();
+		App->renderer3D->ConfigGUI();
 		
 
 		//Ask app for hardware details

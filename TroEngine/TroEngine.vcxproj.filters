@@ -70,6 +70,12 @@
     <Filter Include="Source\Engine\Tools\ParsonJSON">
       <UniqueIdentifier>{01f3ae59-337d-40a3-84ed-f016f8c30b9c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\Modules\Renderer\GLEW">
+      <UniqueIdentifier>{1db21459-d1c1-472b-8894-90b05cbd8b3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Scenes">
+      <UniqueIdentifier>{528d5a5b-1723-4498-a349-aa0fa175f90f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -125,9 +131,6 @@
     </ClCompile>
     <ClCompile Include="Engine\Globals.cpp">
       <Filter>Source\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\EditorScene.cpp">
-      <Filter>Source\Editor</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Geometry\AABB.cpp">
       <Filter>Source\Engine\Tools\Math\Geometry</Filter>
@@ -258,6 +261,12 @@
     <ClCompile Include="Engine\JSONManager.cpp">
       <Filter>Source\Engine\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\TestScene.cpp">
+      <Filter>Source\Editor\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SceneManager.cpp">
+      <Filter>Source\Editor\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Application.h">
@@ -325,9 +334,6 @@
     </ClInclude>
     <ClInclude Include="Engine\ModuleInput.h">
       <Filter>Source\Engine\Modules\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\EditorScene.h">
-      <Filter>Source\Editor</Filter>
     </ClInclude>
     <ClInclude Include="Engine\MathBuildConfig.h">
       <Filter>Source\Engine\Tools\Math</Filter>
@@ -541,6 +547,27 @@
     </ClInclude>
     <ClInclude Include="Engine\JSONManager.h">
       <Filter>Source\Engine\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\glew-2.1.0\include\GL\eglew.h">
+      <Filter>Source\Engine\Modules\Renderer\GLEW</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\glew-2.1.0\include\GL\glew.h">
+      <Filter>Source\Engine\Modules\Renderer\GLEW</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\glew-2.1.0\include\GL\glxew.h">
+      <Filter>Source\Engine\Modules\Renderer\GLEW</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\glew-2.1.0\include\GL\wglew.h">
+      <Filter>Source\Engine\Modules\Renderer\GLEW</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Scene.h">
+      <Filter>Source\Editor\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\TestScene.h">
+      <Filter>Source\Editor\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SceneManager.h">
+      <Filter>Source\Editor\Scenes</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

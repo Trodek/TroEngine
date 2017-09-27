@@ -30,11 +30,9 @@ update_status ModuleGUI::PreUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
-update_status ModuleGUI::PostUpdate(float dt)
+void ModuleGUI::RenderGUI()
 {
 	ImGui::Render();
-
-	return UPDATE_CONTINUE;
 }
 
 bool ModuleGUI::CleanUp()

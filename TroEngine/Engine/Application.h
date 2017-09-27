@@ -14,7 +14,7 @@ class Module;
 class ModuleWindow;
 class ModuleInput;
 class ModuleAudio;
-class EditorScene;
+class SceneManager;
 class ModuleRenderer3D;
 class ModuleCamera3D;
 class ModuleGUI;
@@ -28,7 +28,7 @@ public:
 	ModuleWindow* window;
 	ModuleInput* input;
 	ModuleAudio* audio;
-	EditorScene* scene_intro;
+	SceneManager* scene_manager;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 	ModuleGUI* gui;

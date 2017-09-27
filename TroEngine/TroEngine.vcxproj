@@ -74,7 +74,8 @@
     <ClCompile Include="Engine\ModuleGUI.cpp" />
     <ClCompile Include="Engine\ModuleInput.cpp" />
     <ClCompile Include="Engine\ModuleRenderer3D.cpp" />
-    <ClCompile Include="Engine\EditorScene.cpp" />
+    <ClCompile Include="Engine\SceneManager.cpp" />
+    <ClCompile Include="Engine\TestScene.cpp" />
     <ClCompile Include="Engine\ModuleWindow.cpp" />
     <ClCompile Include="Engine\Parson\parson.c" />
     <ClCompile Include="Engine\PerfTimer.cpp" />
@@ -111,6 +112,10 @@
     <ClInclude Include="Engine\Geometry\Sphere.h" />
     <ClInclude Include="Engine\Geometry\Triangle.h" />
     <ClInclude Include="Engine\Geometry\TriangleMesh.h" />
+    <ClInclude Include="Engine\glew-2.1.0\include\GL\eglew.h" />
+    <ClInclude Include="Engine\glew-2.1.0\include\GL\glew.h" />
+    <ClInclude Include="Engine\glew-2.1.0\include\GL\glxew.h" />
+    <ClInclude Include="Engine\glew-2.1.0\include\GL\wglew.h" />
     <ClInclude Include="Engine\glmath.h" />
     <ClInclude Include="Engine\Globals.h" />
     <ClInclude Include="Engine\gpudetect\DeviceId.h" />
@@ -166,12 +171,14 @@
     <ClInclude Include="Engine\ModuleGUI.h" />
     <ClInclude Include="Engine\ModuleInput.h" />
     <ClInclude Include="Engine\ModuleRenderer3D.h" />
-    <ClInclude Include="Engine\EditorScene.h" />
+    <ClInclude Include="Engine\SceneManager.h" />
+    <ClInclude Include="Engine\TestScene.h" />
     <ClInclude Include="Engine\ModuleWindow.h" />
     <ClInclude Include="Engine\p2Point.h" />
     <ClInclude Include="Engine\Parson\parson.h" />
     <ClInclude Include="Engine\PerfTimer.h" />
     <ClInclude Include="Engine\Primitive.h" />
+    <ClInclude Include="Engine\Scene.h" />
     <ClInclude Include="Engine\stb_rect_pack.h" />
     <ClInclude Include="Engine\stb_textedit.h" />
     <ClInclude Include="Engine\stb_truetype.h" />

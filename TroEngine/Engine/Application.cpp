@@ -9,7 +9,7 @@
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
-#include "EditorScene.h"
+#include "SceneManager.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleGUI.h"
@@ -27,7 +27,7 @@ Application::Application()
 	window = new ModuleWindow();
 	input = new ModuleInput();
 	audio = new ModuleAudio();
-	scene_intro = new EditorScene();
+	scene_manager = new SceneManager();
 	renderer3D = new ModuleRenderer3D();
 	camera = new ModuleCamera3D();
 	gui = new ModuleGUI();
@@ -50,7 +50,7 @@ Application::Application()
 	AddModule(json);
 	
 	// Scenes
-	AddModule(scene_intro);
+	AddModule(scene_manager);
 
 	// Renderer last!
 	AddModule(renderer3D);

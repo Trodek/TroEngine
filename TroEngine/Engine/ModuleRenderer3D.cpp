@@ -3,16 +3,22 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleWindow.h"
+#include "SceneManager.h"
+#include "ModuleGUI.h"
+#include "glew-2.1.0\include\GL\glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
 #include "Brofiler\Brofiler.h"
+#include "imgui.h"
 
+#pragma comment (lib, "Engine/glew-2.1.0/lib/Win32/glew32.lib")    /* link Glew lib     */
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
 ModuleRenderer3D::ModuleRenderer3D(bool start_enabled) : Module(start_enabled)
 {
+	SetName("renderer");
 }
 
 // Destructor
@@ -27,16 +33,26 @@ bool ModuleRenderer3D::Awake(JSONDoc* config)
 	
 	//Create context
 	context = SDL_GL_CreateContext(App->window->window);
-	if(context == NULL)
+	if (context == NULL)
 	{
 		EDITOR_LOG("OpenGL context could not be created! SDL_Error: %s\n", SDL_GetError());
 		ret = false;
 	}
-	
-	if(ret == true)
+
+	if (ret == true)
 	{
+		//Init Glew lib
+		GLenum err = glewInit();
+		if (err != GL_NO_ERROR)
+		{
+			EDITOR_LOG("Error initializing Glew! %s\n", glewGetErrorString(err));
+			ret = false;
+		}
+		else
+			EDITOR_LOG("Using Glew %s.", glewGetString(GLEW_VERSION));
+
 		//Use Vsync
-		if(VSYNC && SDL_GL_SetSwapInterval(1) < 0)
+		if (VSYNC && SDL_GL_SetSwapInterval(1) < 0)
 			EDITOR_LOG("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
 
 		//Initialize Projection Matrix
@@ -45,7 +61,7 @@ bool ModuleRenderer3D::Awake(JSONDoc* config)
 
 		//Check for error
 		GLenum error = glGetError();
-		if(error != GL_NO_ERROR)
+		if (error != GL_NO_ERROR)
 		{
 			EDITOR_LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
@@ -57,47 +73,52 @@ bool ModuleRenderer3D::Awake(JSONDoc* config)
 
 		//Check for error
 		error = glGetError();
-		if(error != GL_NO_ERROR)
+		if (error != GL_NO_ERROR)
 		{
 			EDITOR_LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
-		
+
 		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
 		glClearDepth(1.0f);
-		
+
 		//Initialize clear color
 		glClearColor(0.f, 0.f, 0.f, 1.f);
 
 		//Check for error
 		error = glGetError();
-		if(error != GL_NO_ERROR)
+		if (error != GL_NO_ERROR)
 		{
 			EDITOR_LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
 			ret = false;
 		}
-		
-		GLfloat LightModelAmbient[] = {1.0f, 1.0f, 1.0f, 1.0f};
+
+		GLfloat LightModelAmbient[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
-		
+
 		lights[0].ref = GL_LIGHT0;
 		lights[0].ambient.Set(0.25f, 0.25f, 0.25f, 1.0f);
 		lights[0].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
 		lights[0].SetPos(0.0f, 0.0f, 2.5f);
 		lights[0].Init();
-		
-		GLfloat MaterialAmbient[] = {1.0f, 1.0f, 1.0f, 1.0f};
+
+		GLfloat MaterialAmbient[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, MaterialAmbient);
 
-		GLfloat MaterialDiffuse[] = {1.0f, 1.0f, 1.0f, 1.0f};
+		GLfloat MaterialDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
 		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
-		
+
 		glEnable(GL_DEPTH_TEST);
+		depth_test = true;
 		glEnable(GL_CULL_FACE);
+		cull_face = true;
 		lights[0].Active(true);
 		glEnable(GL_LIGHTING);
+		lighting = true;
 		glEnable(GL_COLOR_MATERIAL);
+		color_material = true;
 	}
+	
 
 	// Projection matrix for
 	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
@@ -127,6 +148,14 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	BROFILER_CATEGORY("Render PostUpdate", Profiler::Color::Green);
+
+	//Rendering pipeline
+	App->scene_manager->DrawScenes();
+	//Draw debug
+
+	//Draw GUI
+	App->gui->RenderGUI();
+
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
 }
@@ -153,4 +182,131 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
+}
+
+void ModuleRenderer3D::ConfigGUI()
+{
+	if (ImGui::CollapsingHeader("Renderer"))
+	{
+		//Get hardware capavilities
+		ImGui::Text("Vendor: %s", glGetString(GL_VENDOR));
+		ImGui::Text("Renderer: %s", glGetString(GL_RENDERER));
+		ImGui::Text("OpenGL version supported %s", glGetString(GL_VERSION));
+		ImGui::Text("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+
+		ImGui::Separator();
+		
+		ImGui::Text("Draw Modes:");
+
+		if (ImGui::Checkbox("Wireframe Mode", &wireframe))
+			PolygonModeWireframe();	
+
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Points Mode", &points))
+			PolygonModePoints();
+
+		if (ImGui::Checkbox("Fill Mode", &fill))
+			PolygonModeFill();
+
+		ImGui::Separator();
+
+		ImGui::Text("OpenGL Capabilities:");
+
+		if (ImGui::Checkbox("Depth Test", &depth_test))
+			ToggleDepthTestState();
+
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Cull Face", &cull_face))
+			ToggleCullFaceState();
+
+		if (ImGui::Checkbox("Lighting", &lighting))
+			ToggleLightingState();
+
+		ImGui::SameLine();
+		if (ImGui::Checkbox("Texture 2D", &texture_2d))
+			ToggleTexture2DState();
+
+		if (ImGui::Checkbox("Color Material", &color_material))
+			ToggleColorMaterialState();
+
+
+
+	}
+}
+
+void ModuleRenderer3D::PolygonModePoints()
+{
+	wireframe = false;
+	points = true;
+	fill = false;
+}
+
+void ModuleRenderer3D::PolygonModeWireframe()
+{
+	wireframe = true;
+	points = false;
+	fill = false;
+}
+
+void ModuleRenderer3D::PolygonModeFill()
+{
+	wireframe = false;
+	points = false;
+	fill = true;
+}
+
+void ModuleRenderer3D::ToggleDepthTestState()
+{
+	if (depth_test)
+		glEnable(GL_DEPTH_TEST);
+	else
+		glDisable(GL_DEPTH_TEST);
+}
+
+void ModuleRenderer3D::ToggleCullFaceState()
+{
+	if (cull_face)
+		glEnable(GL_CULL_FACE);
+	else
+		glDisable(GL_CULL_FACE);
+}
+
+void ModuleRenderer3D::ToggleLightingState()
+{
+	if (lighting)
+		glEnable(GL_LIGHTING);
+	else
+		glDisable(GL_LIGHTING);
+}
+
+void ModuleRenderer3D::ToggleTexture2DState()
+{
+	if (texture_2d)
+		glEnable(GL_TEXTURE_2D);
+	else
+		glDisable(GL_TEXTURE_2D);
+}
+
+void ModuleRenderer3D::ToggleColorMaterialState()
+{
+	if (color_material)
+		glEnable(GL_COLOR_MATERIAL);
+	else
+		glDisable(GL_COLOR_MATERIAL);
+}
+
+void ModuleRenderer3D::SetCurrentPolygonMode()
+{
+	if (wireframe)
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+	}
+	if (points)
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+	}
+	if (fill)
+	{
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+	}
 }
