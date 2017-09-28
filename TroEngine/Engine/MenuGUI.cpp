@@ -1,23 +1,18 @@
-#include "EditorGUI.h"
+#include "MenuGUI.h"
 #include "Application.h"
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 #include "imgui.h"
 
-EditorGUI::EditorGUI()
+MenuGUI::MenuGUI()
 {
 }
 
-EditorGUI::~EditorGUI()
+MenuGUI::~MenuGUI()
 {
 }
 
-bool EditorGUI::Awake(JSONDoc* config)
-{
-	return true;
-}
-
-update_status EditorGUI::Update(float dt)
+update_status MenuGUI::UpdateGUI(float dt)
 {
 	CreateGUI();
 	AboutPanel();
@@ -29,7 +24,7 @@ update_status EditorGUI::Update(float dt)
 	return UPDATE_CONTINUE;
 }
 
-void EditorGUI::CreateGUI()
+void MenuGUI::CreateGUI()
 {
 	if (ImGui::BeginMainMenuBar())
 	{
@@ -77,7 +72,7 @@ void EditorGUI::CreateGUI()
 	};
 }
 
-void EditorGUI::AboutPanel()
+void MenuGUI::AboutPanel()
 {
 	if (show_about)
 	{
@@ -101,7 +96,7 @@ void EditorGUI::AboutPanel()
 	}
 }
 
-void EditorGUI::GUIConfig()
+void MenuGUI::GUIConfig()
 {
 	if (show_test_window)
 	{
@@ -110,7 +105,7 @@ void EditorGUI::GUIConfig()
 	}
 }
 
-void EditorGUI::MathTest()
+void MenuGUI::MathTest()
 {
 	if (show_math_test)
 	{
@@ -221,7 +216,7 @@ void EditorGUI::MathTest()
 	}
 }
 
-void EditorGUI::Config()
+void MenuGUI::Config()
 {
 	if (show_config)
 	{
@@ -242,11 +237,11 @@ void EditorGUI::Config()
 	}
 }
 
-void EditorGUI::PerformanceMenu()
+void MenuGUI::PerformanceMenu()
 {
 	if (show_performance)
 	{
-		ImGui::Begin("Performance##Window", &show_performance, ImGuiWindowFlags_AlwaysAutoResize);
+		ImGui::Begin("Performance##Window", &show_performance);
 
 		App->DrawPerformanceWindow();
 

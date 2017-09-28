@@ -1,19 +1,18 @@
 #ifndef __EDITORGUI__
 #define __EDITORGUI__
 
-#include "Module.h"
+#include "GUIElement.h"
 #include <list>
 #include "MathGeoLib.h"
 #include "Primitive.h"
 
-class EditorGUI : public Module
+class MenuGUI : public GUIElement
 {
 public:
-	EditorGUI();
-	~EditorGUI();
+	MenuGUI();
+	~MenuGUI();
 
-	bool Awake(JSONDoc* config);
-	update_status Update(float dt);
+	update_status UpdateGUI(float dt);
 
 private:
 	void CreateGUI();

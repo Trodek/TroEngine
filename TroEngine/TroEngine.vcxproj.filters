@@ -76,6 +76,9 @@
     <Filter Include="Source\Editor\Scenes">
       <UniqueIdentifier>{528d5a5b-1723-4498-a349-aa0fa175f90f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Editor\GUI">
+      <UniqueIdentifier>{ba2bdf3d-9f69-4120-bd67-be9a3e9a13c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -240,12 +243,6 @@
     <ClCompile Include="Engine\Algorithm\GJK.cpp">
       <Filter>Source\Engine\Tools\Math\Algorithm</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\EditorConsole.cpp">
-      <Filter>Source\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\EditorGUI.cpp">
-      <Filter>Source\Editor</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\PerfTimer.cpp">
       <Filter>Source\Engine\Tools</Filter>
     </ClCompile>
@@ -266,6 +263,12 @@
     </ClCompile>
     <ClCompile Include="Engine\SceneManager.cpp">
       <Filter>Source\Editor\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\MenuGUI.cpp">
+      <Filter>Source\Editor\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ConsoleGUI.cpp">
+      <Filter>Source\Editor\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -524,12 +527,6 @@
     <ClInclude Include="Engine\Algorithm\SAT.h">
       <Filter>Source\Engine\Tools\Math\Algorithm</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\EditorConsole.h">
-      <Filter>Source\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\EditorGUI.h">
-      <Filter>Source\Editor</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\PerfTimer.h">
       <Filter>Source\Engine\Tools</Filter>
     </ClInclude>
@@ -568,6 +565,15 @@
     </ClInclude>
     <ClInclude Include="Engine\SceneManager.h">
       <Filter>Source\Editor\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GUIElement.h">
+      <Filter>Source\Editor\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\MenuGUI.h">
+      <Filter>Source\Editor\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ConsoleGUI.h">
+      <Filter>Source\Editor\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

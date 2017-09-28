@@ -18,8 +18,6 @@ class SceneManager;
 class ModuleRenderer3D;
 class ModuleCamera3D;
 class ModuleGUI;
-class EditorConsole;
-class EditorGUI;
 class JSONManager;
 
 class Application
@@ -32,8 +30,6 @@ public:
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
 	ModuleGUI* gui;
-	EditorConsole* console;
-	EditorGUI* editor_gui;
 	JSONManager* json;
 
 private:

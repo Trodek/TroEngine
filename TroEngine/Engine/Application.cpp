@@ -13,8 +13,6 @@
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleGUI.h"
-#include "EditorConsole.h"
-#include "EditorGUI.h"
 #include "JSONManager.h"
 
 #include "Algorithm\Random\LCG.h"
@@ -31,8 +29,6 @@ Application::Application()
 	renderer3D = new ModuleRenderer3D();
 	camera = new ModuleCamera3D();
 	gui = new ModuleGUI();
-	console = new EditorConsole();
-	editor_gui = new EditorGUI();
 	json = new JSONManager();
 
 	// The order of calls is very important!
@@ -42,8 +38,6 @@ Application::Application()
 	// Main Modules
 	AddModule(window);
 	AddModule(gui);
-	AddModule(editor_gui);
-	AddModule(console);
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
@@ -251,7 +245,7 @@ update_status Application::Update()
 	//set modules performance histograms
 	for (int i = 0; i < modules_update_time.size(); ++i)
 	{
-		modules_perf_times[i].push_back(modules_update_time[i]); //AQUI PETA
+		modules_perf_times[i].push_back(modules_update_time[i]); 
 		if (modules_perf_times[i].size() > GRAPH_DATA)
 		{
 			modules_perf_times[i].erase(modules_perf_times[i].begin());
@@ -444,7 +438,7 @@ void Application::DrawPerformanceWindow()
 	{
 		char title[25];
 		sprintf_s(title, 25, "##module%d", m);
-		ImGui::PlotHistogram(title, &modules_perf_times[m].at(0), modules_perf_times[m].size(), 0, (*item)->GetName().c_str(), 0.0f, 10.0f, ImVec2(310, 100));
+		ImGui::PlotLines(title, &modules_perf_times[m].at(0), modules_perf_times[m].size(), 0, (*item)->GetName().c_str(), 0.0f, 10.0f, ImVec2(310, 100));
 		++item;
 		++m;
 	}

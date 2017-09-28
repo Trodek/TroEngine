@@ -1,42 +1,36 @@
-#include "EditorConsole.h"
+#include "ConsoleGUI.h"
 #include "imgui.h"
 
-EditorConsole::EditorConsole(): Module(true)
-{
-}
-
-EditorConsole::~EditorConsole()
-{
-}
-
-bool EditorConsole::Awake(JSONDoc* config)
+ConsoleGUI::ConsoleGUI()
 {
 	accept_lines = true;
-	return true;
 }
 
-update_status EditorConsole::Update(float dt)
+ConsoleGUI::~ConsoleGUI()
+{
+}
+update_status ConsoleGUI::UpdateGUI(float dt)
 {
 	CreateConsole();
 
 	return UPDATE_CONTINUE;
 }
 
-bool EditorConsole::CleanUp()
+bool ConsoleGUI::CleanUp()
 {
 	accept_lines = false;
 	console_lines.clear();
 	return true;
 }
 
-void EditorConsole::AddLine(const char * new_line)
+void ConsoleGUI::AddLine(const char * new_line)
 {
 	std::string line(new_line);
 
 	console_lines.push_back(line);
 }
 
-void EditorConsole::CreateConsole() const
+void ConsoleGUI::CreateConsole() const
 {
 	ImGui::Begin("Console");
 

@@ -4,10 +4,15 @@
 #include "imgui_impl_sdl.h"
 #include "Application.h"
 #include "ModuleWindow.h"
+#include "MenuGUI.h"
+#include "ConsoleGUI.h"
 
 ModuleGUI::ModuleGUI(bool start_enabled) : Module(start_enabled) 
 {
 	SetName("gui");
+
+	console = new ConsoleGUI();
+	AddElement(console);
 }
 
 ModuleGUI::~ModuleGUI()
@@ -25,11 +30,31 @@ bool ModuleGUI::Awake(JSONDoc* config)
 	return ret;
 }
 
+bool ModuleGUI::Start()
+{
+	AddElement(new MenuGUI());
+
+	return true;
+}
+
 update_status ModuleGUI::PreUpdate(float dt)
 {
 	ImGui_ImplSdlGL2_NewFrame(App->window->window);
 
 	return UPDATE_CONTINUE;
+}
+
+update_status ModuleGUI::Update(float dt)
+{
+	update_status ret = UPDATE_CONTINUE;
+
+	std::list<GUIElement*>::iterator ele = gui_elements.begin();
+
+	for (std::list<GUIElement*>::iterator ele = gui_elements.begin(); ele != gui_elements.end(); ++ele)
+	{
+		ret = (*ele)->UpdateGUI(dt);
+	}
+	return ret;
 }
 
 void ModuleGUI::RenderGUI()
@@ -39,6 +64,16 @@ void ModuleGUI::RenderGUI()
 
 bool ModuleGUI::CleanUp()
 {
+	//clear all elements
+	for (std::list<GUIElement*>::iterator ele = gui_elements.begin(); ele != gui_elements.end(); )
+	{
+		(*ele)->CleanUp();
+		RELEASE(*ele);
+
+		ele = gui_elements.erase(ele);
+	}
+
+	//close ImGui
 	ImGui_ImplSdlGL2_Shutdown();
 
 	return true;
@@ -110,4 +145,9 @@ void ModuleGUI::SetGUIColors(float _alpha)
 			col.w *= _alpha;
 		}
 	}
+}
+
+void ModuleGUI::AddElement(GUIElement * ele)
+{
+	gui_elements.push_back(ele);
 }
