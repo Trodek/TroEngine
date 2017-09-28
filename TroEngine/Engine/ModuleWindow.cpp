@@ -10,6 +10,8 @@ ModuleWindow::ModuleWindow(bool start_enabled) : Module(start_enabled)
 	screen_surface = NULL;
 
 	title = "TroEngine";
+
+	SetName("window");
 }
 
 // Destructor

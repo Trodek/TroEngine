@@ -54,6 +54,10 @@ void EditorGUI::CreateGUI()
 			{
 
 			}
+			if (ImGui::MenuItem("Performance##menu", NULL, &show_performance))
+			{
+				PerformanceMenu();
+			}
 			
 			ImGui::EndMenu();
 		}
@@ -232,6 +236,18 @@ void EditorGUI::Config()
 		//Ask app for hardware details
 		App->HardwareConfig();
 		
+
+		ImGui::End();
+	}
+}
+
+void EditorGUI::PerformanceMenu()
+{
+	if (show_performance)
+	{
+		ImGui::Begin("Performance##Window", &show_performance, ImGuiWindowFlags_AlwaysAutoResize);
+
+		App->DrawPerformanceWindow();
 
 		ImGui::End();
 	}

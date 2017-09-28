@@ -21,12 +21,14 @@ private:
 	void GUIConfig();
 	void MathTest();
 	void Config();
+	void PerformanceMenu();
 
 private:
 	bool show_math_test = false;
 	bool show_about = false;
 	bool show_test_window = false;
 	bool show_config = false;
+	bool show_performance = false;
 
 	//Math Test variables
 	float rand_float = 0.0f;

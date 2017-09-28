@@ -47,24 +47,29 @@ private:
 	std::string organization;
 
 	//Congiguration
-	char*				new_title;
-	char*				new_org;
-	int					new_fps = 0;
-	std::vector<float>	fps_log;
-	std::vector<float>	ms_log;
-	std::vector<float>	mem_log;
-	PerfTimer			logic_timer;
+	char*						new_title;
+	char*						new_org;
+	int							new_fps = 0;
+	std::vector<float>			fps_log;
+	std::vector<float>			ms_log;
+	std::vector<float>			mem_log;
+	PerfTimer					logic_timer;
 
 	// Engine debug info
-	int					capped_ms = -1;
-	PerfTimer			ptimer;
-	Uint64				frame_count = 0;
-	Timer				startup_time;
-	Timer				frame_time;
-	Timer				last_sec_frame_time;
-	Uint32				last_sec_frame_count = 0;
-	Uint32				prev_last_sec_frame_count = 0;
-	float				dt = 0.0f;
+	int							capped_ms = -1;
+	PerfTimer					ptimer;
+	Uint64						frame_count = 0;
+	Timer						startup_time;
+	Timer						frame_time;
+	Timer						last_sec_frame_time;
+	Uint32						last_sec_frame_count = 0;
+	Uint32						prev_last_sec_frame_count = 0;
+	float						dt = 0.0f;
+
+	//Performance
+	std::vector<float>			modules_update_time;
+	std::vector<std::vector<float>> modules_perf_times;
+	PerfTimer					module_time;
 
 public:
 
@@ -86,6 +91,7 @@ public:
 	void OpenWebPage(const char* url);
 
 	void DrawModulesConfig();
+	void DrawPerformanceWindow();
 
 private:
 

@@ -92,6 +92,7 @@ bool Application::Init()
 
 	while(item != list_modules.end() && ret == true)
 	{
+		modules_update_time.push_back(0.0f);
 		ret = (*item)->Awake(config);
 		++item;
 	}
@@ -208,22 +209,31 @@ update_status Application::Update()
 	PrepareUpdate();
 
 	std::list<Module*>::iterator item = list_modules.begin();
+	int m = 0;
 	
 	while(item != list_modules.end() && ret == UPDATE_CONTINUE)
 	{
+		module_time.Start();
 		ret = (*item)->PreUpdate(dt);
+		modules_update_time[m] += module_time.ReadMs();
 		++item;
+		++m;
 	}
 
 	item = list_modules.begin();
+	m = 0;
 
 	while(item != list_modules.end() && ret == UPDATE_CONTINUE)
 	{
+		module_time.Start();
 		ret = (*item)->Update(dt);
+		modules_update_time[m] += module_time.ReadMs();
 		++item;
+		++m;
 	}
 
 	item = list_modules.begin();
+	m = 0;
 
 	ms_log.push_back(logic_timer.ReadMs());
 
@@ -233,7 +243,24 @@ update_status Application::Update()
 		++item;
 	}
 	
+	//get frame memory
 	mem_log.push_back(m_getMemoryStatistics().totalActualMemory);
+
+	//set modules performance histograms
+	for (int i = 0; i < modules_update_time.size(); ++i)
+	{
+		modules_perf_times[i].push_back(modules_update_time[i]); //AQUI PETA
+		if (modules_perf_times[i].size() > GRAPH_DATA)
+		{
+			modules_perf_times[i].erase(modules_perf_times[i].begin());
+		}
+	}
+
+	//reset modules update time to 0
+	for (int i = 0; i < modules_update_time.size(); ++i)
+	{
+		modules_update_time[i] = 0.0f;
+	}
 	
 	if (mem_log.size() > GRAPH_DATA)
 		mem_log.erase(mem_log.begin());
@@ -403,6 +430,21 @@ void Application::DrawModulesConfig()
 	{
 		(*item)->ConfigGUI();
 		++item;
+	}
+}
+
+void Application::DrawPerformanceWindow()
+{
+	std::list<Module*>::iterator item = list_modules.begin();
+	int m = 0;
+
+	while (item != list_modules.end())
+	{
+		char title[25];
+		sprintf_s(title, 25, "##module%d", m);
+		ImGui::PlotHistogram(title, &modules_perf_times[m].at(0), modules_perf_times[m].size(), 0, (*item)->GetName().c_str(), 0.0f, 10.0f, ImVec2(310, 100));
+		++item;
+		++m;
 	}
 }
 

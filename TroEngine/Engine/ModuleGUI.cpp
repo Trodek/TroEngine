@@ -6,7 +6,9 @@
 #include "ModuleWindow.h"
 
 ModuleGUI::ModuleGUI(bool start_enabled) : Module(start_enabled) 
-{}
+{
+	SetName("gui");
+}
 
 ModuleGUI::~ModuleGUI()
 {}
