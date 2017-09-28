@@ -12,7 +12,7 @@ environment:
   platform: x86
 build:
   project: TroEngine.sln
-  verbosity: normal
+  verbosity: minimal
 before_package:
 - ps: Copy-Item C:\projects\TroEngine\$env:CONFIGURATION\TroEngine.exe C:\projects\TroEngine\TroEngine\EngineResources\.
 artifacts:
