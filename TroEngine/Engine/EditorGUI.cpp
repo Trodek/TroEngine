@@ -24,6 +24,7 @@ update_status EditorGUI::Update(float dt)
 	GUIConfig();
 	MathTest();
 	Config();
+	PerformanceMenu();
 	
 	return UPDATE_CONTINUE;
 }

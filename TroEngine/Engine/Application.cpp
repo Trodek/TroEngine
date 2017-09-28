@@ -93,6 +93,8 @@ bool Application::Init()
 	while(item != list_modules.end() && ret == true)
 	{
 		modules_update_time.push_back(0.0f);
+		std::vector<float> perf_times;
+		modules_perf_times.push_back(perf_times);
 		ret = (*item)->Awake(config);
 		++item;
 	}
