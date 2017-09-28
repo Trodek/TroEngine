@@ -85,6 +85,8 @@ public:
 
 	void OpenWebPage(const char* url);
 
+	void DrawModulesConfig();
+
 private:
 
 	void AddModule(Module* mod);

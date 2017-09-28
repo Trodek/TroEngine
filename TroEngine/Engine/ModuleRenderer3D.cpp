@@ -12,7 +12,7 @@
 #include "Brofiler\Brofiler.h"
 #include "imgui.h"
 
-#pragma comment (lib, "engine/glew-2.1.0/lib/Win32/glew32.lib")    /* link Glew lib     */
+#pragma comment (lib, "engine/glew-2.1.0/libx86/glew32.lib")    /* link Glew lib     */
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
@@ -154,7 +154,11 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	//Draw debug
 
 	//Draw GUI
+	if(lighting == true)		//Disable Lighting befor drawing gui
+		ToggleLightingState(); 
 	App->gui->RenderGUI();
+	if (lighting == true)		//Enable Lighting after drawing gui if needed
+		ToggleLightingState();
 
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;

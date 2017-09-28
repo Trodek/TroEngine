@@ -368,6 +368,12 @@ void Application::HardwareConfig()
 
 		getGraphicsDeviceInfo(&vendorid, &deviceid, &brand, &vm, &vm_curr, &vm_a, &vm_r);
 
+		//convert to Mb
+		vm /= (1024 * 1024);
+		vm_curr /= (1024 * 1024);
+		vm_a /= (1024 * 1024);
+		vm_r /= (1024 * 1024);
+
 		ImGui::Text("Vendor ID: "); ImGui::SameLine(); ImGui::Text("%d", vendorid);
 		ImGui::Text("Device ID: "); ImGui::SameLine(); ImGui::Text("%d", deviceid);
 
@@ -387,6 +393,17 @@ void Application::HardwareConfig()
 void Application::OpenWebPage(const char * url)
 {
 	ShellExecute(NULL, "open", url, NULL, NULL, SW_SHOWMAXIMIZED);
+}
+
+void Application::DrawModulesConfig()
+{
+	std::list<Module*>::iterator item = list_modules.begin();
+
+	while (item != list_modules.end())
+	{
+		(*item)->ConfigGUI();
+		++item;
+	}
 }
 
 void Application::AddModule(Module* mod)

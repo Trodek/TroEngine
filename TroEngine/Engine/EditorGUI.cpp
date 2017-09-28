@@ -175,7 +175,7 @@ void EditorGUI::MathTest()
 					rand_y = App->RandRange(min_y, max_y);
 					rand_z = App->RandRange(min_z, max_z);
 
-					vec min_point(rand_x,rand_z,rand_y);
+					vec min_point(rand_x, rand_z, rand_y);
 
 					rand_x = App->RandRange(min_x, max_x);
 					rand_y = App->RandRange(min_y, max_y);
@@ -226,8 +226,7 @@ void EditorGUI::Config()
 		App->ConfigGUI();
 
 		//Ask other modules for their config
-		App->window->ConfigGUI();
-		App->renderer3D->ConfigGUI();
+		App->DrawModulesConfig();
 		
 
 		//Ask app for hardware details

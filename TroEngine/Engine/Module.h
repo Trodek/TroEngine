@@ -65,9 +65,9 @@ public:
 		this->name = name;
 	}
 	
-	const char* GetName() const
+	std::string GetName() const
 	{
-		return name.c_str();
+		return name;
 	}
 };
 
