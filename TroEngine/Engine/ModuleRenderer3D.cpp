@@ -12,7 +12,7 @@
 #include "Brofiler\Brofiler.h"
 #include "imgui.h"
 
-#pragma comment (lib, "Engine/glew-2.1.0/lib/Win32/glew32.lib")    /* link Glew lib     */
+#pragma comment (lib, "engine/glew-2.1.0/lib/win32/glew32.lib")    /* link Glew lib     */
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
