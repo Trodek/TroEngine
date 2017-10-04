@@ -123,7 +123,7 @@ bool ModuleRenderer3D::Awake(JSONDoc* config)
 	
 
 	// Projection matrix for
-	OnResize(SCREEN_WIDTH, SCREEN_HEIGHT);
+	OnResize(App->window->GetWidth(), App->window->GetHeight());
 
 	return ret;
 }
@@ -166,6 +166,11 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	return UPDATE_CONTINUE;
 }
 
+void ModuleRenderer3D::SaveConfig(JSONDoc * config)
+{
+	config->SetBool("renderer.vsync", vsync);
+}
+
 // Called before quitting
 bool ModuleRenderer3D::CleanUp()
 {
@@ -199,6 +204,11 @@ void ModuleRenderer3D::ConfigGUI()
 		ImGui::Text("Renderer: %s", glGetString(GL_RENDERER));
 		ImGui::Text("OpenGL version supported %s", glGetString(GL_VERSION));
 		ImGui::Text("GLSL: %s\n", glGetString(GL_SHADING_LANGUAGE_VERSION));
+
+		ImGui::Separator();
+
+		if (ImGui::Checkbox("VSYNC", &vsync))
+			ToggleVSYNC();
 
 		ImGui::Separator();
 		
@@ -299,6 +309,20 @@ void ModuleRenderer3D::ToggleColorMaterialState()
 		glEnable(GL_COLOR_MATERIAL);
 	else
 		glDisable(GL_COLOR_MATERIAL);
+}
+
+void ModuleRenderer3D::ToggleVSYNC()
+{
+	if (vsync)
+	{
+		if (SDL_GL_SetSwapInterval(1) == 0)
+			EDITOR_LOG("VSYNC active");
+	}
+	else
+	{
+		if (SDL_GL_SetSwapInterval(0) == 0)
+			EDITOR_LOG("VSYNC disabled");
+	}
 }
 
 void ModuleRenderer3D::SetCurrentPolygonMode()

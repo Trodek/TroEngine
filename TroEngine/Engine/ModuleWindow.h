@@ -17,11 +17,15 @@ public:
 	virtual ~ModuleWindow();
 
 	bool Awake(JSONDoc* config);
+	void SaveConfig(JSONDoc* config);
 	bool CleanUp();
 
 	void SetTitle(const char* title);
 
 	void ConfigGUI();
+	int GetSize() const;
+	int GetWidth() const;
+	int GetHeight() const;
 
 public:
 	//The window we'll be rendering to

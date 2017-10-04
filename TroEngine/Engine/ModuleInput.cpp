@@ -1,6 +1,7 @@
 #include "Globals.h"
 #include "Application.h"
 #include "ModuleInput.h"
+#include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 #include "imgui.h"
 #include "imgui_impl_sdl.h"
@@ -65,8 +66,8 @@ update_status ModuleInput::PreUpdate(float dt)
 
 	Uint32 buttons = SDL_GetMouseState(&mouse_x, &mouse_y);
 
-	mouse_x /= SCREEN_SIZE;
-	mouse_y /= SCREEN_SIZE;
+	mouse_x /= App->window->GetSize();
+	mouse_y /= App->window->GetSize();
 	mouse_z = 0;
 
 	for(int i = 0; i < 5; ++i)
@@ -101,11 +102,11 @@ update_status ModuleInput::PreUpdate(float dt)
 			break;
 
 			case SDL_MOUSEMOTION:
-			mouse_x = e.motion.x / SCREEN_SIZE;
-			mouse_y = e.motion.y / SCREEN_SIZE;
+			mouse_x = e.motion.x / App->window->GetSize();
+			mouse_y = e.motion.y / App->window->GetSize();
 
-			mouse_x_motion = e.motion.xrel / SCREEN_SIZE;
-			mouse_y_motion = e.motion.yrel / SCREEN_SIZE;
+			mouse_x_motion = e.motion.xrel / App->window->GetSize();
+			mouse_y_motion = e.motion.yrel / App->window->GetSize();
 			break;
 
 			case SDL_QUIT:

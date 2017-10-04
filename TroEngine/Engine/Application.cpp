@@ -182,8 +182,10 @@ JSONDoc * Application::CreateDefaultConfig()
 	config->SetNumber("window.width", 1280);
 	config->SetNumber("window.height", 980);
 	config->SetNumber("window.screen_size", 1);
+	config->SetNumber("window.brightness", 1);
 	config->SetString("window.window_mode", "windowed");
 	config->SetBool("window.resizable", true);
+	config->SetBool("window.borderless", false);
 
 	config->SetString("app.title", "TroEngine");
 	config->SetString("app.organization", "UPC CITM");
@@ -194,6 +196,25 @@ JSONDoc * Application::CreateDefaultConfig()
 	config->SaveFile();
 
 	return config;
+}
+
+void Application::SaveConfig()
+{
+	EDITOR_LOG("Saving actual config....")
+	JSONDoc* config = LoadConfig();
+
+	config->SetString("app.organization", organization.c_str());
+	config->SetNumber("app.max_fps", new_fps);
+
+	std::list<Module*>::iterator item = list_modules.begin();
+
+	while (item != list_modules.end())
+	{
+		(*item)->SaveConfig(config);
+		++item;
+	}
+
+	config->SaveFile();
 }
 
 // Call PreUpdate, Update and PostUpdate on all modules
@@ -269,6 +290,11 @@ update_status Application::Update()
 	if (close_app)
 	{
 		ret = UPDATE_STOP;
+	}
+
+	if (ret == UPDATE_STOP)
+	{
+		SaveConfig();
 	}
 
 	return ret;

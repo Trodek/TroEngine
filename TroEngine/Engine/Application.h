@@ -100,6 +100,7 @@ private:
 
 	JSONDoc* LoadConfig();
 	JSONDoc* CreateDefaultConfig();
+	void SaveConfig();
 };
 
 extern Application* App;

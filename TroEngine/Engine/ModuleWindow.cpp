@@ -106,6 +106,19 @@ bool ModuleWindow::Awake(JSONDoc* config)
 	return ret;
 }
 
+void ModuleWindow::SaveConfig(JSONDoc * config)
+{
+	config->SetNumber("window.width", width);
+	config->SetNumber("window.height", height);
+	config->SetNumber("window.screen_size", size);
+	config->SetNumber("window.brightness", brightness);
+	config->SetString("window.window_mode", mode.c_str());
+	config->SetBool("window.resizable", resizable);
+	config->SetBool("window.borderless", borderless);
+
+	config->SetString("app.title", title.c_str());
+}
+
 // Called before quitting
 bool ModuleWindow::CleanUp()
 {
@@ -163,6 +176,21 @@ void ModuleWindow::ConfigGUI()
 		if (ImGui::Checkbox("Windowed", &windowed))
 			SetWindowed();
 	}
+}
+
+int ModuleWindow::GetWidth() const
+{
+	return width;
+}
+
+int ModuleWindow::GetHeight() const
+{
+	return height;
+}
+
+int ModuleWindow::GetSize() const
+{
+	return size;
 }
 
 void ModuleWindow::ChangeBrightness(float brightness)

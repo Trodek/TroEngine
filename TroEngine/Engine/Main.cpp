@@ -23,7 +23,7 @@ Application* App = NULL;
 
 int main(int argc, char ** argv)
 {
-	EDITOR_LOG("Starting game '%s'...", TITLE);
+	EDITOR_LOG("Starting Engine'...");
 
 	int main_return = EXIT_FAILURE;
 	main_states state = MAIN_CREATION;
@@ -89,6 +89,6 @@ int main(int argc, char ** argv)
 	}
 
 	delete App;
-	EDITOR_LOG("Exiting '%s'...\n", TITLE);
+	EDITOR_LOG("Exiting Engine...\n");
 	return main_return;
 }

@@ -55,6 +55,11 @@ public:
 
 	}
 
+	virtual void SaveConfig(JSONDoc* config)
+	{
+
+	}
+
 	bool IsEnabled() const
 	{
 		return enabled;

@@ -15,6 +15,7 @@ public:
 	bool Awake(JSONDoc* config);
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
+	void SaveConfig(JSONDoc* config);
 	bool CleanUp();
 
 	void OnResize(int width, int height);
@@ -54,5 +55,6 @@ private:
 	void ToggleLightingState();
 	void ToggleTexture2DState();
 	void ToggleColorMaterialState();
+	void ToggleVSYNC();
 
 };
