@@ -16,12 +16,16 @@ public:
 	// Destructor
 	virtual ~ModuleWindow();
 
-	bool Awake();
+	bool Awake(JSONDoc* config);
+	void SaveConfig(JSONDoc* config);
 	bool CleanUp();
 
 	void SetTitle(const char* title);
 
 	void ConfigGUI();
+	int GetSize() const;
+	int GetWidth() const;
+	int GetHeight() const;
 
 public:
 	//The window we'll be rendering to
@@ -48,8 +52,9 @@ private:
 	bool resizable = false;
 	bool borderless = false;
 
-	int width, height;
+	int width, height, size;
 	float brightness = 1.0;
+	std::string mode;
 };
 
 #endif // __ModuleWindow_H__

@@ -2,14 +2,16 @@
 #define __MODULE__
 
 #include "Globals.h"
+#include <string>
 
 class Application;
-struct PhysBody3D;
+class JSONDoc;
 
 class Module
 {
 private:
 	bool enabled;
+	std::string name;
 
 public:
 	Module(bool start_enabled = true)
@@ -18,7 +20,7 @@ public:
 	virtual ~Module()
 	{}
 
-	virtual bool Awake()
+	virtual bool Awake(JSONDoc* config)
 	{
 		return true;
 	}
@@ -53,12 +55,24 @@ public:
 
 	}
 
-	virtual void OnCollision(PhysBody3D* body1, PhysBody3D* body2)
-	{}
+	virtual void SaveConfig(JSONDoc* config)
+	{
+
+	}
 
 	bool IsEnabled() const
 	{
 		return enabled;
+	}
+
+	void SetName(const char* name)
+	{
+		this->name = name;
+	}
+	
+	std::string GetName() const
+	{
+		return name;
 	}
 };
 

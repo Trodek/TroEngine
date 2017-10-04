@@ -1,33 +1,30 @@
-#include "EditorGUI.h"
+#include "MenuGUI.h"
 #include "Application.h"
 #include "ModuleWindow.h"
+#include "ModuleRenderer3D.h"
 #include "imgui.h"
 
-EditorGUI::EditorGUI()
+MenuGUI::MenuGUI()
 {
 }
 
-EditorGUI::~EditorGUI()
+MenuGUI::~MenuGUI()
 {
 }
 
-bool EditorGUI::Awake()
-{
-	return true;
-}
-
-update_status EditorGUI::Update(float dt)
+update_status MenuGUI::UpdateGUI(float dt)
 {
 	CreateGUI();
 	AboutPanel();
 	GUIConfig();
 	MathTest();
 	Config();
+	PerformanceMenu();
 	
 	return UPDATE_CONTINUE;
 }
 
-void EditorGUI::CreateGUI()
+void MenuGUI::CreateGUI()
 {
 	if (ImGui::BeginMainMenuBar())
 	{
@@ -53,6 +50,10 @@ void EditorGUI::CreateGUI()
 			{
 
 			}
+			if (ImGui::MenuItem("Performance##menu", NULL, &show_performance))
+			{
+				PerformanceMenu();
+			}
 			
 			ImGui::EndMenu();
 		}
@@ -71,7 +72,7 @@ void EditorGUI::CreateGUI()
 	};
 }
 
-void EditorGUI::AboutPanel()
+void MenuGUI::AboutPanel()
 {
 	if (show_about)
 	{
@@ -95,7 +96,7 @@ void EditorGUI::AboutPanel()
 	}
 }
 
-void EditorGUI::GUIConfig()
+void MenuGUI::GUIConfig()
 {
 	if (show_test_window)
 	{
@@ -104,7 +105,7 @@ void EditorGUI::GUIConfig()
 	}
 }
 
-void EditorGUI::MathTest()
+void MenuGUI::MathTest()
 {
 	if (show_math_test)
 	{
@@ -174,7 +175,7 @@ void EditorGUI::MathTest()
 					rand_y = App->RandRange(min_y, max_y);
 					rand_z = App->RandRange(min_z, max_z);
 
-					vec min_point(rand_x,rand_z,rand_y);
+					vec min_point(rand_x, rand_z, rand_y);
 
 					rand_x = App->RandRange(min_x, max_x);
 					rand_y = App->RandRange(min_y, max_y);
@@ -215,7 +216,7 @@ void EditorGUI::MathTest()
 	}
 }
 
-void EditorGUI::Config()
+void MenuGUI::Config()
 {
 	if (show_config)
 	{
@@ -225,12 +226,24 @@ void EditorGUI::Config()
 		App->ConfigGUI();
 
 		//Ask other modules for their config
-		App->window->ConfigGUI();
+		App->DrawModulesConfig();
 		
 
 		//Ask app for hardware details
 		App->HardwareConfig();
 		
+
+		ImGui::End();
+	}
+}
+
+void MenuGUI::PerformanceMenu()
+{
+	if (show_performance)
+	{
+		ImGui::Begin("Performance##Window", &show_performance);
+
+		App->DrawPerformanceWindow();
 
 		ImGui::End();
 	}

@@ -67,6 +67,18 @@
     <Filter Include="Source\Engine\Tools\Memory">
       <UniqueIdentifier>{e8793d86-d1f1-4120-b5ab-16af8a76681f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\Tools\ParsonJSON">
+      <UniqueIdentifier>{01f3ae59-337d-40a3-84ed-f016f8c30b9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Modules\Renderer\GLEW">
+      <UniqueIdentifier>{1db21459-d1c1-472b-8894-90b05cbd8b3b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\Scenes">
+      <UniqueIdentifier>{528d5a5b-1723-4498-a349-aa0fa175f90f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\GUI">
+      <UniqueIdentifier>{ba2bdf3d-9f69-4120-bd67-be9a3e9a13c1}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -122,9 +134,6 @@
     </ClCompile>
     <ClCompile Include="Engine\Globals.cpp">
       <Filter>Source\Engine</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\EditorScene.cpp">
-      <Filter>Source\Editor</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Geometry\AABB.cpp">
       <Filter>Source\Engine\Tools\Math\Geometry</Filter>
@@ -234,12 +243,6 @@
     <ClCompile Include="Engine\Algorithm\GJK.cpp">
       <Filter>Source\Engine\Tools\Math\Algorithm</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\EditorConsole.cpp">
-      <Filter>Source\Editor</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\EditorGUI.cpp">
-      <Filter>Source\Editor</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\PerfTimer.cpp">
       <Filter>Source\Engine\Tools</Filter>
     </ClCompile>
@@ -248,6 +251,24 @@
     </ClCompile>
     <ClCompile Include="Engine\mmgr\mmgr.cpp">
       <Filter>Source\Engine\Tools\Memory</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Parson\parson.c">
+      <Filter>Source\Engine\Tools\ParsonJSON</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\JSONManager.cpp">
+      <Filter>Source\Engine\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\TestScene.cpp">
+      <Filter>Source\Editor\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SceneManager.cpp">
+      <Filter>Source\Editor\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\MenuGUI.cpp">
+      <Filter>Source\Editor\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ConsoleGUI.cpp">
+      <Filter>Source\Editor\GUI</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -316,9 +337,6 @@
     </ClInclude>
     <ClInclude Include="Engine\ModuleInput.h">
       <Filter>Source\Engine\Modules\Input</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\EditorScene.h">
-      <Filter>Source\Editor</Filter>
     </ClInclude>
     <ClInclude Include="Engine\MathBuildConfig.h">
       <Filter>Source\Engine\Tools\Math</Filter>
@@ -509,12 +527,6 @@
     <ClInclude Include="Engine\Algorithm\SAT.h">
       <Filter>Source\Engine\Tools\Math\Algorithm</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\EditorConsole.h">
-      <Filter>Source\Editor</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\EditorGUI.h">
-      <Filter>Source\Editor</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\PerfTimer.h">
       <Filter>Source\Engine\Tools</Filter>
     </ClInclude>
@@ -526,6 +538,42 @@
     </ClInclude>
     <ClInclude Include="Engine\mmgr\nommgr.h">
       <Filter>Source\Engine\Tools\Memory</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Parson\parson.h">
+      <Filter>Source\Engine\Tools\ParsonJSON</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\JSONManager.h">
+      <Filter>Source\Engine\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\glew-2.1.0\include\GL\eglew.h">
+      <Filter>Source\Engine\Modules\Renderer\GLEW</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\glew-2.1.0\include\GL\glew.h">
+      <Filter>Source\Engine\Modules\Renderer\GLEW</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\glew-2.1.0\include\GL\glxew.h">
+      <Filter>Source\Engine\Modules\Renderer\GLEW</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\glew-2.1.0\include\GL\wglew.h">
+      <Filter>Source\Engine\Modules\Renderer\GLEW</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Scene.h">
+      <Filter>Source\Editor\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\TestScene.h">
+      <Filter>Source\Editor\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SceneManager.h">
+      <Filter>Source\Editor\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GUIElement.h">
+      <Filter>Source\Editor\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\MenuGUI.h">
+      <Filter>Source\Editor\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ConsoleGUI.h">
+      <Filter>Source\Editor\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

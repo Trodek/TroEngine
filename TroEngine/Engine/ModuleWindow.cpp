@@ -3,13 +3,14 @@
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 #include "imgui.h"
+#include "JSONManager.h"
 
 ModuleWindow::ModuleWindow(bool start_enabled) : Module(start_enabled)
 {
 	window = NULL;
 	screen_surface = NULL;
 
-	title = "TroEngine";
+	SetName("window");
 }
 
 // Destructor
@@ -18,7 +19,7 @@ ModuleWindow::~ModuleWindow()
 }
 
 // Called before render is available
-bool ModuleWindow::Awake()
+bool ModuleWindow::Awake(JSONDoc* config)
 {
 	EDITOR_LOG("Init SDL window & surface");
 	bool ret = true;
@@ -31,31 +32,54 @@ bool ModuleWindow::Awake()
 	else
 	{
 		//Create window
-		width = SCREEN_WIDTH * SCREEN_SIZE;
-		height = SCREEN_HEIGHT * SCREEN_SIZE;
+		title = config->GetString("app.title");
+
+		size = config->GetNumber("window.screen_size");
+		width = config->GetNumber("window.width") * size;
+		height = config->GetNumber("window.height") * size;
+
+		//Set SDL flag for OpenGL
 		Uint32 flags = SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN;
+
+		//Set OpenGL Attributes
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_PROFILE_MASK, SDL_GL_CONTEXT_PROFILE_CORE);
+		SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+		SDL_GL_SetAttribute(SDL_GL_DEPTH_SIZE, 24);
+		SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 
 		//Use OpenGL 2.1
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
 		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
 
-		if(WIN_FULLSCREEN == true)
+		mode = config->GetString("window.window_mode");
+
+		if (mode == "windowed")
+			windowed = true;
+		else if (mode == "fullscreen")
+			fullscreen = true;
+		else if (mode == "fullscreen_desktop")
+			fullscreen_desktop = true;
+		
+		resizable = config->GetBool("window.resizable");
+		borderless = config->GetBool("window.borderless");
+
+		if(fullscreen == true)
 		{
 			flags |= SDL_WINDOW_FULLSCREEN;
 			fullscreen = true;
 		}
 
-		if(WIN_RESIZABLE == true)
+		if(resizable == true)
 		{
 			flags |= SDL_WINDOW_RESIZABLE;
 		}
 
-		if(WIN_BORDERLESS == true)
+		if(borderless == true)
 		{
 			flags |= SDL_WINDOW_BORDERLESS;
 		}
 
-		if(WIN_FULLSCREEN_DESKTOP == true)
+		if(fullscreen_desktop == true)
 		{
 			flags |= SDL_WINDOW_FULLSCREEN_DESKTOP;
 			fullscreen_desktop = true;
@@ -72,13 +96,27 @@ bool ModuleWindow::Awake()
 		{
 			//Get window surface
 			screen_surface = SDL_GetWindowSurface(window);
+
+			brightness = config->GetNumber("window.brightness");
+			ChangeBrightness(brightness);
 		}
 
-		if (!fullscreen && !fullscreen_desktop)
-			windowed = true;
 	}
 
 	return ret;
+}
+
+void ModuleWindow::SaveConfig(JSONDoc * config)
+{
+	config->SetNumber("window.width", width);
+	config->SetNumber("window.height", height);
+	config->SetNumber("window.screen_size", size);
+	config->SetNumber("window.brightness", brightness);
+	config->SetString("window.window_mode", mode.c_str());
+	config->SetBool("window.resizable", resizable);
+	config->SetBool("window.borderless", borderless);
+
+	config->SetString("app.title", title.c_str());
 }
 
 // Called before quitting
@@ -125,9 +163,9 @@ void ModuleWindow::ConfigGUI()
 			SetFullScreen();
 		ImGui::SameLine();
 		if (ImGui::Checkbox("Resizable", &resizable))
-		{}
+		{	}
 		if (ImGui::IsItemHovered())
-			ImGui::SetTooltip("Not Working Yet.");
+			ImGui::SetTooltip("Requires restart");
 		if (ImGui::Checkbox("Borderless", &borderless))
 			SetBorderless();
 		ImGui::SameLine();
@@ -138,6 +176,21 @@ void ModuleWindow::ConfigGUI()
 		if (ImGui::Checkbox("Windowed", &windowed))
 			SetWindowed();
 	}
+}
+
+int ModuleWindow::GetWidth() const
+{
+	return width;
+}
+
+int ModuleWindow::GetHeight() const
+{
+	return height;
+}
+
+int ModuleWindow::GetSize() const
+{
+	return size;
 }
 
 void ModuleWindow::ChangeBrightness(float brightness)
@@ -151,6 +204,7 @@ void ModuleWindow::SetFullScreen()
 	windowed = false;
 	fullscreen_desktop = false;
 	fullscreen = true;
+	mode = "fullscreen";
 }
 
 void ModuleWindow::SetFullScreenDesktop()
@@ -159,6 +213,7 @@ void ModuleWindow::SetFullScreenDesktop()
 	windowed = false;
 	fullscreen_desktop = true;
 	fullscreen = false;
+	mode = "fullscreen_desktop";
 }
 
 void ModuleWindow::SetWindowed()
@@ -167,6 +222,7 @@ void ModuleWindow::SetWindowed()
 	windowed = true;
 	fullscreen_desktop = false;
 	fullscreen = false;
+	mode = "windowed";
 }
 
 void ModuleWindow::SetWindowSize(int w, int h)
@@ -177,8 +233,11 @@ void ModuleWindow::SetWindowSize(int w, int h)
 
 void ModuleWindow::SetBorderless()
 {
-	if(borderless)
+	if (borderless)
+	{
 		SDL_SetWindowBordered(window, SDL_TRUE);
+	}
 	else
 		SDL_SetWindowBordered(window, SDL_FALSE);
+
 }

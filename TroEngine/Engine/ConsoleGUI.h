@@ -1,18 +1,17 @@
 #ifndef __EDITORCONSOLE__
 #define __EDITORCONSOLE__
 
-#include "Module.h"
+#include "GUIElement.h"
 #include <list>
 #include <string>
 
-class EditorConsole : public Module
+class ConsoleGUI : public GUIElement
 {
 public:
-	EditorConsole();
-	~EditorConsole();
+	ConsoleGUI();
+	~ConsoleGUI();
 
-	bool Awake();
-	update_status Update(float dt);
+	update_status UpdateGUI(float dt);
 	bool CleanUp();
 
 	void AddLine(const char* new_line);

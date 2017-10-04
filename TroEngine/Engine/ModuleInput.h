@@ -19,7 +19,7 @@ public:
 	ModuleInput(bool start_enabled = true);
 	~ModuleInput();
 
-	bool Awake();
+	bool Awake(JSONDoc* config);
 	update_status PreUpdate(float dt);
 	bool CleanUp();
 

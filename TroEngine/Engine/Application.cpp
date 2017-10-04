@@ -9,12 +9,11 @@
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
-#include "EditorScene.h"
+#include "SceneManager.h"
 #include "ModuleRenderer3D.h"
 #include "ModuleCamera3D.h"
 #include "ModuleGUI.h"
-#include "EditorConsole.h"
-#include "EditorGUI.h"
+#include "JSONManager.h"
 
 #include "Algorithm\Random\LCG.h"
 #include "imgui.h"
@@ -26,12 +25,11 @@ Application::Application()
 	window = new ModuleWindow();
 	input = new ModuleInput();
 	audio = new ModuleAudio();
-	scene_intro = new EditorScene();
+	scene_manager = new SceneManager();
 	renderer3D = new ModuleRenderer3D();
 	camera = new ModuleCamera3D();
 	gui = new ModuleGUI();
-	console = new EditorConsole();
-	editor_gui = new EditorGUI();
+	json = new JSONManager();
 
 	// The order of calls is very important!
 	// Modules will Awake() Start() and Update() in this order
@@ -40,25 +38,16 @@ Application::Application()
 	// Main Modules
 	AddModule(window);
 	AddModule(gui);
-	AddModule(editor_gui);
-	AddModule(console);
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
+	AddModule(json);
 	
 	// Scenes
-	AddModule(scene_intro);
+	AddModule(scene_manager);
 
 	// Renderer last!
 	AddModule(renderer3D);
-
-	organization = "UPC CITM";
-
-	new_title = new char[150];
-	std::strcpy(new_title, window->title.c_str());
-
-	new_org = new char[150];
-	std::strcpy(new_org, organization.c_str());
 }
 
 Application::~Application()
@@ -80,14 +69,32 @@ bool Application::Init()
 
 	PERF_START(ptimer);
 
+	JSONDoc* config = LoadConfig();
+
+	if (config == nullptr)
+		config = CreateDefaultConfig();
+
+	organization = config->GetString("app.organization");
+	new_fps = config->GetNumber("app.max_fps");
+	CapFPS(new_fps);
+
 	// Call Awake() in all modules
 	std::list<Module*>::iterator item = list_modules.begin();
 
 	while(item != list_modules.end() && ret == true)
 	{
-		ret = (*item)->Awake();
+		modules_update_time.push_back(0.0f);
+		std::vector<float> perf_times;
+		modules_perf_times.push_back(perf_times);
+		ret = (*item)->Awake(config);
 		++item;
 	}
+
+	new_title = new char[150];
+	std::strcpy(new_title, window->title.c_str());
+
+	new_org = new char[150];
+	std::strcpy(new_org, organization.c_str());
 
 	// After all Awake calls we call Start() in all modules
 	EDITOR_LOG("Application Start --------------");
@@ -161,6 +168,55 @@ void Application::FrameRateCalculations()
 		ms_log.erase(ms_log.begin());
 }
 
+JSONDoc * Application::LoadConfig()
+{
+	return json->LoadJSONFile("config.json");
+}
+
+JSONDoc * Application::CreateDefaultConfig()
+{
+	JSONDoc* config = nullptr;
+
+	config = json->CreateJSONFile("config.json");
+
+	config->SetNumber("window.width", 1280);
+	config->SetNumber("window.height", 980);
+	config->SetNumber("window.screen_size", 1);
+	config->SetNumber("window.brightness", 1);
+	config->SetString("window.window_mode", "windowed");
+	config->SetBool("window.resizable", true);
+	config->SetBool("window.borderless", false);
+
+	config->SetString("app.title", "TroEngine");
+	config->SetString("app.organization", "UPC CITM");
+	config->SetNumber("app.max_fps", 0);
+
+	config->SetBool("renderer.vsync", true);
+
+	config->SaveFile();
+
+	return config;
+}
+
+void Application::SaveConfig()
+{
+	EDITOR_LOG("Saving actual config....")
+	JSONDoc* config = LoadConfig();
+
+	config->SetString("app.organization", organization.c_str());
+	config->SetNumber("app.max_fps", new_fps);
+
+	std::list<Module*>::iterator item = list_modules.begin();
+
+	while (item != list_modules.end())
+	{
+		(*item)->SaveConfig(config);
+		++item;
+	}
+
+	config->SaveFile();
+}
+
 // Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()
 {
@@ -173,32 +229,58 @@ update_status Application::Update()
 	PrepareUpdate();
 
 	std::list<Module*>::iterator item = list_modules.begin();
+	int m = 0;
 	
 	while(item != list_modules.end() && ret == UPDATE_CONTINUE)
 	{
+		module_time.Start();
 		ret = (*item)->PreUpdate(dt);
+		modules_update_time[m] += module_time.ReadMs();
 		++item;
+		++m;
 	}
 
 	item = list_modules.begin();
+	m = 0;
 
 	while(item != list_modules.end() && ret == UPDATE_CONTINUE)
 	{
+		module_time.Start();
 		ret = (*item)->Update(dt);
+		modules_update_time[m] += module_time.ReadMs();
 		++item;
+		++m;
 	}
 
 	item = list_modules.begin();
+	m = 0;
+
+	ms_log.push_back(logic_timer.ReadMs());
 
 	while(item != list_modules.end() && ret == UPDATE_CONTINUE)
 	{
 		ret = (*item)->PostUpdate(dt);
 		++item;
 	}
-
-	ms_log.push_back(logic_timer.ReadMs());
 	
+	//get frame memory
 	mem_log.push_back(m_getMemoryStatistics().totalActualMemory);
+
+	//set modules performance histograms
+	for (int i = 0; i < modules_update_time.size(); ++i)
+	{
+		modules_perf_times[i].push_back(modules_update_time[i]); 
+		if (modules_perf_times[i].size() > GRAPH_DATA)
+		{
+			modules_perf_times[i].erase(modules_perf_times[i].begin());
+		}
+	}
+
+	//reset modules update time to 0
+	for (int i = 0; i < modules_update_time.size(); ++i)
+	{
+		modules_update_time[i] = 0.0f;
+	}
 	
 	if (mem_log.size() > GRAPH_DATA)
 		mem_log.erase(mem_log.begin());
@@ -208,6 +290,11 @@ update_status Application::Update()
 	if (close_app)
 	{
 		ret = UPDATE_STOP;
+	}
+
+	if (ret == UPDATE_STOP)
+	{
+		SaveConfig();
 	}
 
 	return ret;
@@ -223,6 +310,9 @@ bool Application::CleanUp()
 	{
 		ret = (*it)->CleanUp();
 	}
+
+	RELEASE_ARRAY(new_org);
+	RELEASE_ARRAY(new_title);
 
 	return ret;
 
@@ -333,6 +423,12 @@ void Application::HardwareConfig()
 
 		getGraphicsDeviceInfo(&vendorid, &deviceid, &brand, &vm, &vm_curr, &vm_a, &vm_r);
 
+		//convert to Mb
+		vm /= (1024 * 1024);
+		vm_curr /= (1024 * 1024);
+		vm_a /= (1024 * 1024);
+		vm_r /= (1024 * 1024);
+
 		ImGui::Text("Vendor ID: "); ImGui::SameLine(); ImGui::Text("%d", vendorid);
 		ImGui::Text("Device ID: "); ImGui::SameLine(); ImGui::Text("%d", deviceid);
 
@@ -352,6 +448,32 @@ void Application::HardwareConfig()
 void Application::OpenWebPage(const char * url)
 {
 	ShellExecute(NULL, "open", url, NULL, NULL, SW_SHOWMAXIMIZED);
+}
+
+void Application::DrawModulesConfig()
+{
+	std::list<Module*>::iterator item = list_modules.begin();
+
+	while (item != list_modules.end())
+	{
+		(*item)->ConfigGUI();
+		++item;
+	}
+}
+
+void Application::DrawPerformanceWindow()
+{
+	std::list<Module*>::iterator item = list_modules.begin();
+	int m = 0;
+
+	while (item != list_modules.end())
+	{
+		char title[25];
+		sprintf_s(title, 25, "##module%d", m);
+		ImGui::PlotLines(title, &modules_perf_times[m].at(0), modules_perf_times[m].size(), 0, (*item)->GetName().c_str(), 0.0f, 10.0f, ImVec2(310, 100));
+		++item;
+		++m;
+	}
 }
 
 void Application::AddModule(Module* mod)
