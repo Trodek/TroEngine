@@ -12,7 +12,6 @@
         "title": "TroEngine",
         "organization": "UPC CITM",
         "max_fps": 0,
-        "organitzation": "UPC CITM Shit"
     },
     "renderer": {
         "vsync": true
