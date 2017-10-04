@@ -5,6 +5,7 @@
 #include "ModuleWindow.h"
 #include "SceneManager.h"
 #include "ModuleGUI.h"
+#include "JSONManager.h"
 #include "glew-2.1.0\include\GL\glew.h"
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
@@ -52,7 +53,8 @@ bool ModuleRenderer3D::Awake(JSONDoc* config)
 			EDITOR_LOG("Using Glew %s.", glewGetString(GLEW_VERSION));
 
 		//Use Vsync
-		if (VSYNC && SDL_GL_SetSwapInterval(1) < 0)
+		vsync = config->GetBool("renderer.vsync");
+		if (vsync && SDL_GL_SetSwapInterval(1) < 0)
 			EDITOR_LOG("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
 
 		//Initialize Projection Matrix

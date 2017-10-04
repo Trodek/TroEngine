@@ -42,6 +42,8 @@ private:
 	bool texture_2d		= false;
 	bool color_material = false;
 
+	bool vsync			= false;
+
 private:
 	void PolygonModePoints();
 	void PolygonModeWireframe();

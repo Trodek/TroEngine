@@ -48,8 +48,9 @@ private:
 	bool resizable = false;
 	bool borderless = false;
 
-	int width, height;
+	int width, height, size;
 	float brightness = 1.0;
+	std::string mode;
 };
 
 #endif // __ModuleWindow_H__

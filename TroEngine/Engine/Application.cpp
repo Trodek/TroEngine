@@ -48,14 +48,6 @@ Application::Application()
 
 	// Renderer last!
 	AddModule(renderer3D);
-
-	organization = "UPC CITM";
-
-	new_title = new char[150];
-	std::strcpy(new_title, window->title.c_str());
-
-	new_org = new char[150];
-	std::strcpy(new_org, organization.c_str());
 }
 
 Application::~Application()
@@ -81,6 +73,11 @@ bool Application::Init()
 
 	if (config == nullptr)
 		config = CreateDefaultConfig();
+
+	organization = config->GetString("app.organization");
+	new_fps = config->GetNumber("app.max_fps");
+	CapFPS(new_fps);
+
 	// Call Awake() in all modules
 	std::list<Module*>::iterator item = list_modules.begin();
 
@@ -92,6 +89,12 @@ bool Application::Init()
 		ret = (*item)->Awake(config);
 		++item;
 	}
+
+	new_title = new char[150];
+	std::strcpy(new_title, window->title.c_str());
+
+	new_org = new char[150];
+	std::strcpy(new_org, organization.c_str());
 
 	// After all Awake calls we call Start() in all modules
 	EDITOR_LOG("Application Start --------------");
@@ -281,6 +284,9 @@ bool Application::CleanUp()
 	{
 		ret = (*it)->CleanUp();
 	}
+
+	RELEASE_ARRAY(new_org);
+	RELEASE_ARRAY(new_title);
 
 	return ret;
 

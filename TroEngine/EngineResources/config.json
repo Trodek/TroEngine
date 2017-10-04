@@ -3,8 +3,10 @@
         "width": 1280,
         "height": 980,
         "screen_size": 1,
+		"brightness": 1,
         "window_mode": "windowed",
-        "resizable": true
+        "resizable": true,
+		"borderless": false
     },
     "app": {
         "title": "TroEngine",
