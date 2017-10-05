@@ -90,6 +90,7 @@
     <ClInclude Include="Engine\Application.h" />
     <ClInclude Include="Engine\Color.h" />
     <ClInclude Include="Engine\ConsoleGUI.h" />
+    <ClInclude Include="Engine\GLInclude.h" />
     <ClInclude Include="Engine\MenuGUI.h" />
     <ClInclude Include="Engine\Geometry\AABB.h" />
     <ClInclude Include="Engine\Geometry\AABB2D.h" />

@@ -252,6 +252,7 @@ void ModuleRenderer3D::ConfigGUI()
 
 void ModuleRenderer3D::PolygonModePoints()
 {
+	glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
 	wireframe = false;
 	points = true;
 	fill = false;
@@ -259,6 +260,7 @@ void ModuleRenderer3D::PolygonModePoints()
 
 void ModuleRenderer3D::PolygonModeWireframe()
 {
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	wireframe = true;
 	points = false;
 	fill = false;
@@ -266,6 +268,7 @@ void ModuleRenderer3D::PolygonModeWireframe()
 
 void ModuleRenderer3D::PolygonModeFill()
 {
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	wireframe = false;
 	points = false;
 	fill = true;

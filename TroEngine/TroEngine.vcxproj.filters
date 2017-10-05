@@ -575,6 +575,9 @@
     <ClInclude Include="Engine\ConsoleGUI.h">
       <Filter>Source\Editor\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\GLInclude.h">
+      <Filter>Source\Engine\Modules\Renderer</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Geometry\KDTree.inl">

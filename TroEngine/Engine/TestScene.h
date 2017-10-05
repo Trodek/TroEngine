@@ -20,5 +20,7 @@ private:
 	bool show_test_window = true;
 
 	bool show_about = false;
+
+	uint test_id = 0;
 	
 };
