@@ -156,11 +156,17 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	//Draw debug
 
 	//Draw GUI
-	if(lighting == true)		//Disable Lighting befor drawing gui
-		ToggleLightingState(); 
-	App->gui->RenderGUI();
-	if (lighting == true)		//Enable Lighting after drawing gui if needed
+	bool light_state = lighting;
+	if (lighting == true)		//Disable Lighting befor drawing gui
+	{
+		lighting = false;
 		ToggleLightingState();
+	}
+	App->gui->RenderGUI();
+
+	lighting = light_state;
+	ToggleLightingState();
+	
 
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
@@ -325,21 +331,5 @@ void ModuleRenderer3D::ToggleVSYNC()
 	{
 		if (SDL_GL_SetSwapInterval(0) == 0)
 			EDITOR_LOG("VSYNC disabled");
-	}
-}
-
-void ModuleRenderer3D::SetCurrentPolygonMode()
-{
-	if (wireframe)
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	if (points)
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
-	}
-	if (fill)
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 }

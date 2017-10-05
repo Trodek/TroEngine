@@ -22,8 +22,6 @@ public:
 
 	void ConfigGUI();
 
-	void SetCurrentPolygonMode();
-
 public:
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;

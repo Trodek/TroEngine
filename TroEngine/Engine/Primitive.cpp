@@ -59,7 +59,7 @@ void Primitive::Render() const
 
 	glColor3f(color.r, color.g, color.b);
 
-	App->renderer3D->SetCurrentPolygonMode();
+	//App->renderer3D->SetCurrentPolygonMode();
 
 	InnerRender();
 
