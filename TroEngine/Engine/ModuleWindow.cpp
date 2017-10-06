@@ -97,6 +97,11 @@ bool ModuleWindow::Awake(JSONDoc* config)
 			//Get window surface
 			screen_surface = SDL_GetWindowSurface(window);
 
+			//Set window icon
+			SDL_Surface* icon = SDL_LoadBMP("icon.bmp");
+			SDL_SetWindowIcon(window, icon);
+
+			//Set config brightness
 			brightness = config->GetNumber("window.brightness");
 			ChangeBrightness(brightness);
 		}
