@@ -24,6 +24,7 @@
     <ClCompile Include="Engine\Application.cpp" />
     <ClCompile Include="Engine\Color.cpp" />
     <ClCompile Include="Engine\ConsoleGUI.cpp" />
+    <ClCompile Include="Engine\Gizmo.cpp" />
     <ClCompile Include="Engine\MenuGUI.cpp" />
     <ClCompile Include="Engine\Geometry\AABB.cpp" />
     <ClCompile Include="Engine\Geometry\Capsule.cpp" />
@@ -90,6 +91,7 @@
     <ClInclude Include="Engine\Application.h" />
     <ClInclude Include="Engine\Color.h" />
     <ClInclude Include="Engine\ConsoleGUI.h" />
+    <ClInclude Include="Engine\Gizmo.h" />
     <ClInclude Include="Engine\GLInclude.h" />
     <ClInclude Include="Engine\MenuGUI.h" />
     <ClInclude Include="Engine\Geometry\AABB.h" />

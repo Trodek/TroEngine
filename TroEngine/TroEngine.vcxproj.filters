@@ -79,6 +79,9 @@
     <Filter Include="Source\Editor\GUI">
       <UniqueIdentifier>{ba2bdf3d-9f69-4120-bd67-be9a3e9a13c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\Tools\Gizmo">
+      <UniqueIdentifier>{6171efae-4a1b-434e-895c-cdb7864ddb20}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -269,6 +272,9 @@
     </ClCompile>
     <ClCompile Include="Engine\ConsoleGUI.cpp">
       <Filter>Source\Editor\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Gizmo.cpp">
+      <Filter>Source\Engine\Tools\Gizmo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -576,7 +582,10 @@
       <Filter>Source\Engine\Modules\Renderer</Filter>
     </ClInclude>
     <ClInclude Include="Engine\TestScene.h">
-      <Filter>Source\Engine\Containers</Filter>
+      <Filter>Source\Editor\Scenes</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Gizmo.h">
+      <Filter>Source\Engine\Tools\Gizmo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
