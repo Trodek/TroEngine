@@ -13,14 +13,17 @@ Geometry::Geometry(uint num_ver, float * ver, uint num_ind, uint * ind, uint num
 	//Load indices to vram
 	glGenBuffers(1, (GLuint*)&id_indices);
 	glBindBuffer(GL_ARRAY_BUFFER, id_indices);
-	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * num_indices, ind, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * num_indices, ind, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	//Load uv to vram
-	//glGenBuffers(1, (GLuint*)&id_uv);
-	//glBindBuffer(GL_ARRAY_BUFFER, id_uv);
-	//glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * num_uv * 3, uv, GL_STATIC_DRAW);
-	//glBindBuffer(GL_ARRAY_BUFFER, 0);
+	if (uv != nullptr)
+	{
+		glGenBuffers(1, (GLuint*)&id_uv);
+		glBindBuffer(GL_ARRAY_BUFFER, id_uv);
+		glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * num_uv * 3, uv, GL_STATIC_DRAW);
+		glBindBuffer(GL_ARRAY_BUFFER, 0);
+	}
 }
 
 uint Geometry::GetIndicesID() const

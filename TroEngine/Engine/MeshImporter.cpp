@@ -89,6 +89,20 @@ bool MeshImporter::LoadFile(const char * path)
 			}
 
 			//Load uv
+			uint num_uv = 0;
+			float* uv = nullptr;
+			if (curr_mesh->HasTextureCoords(0)) // assume mesh has one texture coords
+			{
+				num_uv = curr_mesh->mNumVertices;
+				uv = new float[num_uv * 3];
+				memcpy(uv, curr_mesh->mTextureCoords[0], sizeof(float)*num_uv * 3);
+
+			}
+			else
+			{
+				EDITOR_LOG("No Texture Coords found for mesh %d", i + 1);
+				ret = false;
+			}
 
 			if (ret == false) //invalild mesh, discart 
 			{
@@ -99,7 +113,7 @@ bool MeshImporter::LoadFile(const char * path)
 			}
 			else //valid mesh, add to the list
 			{
-				Geometry* new_geo = new Geometry(num_vertices, vert, num_indices, indices);
+				Geometry* new_geo = new Geometry(num_vertices, vert, num_indices, indices, num_uv, uv);
 				meshes.push_back(new_geo);
 			}
 		}
