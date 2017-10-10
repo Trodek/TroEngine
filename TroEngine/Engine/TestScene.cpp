@@ -5,6 +5,7 @@
 #include "Primitive.h"
 #include "imgui.h"
 #include "TestScene.h"
+#include "MeshImporter.h"
 
 TestScene::TestScene(bool active) : Scene(active)
 {
@@ -26,6 +27,8 @@ bool TestScene::Start()
 	c2.Start();
 
 	s.Start(5, 9, 9);
+
+	App->mesh->LoadFile("warrior.FBX");
 
 	return ret;
 }
@@ -50,8 +53,8 @@ void TestScene::Draw()
 	p.axis = true;
 	p.Render();
 
-	c1.Render();
-	c2.Render();
+	//c1.Render();
+	//c2.Render();
 
 	//s.Render();
 }

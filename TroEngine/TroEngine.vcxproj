@@ -24,6 +24,7 @@
     <ClCompile Include="Engine\Application.cpp" />
     <ClCompile Include="Engine\Color.cpp" />
     <ClCompile Include="Engine\ConsoleGUI.cpp" />
+    <ClCompile Include="Engine\Geometry.cpp" />
     <ClCompile Include="Engine\Gizmo.cpp" />
     <ClCompile Include="Engine\MenuGUI.cpp" />
     <ClCompile Include="Engine\Geometry\AABB.cpp" />
@@ -69,6 +70,7 @@
     <ClCompile Include="Engine\Math\Quat.cpp" />
     <ClCompile Include="Engine\Math\SSEMath.cpp" />
     <ClCompile Include="Engine\Math\TransformOps.cpp" />
+    <ClCompile Include="Engine\MeshImporter.cpp" />
     <ClCompile Include="Engine\mmgr\mmgr.cpp" />
     <ClCompile Include="Engine\ModuleAudio.cpp" />
     <ClCompile Include="Engine\ModuleCamera3D.cpp" />
@@ -89,8 +91,13 @@
     <ClInclude Include="Engine\Algorithm\Random\LCG.h" />
     <ClInclude Include="Engine\Algorithm\SAT.h" />
     <ClInclude Include="Engine\Application.h" />
+    <ClInclude Include="Engine\Assimp\include\cfileio.h" />
+    <ClInclude Include="Engine\Assimp\include\cimport.h" />
+    <ClInclude Include="Engine\Assimp\include\postprocess.h" />
+    <ClInclude Include="Engine\Assimp\include\scene.h" />
     <ClInclude Include="Engine\Color.h" />
     <ClInclude Include="Engine\ConsoleGUI.h" />
+    <ClInclude Include="Engine\Geometry.h" />
     <ClInclude Include="Engine\Gizmo.h" />
     <ClInclude Include="Engine\GLInclude.h" />
     <ClInclude Include="Engine\MenuGUI.h" />
@@ -167,6 +174,7 @@
     <ClInclude Include="Engine\Math\SSEMath.h" />
     <ClInclude Include="Engine\Math\sse_mathfun.h" />
     <ClInclude Include="Engine\Math\TransformOps.h" />
+    <ClInclude Include="Engine\MeshImporter.h" />
     <ClInclude Include="Engine\mmgr\mmgr.h" />
     <ClInclude Include="Engine\mmgr\nommgr.h" />
     <ClInclude Include="Engine\Module.h" />

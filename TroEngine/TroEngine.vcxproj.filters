@@ -82,6 +82,18 @@
     <Filter Include="Source\Engine\Tools\Gizmo">
       <UniqueIdentifier>{6171efae-4a1b-434e-895c-cdb7864ddb20}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\Modules\MeshImporter">
+      <UniqueIdentifier>{77b0507d-961a-4f30-987b-dbfea0982a87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Modules\MeshImporter\Assimp">
+      <UniqueIdentifier>{70b94eef-0276-4190-a3e7-fad46aa52d58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Components">
+      <UniqueIdentifier>{8b8f7fbd-6339-4217-8fb4-8334ad47edf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Components\Geometry">
+      <UniqueIdentifier>{e3c5d1f7-2334-4e4a-a525-69f2a7ced480}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -275,6 +287,12 @@
     </ClCompile>
     <ClCompile Include="Engine\Gizmo.cpp">
       <Filter>Source\Engine\Tools\Gizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\MeshImporter.cpp">
+      <Filter>Source\Engine\Modules\MeshImporter</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Geometry.cpp">
+      <Filter>Source\Engine\Components\Geometry</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -586,6 +604,24 @@
     </ClInclude>
     <ClInclude Include="Engine\Gizmo.h">
       <Filter>Source\Engine\Tools\Gizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\MeshImporter.h">
+      <Filter>Source\Engine\Modules\MeshImporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Assimp\include\cfileio.h">
+      <Filter>Source\Engine\Modules\MeshImporter\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Assimp\include\cimport.h">
+      <Filter>Source\Engine\Modules\MeshImporter\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Assimp\include\postprocess.h">
+      <Filter>Source\Engine\Modules\MeshImporter\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Assimp\include\scene.h">
+      <Filter>Source\Engine\Modules\MeshImporter\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Geometry.h">
+      <Filter>Source\Engine\Components\Geometry</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

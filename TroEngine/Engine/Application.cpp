@@ -14,6 +14,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleGUI.h"
 #include "JSONManager.h"
+#include "MeshImporter.h"
 
 #include "Algorithm\Random\LCG.h"
 #include "imgui.h"
@@ -30,6 +31,7 @@ Application::Application()
 	camera = new ModuleCamera3D();
 	gui = new ModuleGUI();
 	json = new JSONManager();
+	mesh = new MeshImporter();
 
 	// The order of calls is very important!
 	// Modules will Awake() Start() and Update() in this order
@@ -42,6 +44,7 @@ Application::Application()
 	AddModule(input);
 	AddModule(audio);
 	AddModule(json);
+	AddModule(mesh);
 	
 	// Scenes
 	AddModule(scene_manager);

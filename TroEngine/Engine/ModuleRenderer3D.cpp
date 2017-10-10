@@ -13,6 +13,8 @@
 #include "Brofiler\Brofiler.h"
 #include "imgui.h"
 
+#include "MeshImporter.h"
+
 #pragma comment (lib, "engine/glew-2.1.0/libx86/glew32.lib")    /* link Glew lib     */
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
@@ -153,6 +155,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	//Rendering pipeline
 	App->scene_manager->DrawScenes();
+
+	//App->mesh->RenderMeshes();
 	//Draw debug
 
 	//Draw GUI

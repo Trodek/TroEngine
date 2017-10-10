@@ -19,6 +19,7 @@ class ModuleRenderer3D;
 class ModuleCamera3D;
 class ModuleGUI;
 class JSONManager;
+class MeshImporter;
 
 class Application
 {
@@ -31,6 +32,7 @@ public:
 	ModuleCamera3D* camera;
 	ModuleGUI* gui;
 	JSONManager* json;
+	MeshImporter* mesh;
 
 private:
 
