@@ -19,6 +19,9 @@
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
 
+#define CHECKERS_HEIGHT 256
+#define CHECKERS_WIDTH 256
+
 ModuleRenderer3D::ModuleRenderer3D(bool start_enabled) : Module(start_enabled)
 {
 	SetName("renderer");
@@ -128,6 +131,25 @@ bool ModuleRenderer3D::Awake(JSONDoc* config)
 	OnResize(App->window->GetWidth(), App->window->GetHeight());
 
 	return ret;
+}
+
+bool ModuleRenderer3D::Start()
+{
+	//create checker texture
+	//GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
+	//for (int i = 0; i < CHECKERS_HEIGHT; i++) {
+	//	for (int j = 0; j < CHECKERS_WIDTH; j++) {
+	//		int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
+	//		checkImage[i][j][0] = (GLubyte)c;
+	//		checkImage[i][j][1] = (GLubyte)c;
+	//		checkImage[i][j][2] = (GLubyte)c;
+	//		checkImage[i][j][3] = (GLubyte)255;
+	//	}
+	//}
+
+
+	
+	return true;
 }
 
 // PreUpdate: clear buffer

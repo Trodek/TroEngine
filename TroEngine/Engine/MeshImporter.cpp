@@ -88,6 +88,8 @@ bool MeshImporter::LoadFile(const char * path)
 				EDITOR_LOG("Mesh %d has %d indices", i+1, num_indices);
 			}
 
+			//Load uv
+
 			if (ret == false) //invalild mesh, discart 
 			{
 				RELEASE_ARRAY(vert);

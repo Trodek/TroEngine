@@ -21,7 +21,6 @@ public:
 
 private:
 	std::list<Geometry*> meshes;
-
 };
 
 #endif // !__MESHIMPORTER__

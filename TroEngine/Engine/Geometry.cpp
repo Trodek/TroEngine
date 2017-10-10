@@ -1,8 +1,8 @@
 #include "Geometry.h"
 #include "GLInclude.h"
 
-Geometry::Geometry(uint num_ver, float * ver, uint num_ind, uint * ind) :
-	 num_indices(num_ind), indices(ind), num_vertices(num_ver), vertices(ver)
+Geometry::Geometry(uint num_ver, float * ver, uint num_ind, uint * ind, uint num_uv, float* uv, uint tex_id) :
+	 num_indices(num_ind), indices(ind), num_vertices(num_ver), vertices(ver), num_uv(num_uv), uv(uv), texture_id(tex_id)
 {
 	//Load vertices to vram
 	glGenBuffers(1, (GLuint*)&id_vertices);
@@ -13,8 +13,14 @@ Geometry::Geometry(uint num_ver, float * ver, uint num_ind, uint * ind) :
 	//Load indices to vram
 	glGenBuffers(1, (GLuint*)&id_indices);
 	glBindBuffer(GL_ARRAY_BUFFER, id_indices);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * num_indices, ind, GL_STATIC_DRAW);
+	glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(uint) * num_indices, ind, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+
+	//Load uv to vram
+	//glGenBuffers(1, (GLuint*)&id_uv);
+	//glBindBuffer(GL_ARRAY_BUFFER, id_uv);
+	//glBufferData(GL_ARRAY_BUFFER, sizeof(uint) * num_uv * 3, uv, GL_STATIC_DRAW);
+	//glBindBuffer(GL_ARRAY_BUFFER, 0);
 }
 
 uint Geometry::GetIndicesID() const

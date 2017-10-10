@@ -13,6 +13,7 @@ public:
 	~ModuleRenderer3D();
 
 	bool Awake(JSONDoc* config);
+	bool Start();
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
 	void SaveConfig(JSONDoc* config);
@@ -42,6 +43,8 @@ private:
 	bool color_material = false;
 
 	bool vsync			= false;
+
+	uint checker_id		= 0;
 
 private:
 	void PolygonModePoints();
