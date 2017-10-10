@@ -28,7 +28,7 @@ bool TestScene::Start()
 
 	s.Start(5, 9, 9);
 
-	App->mesh->LoadFile("warrior.FBX");
+	App->mesh->LoadFile("BakerHouse.fbx");
 
 	return ret;
 }

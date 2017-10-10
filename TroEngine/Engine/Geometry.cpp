@@ -7,7 +7,7 @@ Geometry::Geometry(uint num_ver, float * ver, uint num_ind, uint * ind) :
 	//Load vertices to vram
 	glGenBuffers(1, (GLuint*)&id_vertices);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
-	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_vertices, ver, GL_STATIC_DRAW);
+	glBufferData(GL_ARRAY_BUFFER, sizeof(float) * num_vertices * 3, ver, GL_STATIC_DRAW);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
 
 	//Load indices to vram
@@ -52,9 +52,11 @@ void Geometry::Render()
 	glEnableClientState(GL_VERTEX_ARRAY);
 	glBindBuffer(GL_ARRAY_BUFFER, id_vertices);
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
-	glBindBuffer(GL_ARRAY_BUFFER, id_indices);
-	glDrawElements(GL_TRIANGLES, 36, GL_UNSIGNED_INT,NULL);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id_indices);
+	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	glDisableClientState(GL_VERTEX_ARRAY);
 }
 
 void Geometry::CleanUp()

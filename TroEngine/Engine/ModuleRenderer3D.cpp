@@ -156,7 +156,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	//Rendering pipeline
 	App->scene_manager->DrawScenes();
 
-	//App->mesh->RenderMeshes();
+	App->mesh->RenderMeshes();
 	//Draw debug
 
 	//Draw GUI
