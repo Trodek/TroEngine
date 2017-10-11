@@ -100,7 +100,7 @@ bool ModuleRenderer3D::Awake(JSONDoc* config)
 			ret = false;
 		}
 
-		GLfloat LightModelAmbient[] = { 0.2f, 0.2f, 0.2f, 1.0f };
+		GLfloat LightModelAmbient[] = { 0.4f, 0.4f, 0.4f, 1.0f };
 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
 
 		lights[0].ref = GL_LIGHT0;
@@ -124,6 +124,8 @@ bool ModuleRenderer3D::Awake(JSONDoc* config)
 		lighting = true;
 		glEnable(GL_COLOR_MATERIAL);
 		color_material = true;
+		glEnable(GL_TEXTURE_2D);
+		texture_2d = true;
 	}
 	
 
@@ -347,7 +349,7 @@ void ModuleRenderer3D::UnbindTexture() const
 
 void ModuleRenderer3D::SetTexCoordPointer()
 {
-	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+	glTexCoordPointer(3, GL_FLOAT, 0, NULL);
 }
 
 void ModuleRenderer3D::LoadArrayToVRAM(uint size, float * values, GLenum type) const

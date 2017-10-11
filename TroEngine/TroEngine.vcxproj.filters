@@ -94,6 +94,15 @@
     <Filter Include="Source\Engine\Components\Geometry">
       <UniqueIdentifier>{e3c5d1f7-2334-4e4a-a525-69f2a7ced480}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\Modules\MaterialManager">
+      <UniqueIdentifier>{58e88719-1e39-4ed6-b860-19525eee39d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Modules\MaterialManager\Devil">
+      <UniqueIdentifier>{f1e6c197-8a38-4d01-bb15-2c94fc95da33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Components\Material">
+      <UniqueIdentifier>{f225bbad-c406-4320-878f-9adaf0f49d99}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -293,6 +302,12 @@
     </ClCompile>
     <ClCompile Include="Engine\Mesh.cpp">
       <Filter>Source\Engine\Components\Geometry</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\MaterialManager.cpp">
+      <Filter>Source\Engine\Modules\MaterialManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Material.cpp">
+      <Filter>Source\Engine\Components\Material</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -623,7 +638,37 @@
     <ClInclude Include="Engine\Mesh.h">
       <Filter>Source\Engine\Components\Geometry</Filter>
     </ClInclude>
-    <ClInclude Include="Header.h">
+    <ClInclude Include="Engine\Devil\include\ilut.h">
+      <Filter>Source\Engine\Modules\MaterialManager\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Devil\include\config.h">
+      <Filter>Source\Engine\Modules\MaterialManager\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Devil\include\devil_internal_exports.h">
+      <Filter>Source\Engine\Modules\MaterialManager\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Devil\include\il.h">
+      <Filter>Source\Engine\Modules\MaterialManager\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Devil\include\il_wrap.h">
+      <Filter>Source\Engine\Modules\MaterialManager\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Devil\include\ilu.h">
+      <Filter>Source\Engine\Modules\MaterialManager\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Devil\include\ilu_region.h">
+      <Filter>Source\Engine\Modules\MaterialManager\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Devil\include\ilut_config.h">
+      <Filter>Source\Engine\Modules\MaterialManager\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\MaterialManager.h">
+      <Filter>Source\Engine\Modules\MaterialManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Material.h">
+      <Filter>Source\Engine\Components\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Component.h">
       <Filter>Source\Engine\Components</Filter>
     </ClInclude>
   </ItemGroup>

@@ -24,6 +24,8 @@
     <ClCompile Include="Engine\Application.cpp" />
     <ClCompile Include="Engine\Color.cpp" />
     <ClCompile Include="Engine\ConsoleGUI.cpp" />
+    <ClCompile Include="Engine\Material.cpp" />
+    <ClCompile Include="Engine\MaterialManager.cpp" />
     <ClCompile Include="Engine\Mesh.cpp" />
     <ClCompile Include="Engine\Gizmo.cpp" />
     <ClCompile Include="Engine\MenuGUI.cpp" />
@@ -96,7 +98,18 @@
     <ClInclude Include="Engine\Assimp\include\postprocess.h" />
     <ClInclude Include="Engine\Assimp\include\scene.h" />
     <ClInclude Include="Engine\Color.h" />
+    <ClInclude Include="Engine\Component.h" />
     <ClInclude Include="Engine\ConsoleGUI.h" />
+    <ClInclude Include="Engine\Devil\include\config.h" />
+    <ClInclude Include="Engine\Devil\include\devil_internal_exports.h" />
+    <ClInclude Include="Engine\Devil\include\il.h" />
+    <ClInclude Include="Engine\Devil\include\ilu.h" />
+    <ClInclude Include="Engine\Devil\include\ilut.h" />
+    <ClInclude Include="Engine\Devil\include\ilut_config.h" />
+    <ClInclude Include="Engine\Devil\include\ilu_region.h" />
+    <ClInclude Include="Engine\Devil\include\il_wrap.h" />
+    <ClInclude Include="Engine\Material.h" />
+    <ClInclude Include="Engine\MaterialManager.h" />
     <ClInclude Include="Engine\Mesh.h" />
     <ClInclude Include="Engine\Gizmo.h" />
     <ClInclude Include="Engine\GLInclude.h" />
@@ -196,7 +209,6 @@
     <ClInclude Include="Engine\stb_truetype.h" />
     <ClInclude Include="Engine\Timer.h" />
     <ClInclude Include="Engine\Time\Clock.h" />
-    <ClInclude Include="Header.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Geometry\KDTree.inl" />
