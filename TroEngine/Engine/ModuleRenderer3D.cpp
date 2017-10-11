@@ -136,16 +136,17 @@ bool ModuleRenderer3D::Awake(JSONDoc* config)
 bool ModuleRenderer3D::Start()
 {
 	//create checker texture
-	//GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
-	//for (int i = 0; i < CHECKERS_HEIGHT; i++) {
-	//	for (int j = 0; j < CHECKERS_WIDTH; j++) {
-	//		int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
-	//		checkImage[i][j][0] = (GLubyte)c;
-	//		checkImage[i][j][1] = (GLubyte)c;
-	//		checkImage[i][j][2] = (GLubyte)c;
-	//		checkImage[i][j][3] = (GLubyte)255;
-	//	}
-	//}
+	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
+	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
+		for (int j = 0; j < CHECKERS_WIDTH; j++) {
+			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
+			checkImage[i][j][0] = (GLubyte)c;
+			checkImage[i][j][1] = (GLubyte)c;
+			checkImage[i][j][2] = (GLubyte)c;
+			checkImage[i][j][3] = (GLubyte)255;
+		}
+	}
+	checker_id = LoadTextureToVRAM(CHECKERS_WIDTH, CHECKERS_HEIGHT, &checkImage[0][0][0]);
 
 
 	
@@ -329,6 +330,26 @@ void ModuleRenderer3D::SetVertexPointer() const
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 }
 
+void ModuleRenderer3D::SetCheckerTexture() const
+{
+	glBindTexture(GL_TEXTURE_2D, checker_id);
+}
+
+void ModuleRenderer3D::BindTexure(uint id) const
+{
+	glBindTexture(GL_TEXTURE_2D, id);
+}
+
+void ModuleRenderer3D::UnbindTexture() const
+{
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void ModuleRenderer3D::SetTexCoordPointer()
+{
+	glTexCoordPointer(2, GL_FLOAT, 0, NULL);
+}
+
 void ModuleRenderer3D::LoadArrayToVRAM(uint size, float * values, GLenum type) const
 {
 	glBufferData(GL_ARRAY_BUFFER, size, values, type);
@@ -339,7 +360,7 @@ void ModuleRenderer3D::LoadArrayToVRAM(uint size, uint * values, GLenum type) co
 	glBufferData(GL_ARRAY_BUFFER, size, values, type);
 }
 
-uint ModuleRenderer3D::LoadTextureToVRAM(uint w, uint h, uint * tex_data) const
+uint ModuleRenderer3D::LoadTextureToVRAM(uint w, uint h, GLubyte * tex_data) const
 {
 	uint buff_id = 0;
 

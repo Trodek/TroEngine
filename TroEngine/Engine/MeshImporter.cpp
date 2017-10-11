@@ -94,8 +94,8 @@ bool MeshImporter::LoadFile(const char * path)
 			if (curr_mesh->HasTextureCoords(0)) // assume mesh has one texture coords
 			{
 				num_uv = curr_mesh->mNumVertices;
-				uv = new float[num_uv * 3];
-				memcpy(uv, curr_mesh->mTextureCoords[0], sizeof(float)*num_uv * 3);
+				uv = new float[num_uv * 2];
+				memcpy(uv, curr_mesh->mTextureCoords[0], sizeof(float)*num_uv * 2);
 
 			}
 			else

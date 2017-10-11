@@ -32,10 +32,15 @@ public:
 	void EnableState(GLenum type) const;
 	void DisableState(GLenum type) const;
 	void SetVertexPointer() const;
+	void SetCheckerTexture() const;
+	void BindTexure(uint id) const;
+	void UnbindTexture() const;
+
+	void SetTexCoordPointer();
 
 	void LoadArrayToVRAM(uint size, float* values, GLenum type = GL_STATIC_DRAW) const;
 	void LoadArrayToVRAM(uint size, uint* values, GLenum type = GL_STATIC_DRAW) const;
-	uint LoadTextureToVRAM(uint w, uint h, uint* tex_data) const;
+	uint LoadTextureToVRAM(uint w, uint h, GLubyte* tex_data) const;
 
 
 public:
