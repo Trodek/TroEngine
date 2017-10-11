@@ -1,6 +1,6 @@
 #include "MeshImporter.h"
 #include "Globals.h"
-#include "Geometry.h"
+#include "Mesh.h"
 #include "Assimp\include\cimport.h"
 #include "Assimp\include\scene.h"
 #include "Assimp\include\postprocess.h"
@@ -38,7 +38,7 @@ bool MeshImporter::CleanUp()
 {
 	bool ret = true;
 
-	for (std::list<Geometry*>::iterator g = meshes.begin(); g != meshes.end();)
+	for (std::list<Mesh*>::iterator g = meshes.begin(); g != meshes.end();)
 	{
 		(*g)->CleanUp();
 		RELEASE(*g);
@@ -113,7 +113,7 @@ bool MeshImporter::LoadFile(const char * path)
 			}
 			else //valid mesh, add to the list
 			{
-				Geometry* new_geo = new Geometry(num_vertices, vert, num_indices, indices, num_uv, uv);
+				Mesh* new_geo = new Mesh(num_vertices, vert, num_indices, indices, num_uv, uv);
 				meshes.push_back(new_geo);
 			}
 		}
@@ -131,7 +131,7 @@ bool MeshImporter::LoadFile(const char * path)
 
 void MeshImporter::RenderMeshes() const
 {
-	for (std::list<Geometry*>::const_iterator g = meshes.begin(); g != meshes.end(); ++g)
+	for (std::list<Mesh*>::const_iterator g = meshes.begin(); g != meshes.end(); ++g)
 	{
 		(*g)->Render();
 	}

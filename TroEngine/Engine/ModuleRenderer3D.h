@@ -1,7 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
-#include "glmath.h"
+#include "GLInclude.h"
 #include "Light.h"
 
 #define MAX_LIGHTS 8
@@ -22,6 +22,21 @@ public:
 	void OnResize(int width, int height);
 
 	void ConfigGUI();
+
+	uint GenBuffer() const;
+	void BindArrayBuffer(uint id) const;
+	void BindElementArrayBuffer(uint id) const;
+	void RenderElement(uint num_indices) const;
+	void UnbindArraybuffer() const;
+	void UnbindElementArrayBuffer() const;
+	void EnableState(GLenum type) const;
+	void DisableState(GLenum type) const;
+	void SetVertexPointer() const;
+
+	void LoadArrayToVRAM(uint size, float* values, GLenum type = GL_STATIC_DRAW) const;
+	void LoadArrayToVRAM(uint size, uint* values, GLenum type = GL_STATIC_DRAW) const;
+	uint LoadTextureToVRAM(uint w, uint h, uint* tex_data) const;
+
 
 public:
 	Light lights[MAX_LIGHTS];

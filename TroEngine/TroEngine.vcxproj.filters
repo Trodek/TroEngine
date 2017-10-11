@@ -291,7 +291,7 @@
     <ClCompile Include="Engine\MeshImporter.cpp">
       <Filter>Source\Engine\Modules\MeshImporter</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Geometry.cpp">
+    <ClCompile Include="Engine\Mesh.cpp">
       <Filter>Source\Engine\Components\Geometry</Filter>
     </ClCompile>
   </ItemGroup>
@@ -620,8 +620,11 @@
     <ClInclude Include="Engine\Assimp\include\scene.h">
       <Filter>Source\Engine\Modules\MeshImporter\Assimp</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Geometry.h">
+    <ClInclude Include="Engine\Mesh.h">
       <Filter>Source\Engine\Components\Geometry</Filter>
+    </ClInclude>
+    <ClInclude Include="Header.h">
+      <Filter>Source\Engine\Components</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

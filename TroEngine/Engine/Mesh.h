@@ -1,12 +1,12 @@
-#ifndef __GEOMETRY__
-#define __GEOMETRY__
+#ifndef __MESH__
+#define __MESH__
 
 #include "Globals.h"
 
-class Geometry
+class Mesh
 {
 public:
-	Geometry(uint num_ver, float* ver, uint num_ind, uint* ind, uint num_uv = 0, float* uv = nullptr, uint tex_id = 0);
+	Mesh(uint num_ver, float* ver, uint num_ind, uint* ind, uint num_uv = 0, float* uv = nullptr, uint tex_id = 0);
 
 	uint GetIndicesID() const;
 	uint GetIndicesNum() const;

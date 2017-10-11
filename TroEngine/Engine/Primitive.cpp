@@ -1,7 +1,6 @@
 
 #include "Globals.h"
-#include <gl/GL.h>
-#include <gl/GLU.h>
+#include "GLInclude.h"
 #include "Primitive.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"

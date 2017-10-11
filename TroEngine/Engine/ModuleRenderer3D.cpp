@@ -282,6 +282,79 @@ void ModuleRenderer3D::ConfigGUI()
 	}
 }
 
+uint ModuleRenderer3D::GenBuffer() const
+{
+	uint ret = 0;
+	glGenBuffers(1, (GLuint*)&ret);
+	return ret;
+}
+
+void ModuleRenderer3D::BindArrayBuffer(uint id) const
+{
+	glBindBuffer(GL_ARRAY_BUFFER, id);
+}
+
+void ModuleRenderer3D::BindElementArrayBuffer(uint id) const
+{
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);
+}
+
+void ModuleRenderer3D::RenderElement(uint num_indices) const
+{
+	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+}
+
+void ModuleRenderer3D::UnbindArraybuffer() const
+{
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void ModuleRenderer3D::UnbindElementArrayBuffer() const
+{
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+void ModuleRenderer3D::EnableState(GLenum type) const
+{
+	glEnableClientState(type);
+}
+
+void ModuleRenderer3D::DisableState(GLenum type) const
+{
+	glDisableClientState(type);
+}
+
+void ModuleRenderer3D::SetVertexPointer() const
+{
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+}
+
+void ModuleRenderer3D::LoadArrayToVRAM(uint size, float * values, GLenum type) const
+{
+	glBufferData(GL_ARRAY_BUFFER, size, values, type);
+}
+
+void ModuleRenderer3D::LoadArrayToVRAM(uint size, uint * values, GLenum type) const
+{
+	glBufferData(GL_ARRAY_BUFFER, size, values, type);
+}
+
+uint ModuleRenderer3D::LoadTextureToVRAM(uint w, uint h, uint * tex_data) const
+{
+	uint buff_id = 0;
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1, &buff_id);
+	glBindTexture(GL_TEXTURE_2D, buff_id);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, tex_data);
+
+	return buff_id;
+}
+
 void ModuleRenderer3D::PolygonModePoints()
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);

@@ -2,9 +2,9 @@
 #define __MESHIMPORTER__
 
 #include "Module.h"
-#include "Geometry.h"
 #include <list>
 
+class Mesh;
 
 class MeshImporter : public Module
 {
@@ -20,7 +20,7 @@ public:
 	void RenderMeshes() const;
 
 private:
-	std::list<Geometry*> meshes;
+	std::list<Mesh*> meshes;
 };
 
 #endif // !__MESHIMPORTER__
