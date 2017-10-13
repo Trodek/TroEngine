@@ -105,6 +105,5 @@ void Mesh::CleanUp()
 {
 	RELEASE_ARRAY(vertices);
 	RELEASE_ARRAY(indices);
+	RELEASE_ARRAY(uv);
 }
-
-

@@ -36,8 +36,6 @@ bool SceneManager::Start()
 			ret = (*s)->Start();
 	}
 
-	App->mesh->LoadFile("BakerHouse.fbx");
-
 	return ret;
 }
 

@@ -24,6 +24,8 @@ void ComponentMaterial::CleanUp()
 
 void ComponentMaterial::SetMaterial(Material * new_mat)
 {
+	if (material != nullptr) //just for now
+		CleanUp();
 	material = new_mat;
 }
 

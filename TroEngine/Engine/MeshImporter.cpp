@@ -154,10 +154,11 @@ void MeshImporter::RemoveMesh(Mesh * m)
 	{
 		if (*mesh = m)
 		{
-			m->CleanUp();
-			RELEASE(m);
+			(*mesh)->CleanUp();
+			RELEASE(*mesh);
 
 			meshes.erase(mesh);
+			break;
 		}
 	}
 }
