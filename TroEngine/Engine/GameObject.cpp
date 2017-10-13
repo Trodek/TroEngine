@@ -185,3 +185,46 @@ Component * GameObject::GetComponent(Component::Type type) const
 
 	return ret;
 }
+
+void GameObject::RemoveComponent(Component * comp)
+{
+	for (std::list<Component*>::iterator c = components.begin(); c != components.end(); ++c)
+	{
+		if ((*c) == comp)
+		{
+			(*c)->CleanUp();
+			RELEASE(*c);
+
+			components.erase(c);
+			break;
+		}
+	}
+
+}
+
+void GameObject::RemoveComponentsByType(Component::Type type)
+{
+	for (std::list<Component*>::iterator c = components.begin(); c != components.end();)
+	{
+		if ((*c)->GetType() == type)
+		{
+			(*c)->CleanUp();
+			RELEASE(*c);
+
+			c = components.erase(c);
+		}
+		else
+			++c;
+	}
+}
+
+void GameObject::RemoveAllComponents()
+{
+	for (std::list<Component*>::iterator c = components.begin(); c != components.end();)
+	{
+		(*c)->CleanUp();
+		RELEASE(*c);
+
+		c = components.erase(c);
+	}
+}

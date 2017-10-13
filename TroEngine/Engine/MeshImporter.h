@@ -18,6 +18,8 @@ public:
 
 	bool LoadFile(const char* path);
 
+	void RemoveMesh(Mesh* m);
+
 private:
 	std::list<Mesh*> meshes;
 };

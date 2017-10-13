@@ -2,6 +2,7 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "Material.h"
+#include "MaterialManager.h"
 
 ComponentMaterial::ComponentMaterial(GameObject* owner) : Component(C_Material, owner)
 {
@@ -13,6 +14,12 @@ ComponentMaterial::ComponentMaterial(GameObject * owner, Material * mat) : Compo
 
 ComponentMaterial::~ComponentMaterial()
 {
+}
+
+void ComponentMaterial::CleanUp()
+{
+	App->materials->RemoveMaterial(material);
+	material = 0;
 }
 
 void ComponentMaterial::SetMaterial(Material * new_mat)

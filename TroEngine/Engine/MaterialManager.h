@@ -20,6 +20,8 @@ public:
 
 	void ImportImage(const char* path);
 
+	void RemoveMaterial(Material* mat);
+
 private:
 	std::list<Material*> materials;
 };

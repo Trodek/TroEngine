@@ -20,6 +20,8 @@ public:
 
 	void DrawConfig();
 
+	void RemoveAllMeshes();
+
 private:
 	std::list<Mesh*> meshes;
 	bool wireframe = false;

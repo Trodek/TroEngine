@@ -147,3 +147,17 @@ bool MeshImporter::LoadFile(const char * path)
 
 	return ret;
 }
+
+void MeshImporter::RemoveMesh(Mesh * m)
+{
+	for (std::list<Mesh*>::iterator mesh = meshes.begin(); mesh != meshes.end();++m)
+	{
+		if (*mesh = m)
+		{
+			m->CleanUp();
+			RELEASE(m);
+
+			meshes.erase(mesh);
+		}
+	}
+}

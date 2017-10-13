@@ -1,6 +1,8 @@
 #include "MeshRenderer.h"
 #include "GameObject.h"
 #include "Mesh.h"
+#include "Application.h"
+#include "MeshImporter.h"
 
 MeshRenderer::MeshRenderer(GameObject* owner) : Component(Component::Type::MeshRenderer,owner)
 {
@@ -33,4 +35,14 @@ void MeshRenderer::AddMesh(Mesh * mesh)
 
 void MeshRenderer::DrawConfig()
 {
+}
+
+void MeshRenderer::RemoveAllMeshes()
+{
+	for (std::list<Mesh*>::iterator m = meshes.begin(); m != meshes.end();)
+	{
+		App->mesh->RemoveMesh(*m);
+
+		m = meshes.erase(m);
+	}
 }

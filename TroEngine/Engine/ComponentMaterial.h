@@ -13,6 +13,8 @@ public:
 	ComponentMaterial(GameObject* owner, Material* mat);
 	~ComponentMaterial();
 
+	void CleanUp();
+
 	void SetMaterial(Material* new_mat);
 	void SetMaterial(uint mat_id);
 	void ApplyMaterial() const;

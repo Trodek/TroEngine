@@ -46,6 +46,13 @@ bool MaterialManager::CleanUp()
 {
 	bool ret = true;
 
+	for (std::list<Material*>::iterator m = materials.begin(); m != materials.end(); )
+	{
+		RELEASE(*m);
+
+		m = materials.erase(m);
+	}
+
 	return ret;
 }
 
@@ -81,5 +88,19 @@ void MaterialManager::ImportImage(const char* path)
 	{
 		error = ilGetError();
 		EDITOR_LOG("Error loading image %s. Error %d.", path, error);
+	}
+}
+
+void MaterialManager::RemoveMaterial(Material * mat)
+{
+	for (std::list<Material*>::iterator m = materials.begin(); m != materials.end(); ++m)
+	{
+		if (*m == mat)
+		{
+			RELEASE(*m);
+
+			materials.erase(m);
+			break;
+		}
 	}
 }

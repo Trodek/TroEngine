@@ -30,6 +30,10 @@ public:
 
 	Component* GetComponent(Component::Type type)const;
 
+	void RemoveComponent(Component* comp);
+	void RemoveComponentsByType(Component::Type type);
+	void RemoveAllComponents();
+
 public:
 	bool kill_me = false;
 	std::string name;

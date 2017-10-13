@@ -5,6 +5,9 @@
 #include "ModuleRenderer3D.h"
 #include "imgui.h"
 #include "imgui_impl_sdl.h"
+#include <algorithm>
+#include "MeshImporter.h"
+#include "MaterialManager.h"
 
 #define MAX_KEYS 300
 
@@ -117,6 +120,13 @@ update_status ModuleInput::PreUpdate(float dt)
 			{
 				if(e.window.event == SDL_WINDOWEVENT_RESIZED)
 					App->renderer3D->OnResize(e.window.data1, e.window.data2);
+				break;
+			}
+
+			case SDL_DROPFILE:
+			{
+				OnFileDropped(e.drop.file);
+				break;
 			}
 		}
 	}
@@ -133,4 +143,21 @@ bool ModuleInput::CleanUp()
 	EDITOR_LOG("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;
+}
+
+void ModuleInput::OnFileDropped(const char * path)
+{
+	std::string file = path;
+	std::string ext = file.substr(file.size() - 3, 3);
+	std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
+
+	//check extension to do proper action
+	if(ext == "fbx")
+	{ 
+		//App->mesh->LoadFile();
+	}
+	else if (ext == "png")
+	{
+
+	}
 }
