@@ -42,6 +42,10 @@ public:
 	void LoadArrayToVRAM(uint size, uint* values, GLenum type = GL_STATIC_DRAW) const;
 	uint LoadTextureToVRAM(uint w, uint h, GLubyte* tex_data) const;
 
+	GLenum GetPolyMode()const;
+	void PolygonModePoints();
+	void PolygonModeWireframe();
+	void PolygonModeFill();
 
 public:
 	Light lights[MAX_LIGHTS];
@@ -54,6 +58,7 @@ private:
 	bool wireframe		= false;
 	bool points			= false;
 	bool fill			= true;
+	GLenum poly_mode    = GL_FILL;
 
 	//capabilities
 	bool depth_test		= false;
@@ -67,10 +72,6 @@ private:
 	uint checker_id		= 0;
 
 private:
-	void PolygonModePoints();
-	void PolygonModeWireframe();
-	void PolygonModeFill();
-
 	void ToggleDepthTestState();
 	void ToggleCullFaceState();
 	void ToggleLightingState();

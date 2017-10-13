@@ -23,7 +23,10 @@
     <ClCompile Include="Engine\Algorithm\Random\LCG.cpp" />
     <ClCompile Include="Engine\Application.cpp" />
     <ClCompile Include="Engine\Color.cpp" />
+    <ClCompile Include="Engine\Component.cpp" />
+    <ClCompile Include="Engine\ComponentMaterial.cpp" />
     <ClCompile Include="Engine\ConsoleGUI.cpp" />
+    <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\Material.cpp" />
     <ClCompile Include="Engine\MaterialManager.cpp" />
     <ClCompile Include="Engine\Mesh.cpp" />
@@ -73,6 +76,7 @@
     <ClCompile Include="Engine\Math\SSEMath.cpp" />
     <ClCompile Include="Engine\Math\TransformOps.cpp" />
     <ClCompile Include="Engine\MeshImporter.cpp" />
+    <ClCompile Include="Engine\MeshRenderer.cpp" />
     <ClCompile Include="Engine\mmgr\mmgr.cpp" />
     <ClCompile Include="Engine\ModuleAudio.cpp" />
     <ClCompile Include="Engine\ModuleCamera3D.cpp" />
@@ -80,7 +84,6 @@
     <ClCompile Include="Engine\ModuleInput.cpp" />
     <ClCompile Include="Engine\ModuleRenderer3D.cpp" />
     <ClCompile Include="Engine\SceneManager.cpp" />
-    <ClCompile Include="Engine\TestScene.cpp" />
     <ClCompile Include="Engine\ModuleWindow.cpp" />
     <ClCompile Include="Engine\Parson\parson.c" />
     <ClCompile Include="Engine\PerfTimer.cpp" />
@@ -99,6 +102,7 @@
     <ClInclude Include="Engine\Assimp\include\scene.h" />
     <ClInclude Include="Engine\Color.h" />
     <ClInclude Include="Engine\Component.h" />
+    <ClInclude Include="Engine\ComponentMaterial.h" />
     <ClInclude Include="Engine\ConsoleGUI.h" />
     <ClInclude Include="Engine\Devil\include\config.h" />
     <ClInclude Include="Engine\Devil\include\devil_internal_exports.h" />
@@ -108,6 +112,7 @@
     <ClInclude Include="Engine\Devil\include\ilut_config.h" />
     <ClInclude Include="Engine\Devil\include\ilu_region.h" />
     <ClInclude Include="Engine\Devil\include\il_wrap.h" />
+    <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\Material.h" />
     <ClInclude Include="Engine\MaterialManager.h" />
     <ClInclude Include="Engine\Mesh.h" />
@@ -188,6 +193,7 @@
     <ClInclude Include="Engine\Math\sse_mathfun.h" />
     <ClInclude Include="Engine\Math\TransformOps.h" />
     <ClInclude Include="Engine\MeshImporter.h" />
+    <ClInclude Include="Engine\MeshRenderer.h" />
     <ClInclude Include="Engine\mmgr\mmgr.h" />
     <ClInclude Include="Engine\mmgr\nommgr.h" />
     <ClInclude Include="Engine\Module.h" />
@@ -197,7 +203,6 @@
     <ClInclude Include="Engine\ModuleInput.h" />
     <ClInclude Include="Engine\ModuleRenderer3D.h" />
     <ClInclude Include="Engine\SceneManager.h" />
-    <ClInclude Include="Engine\TestScene.h" />
     <ClInclude Include="Engine\ModuleWindow.h" />
     <ClInclude Include="Engine\p2Point.h" />
     <ClInclude Include="Engine\Parson\parson.h" />

@@ -18,7 +18,7 @@ public:
 	bool Start();
 	bool CleanUp();
 
-	uint ImportImage(const char* path);
+	void ImportImage(const char* path);
 
 private:
 	std::list<Material*> materials;

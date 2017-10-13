@@ -1,0 +1,29 @@
+#ifndef __COMPONENTMATERIAL__
+#define __COMPONENTMATERIAL__
+
+#include "Globals.h"
+#include "Component.h"
+
+class Material;
+
+class ComponentMaterial : public Component
+{
+public:
+	ComponentMaterial(GameObject* owner);
+	ComponentMaterial(GameObject* owner, Material* mat);
+	~ComponentMaterial();
+
+	void SetMaterial(Material* new_mat);
+	void SetMaterial(uint mat_id);
+	void ApplyMaterial() const;
+
+	void DrawConfig();
+
+private:
+	Material* material = nullptr;
+	bool use_checker = false;
+
+};
+
+#endif // !__COMPONENTMATERIAL__
+

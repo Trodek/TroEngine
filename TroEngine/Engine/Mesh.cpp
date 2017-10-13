@@ -59,7 +59,7 @@ float * Mesh::GetVertices() const
 	return vertices;
 }
 
-void Mesh::Render()
+void Mesh::Render(bool wireframe)
 {
 	App->renderer3D->EnableState(GL_VERTEX_ARRAY);
 
@@ -67,18 +67,36 @@ void Mesh::Render()
 	App->renderer3D->SetVertexPointer();
 	App->renderer3D->BindElementArrayBuffer(id_indices);
 
+	//Apply UV if exist
 	if (num_uv != 0)
 	{
 		App->renderer3D->EnableState(GL_TEXTURE_COORD_ARRAY);
 		App->renderer3D->BindArrayBuffer(id_uv);
 		App->renderer3D->SetTexCoordPointer();
-		//App->renderer3D->SetCheckerTexture();
+	}
+
+	//Set Wireframe if needed
+	GLenum curr_mode = App->renderer3D->GetPolyMode();
+	if (wireframe && curr_mode != GL_LINE)
+	{
+		App->renderer3D->PolygonModeWireframe();
 	}
 
 	App->renderer3D->RenderElement(num_indices);
 
+	if (wireframe)
+	{
+		//Set curr_mode again
+		if (curr_mode == GL_FILL)
+			App->renderer3D->PolygonModeFill();
+		else if (curr_mode == GL_POINT)
+			App->renderer3D->PolygonModePoints();
+	}
+
 	App->renderer3D->UnbindArraybuffer();
 	App->renderer3D->UnbindElementArrayBuffer();
+
+	//Unbind textures affter rendering
 	App->renderer3D->UnbindTexture();
 
 	App->renderer3D->DisableState(GL_VERTEX_ARRAY);

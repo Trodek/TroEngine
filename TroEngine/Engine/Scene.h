@@ -2,6 +2,7 @@
 #define __SCENE__
 
 #include "Globals.h"
+#include "GameObject.h"
 
 class Scene
 {
@@ -34,8 +35,32 @@ public:
 		return active;
 	}
 
+	void AddGameObject(GameObject* go)
+	{
+		game_objects.push_back(go);
+	}
+
+	GameObject* GetGameObject(uint id) const
+	{
+		GameObject* ret = nullptr;
+		uint i = 0;
+		for (std::list<GameObject*>::const_iterator go = game_objects.begin(); go != game_objects.end(); ++go)
+		{
+			if (i == id)
+			{
+				ret = (*go);
+				break;
+			}
+			++i;
+		}
+		return ret;
+	}
+
 private:
 	bool active;
+
+public:
+	std::list<GameObject*> game_objects;
 };
 
 

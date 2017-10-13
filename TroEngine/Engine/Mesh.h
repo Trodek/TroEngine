@@ -16,7 +16,7 @@ public:
 	uint GetVerticesNum() const;
 	float* GetVertices() const;
 
-	void Render();
+	void Render(bool wireframe = false);
 
 	void CleanUp();
 

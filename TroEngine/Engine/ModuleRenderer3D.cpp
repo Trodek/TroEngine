@@ -150,8 +150,6 @@ bool ModuleRenderer3D::Start()
 	}
 	checker_id = LoadTextureToVRAM(CHECKERS_WIDTH, CHECKERS_HEIGHT, &checkImage[0][0][0]);
 
-
-	
 	return true;
 }
 
@@ -378,12 +376,18 @@ uint ModuleRenderer3D::LoadTextureToVRAM(uint w, uint h, GLubyte * tex_data) con
 	return buff_id;
 }
 
+GLenum ModuleRenderer3D::GetPolyMode() const
+{
+	return poly_mode;
+}
+
 void ModuleRenderer3D::PolygonModePoints()
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
 	wireframe = false;
 	points = true;
 	fill = false;
+	poly_mode = GL_POINT;
 }
 
 void ModuleRenderer3D::PolygonModeWireframe()
@@ -392,6 +396,7 @@ void ModuleRenderer3D::PolygonModeWireframe()
 	wireframe = true;
 	points = false;
 	fill = false;
+	poly_mode = GL_LINE;
 }
 
 void ModuleRenderer3D::PolygonModeFill()
@@ -400,6 +405,7 @@ void ModuleRenderer3D::PolygonModeFill()
 	wireframe = false;
 	points = false;
 	fill = true;
+	poly_mode = GL_FILL;
 }
 
 void ModuleRenderer3D::ToggleDepthTestState()
