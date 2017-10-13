@@ -148,7 +148,7 @@ bool ModuleRenderer3D::Start()
 			checkImage[i][j][3] = (GLubyte)255;
 		}
 	}
-	checker_id = LoadTextureToVRAM(CHECKERS_WIDTH, CHECKERS_HEIGHT, &checkImage[0][0][0]);
+	checker_id = LoadTextureToVRAM(CHECKERS_WIDTH, CHECKERS_HEIGHT, &checkImage[0][0][0], GL_RGBA);
 
 	return true;
 }
@@ -178,8 +178,6 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 
 	//Rendering pipeline
 	App->scene_manager->DrawScenes();
-
-	App->mesh->RenderMeshes();
 	//Draw debug
 
 	//Draw GUI
@@ -360,7 +358,7 @@ void ModuleRenderer3D::LoadArrayToVRAM(uint size, uint * values, GLenum type) co
 	glBufferData(GL_ARRAY_BUFFER, size, values, type);
 }
 
-uint ModuleRenderer3D::LoadTextureToVRAM(uint w, uint h, GLubyte * tex_data) const
+uint ModuleRenderer3D::LoadTextureToVRAM(uint w, uint h, GLubyte * tex_data, GLint format) const
 {
 	uint buff_id = 0;
 
@@ -371,7 +369,7 @@ uint ModuleRenderer3D::LoadTextureToVRAM(uint w, uint h, GLubyte * tex_data) con
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
-	glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, w, h, 0, GL_RGBA, GL_UNSIGNED_BYTE, tex_data);
+	glTexImage2D(GL_TEXTURE_2D, 0, format, w, h, 0, format, GL_UNSIGNED_BYTE, tex_data);
 
 	return buff_id;
 }

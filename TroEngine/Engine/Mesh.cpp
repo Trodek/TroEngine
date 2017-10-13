@@ -24,7 +24,7 @@ Mesh::Mesh(uint num_ver, float * ver, uint num_ind, uint * ind, uint num_uv, flo
 	{
 		id_uv = App->renderer3D->GenBuffer();
 		App->renderer3D->BindArrayBuffer(id_uv);
-		App->renderer3D->LoadArrayToVRAM(sizeof(uint) * num_uv * 3, ind, GL_STATIC_DRAW);
+		App->renderer3D->LoadArrayToVRAM(sizeof(float) * num_uv * 3, uv, GL_STATIC_DRAW);
 		App->renderer3D->UnbindArraybuffer();
 	}
 }
@@ -95,9 +95,6 @@ void Mesh::Render(bool wireframe)
 
 	App->renderer3D->UnbindArraybuffer();
 	App->renderer3D->UnbindElementArrayBuffer();
-
-	//Unbind textures affter rendering
-	App->renderer3D->UnbindTexture();
 
 	App->renderer3D->DisableState(GL_VERTEX_ARRAY);
 	App->renderer3D->DisableState(GL_TEXTURE_COORD_ARRAY);

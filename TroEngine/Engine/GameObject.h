@@ -28,6 +28,8 @@ public:
 	void AddComponent(Component* component);
 	Component* AddComponent(Component::Type type);
 
+	Component* GetComponent(Component::Type type)const;
+
 public:
 	bool kill_me = false;
 	std::string name;

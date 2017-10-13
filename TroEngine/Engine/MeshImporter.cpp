@@ -1,6 +1,12 @@
 #include "MeshImporter.h"
 #include "Globals.h"
 #include "Mesh.h"
+#include "Application.h"
+#include "SceneManager.h"
+#include "Scene.h"
+#include "GameObject.h"
+#include "MeshRenderer.h"
+#include "MaterialManager.h"
 #include "Assimp\include\cimport.h"
 #include "Assimp\include\scene.h"
 #include "Assimp\include\postprocess.h"
@@ -30,7 +36,6 @@ bool MeshImporter::Start()
 	struct aiLogStream stream;
 	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
 	aiAttachLogStream(&stream);
-
 	return ret;
 }
 
@@ -94,6 +99,7 @@ bool MeshImporter::LoadFile(const char * path)
 			if (curr_mesh->HasTextureCoords(0)) // assume mesh has one texture coords
 			{
 				num_uv = curr_mesh->mNumVertices;
+				
 				uv = new float[num_uv * 3];
 				memcpy(uv, curr_mesh->mTextureCoords[0], sizeof(float)*num_uv * 3);
 			}
@@ -114,7 +120,21 @@ bool MeshImporter::LoadFile(const char * path)
 			{
 				Mesh* new_geo = new Mesh(num_vertices, vert, num_indices, indices, num_uv, uv);
 				meshes.push_back(new_geo);
+				//for now, add the mesh to scene game object too
+				MeshRenderer* mr = (MeshRenderer*) App->scene_manager->GetCurrentScene()->GetGameObject(0)->GetComponent(Component::Type::MeshRenderer);
+				mr->AddMesh(new_geo);
 			}
+		}
+
+		//Check if has a material associated
+		if (scene->HasMaterials())
+		{
+			aiMaterial* mat = scene->mMaterials[0]; //just one material is supported now
+			aiString path;
+			mat->GetTexture(aiTextureType_DIFFUSE, 0, &path);
+			EDITOR_LOG("Mesh material path is: %s. Start importing it...", path.C_Str());
+			App->materials->ImportImage(path.C_Str());
+
 		}
 		
 		aiReleaseImport(scene);
@@ -126,12 +146,4 @@ bool MeshImporter::LoadFile(const char * path)
 	}
 
 	return ret;
-}
-
-void MeshImporter::RenderMeshes() const
-{
-	for (std::list<Mesh*>::const_iterator g = meshes.begin(); g != meshes.end(); ++g)
-	{
-		(*g)->Render();
-	}
 }

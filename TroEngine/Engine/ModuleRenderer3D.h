@@ -40,7 +40,7 @@ public:
 
 	void LoadArrayToVRAM(uint size, float* values, GLenum type = GL_STATIC_DRAW) const;
 	void LoadArrayToVRAM(uint size, uint* values, GLenum type = GL_STATIC_DRAW) const;
-	uint LoadTextureToVRAM(uint w, uint h, GLubyte* tex_data) const;
+	uint LoadTextureToVRAM(uint w, uint h, GLubyte* tex_data, GLint format) const;
 
 	GLenum GetPolyMode()const;
 	void PolygonModePoints();

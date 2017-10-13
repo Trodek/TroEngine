@@ -2,6 +2,8 @@
 #include "Component.h"
 #include "MeshRenderer.h"
 #include "ComponentMaterial.h"
+#include "Application.h"
+#include "ModuleRenderer3D.h"
 
 GameObject::GameObject(const char * name, bool active, GameObject * parent) : name(name), active(active), parent(parent)
 {
@@ -111,6 +113,9 @@ void GameObject::Draw()
 		}
 	}
 
+	//Unbind textures after rendering
+	App->renderer3D->UnbindTexture();
+
 	//Draw Childs
 	for (std::list<GameObject*>::iterator go = childs.begin(); go != childs.end(); ++go)
 	{
@@ -163,4 +168,20 @@ Component* GameObject::AddComponent(Component::Type type)
 	}
 
 	return new_comp;
+}
+
+//Returns first component of specified type. nullptr if not found
+Component * GameObject::GetComponent(Component::Type type) const
+{
+	Component* ret = nullptr;
+
+	for (std::list<Component*>::const_iterator c = components.begin(); c != components.end(); ++c)
+	{
+		if ((*c)->GetType() == type)
+		{
+			ret = (*c);
+		}
+	}
+
+	return ret;
 }

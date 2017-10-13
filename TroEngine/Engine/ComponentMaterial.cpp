@@ -28,10 +28,15 @@ void ComponentMaterial::ApplyMaterial() const
 {
 	if (use_checker)
 		App->renderer3D->SetCheckerTexture();
-	else
+	else if (material != nullptr)
 		App->renderer3D->BindTexure(material->GetMaterialID());
 }
 
 void ComponentMaterial::DrawConfig()
 {
+}
+
+void ComponentMaterial::UseChecker()
+{
+	use_checker = true;
 }

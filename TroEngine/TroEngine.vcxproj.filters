@@ -327,6 +327,9 @@
     <ClCompile Include="Engine\ComponentMaterial.cpp">
       <Filter>Source\Engine\Components\Material</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Scene.cpp">
+      <Filter>Source\Editor\Scenes</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Application.h">

@@ -17,7 +17,6 @@ public:
 	bool CleanUp();
 
 	bool LoadFile(const char* path);
-	void RenderMeshes() const;
 
 private:
 	std::list<Mesh*> meshes;

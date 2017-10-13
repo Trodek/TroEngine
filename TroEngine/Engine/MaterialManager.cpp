@@ -7,6 +7,8 @@
 #include "Material.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include "GameObject.h"
+#include "ComponentMaterial.h"
 
 #pragma comment (lib, "engine/Devil/libx86/DevIL.lib")
 #pragma comment (lib, "engine/Devil/libx86/ILU.lib")
@@ -50,22 +52,33 @@ bool MaterialManager::CleanUp()
 void MaterialManager::ImportImage(const char* path)
 {
 	uint id = 0;
+	ILenum error;
 	//Data will be handled by renderer. Devil is only used to load the image.
 	if (ilLoad(IL_TYPE_UNKNOWN, path))
 	{
+		ILinfo info;
+		iluGetImageInfo(&info);
+		if (info.Origin == IL_ORIGIN_UPPER_LEFT)
+		{
+			iluFlipImage();
+		}
+
+		ilConvertImage(IL_RGB, IL_UNSIGNED_BYTE);
 		int w = ilGetInteger(IL_IMAGE_WIDTH);
 		int h = ilGetInteger(IL_IMAGE_HEIGHT);
-		id = App->renderer3D->LoadTextureToVRAM(w, h, ilGetData());
+		id = App->renderer3D->LoadTextureToVRAM(w, h, ilGetData(),ilGetInteger(IL_IMAGE_FORMAT));
+
 		Material* m = new Material(id, w, h, path);
 		materials.push_back(m);
 		//for now, set this as the scene game object material
-		App->scene_manager->GetCurrentScene()->GetGameObject(0);
+		ComponentMaterial* mat = (ComponentMaterial*)App->scene_manager->GetCurrentScene()->GetGameObject(0)->GetComponent(Component::Type::C_Material);
+		mat->SetMaterial(m);
 
-		ilDeleteImage(ilGetInteger(IL_ACTIVE_IMAGE)); 
+		ilDeleteImage(ilGetInteger(IL_ACTIVE_IMAGE));
+		
 	}
 	else
 	{
-		ILenum error;
 		error = ilGetError();
 		EDITOR_LOG("Error loading image %s. Error %d.", path, error);
 	}

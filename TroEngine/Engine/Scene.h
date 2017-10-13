@@ -12,52 +12,24 @@ public:
 	~Scene()
 	{	}
 
-	virtual bool Start()
-	{
-		return true;
-	}
+	bool Start();
 
-	virtual void Draw()
-	{	}
+	void Draw();
 
-	virtual update_status Update(float dt)
-	{
-		return UPDATE_CONTINUE;
-	}
+	update_status Update(float dt);
 
-	virtual bool CleanUp()
-	{
-		return true;
-	}
+	bool CleanUp();
 
-	bool IsActive()
-	{
-		return active;
-	}
+	bool IsActive();
 
-	void AddGameObject(GameObject* go)
-	{
-		game_objects.push_back(go);
-	}
+	void AddGameObject(GameObject* go);
+	GameObject* CreateGameObject();
 
-	GameObject* GetGameObject(uint id) const
-	{
-		GameObject* ret = nullptr;
-		uint i = 0;
-		for (std::list<GameObject*>::const_iterator go = game_objects.begin(); go != game_objects.end(); ++go)
-		{
-			if (i == id)
-			{
-				ret = (*go);
-				break;
-			}
-			++i;
-		}
-		return ret;
-	}
+	GameObject* GetGameObject(uint id) const;
 
 private:
 	bool active;
+	uint new_go_id = 0;
 
 public:
 	std::list<GameObject*> game_objects;
