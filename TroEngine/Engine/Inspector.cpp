@@ -22,9 +22,12 @@ update_status Inspector::UpdateGUI(float dt)
 
 void Inspector::CreateInspector()
 {
-	ImGui::Begin("Inspector");
+	if (active)
+	{
+		ImGui::Begin("Inspector", &active);
 
-	App->scene_manager->GetCurrentScene()->GetGameObject(0)->DrawConfig();
+		App->scene_manager->GetCurrentScene()->GetGameObject(0)->DrawConfig();
 
-	ImGui::End();
+		ImGui::End();
+	}
 }

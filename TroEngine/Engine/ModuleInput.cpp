@@ -156,10 +156,6 @@ void ModuleInput::OnFileDropped(const char * path)
 	std::string file = path;
 	std::string ext = file.substr(file.size() - 3, 3);
 	std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
-
-	int cut_pos = file.find_last_of(92) + 1;
-
-	std::string relative_path = file.substr(cut_pos, file.size() - cut_pos);
 	
 	//check extension to do proper action
 	if(ext == "fbx")
@@ -172,10 +168,10 @@ void ModuleInput::OnFileDropped(const char * path)
 		ComponentMaterial* cm = (ComponentMaterial*)App->scene_manager->GetCurrentScene()->GetGameObject(0)->GetComponent(Component::Type::C_Material);
 		cm->CleanUp();
 
-		App->mesh->LoadFile(relative_path.c_str());
+		App->mesh->LoadFile(path);
 	}
 	else if (ext == "png")
 	{
-		App->materials->ImportImage(relative_path.c_str());
+		App->materials->ImportImage(path);
 	}
 }

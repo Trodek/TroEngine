@@ -3,6 +3,8 @@
 #include "ModuleWindow.h"
 #include "ModuleRenderer3D.h"
 #include "imgui.h"
+#include "ModuleGUI.h"
+#include "Inspector.h"
 
 MenuGUI::MenuGUI()
 {
@@ -53,6 +55,10 @@ void MenuGUI::CreateGUI()
 			if (ImGui::MenuItem("Performance##menu", NULL, &show_performance))
 			{
 				PerformanceMenu();
+			}
+			if (ImGui::MenuItem("Inspector##menu", NULL, &App->gui->inspector->active))
+			{
+
 			}
 			
 			ImGui::EndMenu();

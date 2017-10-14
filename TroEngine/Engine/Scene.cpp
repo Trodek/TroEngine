@@ -5,10 +5,11 @@
 bool Scene::Start()
 {
 	bool ret = true;
-	//For now create a game object with mesh renderer, material (and transform)
+
+	//For now create a game object with mesh renderer, material and transform
 	GameObject* go = CreateGameObject();
 	go->AddComponent(Component::Type::MeshRenderer);
-	ComponentMaterial* mat = (ComponentMaterial*)go->AddComponent(Component::Type::C_Material);
+	go->AddComponent(Component::Type::C_Material);
 
 	return ret;
 }
@@ -45,6 +46,8 @@ update_status Scene::Update(float dt)
 bool Scene::CleanUp()
 {
 	bool ret = true;
+
+	//TODO
 
 	return ret;
 }

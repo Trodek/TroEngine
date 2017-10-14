@@ -12,6 +12,9 @@ public:
 	update_status UpdateGUI(float dt);
 
 	void CreateInspector();
+	
+public:
+	bool active = false;
 
 private:
 };

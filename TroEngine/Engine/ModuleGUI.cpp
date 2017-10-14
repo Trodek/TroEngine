@@ -34,7 +34,8 @@ bool ModuleGUI::Awake(JSONDoc* config)
 bool ModuleGUI::Start()
 {
 	AddElement(new MenuGUI());
-	AddElement(new Inspector());
+	inspector = new Inspector();
+	AddElement(inspector);
 
 	return true;
 }
