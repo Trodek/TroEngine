@@ -2,6 +2,7 @@
 #define __MESH__
 
 #include "Globals.h"
+#include "MathGeoLib.h"
 
 class Mesh
 {
@@ -15,6 +16,8 @@ public:
 	uint GetVerticesID() const;
 	uint GetVerticesNum() const;
 	float* GetVertices() const;
+
+	AABB GetAABB();
 
 	void Render(bool wireframe = false);
 
@@ -34,6 +37,8 @@ private:
 	float* uv = nullptr;
 
 	uint texture_id = 0;
+
+	AABB bounding_box;
 };
 
 

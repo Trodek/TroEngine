@@ -1,8 +1,10 @@
 #ifndef __MESHRENDERER__
 #define __MESHRENDERER__
 
+#include "Globals.h"
 #include "Component.h"
 #include <list>
+#include "MathGeoLib.h"
 
 class Mesh;
 
@@ -21,6 +23,8 @@ public:
 	void DrawConfig();
 
 	void RemoveAllMeshes();
+
+	AABB GetMeshAABB(uint mesh_id);
 
 private:
 	std::list<Mesh*> meshes;

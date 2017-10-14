@@ -27,6 +27,9 @@ Mesh::Mesh(uint num_ver, float * ver, uint num_ind, uint * ind, uint num_uv, flo
 		App->renderer3D->LoadArrayToVRAM(sizeof(float) * num_uv * 3, uv, GL_STATIC_DRAW);
 		App->renderer3D->UnbindArraybuffer();
 	}
+
+	bounding_box.SetNegativeInfinity();
+	bounding_box.Enclose((float3*)ver, num_ver);
 }
 
 uint Mesh::GetIndicesID() const
@@ -57,6 +60,11 @@ uint Mesh::GetVerticesNum() const
 float * Mesh::GetVertices() const
 {
 	return vertices;
+}
+
+AABB Mesh::GetAABB()
+{
+	return bounding_box;
 }
 
 void Mesh::Render(bool wireframe)

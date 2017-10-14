@@ -67,3 +67,16 @@ void MeshRenderer::RemoveAllMeshes()
 		m = meshes.erase(m);
 	}
 }
+
+AABB MeshRenderer::GetMeshAABB(uint mesh_id)
+{
+	int i = 1;
+	for (std::list<Mesh*>::const_iterator m = meshes.begin(); m != meshes.end(); ++m)
+	{
+		if (i == mesh_id)
+		{
+			return (*m)->GetAABB();
+		}
+		++i;
+	}
+}

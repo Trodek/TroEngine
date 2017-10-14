@@ -8,6 +8,8 @@
 #include "MeshRenderer.h"
 #include "Transform.h"
 #include "MaterialManager.h"
+#include "ModuleCamera3D.h"
+
 #include "Assimp\include\cimport.h"
 #include "Assimp\include\scene.h"
 #include "Assimp\include\postprocess.h"
@@ -124,6 +126,9 @@ bool MeshImporter::LoadFile(const char * path)
 				//for now, add the mesh to scene game object too
 				MeshRenderer* mr = (MeshRenderer*) App->scene_manager->GetCurrentScene()->GetGameObject(0)->GetComponent(Component::Type::MeshRenderer);
 				mr->AddMesh(new_geo);
+
+				//focus camera to this mesh
+				App->camera->AdjustCameraToAABB(new_geo->GetAABB());
 			}
 		}
 
