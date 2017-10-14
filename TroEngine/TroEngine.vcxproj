@@ -99,6 +99,7 @@
     <ClInclude Include="Engine\Algorithm\Random\LCG.h" />
     <ClInclude Include="Engine\Algorithm\SAT.h" />
     <ClInclude Include="Engine\Application.h" />
+    <ClInclude Include="Engine\AssimpLogger.h" />
     <ClInclude Include="Engine\Assimp\include\cfileio.h" />
     <ClInclude Include="Engine\Assimp\include\cimport.h" />
     <ClInclude Include="Engine\Assimp\include\postprocess.h" />

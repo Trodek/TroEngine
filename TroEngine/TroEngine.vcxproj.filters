@@ -710,6 +710,9 @@
     <ClInclude Include="Engine\Inspector.h">
       <Filter>Source\Editor\GUI</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\AssimpLogger.h">
+      <Filter>Source\Engine\Modules\MeshImporter</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Geometry\KDTree.inl">

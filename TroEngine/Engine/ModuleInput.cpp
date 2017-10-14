@@ -5,7 +5,6 @@
 #include "ModuleRenderer3D.h"
 #include "imgui.h"
 #include "imgui_impl_sdl.h"
-#include <algorithm>
 #include "MeshImporter.h"
 #include "MaterialManager.h"
 #include "GameObject.h"
@@ -155,10 +154,9 @@ void ModuleInput::OnFileDropped(const char * path)
 {
 	std::string file = path;
 	std::string ext = file.substr(file.size() - 3, 3);
-	std::transform(ext.begin(), ext.end(), ext.begin(), ::tolower);
 	
 	//check extension to do proper action
-	if(ext == "fbx")
+	if(ext == "fbx" ||ext == "FBX")
 	{ 
 		// for now, clean all previous meshes befor importing new ones
 		MeshRenderer* mr = (MeshRenderer*)App->scene_manager->GetCurrentScene()->GetGameObject(0)->GetComponent(Component::Type::MeshRenderer);

@@ -14,6 +14,9 @@
 #include "Assimp\include\scene.h"
 #include "Assimp\include\postprocess.h"
 #include "Assimp\include\cfileio.h"
+#include "AssimpLogger.h"
+#include "Assimp\include\DefaultLogger.hpp"
+#include "Assimp\include\Logger.hpp"
 
 #pragma comment (lib, "Engine/Assimp/libx86/assimp.lib")
 
@@ -35,10 +38,9 @@ bool MeshImporter::Awake(JSONDoc * config)
 bool MeshImporter::Start()
 {
 	bool ret = true;
-		
-	struct aiLogStream stream;
-	stream = aiGetPredefinedLogStream(aiDefaultLogStream_DEBUGGER, nullptr);
-	aiAttachLogStream(&stream);
+	Assimp::DefaultLogger::create();
+	const uint severity = Assimp::Logger::Debugging | Assimp::Logger::Info | Assimp::Logger::Err | Assimp::Logger::Warn;
+	Assimp::DefaultLogger::get()->attachStream(new AssimpLogger(),severity);
 	return ret;
 }
 
@@ -63,7 +65,9 @@ bool MeshImporter::LoadFile(const char * path)
 {
 	bool ret = true;
 
-	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
+	std::string p = path;
+
+	const aiScene* scene = aiImportFile(p.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
 	{
 		EDITOR_LOG("%d Meshes detected. Start Loading...", scene->mNumMeshes)
