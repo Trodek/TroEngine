@@ -4,10 +4,11 @@
 #include "ComponentMaterial.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
+#include "Transform.h"
 
 GameObject::GameObject(const char * name, bool active, GameObject * parent) : name(name), active(active), parent(parent)
 {
-	//Create transform Component
+	AddComponent(Component::Type::Transform);
 }
 
 GameObject::~GameObject()
@@ -130,6 +131,10 @@ void GameObject::DebugDraw()
 
 void GameObject::DrawConfig()
 {
+	for (std::list<Component*>::iterator c = components.begin(); c != components.end(); ++c)
+	{
+		(*c)->DrawConfig();
+	}
 }
 
 void GameObject::AddComponent(Component * component)
@@ -147,8 +152,12 @@ Component* GameObject::AddComponent(Component::Type type)
 	case Component::Null:
 		break;
 	case Component::Transform:
-		
+	{
+		Transform* t = new Transform(this);
+		components.push_back(t);
+		new_comp = t;
 		break;
+	}
 	case Component::MeshRenderer:
 	{
 		MeshRenderer* mr = new MeshRenderer(this);

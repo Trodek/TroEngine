@@ -27,6 +27,7 @@
     <ClCompile Include="Engine\ComponentMaterial.cpp" />
     <ClCompile Include="Engine\ConsoleGUI.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
+    <ClCompile Include="Engine\Inspector.cpp" />
     <ClCompile Include="Engine\Material.cpp" />
     <ClCompile Include="Engine\MaterialManager.cpp" />
     <ClCompile Include="Engine\Mesh.cpp" />
@@ -91,6 +92,7 @@
     <ClCompile Include="Engine\Primitive.cpp" />
     <ClCompile Include="Engine\Timer.cpp" />
     <ClCompile Include="Engine\Time\Clock.cpp" />
+    <ClCompile Include="Engine\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Algorithm\GJK.h" />
@@ -114,6 +116,7 @@
     <ClInclude Include="Engine\Devil\include\ilu_region.h" />
     <ClInclude Include="Engine\Devil\include\il_wrap.h" />
     <ClInclude Include="Engine\GameObject.h" />
+    <ClInclude Include="Engine\Inspector.h" />
     <ClInclude Include="Engine\Material.h" />
     <ClInclude Include="Engine\MaterialManager.h" />
     <ClInclude Include="Engine\Mesh.h" />
@@ -215,6 +218,7 @@
     <ClInclude Include="Engine\stb_truetype.h" />
     <ClInclude Include="Engine\Timer.h" />
     <ClInclude Include="Engine\Time\Clock.h" />
+    <ClInclude Include="Engine\Transform.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Geometry\KDTree.inl" />

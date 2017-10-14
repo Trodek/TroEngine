@@ -6,6 +6,7 @@
 #include "ModuleWindow.h"
 #include "MenuGUI.h"
 #include "ConsoleGUI.h"
+#include "Inspector.h"
 
 ModuleGUI::ModuleGUI(bool start_enabled) : Module(start_enabled) 
 {
@@ -33,6 +34,7 @@ bool ModuleGUI::Awake(JSONDoc* config)
 bool ModuleGUI::Start()
 {
 	AddElement(new MenuGUI());
+	AddElement(new Inspector());
 
 	return true;
 }

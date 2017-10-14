@@ -3,6 +3,7 @@
 #include "Mesh.h"
 #include "Application.h"
 #include "MeshImporter.h"
+#include "imgui.h"
 
 MeshRenderer::MeshRenderer(GameObject* owner) : Component(Component::Type::MeshRenderer,owner)
 {
@@ -35,6 +36,26 @@ void MeshRenderer::AddMesh(Mesh * mesh)
 
 void MeshRenderer::DrawConfig()
 {
+	if (ImGui::CollapsingHeader("MeshRenderer"))
+	{
+		ImGui::Checkbox("Wireframe##meshrenderer", &wireframe);
+
+		int i = 1;
+		for (std::list<Mesh*>::iterator m = meshes.begin(); m != meshes.end(); ++m)
+		{
+			char title[25];
+			sprintf_s(title, 25, "Mesh %d##meshrenderer", i);
+			if (ImGui::CollapsingHeader(title))
+			{
+				char name[25];
+				sprintf_s(name, 25, "Vertices##mesh%d", i);
+				ImGui::LabelText(name, "%d", (*m)->GetVerticesNum());
+				sprintf_s(name, 25, "Indices##mesh%d", i);
+				ImGui::LabelText(name, "%d", (*m)->GetIndicesNum());
+			}
+			++i;
+		}
+	}
 }
 
 void MeshRenderer::RemoveAllMeshes()

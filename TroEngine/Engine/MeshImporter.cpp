@@ -6,6 +6,7 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "MeshRenderer.h"
+#include "Transform.h"
 #include "MaterialManager.h"
 #include "Assimp\include\cimport.h"
 #include "Assimp\include\scene.h"
@@ -136,7 +137,17 @@ bool MeshImporter::LoadFile(const char * path)
 			App->materials->ImportImage(path.C_Str());
 
 		}
-		
+
+		//Get transform
+		aiNode* root = scene->mRootNode;
+
+		aiMatrix4x4 m = root->mTransformation;
+
+		float4x4 transform(m.a1, m.a2, m.a3, m.a4, m.b1, m.b2, m.b3, m.b4, m.c1, m.c2, m.c3, m.c4, m.d1, m.d2, m.d3, m.d4);
+
+		Transform* t = (Transform*) App->scene_manager->GetCurrentScene()->GetGameObject(0)->GetComponent(Component::Type::Transform);
+		t->SetTransform(transform);
+
 		aiReleaseImport(scene);
 	}
 	else
