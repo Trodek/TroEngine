@@ -172,7 +172,7 @@ void MeshImporter::RemoveMesh(Mesh * m)
 {
 	for (std::list<Mesh*>::iterator mesh = meshes.begin(); mesh != meshes.end();++m)
 	{
-		if (*mesh = m)
+		if (*mesh == m)
 		{
 			(*mesh)->CleanUp();
 			RELEASE(*mesh);
