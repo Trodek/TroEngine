@@ -91,11 +91,21 @@ void MenuGUI::AboutPanel()
 		ImGui::BulletText("OpenGL 2.1");
 		ImGui::BulletText("MathGeoLib");
 		ImGui::BulletText("ImGui 1.52");
+		ImGui::BulletText("Parson");
+		ImGui::BulletText("mmgr");
+		ImGui::BulletText("GLEW 2.1");
+		ImGui::BulletText("Assimp 3.0");
+		ImGui::BulletText("Devil 1.7.8");
 		ImGui::TextWrapped("This engine is under de MIT License.");
 
 		if (ImGui::Button("GitHub Repository"))
 		{
 			App->OpenWebPage("https://github.com/Trodek/TroEngine");
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("GitHub Releases"))
+		{
+			App->OpenWebPage("https://github.com/Trodek/TroEngine/releases");
 		}
 
 		ImGui::End();
