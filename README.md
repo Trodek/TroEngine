@@ -28,8 +28,8 @@ A performance window can be aopened at view -> performance.
 
 Theres also a configuration widow at file menu.
 
-For very large models like Infernal.fbx or landscape.fbx (provided at models folder) the 
-camera can't autoadjust, rotate it and focus it with F to see the models.
+Take in acount that camera will adjust has a maximum value to avoid moving outside 
+vision range.
 
 ## GitHub
 The engine is mantained by Trodek.

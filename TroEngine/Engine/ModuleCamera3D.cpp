@@ -3,6 +3,8 @@
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
 
+#define MAX_ADJUST_DISTANCE 300.f
+
 ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)
 {
 	CalculateViewMatrix();
@@ -146,7 +148,8 @@ float* ModuleCamera3D::GetViewMatrix()
 // -----------------------------------------------------------------
 void ModuleCamera3D::AdjustCameraToAABB(AABB & bb)
 {
-	FocusCamera(vec3(0, 0, 0), bb.Size().Length() *1.5f);
+	float distance = (bb.Size().Length() *1.5f < MAX_ADJUST_DISTANCE) ? bb.Size().Length() *1.5f : MAX_ADJUST_DISTANCE;
+	FocusCamera(vec3(0, 0, 0), distance);
 }
 
 // -----------------------------------------------------------------
