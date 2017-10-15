@@ -126,7 +126,7 @@ bool MeshImporter::LoadFile(const char * path)
 					RELEASE_ARRAY(indices);
 				if (uv != nullptr)
 					RELEASE_ARRAY(uv);
-				EDITOR_LOG("Error loading mesh %d", i);
+				EDITOR_LOG("Error loading mesh %d", i+1);
 			}
 			else //valid mesh, add to the list
 			{
@@ -162,8 +162,12 @@ bool MeshImporter::LoadFile(const char * path)
 			aiMaterial* mat = scene->mMaterials[0]; //just one material is supported now
 			aiString path;
 			mat->GetTexture(aiTextureType_DIFFUSE, 0, &path);
-			EDITOR_LOG("Mesh material path is: %s. Start importing it...", path.C_Str());
-			App->materials->ImportImage(path.C_Str());
+
+			std::string rel_path = "Models\\";
+			rel_path += path.C_Str();
+
+			EDITOR_LOG("Mesh material path is: %s. Start importing it...", rel_path.c_str());
+			App->materials->ImportImage(rel_path.c_str());
 
 		}
 
