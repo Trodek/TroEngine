@@ -19,6 +19,7 @@ The camera controls are:
 * Mouse Wheel: zoom in and out
 * Right Click: rotate camera with mouse movement.
 * Alt + Left Click: Oribt arround center
+* F: focus camera to center
 
 You can find information about loaded fbx and texture on the opening the inspector
 window from the view menu.
@@ -26,6 +27,9 @@ window from the view menu.
 A performance window can be aopened at view -> performance.
 
 Theres also a configuration widow at file menu.
+
+For very large models like Infernal.fbx or landscape.fbx (provided at models folder) the 
+camera can't autoadjust, rotate it and focus it with F to see the models.
 
 ## GitHub
 The engine is mantained by Trodek.
