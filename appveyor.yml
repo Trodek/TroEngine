@@ -1,4 +1,4 @@
-version: TroEngine-{branch} 0.0.{build}
+version: TroEngine-{branch} 0.1.{build}
 branches:
   only:
   - master
