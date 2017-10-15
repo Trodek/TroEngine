@@ -16,6 +16,7 @@
 
 MaterialManager::MaterialManager()
 {
+	SetName("materialmanager");
 }
 
 MaterialManager::~MaterialManager()
