@@ -38,6 +38,7 @@ void ConsoleGUI::CreateConsole() const
 	{
 		ImGui::Text(line->c_str());
 	}
+	ImGui::SetScrollHere();
 
 	ImGui::End();
 }

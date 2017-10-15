@@ -65,12 +65,13 @@ bool MeshImporter::LoadFile(const char * path)
 {
 	bool ret = true;
 
-	std::string p = path;
-
-	const aiScene* scene = aiImportFile(p.c_str(), aiProcessPreset_TargetRealtime_MaxQuality);
+	const aiScene* scene = aiImportFile(path, aiProcessPreset_TargetRealtime_MaxQuality);
 	if (scene != nullptr && scene->HasMeshes())
 	{
-		EDITOR_LOG("%d Meshes detected. Start Loading...", scene->mNumMeshes)
+		EDITOR_LOG("%d Meshes detected. Start Loading...", scene->mNumMeshes);
+
+		AABB* bigest_bbox = nullptr;
+
 		for (uint i = 0; i < scene->mNumMeshes; ++i)
 		{
 			//Load vertices
@@ -131,10 +132,22 @@ bool MeshImporter::LoadFile(const char * path)
 				MeshRenderer* mr = (MeshRenderer*) App->scene_manager->GetCurrentScene()->GetGameObject(0)->GetComponent(Component::Type::MeshRenderer);
 				mr->AddMesh(new_geo);
 
-				//focus camera to this mesh
-				App->camera->AdjustCameraToAABB(new_geo->GetAABB());
+				//check bbox size
+				if (bigest_bbox == nullptr)
+					bigest_bbox = &new_geo->GetAABB();
+				else
+				{
+					if (new_geo->GetAABB().Size().LengthSq() > bigest_bbox->Size().LengthSq())
+					{
+						bigest_bbox = &new_geo->GetAABB();
+					}
+				}
+				
 			}
 		}
+
+		//focus camera to biggest mesh
+		App->camera->AdjustCameraToAABB(*bigest_bbox);
 
 		//Check if has a material associated
 		if (scene->HasMaterials())

@@ -1,0 +1,10 @@
+Info,  T4756: Load C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\BakerHouse.fbx
+Info,  T4756: Found a matching importer for this file format: Autodesk FBX Importer.
+Info,  T4756: Import root directory is 'C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\'
+Warn,  T4756: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
+Info,  T4756: Entering post processing pipeline
+Info,  T4756: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
+Info,  T4756: CalcTangentsProcess finished. Tangents have been calculated
+Info,  T4756: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4%
+Info,  T4756: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
+Info,  T4756: Leaving post processing pipeline
