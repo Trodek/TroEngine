@@ -5,6 +5,14 @@
 #include "ModuleRenderer3D.h"
 #include "imgui.h"
 #include "imgui_impl_sdl.h"
+#include "MeshImporter.h"
+#include "MaterialManager.h"
+#include "GameObject.h"
+#include "MeshRenderer.h"
+#include "Scene.h"
+#include "SceneManager.h"
+#include "Component.h"
+#include "ComponentMaterial.h"
 
 #define MAX_KEYS 300
 
@@ -117,6 +125,13 @@ update_status ModuleInput::PreUpdate(float dt)
 			{
 				if(e.window.event == SDL_WINDOWEVENT_RESIZED)
 					App->renderer3D->OnResize(e.window.data1, e.window.data2);
+				break;
+			}
+
+			case SDL_DROPFILE:
+			{
+				OnFileDropped(e.drop.file);
+				break;
 			}
 		}
 	}
@@ -133,4 +148,28 @@ bool ModuleInput::CleanUp()
 	EDITOR_LOG("Quitting SDL input event subsystem");
 	SDL_QuitSubSystem(SDL_INIT_EVENTS);
 	return true;
+}
+
+void ModuleInput::OnFileDropped(const char * path)
+{
+	std::string file = path;
+	std::string ext = file.substr(file.size() - 3, 3);
+	
+	//check extension to do proper action
+	if(ext == "fbx" ||ext == "FBX")
+	{ 
+		// for now, clean all previous meshes befor importing new ones
+		MeshRenderer* mr = (MeshRenderer*)App->scene_manager->GetCurrentScene()->GetGameObject(0)->GetComponent(Component::Type::MeshRenderer);
+		mr->RemoveAllMeshes();
+
+		// remove material befor loading new fbx
+		ComponentMaterial* cm = (ComponentMaterial*)App->scene_manager->GetCurrentScene()->GetGameObject(0)->GetComponent(Component::Type::C_Material);
+		cm->CleanUp();
+
+		App->mesh->LoadFile(path);
+	}
+	else if (ext == "png")
+	{
+		App->materials->ImportImage(path);
+	}
 }

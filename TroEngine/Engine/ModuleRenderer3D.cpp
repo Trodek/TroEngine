@@ -13,9 +13,14 @@
 #include "Brofiler\Brofiler.h"
 #include "imgui.h"
 
+#include "MeshImporter.h"
+
 #pragma comment (lib, "engine/glew-2.1.0/libx86/glew32.lib")    /* link Glew lib     */
 #pragma comment (lib, "glu32.lib")    /* link OpenGL Utility lib     */
 #pragma comment (lib, "opengl32.lib") /* link Microsoft OpenGL lib   */
+
+#define CHECKERS_HEIGHT 256
+#define CHECKERS_WIDTH 256
 
 ModuleRenderer3D::ModuleRenderer3D(bool start_enabled) : Module(start_enabled)
 {
@@ -95,7 +100,7 @@ bool ModuleRenderer3D::Awake(JSONDoc* config)
 			ret = false;
 		}
 
-		GLfloat LightModelAmbient[] = { 1.0f, 1.0f, 1.0f, 1.0f };
+		GLfloat LightModelAmbient[] = { 0.4f, 0.4f, 0.4f, 1.0f };
 		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
 
 		lights[0].ref = GL_LIGHT0;
@@ -119,6 +124,8 @@ bool ModuleRenderer3D::Awake(JSONDoc* config)
 		lighting = true;
 		glEnable(GL_COLOR_MATERIAL);
 		color_material = true;
+		glEnable(GL_TEXTURE_2D);
+		texture_2d = true;
 	}
 	
 
@@ -126,6 +133,24 @@ bool ModuleRenderer3D::Awake(JSONDoc* config)
 	OnResize(App->window->GetWidth(), App->window->GetHeight());
 
 	return ret;
+}
+
+bool ModuleRenderer3D::Start()
+{
+	//create checker texture
+	GLubyte checkImage[CHECKERS_HEIGHT][CHECKERS_WIDTH][4];
+	for (int i = 0; i < CHECKERS_HEIGHT; i++) {
+		for (int j = 0; j < CHECKERS_WIDTH; j++) {
+			int c = ((((i & 0x8) == 0) ^ (((j & 0x8)) == 0))) * 255;
+			checkImage[i][j][0] = (GLubyte)c;
+			checkImage[i][j][1] = (GLubyte)c;
+			checkImage[i][j][2] = (GLubyte)c;
+			checkImage[i][j][3] = (GLubyte)255;
+		}
+	}
+	checker_id = LoadTextureToVRAM(CHECKERS_WIDTH, CHECKERS_HEIGHT, &checkImage[0][0][0], GL_RGBA);
+
+	return true;
 }
 
 // PreUpdate: clear buffer
@@ -156,11 +181,17 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	//Draw debug
 
 	//Draw GUI
-	if(lighting == true)		//Disable Lighting befor drawing gui
-		ToggleLightingState(); 
-	App->gui->RenderGUI();
-	if (lighting == true)		//Enable Lighting after drawing gui if needed
+	bool light_state = lighting;
+	if (lighting == true)		//Disable Lighting befor drawing gui
+	{
+		lighting = false;
 		ToggleLightingState();
+	}
+	App->gui->RenderGUI();
+
+	lighting = light_state;
+	ToggleLightingState();
+	
 
 	SDL_GL_SwapWindow(App->window->window);
 	return UPDATE_CONTINUE;
@@ -250,25 +281,129 @@ void ModuleRenderer3D::ConfigGUI()
 	}
 }
 
+uint ModuleRenderer3D::GenBuffer() const
+{
+	uint ret = 0;
+	glGenBuffers(1, (GLuint*)&ret);
+	return ret;
+}
+
+void ModuleRenderer3D::BindArrayBuffer(uint id) const
+{
+	glBindBuffer(GL_ARRAY_BUFFER, id);
+}
+
+void ModuleRenderer3D::BindElementArrayBuffer(uint id) const
+{
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);
+}
+
+void ModuleRenderer3D::RenderElement(uint num_indices) const
+{
+	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+}
+
+void ModuleRenderer3D::UnbindArraybuffer() const
+{
+	glBindBuffer(GL_ARRAY_BUFFER, 0);
+}
+
+void ModuleRenderer3D::UnbindElementArrayBuffer() const
+{
+	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+}
+
+void ModuleRenderer3D::EnableState(GLenum type) const
+{
+	glEnableClientState(type);
+}
+
+void ModuleRenderer3D::DisableState(GLenum type) const
+{
+	glDisableClientState(type);
+}
+
+void ModuleRenderer3D::SetVertexPointer() const
+{
+	glVertexPointer(3, GL_FLOAT, 0, NULL);
+}
+
+void ModuleRenderer3D::SetCheckerTexture() const
+{
+	glBindTexture(GL_TEXTURE_2D, checker_id);
+}
+
+void ModuleRenderer3D::BindTexure(uint id) const
+{
+	glBindTexture(GL_TEXTURE_2D, id);
+}
+
+void ModuleRenderer3D::UnbindTexture() const
+{
+	glBindTexture(GL_TEXTURE_2D, 0);
+}
+
+void ModuleRenderer3D::SetTexCoordPointer()
+{
+	glTexCoordPointer(3, GL_FLOAT, 0, NULL);
+}
+
+void ModuleRenderer3D::LoadArrayToVRAM(uint size, float * values, GLenum type) const
+{
+	glBufferData(GL_ARRAY_BUFFER, size, values, type);
+}
+
+void ModuleRenderer3D::LoadArrayToVRAM(uint size, uint * values, GLenum type) const
+{
+	glBufferData(GL_ARRAY_BUFFER, size, values, type);
+}
+
+uint ModuleRenderer3D::LoadTextureToVRAM(uint w, uint h, GLubyte * tex_data, GLint format) const
+{
+	uint buff_id = 0;
+
+	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+	glGenTextures(1, &buff_id);
+	glBindTexture(GL_TEXTURE_2D, buff_id);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
+	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+	glTexImage2D(GL_TEXTURE_2D, 0, format, w, h, 0, format, GL_UNSIGNED_BYTE, tex_data);
+
+	return buff_id;
+}
+
+GLenum ModuleRenderer3D::GetPolyMode() const
+{
+	return poly_mode;
+}
+
 void ModuleRenderer3D::PolygonModePoints()
 {
+	glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
 	wireframe = false;
 	points = true;
 	fill = false;
+	poly_mode = GL_POINT;
 }
 
 void ModuleRenderer3D::PolygonModeWireframe()
 {
+	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 	wireframe = true;
 	points = false;
 	fill = false;
+	poly_mode = GL_LINE;
 }
 
 void ModuleRenderer3D::PolygonModeFill()
 {
+	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	wireframe = false;
 	points = false;
 	fill = true;
+	poly_mode = GL_FILL;
 }
 
 void ModuleRenderer3D::ToggleDepthTestState()
@@ -322,21 +457,5 @@ void ModuleRenderer3D::ToggleVSYNC()
 	{
 		if (SDL_GL_SetSwapInterval(0) == 0)
 			EDITOR_LOG("VSYNC disabled");
-	}
-}
-
-void ModuleRenderer3D::SetCurrentPolygonMode()
-{
-	if (wireframe)
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
-	}
-	if (points)
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
-	}
-	if (fill)
-	{
-		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 	}
 }

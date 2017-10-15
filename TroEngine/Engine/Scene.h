@@ -2,6 +2,7 @@
 #define __SCENE__
 
 #include "Globals.h"
+#include "GameObject.h"
 
 class Scene
 {
@@ -11,31 +12,27 @@ public:
 	~Scene()
 	{	}
 
-	virtual bool Start()
-	{
-		return true;
-	}
+	bool Start();
 
-	virtual void Draw()
-	{	}
+	void Draw();
 
-	virtual update_status Update(float dt)
-	{
-		return UPDATE_CONTINUE;
-	}
+	update_status Update(float dt);
 
-	virtual bool CleanUp()
-	{
-		return true;
-	}
+	bool CleanUp();
 
-	bool IsActive()
-	{
-		return active;
-	}
+	bool IsActive();
+
+	void AddGameObject(GameObject* go);
+	GameObject* CreateGameObject();
+
+	GameObject* GetGameObject(uint id) const;
 
 private:
 	bool active;
+	uint new_go_id = 0;
+
+public:
+	std::list<GameObject*> game_objects;
 };
 
 

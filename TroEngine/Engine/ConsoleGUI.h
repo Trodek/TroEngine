@@ -20,10 +20,11 @@ public:
 	bool accept_lines = false;
 
 private:
-	void CreateConsole() const;
+	void CreateConsole();
 
 private:
 	std::list<std::string> console_lines;
+	bool scroll_to_bottom = false;
 
 };
 

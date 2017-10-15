@@ -17,6 +17,8 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
+	Scene* GetCurrentScene()const;
+
 	void AddScene(Scene* scene);
 	void DrawScenes();
 
@@ -24,6 +26,7 @@ public:
 
 private:
 	std::list<Scene*> scenes;
+	Scene* curr_scene = nullptr;
 };
 
 #endif // !__SCENEMANAGER__

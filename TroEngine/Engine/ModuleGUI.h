@@ -7,6 +7,7 @@
 
 class GUIElement;
 class ConsoleGUI;
+class Inspector;
 
 class ModuleGUI : public Module
 {
@@ -27,6 +28,7 @@ public:
 
 public:
 	ConsoleGUI* console = nullptr;
+	Inspector* inspector = nullptr;
 
 private:
 	std::list<GUIElement*> gui_elements;

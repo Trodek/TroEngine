@@ -1,6 +1,8 @@
 #include "SceneManager.h"
 #include "Scene.h"
-#include "TestScene.h"
+#include "Primitive.h"
+#include "Application.h"
+#include "MeshImporter.h"
 
 SceneManager::SceneManager(bool start_enabled)
 {
@@ -16,7 +18,9 @@ bool SceneManager::Awake(JSONDoc * config)
 	bool ret = true;
 
 	//Create test scene 
-	AddScene(new TestScene());
+	Scene* s = new Scene();
+	curr_scene = s;
+	AddScene(s);
 
 	return ret;
 }
@@ -64,6 +68,11 @@ bool SceneManager::CleanUp()
 	return ret;
 }
 
+Scene * SceneManager::GetCurrentScene() const
+{
+	return curr_scene;
+}
+
 void SceneManager::AddScene(Scene * scene)
 {
 	scenes.push_back(scene);
@@ -71,6 +80,11 @@ void SceneManager::AddScene(Scene * scene)
 
 void SceneManager::DrawScenes()
 {
+	//For now, render a generic grid
+	PPlane p(0, 1, 0, 0);
+	p.axis = true;
+	p.Render();
+
 	//Draw all active scenes
 	for (std::list<Scene*>::iterator s = scenes.begin(); s != scenes.end(); ++s)
 	{

@@ -1,0 +1,417 @@
+Info,  T7396: Load C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\BakerHouse.fbx
+Info,  T7396: Found a matching importer for this file format: Autodesk FBX Importer.
+Info,  T7396: Import root directory is 'C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\'
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
+Info,  T7396: Entering post processing pipeline
+Info,  T7396: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
+Info,  T7396: CalcTangentsProcess finished. Tangents have been calculated
+Info,  T7396: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4%
+Info,  T7396: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
+Info,  T7396: Leaving post processing pipeline
+Info,  T7396: Load C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\Rock.fbx
+Info,  T7396: Found a matching importer for this file format: Autodesk FBX Importer.
+Info,  T7396: Import root directory is 'C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\'
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1830a) shading mode not recognized: Phong
+Info,  T7396: Entering post processing pipeline
+Info,  T7396: Points: 0, Lines: 0, Triangles: 1, Polygons: 0 (Meshes, X = removed)
+Info,  T7396: CalcTangentsProcess finished. Tangents have been calculated
+Info,  T7396: JoinVerticesProcess finished | Verts in: 5766 out: 1108 | ~80.8%
+Info,  T7396: Cache relevant are 1 meshes (1922 faces). Average output ACMR is 0.803330
+Info,  T7396: Leaving post processing pipeline
+Info,  T7396: Load C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\Wooden_House.fbx
+Info,  T7396: Found a matching importer for this file format: Autodesk FBX Importer.
+Info,  T7396: Import root directory is 'C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\'
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x80fd) shading mode not recognized: Phong
+Info,  T7396: Entering post processing pipeline
+Info,  T7396: TriangulateProcess finished. All polygons have been triangulated.
+Info,  T7396: Points: 0, Lines: 0, Triangles: 1, Polygons: 0 (Meshes, X = removed)
+Info,  T7396: CalcTangentsProcess finished. Tangents have been calculated
+Info,  T7396: JoinVerticesProcess finished | Verts in: 1451 out: 1223 | ~15.7%
+Info,  T7396: Cache relevant are 1 meshes (747 faces). Average output ACMR is 1.601071
+Info,  T7396: Leaving post processing pipeline
+Info,  T7396: Load C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\Golem.FBX
+Info,  T7396: Found a matching importer for this file format: Autodesk FBX Importer.
+Info,  T7396: Import root directory is 'C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\'
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1d9af5) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1d9b24) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1d9b53) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1d9b82) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1d9bb1) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1d9be0) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1d9c0f) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1d9c3e) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1d9c6d) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dc330) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dc35f) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dc38e) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dc3bd) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dc3ec) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dc41b) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dc44a) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dc479) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dc4a8) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1deb6b) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1deb9a) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1debc9) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1debf8) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dec27) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dec56) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dec85) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1decb4) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dece3) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e13a6) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e13d5) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e1404) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e1433) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e1462) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e1491) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e14c0) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e14ef) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e151e) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e3be1) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e3c10) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e3c3f) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e3c6e) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e3c9d) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e3ccc) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e3cfb) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e3d2a) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e3d59) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e641c) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e644b) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e647a) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e64a9) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e64d8) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e6507) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e6536) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e6565) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e6594) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e8c57) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e8c86) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e8cb5) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e8ce4) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e8d13) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e8d42) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e8d71) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e8da0) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e8dcf) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eb492) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eb4c1) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eb4f0) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eb51f) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eb54e) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eb57d) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eb5ac) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eb5db) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eb60a) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1edccd) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1edcfc) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1edd2b) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1edd5a) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1edd89) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eddb8) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1edde7) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1ede16) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1ede45) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f0508) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f0537) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f0566) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f0595) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f05c4) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f05f3) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f0622) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f0651) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f0680) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f2d43) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f2d72) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f2da1) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f2dd0) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f2dff) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f2e2e) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f2e5d) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f2e8c) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f2ebb) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f557e) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f55ad) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f55dc) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f560b) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f563a) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f5669) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f5698) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f56c7) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f56f6) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f7db9) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f7de8) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f7e17) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f7e46) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f7e75) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f7ea4) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f7ed3) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f7f02) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f7f31) source object for connection does not exist
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Skipping one or more lines with the same contents
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Skipping one or more lines with the same contents
+Info,  T7396: FBX: generating full transformation chain for node: 1
+Info,  T7396: FBX: generating full transformation chain for node: Bn_Root
+Info,  T7396: Entering post processing pipeline
+Info,  T7396: Points: 0, Lines: 0, Triangles: 1, Polygons: 0 (Meshes, X = removed)
+Warn,  T7396: Simplified dummy tracks with just one key
+Skipping one or more lines with the same contents
+Info,  T7396: CalcTangentsProcess finished. Tangents have been calculated
+Info,  T7396: JoinVerticesProcess finished | Verts in: 9960 out: 2681 | ~73.1%
+Info,  T7396: Cache relevant are 1 meshes (3320 faces). Average output ACMR is 0.967169
+Info,  T7396: Leaving post processing pipeline
+Info,  T7396: Load C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\Golem.FBX
+Info,  T7396: Found a matching importer for this file format: Autodesk FBX Importer.
+Info,  T7396: Import root directory is 'C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\'
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1d9af5) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1d9b24) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1d9b53) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1d9b82) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1d9bb1) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1d9be0) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1d9c0f) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1d9c3e) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1d9c6d) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dc330) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dc35f) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dc38e) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dc3bd) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dc3ec) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dc41b) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dc44a) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dc479) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dc4a8) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1deb6b) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1deb9a) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1debc9) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1debf8) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dec27) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dec56) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dec85) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1decb4) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1dece3) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e13a6) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e13d5) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e1404) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e1433) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e1462) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e1491) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e14c0) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e14ef) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e151e) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e3be1) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e3c10) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e3c3f) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e3c6e) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e3c9d) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e3ccc) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e3cfb) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e3d2a) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e3d59) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e641c) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e644b) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e647a) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e64a9) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e64d8) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e6507) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e6536) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e6565) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e6594) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e8c57) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e8c86) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e8cb5) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e8ce4) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e8d13) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e8d42) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e8d71) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e8da0) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1e8dcf) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eb492) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eb4c1) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eb4f0) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eb51f) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eb54e) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eb57d) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eb5ac) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eb5db) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eb60a) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1edccd) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1edcfc) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1edd2b) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1edd5a) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1edd89) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1eddb8) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1edde7) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1ede16) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1ede45) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f0508) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f0537) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f0566) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f0595) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f05c4) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f05f3) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f0622) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f0651) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f0680) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f2d43) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f2d72) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f2da1) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f2dd0) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f2dff) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f2e2e) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f2e5d) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f2e8c) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f2ebb) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f557e) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f55ad) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f55dc) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f560b) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f563a) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f5669) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f5698) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f56c7) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f56f6) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f7db9) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f7de8) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f7e17) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f7e46) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f7e75) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f7ea4) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f7ed3) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f7f02) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x1f7f31) source object for connection does not exist
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Skipping one or more lines with the same contents
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::R
+Warn,  T7396: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::S
+Warn,  T7396: FBX: ignoring node animation, did not find any transformation key frames
+Skipping one or more lines with the same contents
+Info,  T7396: FBX: generating full transformation chain for node: 1
+Info,  T7396: FBX: generating full transformation chain for node: Bn_Root
+Info,  T7396: Entering post processing pipeline
+Info,  T7396: Points: 0, Lines: 0, Triangles: 1, Polygons: 0 (Meshes, X = removed)
+Warn,  T7396: Simplified dummy tracks with just one key
+Skipping one or more lines with the same contents
+Info,  T7396: CalcTangentsProcess finished. Tangents have been calculated
+Info,  T7396: JoinVerticesProcess finished | Verts in: 9960 out: 2681 | ~73.1%
+Info,  T7396: Cache relevant are 1 meshes (3320 faces). Average output ACMR is 0.967169
+Info,  T7396: Leaving post processing pipeline
+Info,  T7396: Load C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\landscape fbx.fbx
+Info,  T7396: Found a matching importer for this file format: Autodesk FBX Importer.
+Info,  T7396: Import root directory is 'C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\'
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x2783aba) source object for connection does not exist
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x2783af1) source object for connection does not exist
+Info,  T7396: FBX: ignoring empty AnimationStack (using IK?): C4D Animation Take
+Warn,  T7396: FBX-DOM (TOK_KEY, offset 0x222a751) failed to read source object for incoming Model link, ignoring
+Info,  T7396: Entering post processing pipeline
+Info,  T7396: TriangulateProcess finished. All polygons have been triangulated.
+Info,  T7396: Points: 0, Lines: 0, Triangles: 1, Polygons: 0 (Meshes, X = removed)
+Info,  T7396: Mesh exceeds the triangle limit. It will be split ...
+Info,  T7396: SplitLargeMeshesProcess_Triangle finished. Meshes have been split
+Info,  T7396: CalcTangentsProcess finished. Tangents have been calculated
+Info,  T7396: JoinVerticesProcess finished | Verts in: 3840000 out: 642402 | ~83.3%
+Info,  T7396: Cache relevant are 2 meshes (1280000 faces). Average output ACMR is 0.717245
+Info,  T7396: Leaving post processing pipeline

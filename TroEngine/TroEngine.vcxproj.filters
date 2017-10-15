@@ -22,9 +22,6 @@
     <Filter Include="Source\Editor">
       <UniqueIdentifier>{600285da-6d3a-4c21-8967-47d47cee4591}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Editor\ImGUI">
-      <UniqueIdentifier>{a3b8584c-3070-49b8-be2f-154836bf29e9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Engine\Modules\Audio">
       <UniqueIdentifier>{1680ecfb-1c6e-487b-8cd3-50560d36e56c}</UniqueIdentifier>
     </Filter>
@@ -79,6 +76,42 @@
     <Filter Include="Source\Editor\GUI">
       <UniqueIdentifier>{ba2bdf3d-9f69-4120-bd67-be9a3e9a13c1}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\Tools\Gizmo">
+      <UniqueIdentifier>{6171efae-4a1b-434e-895c-cdb7864ddb20}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Modules\MeshImporter">
+      <UniqueIdentifier>{77b0507d-961a-4f30-987b-dbfea0982a87}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Modules\MeshImporter\Assimp">
+      <UniqueIdentifier>{70b94eef-0276-4190-a3e7-fad46aa52d58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Components">
+      <UniqueIdentifier>{8b8f7fbd-6339-4217-8fb4-8334ad47edf0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Modules\MaterialManager">
+      <UniqueIdentifier>{58e88719-1e39-4ed6-b860-19525eee39d3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Modules\MaterialManager\Devil">
+      <UniqueIdentifier>{f1e6c197-8a38-4d01-bb15-2c94fc95da33}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Components\Material">
+      <UniqueIdentifier>{f225bbad-c406-4320-878f-9adaf0f49d99}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\GameObject">
+      <UniqueIdentifier>{4052384b-f43b-4050-b5ab-9735813df827}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Components\MeshRenderer">
+      <UniqueIdentifier>{e3c5d1f7-2334-4e4a-a525-69f2a7ced480}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Components\MeshRenderer\Mesh">
+      <UniqueIdentifier>{d113137b-234c-45fb-9a6c-ec30e3a34b7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Components\Transform">
+      <UniqueIdentifier>{3da6d1fd-4b9f-451b-9099-5b69f9ed176d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\GUI\ImGUI">
+      <UniqueIdentifier>{a3b8584c-3070-49b8-be2f-154836bf29e9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -103,16 +136,16 @@
       <Filter>Source\Engine\Tools</Filter>
     </ClCompile>
     <ClCompile Include="Engine\imgui.cpp">
-      <Filter>Source\Editor\ImGUI</Filter>
+      <Filter>Source\Editor\GUI\ImGUI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\imgui_demo.cpp">
-      <Filter>Source\Editor\ImGUI</Filter>
+      <Filter>Source\Editor\GUI\ImGUI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\imgui_draw.cpp">
-      <Filter>Source\Editor\ImGUI</Filter>
+      <Filter>Source\Editor\GUI\ImGUI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\imgui_impl_sdl.cpp">
-      <Filter>Source\Editor\ImGUI</Filter>
+      <Filter>Source\Editor\GUI\ImGUI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\ModuleAudio.cpp">
       <Filter>Source\Engine\Modules\Audio</Filter>
@@ -258,9 +291,6 @@
     <ClCompile Include="Engine\JSONManager.cpp">
       <Filter>Source\Engine\Tools</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\TestScene.cpp">
-      <Filter>Source\Editor\Scenes</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\SceneManager.cpp">
       <Filter>Source\Editor\Scenes</Filter>
     </ClCompile>
@@ -268,6 +298,42 @@
       <Filter>Source\Editor\GUI</Filter>
     </ClCompile>
     <ClCompile Include="Engine\ConsoleGUI.cpp">
+      <Filter>Source\Editor\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Gizmo.cpp">
+      <Filter>Source\Engine\Tools\Gizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\MeshImporter.cpp">
+      <Filter>Source\Engine\Modules\MeshImporter</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\MaterialManager.cpp">
+      <Filter>Source\Engine\Modules\MaterialManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Material.cpp">
+      <Filter>Source\Engine\Components\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Component.cpp">
+      <Filter>Source\Engine\Components</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\GameObject.cpp">
+      <Filter>Source\Engine\GameObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Mesh.cpp">
+      <Filter>Source\Engine\Components\MeshRenderer\Mesh</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\MeshRenderer.cpp">
+      <Filter>Source\Engine\Components\MeshRenderer</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ComponentMaterial.cpp">
+      <Filter>Source\Engine\Components\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Scene.cpp">
+      <Filter>Source\Editor\Scenes</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Transform.cpp">
+      <Filter>Source\Engine\Components\Transform</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Inspector.cpp">
       <Filter>Source\Editor\GUI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -300,25 +366,25 @@
       <Filter>Source\Engine\Tools</Filter>
     </ClInclude>
     <ClInclude Include="Engine\stb_rect_pack.h">
-      <Filter>Source\Editor\ImGUI</Filter>
+      <Filter>Source\Editor\GUI\ImGUI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\stb_textedit.h">
-      <Filter>Source\Editor\ImGUI</Filter>
+      <Filter>Source\Editor\GUI\ImGUI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\stb_truetype.h">
-      <Filter>Source\Editor\ImGUI</Filter>
+      <Filter>Source\Editor\GUI\ImGUI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\imconfig.h">
-      <Filter>Source\Editor\ImGUI</Filter>
+      <Filter>Source\Editor\GUI\ImGUI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\imgui.h">
-      <Filter>Source\Editor\ImGUI</Filter>
+      <Filter>Source\Editor\GUI\ImGUI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\imgui_impl_sdl.h">
-      <Filter>Source\Editor\ImGUI</Filter>
+      <Filter>Source\Editor\GUI\ImGUI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\imgui_internal.h">
-      <Filter>Source\Editor\ImGUI</Filter>
+      <Filter>Source\Editor\GUI\ImGUI</Filter>
     </ClInclude>
     <ClInclude Include="Engine\ModuleAudio.h">
       <Filter>Source\Engine\Modules\Audio</Filter>
@@ -560,9 +626,6 @@
     <ClInclude Include="Engine\Scene.h">
       <Filter>Source\Editor\Scenes</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\TestScene.h">
-      <Filter>Source\Editor\Scenes</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\SceneManager.h">
       <Filter>Source\Editor\Scenes</Filter>
     </ClInclude>
@@ -574,6 +637,81 @@
     </ClInclude>
     <ClInclude Include="Engine\ConsoleGUI.h">
       <Filter>Source\Editor\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GLInclude.h">
+      <Filter>Source\Engine\Modules\Renderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Gizmo.h">
+      <Filter>Source\Engine\Tools\Gizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\MeshImporter.h">
+      <Filter>Source\Engine\Modules\MeshImporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Assimp\include\cfileio.h">
+      <Filter>Source\Engine\Modules\MeshImporter\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Assimp\include\cimport.h">
+      <Filter>Source\Engine\Modules\MeshImporter\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Assimp\include\postprocess.h">
+      <Filter>Source\Engine\Modules\MeshImporter\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Assimp\include\scene.h">
+      <Filter>Source\Engine\Modules\MeshImporter\Assimp</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Devil\include\ilut.h">
+      <Filter>Source\Engine\Modules\MaterialManager\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Devil\include\config.h">
+      <Filter>Source\Engine\Modules\MaterialManager\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Devil\include\devil_internal_exports.h">
+      <Filter>Source\Engine\Modules\MaterialManager\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Devil\include\il.h">
+      <Filter>Source\Engine\Modules\MaterialManager\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Devil\include\il_wrap.h">
+      <Filter>Source\Engine\Modules\MaterialManager\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Devil\include\ilu.h">
+      <Filter>Source\Engine\Modules\MaterialManager\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Devil\include\ilu_region.h">
+      <Filter>Source\Engine\Modules\MaterialManager\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Devil\include\ilut_config.h">
+      <Filter>Source\Engine\Modules\MaterialManager\Devil</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\MaterialManager.h">
+      <Filter>Source\Engine\Modules\MaterialManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Material.h">
+      <Filter>Source\Engine\Components\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Component.h">
+      <Filter>Source\Engine\Components</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\GameObject.h">
+      <Filter>Source\Engine\GameObject</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Mesh.h">
+      <Filter>Source\Engine\Components\MeshRenderer\Mesh</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\MeshRenderer.h">
+      <Filter>Source\Engine\Components\MeshRenderer</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ComponentMaterial.h">
+      <Filter>Source\Engine\Components\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Transform.h">
+      <Filter>Source\Engine\Components\Transform</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Inspector.h">
+      <Filter>Source\Editor\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\AssimpLogger.h">
+      <Filter>Source\Engine\Modules\MeshImporter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -1,7 +1,7 @@
 #pragma once
 #include "Module.h"
 #include "Globals.h"
-#include "glmath.h"
+#include "GLInclude.h"
 #include "Light.h"
 
 #define MAX_LIGHTS 8
@@ -13,6 +13,7 @@ public:
 	~ModuleRenderer3D();
 
 	bool Awake(JSONDoc* config);
+	bool Start();
 	update_status PreUpdate(float dt);
 	update_status PostUpdate(float dt);
 	void SaveConfig(JSONDoc* config);
@@ -22,7 +23,29 @@ public:
 
 	void ConfigGUI();
 
-	void SetCurrentPolygonMode();
+	uint GenBuffer() const;
+	void BindArrayBuffer(uint id) const;
+	void BindElementArrayBuffer(uint id) const;
+	void RenderElement(uint num_indices) const;
+	void UnbindArraybuffer() const;
+	void UnbindElementArrayBuffer() const;
+	void EnableState(GLenum type) const;
+	void DisableState(GLenum type) const;
+	void SetVertexPointer() const;
+	void SetCheckerTexture() const;
+	void BindTexure(uint id) const;
+	void UnbindTexture() const;
+
+	void SetTexCoordPointer();
+
+	void LoadArrayToVRAM(uint size, float* values, GLenum type = GL_STATIC_DRAW) const;
+	void LoadArrayToVRAM(uint size, uint* values, GLenum type = GL_STATIC_DRAW) const;
+	uint LoadTextureToVRAM(uint w, uint h, GLubyte* tex_data, GLint format) const;
+
+	GLenum GetPolyMode()const;
+	void PolygonModePoints();
+	void PolygonModeWireframe();
+	void PolygonModeFill();
 
 public:
 	Light lights[MAX_LIGHTS];
@@ -35,6 +58,7 @@ private:
 	bool wireframe		= false;
 	bool points			= false;
 	bool fill			= true;
+	GLenum poly_mode    = GL_FILL;
 
 	//capabilities
 	bool depth_test		= false;
@@ -45,11 +69,9 @@ private:
 
 	bool vsync			= false;
 
-private:
-	void PolygonModePoints();
-	void PolygonModeWireframe();
-	void PolygonModeFill();
+	uint checker_id		= 0;
 
+private:
 	void ToggleDepthTestState();
 	void ToggleCullFaceState();
 	void ToggleLightingState();
