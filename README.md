@@ -29,7 +29,9 @@ Theres also a configuration widow at file menu.
 
 ## GitHub
 The engine is mantained by Trodek.
+
 Souce code: https://github.com/Trodek/TroEngine
+
 Releases: https://github.com/Trodek/TroEngine/releases
 
 ## License
