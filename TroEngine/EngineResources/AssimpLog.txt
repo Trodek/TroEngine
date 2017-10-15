@@ -1,10 +1,92 @@
-Info,  T4756: Load C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\BakerHouse.fbx
-Info,  T4756: Found a matching importer for this file format: Autodesk FBX Importer.
-Info,  T4756: Import root directory is 'C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\'
-Warn,  T4756: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
-Info,  T4756: Entering post processing pipeline
-Info,  T4756: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
-Info,  T4756: CalcTangentsProcess finished. Tangents have been calculated
-Info,  T4756: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4%
-Info,  T4756: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
-Info,  T4756: Leaving post processing pipeline
+Info,  T11024: Load C:\Users\ibanm\AppData\Local\Temp\Rar$DRa1.917\E-COPTER\OBJ  FBX  BLEND\e-copter.fbx
+Info,  T11024: Found a matching importer for this file format: Autodesk FBX Importer.
+Info,  T11024: Import root directory is 'C:\Users\ibanm\AppData\Local\Temp\Rar$DRa1.917\E-COPTER\OBJ  FBX  BLEND\'
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x10130a) shading mode not recognized: Phong
+Error, T11024: FBX-Parser (TOK_KEY, offset 0x10139c) expected compound scope
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0xff26c) failed to read source object for incoming Model link, ignoring
+Error, T11024: FBX: material index out of bounds, setting default material
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0xff51e) failed to read source object for incoming Model link, ignoring
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x1013be) shading mode not recognized: Phong
+Error, T11024: FBX-Parser (TOK_KEY, offset 0x101455) expected compound scope
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0xff51e) failed to read source object for incoming Model link, ignoring
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x101477) shading mode not recognized: Phong
+Error, T11024: FBX-Parser (TOK_KEY, offset 0x10150b) expected compound scope
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0xff51e) failed to read source object for incoming Model link, ignoring
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x10152d) shading mode not recognized: Phong
+Error, T11024: FBX-Parser (TOK_KEY, offset 0x1015c6) expected compound scope
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0xff51e) failed to read source object for incoming Model link, ignoring
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x1015e8) shading mode not recognized: Phong
+Error, T11024: FBX-Parser (TOK_KEY, offset 0x10167f) expected compound scope
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0xff51e) failed to read source object for incoming Model link, ignoring
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x1016a1) shading mode not recognized: Phong
+Error, T11024: FBX-Parser (TOK_KEY, offset 0x101747) expected compound scope
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0xff51e) failed to read source object for incoming Model link, ignoring
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x101769) shading mode not recognized: Phong
+Error, T11024: FBX-Parser (TOK_KEY, offset 0x101806) expected compound scope
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0xff51e) failed to read source object for incoming Model link, ignoring
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x101828) shading mode not recognized: Phong
+Error, T11024: FBX-Parser (TOK_KEY, offset 0x1018bb) expected compound scope
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0xff51e) failed to read source object for incoming Model link, ignoring
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x1018dd) shading mode not recognized: Phong
+Error, T11024: FBX-Parser (TOK_KEY, offset 0x101974) expected compound scope
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0xff51e) failed to read source object for incoming Model link, ignoring
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x101996) shading mode not recognized: Phong
+Error, T11024: FBX-Parser (TOK_KEY, offset 0x101a2f) expected compound scope
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0xff51e) failed to read source object for incoming Model link, ignoring
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x101a51) shading mode not recognized: Phong
+Error, T11024: FBX-Parser (TOK_KEY, offset 0x101aea) expected compound scope
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0xff51e) failed to read source object for incoming Model link, ignoring
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x101b0c) shading mode not recognized: Phong
+Error, T11024: FBX-Parser (TOK_KEY, offset 0x101ba0) expected compound scope
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0xff51e) failed to read source object for incoming Model link, ignoring
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x101bc2) shading mode not recognized: Phong
+Error, T11024: FBX-Parser (TOK_KEY, offset 0x101c58) expected compound scope
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0xff51e) failed to read source object for incoming Model link, ignoring
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x101c7a) shading mode not recognized: Phong
+Error, T11024: FBX-Parser (TOK_KEY, offset 0x101d20) expected compound scope
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0xff51e) failed to read source object for incoming Model link, ignoring
+Error, T11024: FBX: material index out of bounds, setting default material
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0xff794) failed to read source object for incoming Model link, ignoring
+Skipping one or more lines with the same contents
+Error, T11024: FBX: material index out of bounds, setting default material
+Skipping one or more lines with the same contents
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0xff9ab) failed to read source object for incoming Model link, ignoring
+Skipping one or more lines with the same contents
+Error, T11024: FBX: material index out of bounds, setting default material
+Skipping one or more lines with the same contents
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0xffbc1) failed to read source object for incoming Model link, ignoring
+Error, T11024: FBX: material index out of bounds, setting default material
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0xffde2) failed to read source object for incoming Model link, ignoring
+Error, T11024: FBX: material index out of bounds, setting default material
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x100001) failed to read source object for incoming Model link, ignoring
+Error, T11024: FBX: material index out of bounds, setting default material
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x10022b) failed to read source object for incoming Model link, ignoring
+Error, T11024: FBX: material index out of bounds, setting default material
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x10044f) failed to read source object for incoming Model link, ignoring
+Error, T11024: FBX: material index out of bounds, setting default material
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x100674) failed to read source object for incoming Model link, ignoring
+Error, T11024: FBX: material index out of bounds, setting default material
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x10088f) failed to read source object for incoming Model link, ignoring
+Error, T11024: FBX: material index out of bounds, setting default material
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x100aa6) failed to read source object for incoming Model link, ignoring
+Error, T11024: FBX: material index out of bounds, setting default material
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x100cbf) failed to read source object for incoming Model link, ignoring
+Skipping one or more lines with the same contents
+Error, T11024: FBX: material index out of bounds, setting default material
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x100ed6) failed to read source object for incoming Model link, ignoring
+Error, T11024: FBX: material index out of bounds, setting default material
+Warn,  T11024: FBX-DOM (TOK_KEY, offset 0x1010ee) failed to read source object for incoming Model link, ignoring
+Error, T11024: FBX: material index out of bounds, setting default material
+Info,  T11024: Entering post processing pipeline
+Warn,  T11024: Found 276 degenerated primitives
+Info,  T11024: TriangulateProcess finished. All polygons have been triangulated.
+Info,  T11024: Points: 0, Lines: 1, Triangles: 17, Polygons: 0 (Meshes, X = removed)
+Info,  T11024: OptimizeMeshesProcess finished. Input meshes: 18, Output meshes: 16
+Info,  T11024: Tangents are undefined for line and point meshes
+Error, T11024: Failed to compute tangents; need UV data in channel0
+Skipping one or more lines with the same contents
+Info,  T11024: CalcTangentsProcess finished. Tangents have been calculated
+Info,  T11024: JoinVerticesProcess finished | Verts in: 95029 out: 31050 | ~67.3%
+Error, T11024: This algorithm works on triangle meshes only
+Info,  T11024: Cache relevant are 15 meshes (45731 faces). Average output ACMR is 0.830268
+Info,  T11024: Leaving post processing pipeline

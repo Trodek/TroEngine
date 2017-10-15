@@ -9,6 +9,8 @@
 #include "Transform.h"
 #include "MaterialManager.h"
 #include "ModuleCamera3D.h"
+#include "ModuleGUI.h"
+#include "Inspector.h"
 
 #include "Assimp\include\cimport.h"
 #include "Assimp\include\scene.h"
@@ -120,8 +122,10 @@ bool MeshImporter::LoadFile(const char * path)
 			if (ret == false) //invalild mesh, discart 
 			{
 				RELEASE_ARRAY(vert);
-				if (indices != NULL)
+				if (indices != nullptr)
 					RELEASE_ARRAY(indices);
+				if (uv != nullptr)
+					RELEASE_ARRAY(uv);
 				EDITOR_LOG("Error loading mesh %d", i);
 			}
 			else //valid mesh, add to the list
@@ -145,9 +149,12 @@ bool MeshImporter::LoadFile(const char * path)
 				
 			}
 		}
+		//Open inspector to see properties
+		App->gui->inspector->active = true;
 
 		//focus camera to biggest mesh
-		App->camera->AdjustCameraToAABB(*bigest_bbox);
+		if(bigest_bbox != nullptr)
+			App->camera->AdjustCameraToAABB(*bigest_bbox);
 
 		//Check if has a material associated
 		if (scene->HasMaterials())
