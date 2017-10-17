@@ -36,8 +36,6 @@ private:
 	uint num_uv = 0;
 	float* uv = nullptr;
 
-	uint texture_id = 0;
-
 	AABB bounding_box;
 };
 

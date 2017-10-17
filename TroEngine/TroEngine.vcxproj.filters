@@ -112,6 +112,9 @@
     <Filter Include="Source\Editor\GUI\ImGUI">
       <UniqueIdentifier>{a3b8584c-3070-49b8-be2f-154836bf29e9}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\Components\Material\Material">
+      <UniqueIdentifier>{7137f51c-7220-4d03-8e4a-60c79f86407e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -309,9 +312,6 @@
     <ClCompile Include="Engine\MaterialManager.cpp">
       <Filter>Source\Engine\Modules\MaterialManager</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Material.cpp">
-      <Filter>Source\Engine\Components\Material</Filter>
-    </ClCompile>
     <ClCompile Include="Engine\Component.cpp">
       <Filter>Source\Engine\Components</Filter>
     </ClCompile>
@@ -335,6 +335,9 @@
     </ClCompile>
     <ClCompile Include="Engine\Inspector.cpp">
       <Filter>Source\Editor\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Material.cpp">
+      <Filter>Source\Engine\Components\Material\Material</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -686,9 +689,6 @@
     <ClInclude Include="Engine\MaterialManager.h">
       <Filter>Source\Engine\Modules\MaterialManager</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Material.h">
-      <Filter>Source\Engine\Components\Material</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Component.h">
       <Filter>Source\Engine\Components</Filter>
     </ClInclude>
@@ -712,6 +712,9 @@
     </ClInclude>
     <ClInclude Include="Engine\AssimpLogger.h">
       <Filter>Source\Engine\Modules\MeshImporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Material.h">
+      <Filter>Source\Engine\Components\Material\Material</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
