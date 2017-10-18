@@ -35,13 +35,13 @@ bool GameObject::Start()
 	bool ret = true;
 
 	//Start components
-	for (std::list<Component*>::iterator c = components.begin(); c != components.end(); ++c)
+	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
 	{
 		ret = (*c)->Start();
 	}
 
 	//Start childs
-	for (std::list<GameObject*>::iterator go = childs.begin(); go != childs.end(); ++go)
+	for (std::vector<GameObject*>::iterator go = childs.begin(); go != childs.end(); ++go)
 	{
 		ret = (*go)->Start();
 	}
@@ -54,13 +54,13 @@ bool GameObject::Update(float dt)
 	bool ret = true;
 
 	//Update components
-	for (std::list<Component*>::iterator c = components.begin(); c != components.end(); ++c)
+	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
 	{
 		ret = (*c)->Update(dt);
 	}
 
 	//Update childs
-	for (std::list<GameObject*>::iterator go = childs.begin(); go != childs.end();++go)
+	for (std::vector<GameObject*>::iterator go = childs.begin(); go != childs.end();++go)
 	{
 		ret = (*go)->Update(dt);
 	}
@@ -71,7 +71,7 @@ bool GameObject::Update(float dt)
 void GameObject::CleanUp()
 {
 	//Clean all components
-	for (std::list<Component*>::iterator c = components.begin(); c != components.end();)
+	for (std::vector<Component*>::iterator c = components.begin(); c != components.end();)
 	{
 		(*c)->CleanUp();
 		RELEASE(*c);
@@ -80,7 +80,7 @@ void GameObject::CleanUp()
 	}
 
 	//Clean all childs
-	for (std::list<GameObject*>::iterator go = childs.begin(); go != childs.end();)
+	for (std::vector<GameObject*>::iterator go = childs.begin(); go != childs.end();)
 	{
 		(*go)->CleanUp();
 		RELEASE(*go);
@@ -95,7 +95,7 @@ void GameObject::Draw()
 	/// Currently, transform is not implemented
 
 	//Find if the GameObject has a Material
-	for (std::list<Component*>::iterator c = components.begin(); c != components.end(); ++c)
+	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
 	{
 		if ((*c)->GetType() == Component::Type::C_Material)
 		{
@@ -105,7 +105,7 @@ void GameObject::Draw()
 	}
 
 	//Draw each MeshRenderer
-	for (std::list<Component*>::iterator c = components.begin(); c != components.end(); ++c)
+	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
 	{
 		if ((*c)->GetType() == Component::Type::MeshRenderer)
 		{
@@ -118,7 +118,7 @@ void GameObject::Draw()
 	App->renderer3D->UnbindTexture();
 
 	//Draw Childs
-	for (std::list<GameObject*>::iterator go = childs.begin(); go != childs.end(); ++go)
+	for (std::vector<GameObject*>::iterator go = childs.begin(); go != childs.end(); ++go)
 	{
 		(*go)->Draw();
 	}
@@ -131,7 +131,7 @@ void GameObject::DebugDraw()
 
 void GameObject::DrawConfig()
 {
-	for (std::list<Component*>::iterator c = components.begin(); c != components.end(); ++c)
+	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
 	{
 		(*c)->DrawConfig();
 	}
@@ -184,7 +184,7 @@ Component * GameObject::GetComponent(Component::Type type) const
 {
 	Component* ret = nullptr;
 
-	for (std::list<Component*>::const_iterator c = components.begin(); c != components.end(); ++c)
+	for (std::vector<Component*>::const_iterator c = components.begin(); c != components.end(); ++c)
 	{
 		if ((*c)->GetType() == type)
 		{
@@ -197,7 +197,7 @@ Component * GameObject::GetComponent(Component::Type type) const
 
 void GameObject::RemoveComponent(Component * comp)
 {
-	for (std::list<Component*>::iterator c = components.begin(); c != components.end(); ++c)
+	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
 	{
 		if ((*c) == comp)
 		{
@@ -213,7 +213,7 @@ void GameObject::RemoveComponent(Component * comp)
 
 void GameObject::RemoveComponentsByType(Component::Type type)
 {
-	for (std::list<Component*>::iterator c = components.begin(); c != components.end();)
+	for (std::vector<Component*>::iterator c = components.begin(); c != components.end();)
 	{
 		if ((*c)->GetType() == type)
 		{
@@ -229,7 +229,7 @@ void GameObject::RemoveComponentsByType(Component::Type type)
 
 void GameObject::RemoveAllComponents()
 {
-	for (std::list<Component*>::iterator c = components.begin(); c != components.end();)
+	for (std::vector<Component*>::iterator c = components.begin(); c != components.end();)
 	{
 		(*c)->CleanUp();
 		RELEASE(*c);

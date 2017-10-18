@@ -2,7 +2,7 @@
 #define __GAMEOBJECT__
 
 #include "Globals.h"
-#include <list>
+#include <vector>
 #include <string>
 #include "Component.h"
 
@@ -39,8 +39,8 @@ public:
 	std::string name;
 
 private:
-	std::list<GameObject*> childs;
-	std::list<Component*> components;
+	std::vector<GameObject*> childs;
+	std::vector<Component*> components;
 	bool active = false;
 	GameObject* parent;
 };

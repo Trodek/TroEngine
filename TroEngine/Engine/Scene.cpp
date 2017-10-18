@@ -16,7 +16,7 @@ bool Scene::Start()
 
 void Scene::Draw()
 {
-	for (std::list<GameObject*>::iterator go = game_objects.begin(); go != game_objects.end(); ++go)
+	for (std::vector<GameObject*>::iterator go = game_objects.begin(); go != game_objects.end(); ++go)
 	{
 		(*go)->Draw();
 	}
@@ -27,18 +27,16 @@ update_status Scene::Update(float dt)
 	update_status ret = UPDATE_CONTINUE;
 
 	bool go_ret = true;
-	for (std::list<GameObject*>::iterator go = game_objects.begin(); go != game_objects.end(); ++go)
+	for (std::vector<GameObject*>::iterator go = game_objects.begin(); go != game_objects.end(); ++go)
 	{
 		go_ret = (*go)->Update(dt);
 
 		if (go_ret == false)
 		{
 			EDITOR_LOG("Error Updating GameObject: %s", (*go)->name.c_str());
+			ret = UPDATE_STOP;
 		}
-	}
-
-	if (!go_ret)
-		ret = UPDATE_STOP;
+	}		
 
 	return ret;
 }
@@ -75,12 +73,12 @@ GameObject * Scene::CreateGameObject()
 	return new_go;
 }
 
-GameObject * Scene::GetGameObject(uint id) const
+GameObject * Scene::GetGameObject(uint id) const //FIX this to work with childs
 {
 	GameObject* ret = nullptr;
 
 	uint i = 0;
-	for (std::list<GameObject*>::const_iterator go = game_objects.begin(); go != game_objects.end(); ++go)
+	for (std::vector<GameObject*>::const_iterator go = game_objects.begin(); go != game_objects.end(); ++go)
 	{
 		if (i == id)
 		{

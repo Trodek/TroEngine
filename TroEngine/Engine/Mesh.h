@@ -7,7 +7,7 @@
 class Mesh
 {
 public:
-	Mesh(uint num_ver, float* ver, uint num_ind, uint* ind, uint num_uv = 0, float* uv = nullptr, uint tex_id = 0);
+	Mesh(uint num_ver, float* ver, uint num_ind, uint* ind, uint num_uv = 0, float* uv = nullptr);
 
 	uint GetIndicesID() const;
 	uint GetIndicesNum() const;

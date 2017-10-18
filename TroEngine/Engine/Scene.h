@@ -3,6 +3,7 @@
 
 #include "Globals.h"
 #include "GameObject.h"
+#include <vector>
 
 class Scene
 {
@@ -32,7 +33,7 @@ private:
 	uint new_go_id = 0;
 
 public:
-	std::list<GameObject*> game_objects;
+	std::vector<GameObject*> game_objects;
 };
 
 

@@ -3,8 +3,8 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 
-Mesh::Mesh(uint num_ver, float * ver, uint num_ind, uint * ind, uint num_uv, float* uv, uint tex_id) :
-	 num_indices(num_ind), indices(ind), num_vertices(num_ver), vertices(ver), num_uv(num_uv), uv(uv), texture_id(tex_id)
+Mesh::Mesh(uint num_ver, float * ver, uint num_ind, uint * ind, uint num_uv, float* uv) :
+	 num_indices(num_ind), indices(ind), num_vertices(num_ver), vertices(ver), num_uv(num_uv), uv(uv)
 {
 	//Load vertices to vram
 	id_vertices = App->renderer3D->GenBuffer();
