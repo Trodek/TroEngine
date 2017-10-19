@@ -6,10 +6,7 @@
 #include "SceneManager.h"
 #include "ModuleGUI.h"
 #include "JSONManager.h"
-#include "glew-2.1.0\include\GL\glew.h"
-#include "SDL\include\SDL_opengl.h"
-#include <gl/GL.h>
-#include <gl/GLU.h>
+#include "GLInclude.h"
 #include "imgui.h"
 
 #include "MeshImporter.h"
