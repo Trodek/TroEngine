@@ -11,6 +11,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleGUI.h"
 #include "Inspector.h"
+#include "ComponentMaterial.h"
 
 #include "Assimp\include\cimport.h"
 #include "Assimp\include\scene.h"
@@ -74,6 +75,14 @@ bool MeshImporter::LoadFile(const char * path)
 
 		AABB* bigest_bbox = nullptr;
 
+		GameObject* root_go = App->scene_manager->GetCurrentScene()->CreateGameObject();
+		bool meshes_as_go = false;
+		//check num meshes
+		if (scene->mNumMeshes > 1)
+		{
+			meshes_as_go = true;
+		}
+
 		for (uint i = 0; i < scene->mNumMeshes; ++i)
 		{
 			//Load vertices
@@ -132,9 +141,22 @@ bool MeshImporter::LoadFile(const char * path)
 			{
 				Mesh* new_geo = new Mesh(num_vertices, vert, num_indices, indices, num_uv, uv);
 				meshes.push_back(new_geo);
-				//for now, add the mesh to scene game object too
-				MeshRenderer* mr = (MeshRenderer*) App->scene_manager->GetCurrentScene()->GetGameObject(0)->GetComponent(Component::Type::MeshRenderer);
-				mr->AddMesh(new_geo);
+
+				//add the mesh to game object
+				if (meshes_as_go)
+				{
+					char name[20];
+					sprintf_s(name, "Mesh %d", i);
+					GameObject* child = root_go->CreateChild(name);
+					
+					MeshRenderer* mr = (MeshRenderer*)child->AddComponent(Component::Type::MeshRenderer);
+					mr->SetMesh(new_geo);
+				}
+				else
+				{
+					MeshRenderer* mr = (MeshRenderer*)root_go->AddComponent(Component::Type::MeshRenderer);
+					mr->SetMesh(new_geo);
+				}
 
 				//check bbox size
 				if (bigest_bbox == nullptr)
@@ -167,8 +189,26 @@ bool MeshImporter::LoadFile(const char * path)
 			rel_path += path.C_Str();
 
 			EDITOR_LOG("Mesh material path is: %s. Start importing it...", rel_path.c_str());
-			App->materials->ImportImage(rel_path.c_str());
+			Material* material = App->materials->ImportImage(rel_path.c_str());
 
+			//if material is loaded, add it to game object
+			if (material != nullptr)
+			{
+				if (meshes_as_go)
+				{
+					for (int c = 0; c < root_go->GetNumChilds(); ++c)
+					{
+						GameObject* child = root_go->GetChild(c);
+						ComponentMaterial* cm = (ComponentMaterial*)child->AddComponent(Component::Type::C_Material);
+						cm->SetMaterial(material);
+					}
+				}
+				else
+				{
+					ComponentMaterial* cm = (ComponentMaterial*)root_go->AddComponent(Component::Type::C_Material);
+					cm->SetMaterial(material);
+				}
+			}
 		}
 
 		//Get transform

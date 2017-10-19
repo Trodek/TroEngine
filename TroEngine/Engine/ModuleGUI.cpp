@@ -7,6 +7,7 @@
 #include "MenuGUI.h"
 #include "ConsoleGUI.h"
 #include "Inspector.h"
+#include "Hierarchy.h"
 
 ModuleGUI::ModuleGUI(bool start_enabled) : Module(start_enabled) 
 {
@@ -36,6 +37,7 @@ bool ModuleGUI::Start()
 	AddElement(new MenuGUI());
 	inspector = new Inspector();
 	AddElement(inspector);
+	AddElement(new Hierarchy());
 
 	return true;
 }

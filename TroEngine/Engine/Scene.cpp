@@ -1,15 +1,11 @@
 #include "Scene.h"
 #include "GameObject.h"
 #include "ComponentMaterial.h"
+#include "imgui.h"
 
 bool Scene::Start()
 {
 	bool ret = true;
-
-	//For now create a game object with mesh renderer, material and transform
-	GameObject* go = CreateGameObject();
-	go->AddComponent(Component::Type::MeshRenderer);
-	go->AddComponent(Component::Type::C_Material);
 
 	return ret;
 }
@@ -89,4 +85,15 @@ GameObject * Scene::GetGameObject(uint id) const //FIX this to work with childs
 	}
 
 	return ret;
+}
+
+void Scene::DrawHierarchy() const
+{
+	for (int i = 0; i < game_objects.size(); ++i)
+	{
+		if (ImGui::TreeNodeEx(game_objects[i]->name.c_str()))
+		{
+			game_objects[i]->DrawHierarchy();
+		}
+	}
 }

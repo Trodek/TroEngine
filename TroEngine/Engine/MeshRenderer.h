@@ -18,16 +18,16 @@ public:
 	void DebugDraw();
 	void CleanUp();
 
-	void AddMesh(Mesh* mesh);
+	void SetMesh(Mesh* mesh);
 
 	void DrawConfig();
 
-	void RemoveAllMeshes();
+	void RemoveMesh();
 
-	AABB GetMeshAABB(uint mesh_id);
+	AABB GetMeshAABB();
 
 private:
-	std::list<Mesh*> meshes;
+	Mesh* mesh;
 	bool wireframe = false;
 
 };

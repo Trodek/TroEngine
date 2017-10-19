@@ -34,6 +34,12 @@ public:
 	void RemoveComponentsByType(Component::Type type);
 	void RemoveAllComponents();
 
+	GameObject* CreateChild(const char* name);
+	GameObject* GetChild(uint id) const;
+	uint GetNumChilds() const;
+
+	void DrawHierarchy();
+
 public:
 	bool kill_me = false;
 	std::string name;

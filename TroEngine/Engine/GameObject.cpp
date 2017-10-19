@@ -5,6 +5,7 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "Transform.h"
+#include "imgui.h"
 
 GameObject::GameObject(const char * name, bool active, GameObject * parent) : name(name), active(active), parent(parent)
 {
@@ -236,4 +237,44 @@ void GameObject::RemoveAllComponents()
 
 		c = components.erase(c);
 	}
+}
+
+GameObject * GameObject::CreateChild(const char* name)
+{
+	GameObject* go = new GameObject(name,true,this);
+	childs.push_back(go);
+	return go;
+}
+
+GameObject * GameObject::GetChild(uint id) const
+{
+	GameObject* ret = nullptr;
+	
+	for (int i = 0; i < childs.size(); ++i)
+	{
+		if (i == id)
+		{
+			ret = childs[i];
+			break;
+		}
+	}
+
+	return ret;
+}
+
+uint GameObject::GetNumChilds() const
+{
+	return childs.size();
+}
+
+void GameObject::DrawHierarchy()
+{
+	for (int i = 0; i < childs.size(); ++i)
+	{
+		if (ImGui::TreeNodeEx(childs[i]->name.c_str()))
+		{
+			childs[i]->DrawHierarchy();
+		}
+	}
+	ImGui::TreePop();
 }

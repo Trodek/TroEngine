@@ -57,10 +57,11 @@ bool MaterialManager::CleanUp()
 	return ret;
 }
 
-void MaterialManager::ImportImage(const char* path)
+Material* MaterialManager::ImportImage(const char* path)
 {
 	uint id = 0;
 	ILenum error;
+	Material* m = nullptr;
 	//Data will be handled by renderer. Devil is only used to load the image.
 	if (ilLoad(IL_TYPE_UNKNOWN, path))
 	{
@@ -76,20 +77,18 @@ void MaterialManager::ImportImage(const char* path)
 		int h = ilGetInteger(IL_IMAGE_HEIGHT);
 		id = App->renderer3D->LoadTextureToVRAM(w, h, ilGetData(),ilGetInteger(IL_IMAGE_FORMAT));
 
-		Material* m = new Material(id, w, h, path);
+		m = new Material(id, w, h, path);
 		materials.push_back(m);
-		//for now, set this as the scene game object material
-		ComponentMaterial* mat = (ComponentMaterial*)App->scene_manager->GetCurrentScene()->GetGameObject(0)->GetComponent(Component::Type::C_Material);
-		mat->SetMaterial(m);
-
-		ilDeleteImage(ilGetInteger(IL_ACTIVE_IMAGE));
 		
+		ilDeleteImage(ilGetInteger(IL_ACTIVE_IMAGE));
 	}
 	else
 	{
 		error = ilGetError();
 		EDITOR_LOG("Error loading image %s. Error %d.", path, error);
 	}
+
+	return m;
 }
 
 void MaterialManager::RemoveMaterial(Material * mat)

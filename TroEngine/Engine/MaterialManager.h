@@ -18,7 +18,7 @@ public:
 	bool Start();
 	bool CleanUp();
 
-	void ImportImage(const char* path);
+	Material* ImportImage(const char* path);
 
 	void RemoveMaterial(Material* mat);
 

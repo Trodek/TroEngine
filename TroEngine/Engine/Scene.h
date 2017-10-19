@@ -28,6 +28,8 @@ public:
 
 	GameObject* GetGameObject(uint id) const;
 
+	void DrawHierarchy() const;
+
 private:
 	bool active;
 	uint new_go_id = 0;

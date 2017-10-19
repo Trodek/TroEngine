@@ -15,10 +15,8 @@ MeshRenderer::~MeshRenderer()
 
 void MeshRenderer::Draw()
 {
-	for (std::list<Mesh*>::iterator m = meshes.begin(); m != meshes.end(); ++m)
-	{
-		(*m)->Render(wireframe);
-	}
+	if(mesh != nullptr)
+		mesh->Render(wireframe);
 }
 
 void MeshRenderer::DebugDraw()
@@ -29,9 +27,9 @@ void MeshRenderer::CleanUp()
 {
 }
 
-void MeshRenderer::AddMesh(Mesh * mesh)
+void MeshRenderer::SetMesh(Mesh * mesh)
 {
-	meshes.push_back(mesh);
+	this->mesh = mesh;
 }
 
 void MeshRenderer::DrawConfig()
@@ -40,43 +38,20 @@ void MeshRenderer::DrawConfig()
 	{
 		ImGui::Checkbox("Wireframe##meshrenderer", &wireframe);
 
-		int i = 1;
-		for (std::list<Mesh*>::iterator m = meshes.begin(); m != meshes.end(); ++m)
+		if (mesh != nullptr)
 		{
-			char title[25];
-			sprintf_s(title, 25, "Mesh %d##meshrenderer", i);
-			if (ImGui::CollapsingHeader(title))
-			{
-				char name[25];
-				sprintf_s(name, 25, "Vertices##mesh%d", i);
-				ImGui::LabelText(name, "%d", (*m)->GetVerticesNum());
-				sprintf_s(name, 25, "Indices##mesh%d", i);
-				ImGui::LabelText(name, "%d", (*m)->GetIndicesNum());
-			}
-			++i;
+			ImGui::LabelText("Vertices##mesh", "%d", mesh->GetVerticesNum());
+			ImGui::LabelText("Indices##mesh", "%d", mesh->GetIndicesNum());
 		}
 	}
 }
 
-void MeshRenderer::RemoveAllMeshes()
+void MeshRenderer::RemoveMesh()
 {
-	for (std::list<Mesh*>::iterator m = meshes.begin(); m != meshes.end();)
-	{
-		App->mesh->RemoveMesh(*m);
-
-		m = meshes.erase(m);
-	}
+	mesh = nullptr;
 }
 
-AABB MeshRenderer::GetMeshAABB(uint mesh_id)
+AABB MeshRenderer::GetMeshAABB()
 {
-	int i = 1;
-	for (std::list<Mesh*>::const_iterator m = meshes.begin(); m != meshes.end(); ++m)
-	{
-		if (i == mesh_id)
-		{
-			return (*m)->GetAABB();
-		}
-		++i;
-	}
+	return mesh->GetAABB();
 }
