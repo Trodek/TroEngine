@@ -10,7 +10,6 @@
 #include "SDL\include\SDL_opengl.h"
 #include <gl/GL.h>
 #include <gl/GLU.h>
-#include "Brofiler\Brofiler.h"
 #include "imgui.h"
 
 #include "MeshImporter.h"
@@ -174,8 +173,6 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	BROFILER_CATEGORY("Render PostUpdate", Profiler::Color::Green);
-
 	//Rendering pipeline
 	App->scene_manager->DrawScenes();
 	//Draw debug

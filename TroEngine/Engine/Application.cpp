@@ -1,5 +1,4 @@
 #include "Application.h"
-#include "Brofiler/Brofiler.h"
 #include "SDL\include\SDL_cpuinfo.h"
 #include "gpudetect\DeviceId.h"
 #include <locale>
@@ -226,8 +225,6 @@ void Application::SaveConfig()
 // Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()
 {
-	BROFILER_CATEGORY("UpdateLogic", Profiler::Color::Azure);
-
 	update_status ret = UPDATE_CONTINUE;
 
 	logic_timer.Start();

@@ -12,6 +12,7 @@
 #include "ModuleGUI.h"
 #include "Inspector.h"
 #include "ComponentMaterial.h"
+#include <direct.h>
 
 #include "Assimp\include\cimport.h"
 #include "Assimp\include\scene.h"
@@ -44,6 +45,7 @@ bool MeshImporter::Start()
 	Assimp::DefaultLogger::create();
 	const uint severity = Assimp::Logger::Debugging | Assimp::Logger::Info | Assimp::Logger::Err | Assimp::Logger::Warn;
 	Assimp::DefaultLogger::get()->attachStream(new AssimpLogger(),severity);
+
 	return ret;
 }
 
