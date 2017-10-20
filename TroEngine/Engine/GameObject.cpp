@@ -6,6 +6,8 @@
 #include "ModuleRenderer3D.h"
 #include "Transform.h"
 #include "imgui.h"
+#include "ModuleGUI.h"
+#include "Inspector.h"
 
 GameObject::GameObject(const char * name, bool active, GameObject * parent) : name(name), active(active), parent(parent)
 {
@@ -271,8 +273,13 @@ void GameObject::DrawHierarchy()
 {
 	for (int i = 0; i < childs.size(); ++i)
 	{
-		if (ImGui::TreeNodeEx(childs[i]->name.c_str()))
-		{
+		bool node_open = ImGui::TreeNodeEx(childs[i]->name.c_str(), (App->gui->inspector->selected == childs[i] ? ImGuiTreeNodeFlags_Selected : 0));
+
+		if (ImGui::IsItemClicked())
+			App->gui->inspector->selected = childs[i];
+
+		if (node_open)
+		{	
 			childs[i]->DrawHierarchy();
 		}
 	}

@@ -4,6 +4,8 @@
 #include "Globals.h"
 #include "GUIElement.h"
 
+class GameObject;
+
 class Hierarchy : public GUIElement
 {
 public:

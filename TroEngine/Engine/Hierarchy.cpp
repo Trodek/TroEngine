@@ -3,6 +3,8 @@
 #include "Application.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include "Inspector.h"
+#include "ModuleGUI.h"
 
 Hierarchy::Hierarchy()
 {

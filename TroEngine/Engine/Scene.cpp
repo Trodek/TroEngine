@@ -2,6 +2,9 @@
 #include "GameObject.h"
 #include "ComponentMaterial.h"
 #include "imgui.h"
+#include "Application.h"
+#include "ModuleGUI.h"
+#include "Inspector.h"
 
 bool Scene::Start()
 {
@@ -91,7 +94,12 @@ void Scene::DrawHierarchy() const
 {
 	for (int i = 0; i < game_objects.size(); ++i)
 	{
-		if (ImGui::TreeNodeEx(game_objects[i]->name.c_str()))
+		bool node_open = ImGui::TreeNodeEx(game_objects[i]->name.c_str(), (App->gui->inspector->selected == game_objects[i] ? ImGuiTreeNodeFlags_Selected : 0));
+
+		if(ImGui::IsItemClicked())
+			App->gui->inspector->selected = game_objects[i];
+
+		if (node_open)
 		{
 			game_objects[i]->DrawHierarchy();
 		}

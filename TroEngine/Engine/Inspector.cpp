@@ -26,7 +26,8 @@ void Inspector::CreateInspector()
 	{
 		ImGui::Begin("Inspector", &active);
 
-		App->scene_manager->GetCurrentScene()->GetGameObject(0)->DrawConfig();
+		if(selected != nullptr)
+			selected->DrawConfig();
 
 		ImGui::End();
 	}
