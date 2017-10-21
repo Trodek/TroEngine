@@ -1,25 +1,15 @@
-Info,  T5808: Load C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\BakerHouse.fbx
-Info,  T5808: Found a matching importer for this file format: Autodesk FBX Importer.
-Info,  T5808: Import root directory is 'C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\'
-Warn,  T5808: FBX-DOM (TOK_KEY, offset 0xd7b7) shading mode not recognized: Phong
-Info,  T5808: Entering post processing pipeline
-Info,  T5808: Points: 0, Lines: 0, Triangles: 2, Polygons: 0 (Meshes, X = removed)
-Info,  T5808: CalcTangentsProcess finished. Tangents have been calculated
-Info,  T5808: JoinVerticesProcess finished | Verts in: 3075 out: 1801 | ~41.4%
-Info,  T5808: Cache relevant are 2 meshes (1025 faces). Average output ACMR is 1.757073
-Info,  T5808: Leaving post processing pipeline
-Info,  T5808: Load C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\Infernal.FBX
-Info,  T5808: Found a matching importer for this file format: Autodesk FBX Importer.
-Info,  T5808: Import root directory is 'C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\'
-Info,  T5808: FBX: generating full transformation chain for node: infernal003
-Info,  T5808: FBX: generating full transformation chain for node: golem
-Info,  T5808: Entering post processing pipeline
-Info,  T5808: RemoveRedundantMatsProcess finished. Removed 3 redundant and 0 unused materials.
-Info,  T5808: Points: 0, Lines: 0, Triangles: 10, Polygons: 0 (Meshes, X = removed)
-Warn,  T5808: Simplified dummy tracks with just one key
+Info,  T10404: Load C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\Infernal.FBX
+Info,  T10404: Found a matching importer for this file format: Autodesk FBX Importer.
+Info,  T10404: Import root directory is 'C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\'
+Info,  T10404: FBX: generating full transformation chain for node: infernal003
+Info,  T10404: FBX: generating full transformation chain for node: golem
+Info,  T10404: Entering post processing pipeline
+Info,  T10404: RemoveRedundantMatsProcess finished. Removed 3 redundant and 0 unused materials.
+Info,  T10404: Points: 0, Lines: 0, Triangles: 10, Polygons: 0 (Meshes, X = removed)
+Warn,  T10404: Simplified dummy tracks with just one key
 Skipping one or more lines with the same contents
-Info,  T5808: OptimizeMeshesProcess finished. Input meshes: 10, Output meshes: 7
-Info,  T5808: CalcTangentsProcess finished. Tangents have been calculated
-Info,  T5808: JoinVerticesProcess finished | Verts in: 41646 out: 14602 | ~64.9%
-Info,  T5808: Cache relevant are 7 meshes (13882 faces). Average output ACMR is 1.193776
-Info,  T5808: Leaving post processing pipeline
+Info,  T10404: OptimizeMeshesProcess finished. Input meshes: 10, Output meshes: 7
+Info,  T10404: CalcTangentsProcess finished. Tangents have been calculated
+Info,  T10404: JoinVerticesProcess finished | Verts in: 41646 out: 14602 | ~64.9%
+Info,  T10404: Cache relevant are 7 meshes (13882 faces). Average output ACMR is 1.193776
+Info,  T10404: Leaving post processing pipeline

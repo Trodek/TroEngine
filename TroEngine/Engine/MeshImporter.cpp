@@ -42,6 +42,7 @@ bool MeshImporter::Awake(JSONDoc * config)
 bool MeshImporter::Start()
 {
 	bool ret = true;
+
 	Assimp::DefaultLogger::create();
 	const uint severity = Assimp::Logger::Debugging | Assimp::Logger::Info | Assimp::Logger::Err | Assimp::Logger::Warn;
 	Assimp::DefaultLogger::get()->attachStream(new AssimpLogger(),severity);
@@ -216,12 +217,16 @@ bool MeshImporter::LoadFile(const char * path)
 		//Get transform
 		aiNode* root = scene->mRootNode;
 
-		aiMatrix4x4 m = root->mTransformation;
-
-		float4x4 transform(m.a1, m.a2, m.a3, m.a4, m.b1, m.b2, m.b3, m.b4, m.c1, m.c2, m.c3, m.c4, m.d1, m.d2, m.d3, m.d4);
+		aiVector3D translation;
+		aiVector3D scaling;
+		aiQuaternion rotation;
+		root->mTransformation.Decompose(scaling, rotation, translation);
+		float3 pos(translation.x, translation.y, translation.z);
+		float3 scale(scaling.x, scaling.y, scaling.z);
+		Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
 
 		Transform* t = (Transform*) App->scene_manager->GetCurrentScene()->GetGameObject(0)->GetComponent(Component::Type::Transform);
-		t->SetTransform(transform);
+		t->SetTransform(pos,scale,rot);
 
 		aiReleaseImport(scene);
 	}

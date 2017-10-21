@@ -107,13 +107,20 @@ void GameObject::Draw()
 		}
 	}
 
-	//Draw each MeshRenderer
+	//Draw MeshRenderer
 	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
 	{
 		if ((*c)->GetType() == Component::Type::MeshRenderer)
 		{
+			App->renderer3D->PushMatrix();
+			Transform* trans = (Transform*)GetComponent(Component::Type::Transform);
+			App->renderer3D->MultMatrix(trans->GetTransform().Transposed().ptr());
+
 			MeshRenderer* mr = (MeshRenderer*)(*c);
 			mr->Draw();
+
+			App->renderer3D->PopMatrix();
+			break;
 		}
 	}
 

@@ -10,15 +10,15 @@ public:
 	Transform(GameObject* owner);
 	~Transform();
 
-	void SetTransform(const float* values);
-	void SetTransform(const float4x4& matrix);
+	void SetTransform(float3 pos, float3 scale, Quat rot);
+
+	float4x4 GetTransform();
 
 	void DrawConfig();
 
 private:
-	float4x4 transform;
 	float3 position;
-	float3 rotation;
+	Quat rotation;
 	float3 scale;
 };
 

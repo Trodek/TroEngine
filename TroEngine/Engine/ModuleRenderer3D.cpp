@@ -400,6 +400,21 @@ void ModuleRenderer3D::PolygonModeFill()
 	poly_mode = GL_FILL;
 }
 
+void ModuleRenderer3D::PushMatrix()
+{
+	glPushMatrix();
+}
+
+void ModuleRenderer3D::PopMatrix()
+{
+	glPopMatrix();
+}
+
+void ModuleRenderer3D::MultMatrix(float * matrix)
+{
+	glMultMatrixf(matrix);
+}
+
 void ModuleRenderer3D::ToggleDepthTestState()
 {
 	if (depth_test)

@@ -5,6 +5,8 @@
 #include <list>
 
 class Mesh;
+class GameObject;
+class aiNode;
 
 class MeshImporter : public Module
 {
@@ -22,6 +24,7 @@ public:
 
 private:
 	std::list<Mesh*> meshes;
+	int id = 0;
 };
 
 #endif // !__MESHIMPORTER__

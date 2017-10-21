@@ -63,9 +63,10 @@ GameObject * Scene::CreateGameObject()
 {
 	GameObject* new_go = nullptr;
 
-	std::string go_name = "GameObject";
+	char name[30];
+	sprintf_s(name, "GameObject %d", ++new_go_id);
 
-	new_go = new GameObject(go_name.c_str());
+	new_go = new GameObject(name);
 
 	AddGameObject(new_go);
 	

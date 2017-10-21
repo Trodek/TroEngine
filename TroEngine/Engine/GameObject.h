@@ -48,7 +48,7 @@ private:
 	std::vector<GameObject*> childs;
 	std::vector<Component*> components;
 	bool active = false;
-	GameObject* parent;
+	GameObject* parent = nullptr;
 };
 
 #endif // !__GAMEOBJECT__

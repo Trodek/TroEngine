@@ -47,6 +47,11 @@ public:
 	void PolygonModeWireframe();
 	void PolygonModeFill();
 
+	void PushMatrix();
+	void PopMatrix();
+	void MultMatrix(float* matrix);
+
+
 public:
 	Light lights[MAX_LIGHTS];
 	SDL_GLContext context;

@@ -1,41 +1,42 @@
 #include "Transform.h"
 #include "imgui.h"
+#include "GameObject.h"
 
 Transform::Transform(GameObject * owner) :Component(Component::Type::Transform, owner)
 {
-	transform.SetIdentity();
-
-	float3x3 rot_mat;
-	transform.Decompose(position, rot_mat, scale);
-	rotation = rot_mat.ToEulerXYZ();
+	rotation.Set(0, 0, 0, 1);
+	position.Set(0, 0, 0);
+	scale.Set(1, 1, 1);
 }
 
 Transform::~Transform()
 {
 }
 
-void Transform::SetTransform(const float * values)
+void Transform::SetTransform(float3 pos, float3 scale, Quat rot)
 {
-	transform.Set(values);
-
-	float3x3 rot_mat;
-	transform.Decompose(position, rot_mat, scale);
-	rotation = rot_mat.ToEulerXYZ();
+	rotation = rot;
+	this->scale = scale;
+	position = pos;
 }
 
-void Transform::SetTransform(const float4x4 & matrix)
+float4x4 Transform::GetTransform()
 {
-	transform.Set(matrix);
+	float4x4 trans = float4x4::FromTRS(position,rotation,scale);
 
-	float3x3 rot_mat;
-	transform.Decompose(position, rot_mat, scale);
-	rotation = rot_mat.ToEulerXYZ();
+	if (GetOwner()->GetParent() == nullptr)
+		return trans;
+	else
+	{
+		Transform* parent_trans = (Transform*)GetOwner()->GetParent()->GetComponent(Component::Type::Transform);
+		return parent_trans->GetTransform()*trans;
+	}
 }
 
 void Transform::DrawConfig()
 {
 	float pos[3] = { position.x,position.y,position.z };
-	float rot[3] = { rotation.x,rotation.y,rotation.z };
+	float rot[3] = { rotation.ToEulerXYZ().x*RADTODEG,rotation.ToEulerXYZ().y*RADTODEG,rotation.ToEulerXYZ().z*RADTODEG };
 	float s[3] = { scale.x,scale.y,scale.z };
 
 	if (ImGui::CollapsingHeader("Transform"))
@@ -44,4 +45,10 @@ void Transform::DrawConfig()
 		ImGui::InputFloat3("Rot##transform", rot, 2);
 		ImGui::InputFloat3("Scale##transform", s, 2);
 	}
+
+	Quat new_rot = Quat::FromEulerXYZ(rot[0] * DEGTORAD, rot[1] * DEGTORAD, rot[2] * DEGTORAD);
+
+	position = float3(pos[0], pos[1], pos[2]);
+	scale = float3(s[0], s[1], s[2]);
+	rotation = new_rot;
 }
