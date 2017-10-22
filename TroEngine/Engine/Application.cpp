@@ -4,7 +4,7 @@
 #include <locale>
 #include <codecvt>
 #include "mmgr\mmgr.h"
-
+#include <Windows.h>
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
@@ -83,6 +83,10 @@ bool Application::Init()
 	new_fps = config->GetNumber("app.max_fps");
 	CapFPS(new_fps);
 
+	//Check/Create Assets and Library folders
+	ret = CreateFolder("Assets");
+	ret = CreateFolder("Library");
+
 	// Call Awake() in all modules
 	std::list<Module*>::iterator item = list_modules.begin();
 
@@ -110,7 +114,7 @@ bool Application::Init()
 		ret = (*item)->Start();
 		++item;
 	}
-	
+
 	PERF_PEEK(ptimer);
 
 	return ret;
@@ -477,6 +481,42 @@ void Application::DrawPerformanceWindow()
 		++item;
 		++m;
 	}
+}
+
+bool Application::CreateFolder(const char * path) const
+{
+	bool ret = true;
+
+	if (!CreateDirectory(path, NULL))
+	{
+		if (GetLastError() == ERROR_ALREADY_EXISTS)
+		{
+			EDITOR_LOG("Can't create the folder. %d already exist", path);
+		}
+		else if (GetLastError() == ERROR_PATH_NOT_FOUND)
+		{
+			EDITOR_LOG("Can't creat folder %d. One or more intermediate directories do not exist", path);
+			ret = false;
+		}
+	}
+	return ret;
+}
+
+bool Application::CopyFileTo(const char * file, const char * target)
+{
+	bool ret = true;
+
+	std::string curr_file = file;
+	uint cut = curr_file.find_last_of("\\");
+	std::string dest_file = target;
+	if (dest_file.find_last_of("\\") == dest_file.size() - 1)
+		dest_file += curr_file.substr(cut + 1, curr_file.size() - cut + 1);
+	else
+		dest_file += curr_file.substr(cut, curr_file.size() - cut);
+
+	CopyFile(file, dest_file.c_str(), false);
+
+	return ret;
 }
 
 void Application::AddModule(Module* mod)

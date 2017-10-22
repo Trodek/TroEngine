@@ -33,6 +33,9 @@ bool MaterialManager::Awake(JSONDoc * config)
 	ilutInit();
 	ilutRenderer(ILUT_OPENGL);
 
+	App->CreateFolder("Assets\\Materials");
+	App->CreateFolder("Library\\Materials");
+
 	return ret;
 }
 

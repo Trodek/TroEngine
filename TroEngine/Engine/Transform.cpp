@@ -41,9 +41,10 @@ void Transform::DrawConfig()
 
 	if (ImGui::CollapsingHeader("Transform"))
 	{
-		ImGui::InputFloat3("Pos##transform", pos, 2);
-		ImGui::InputFloat3("Rot##transform", rot, 2);
-		ImGui::InputFloat3("Scale##transform", s, 2);
+		ImGui::DragFloat3("Position##transform", pos, 0.1f, -INFINITY, INFINITY);
+		ImGui::DragFloat3("Rotation##transform", rot, 0.1f, -360, 360);
+		ImGui::DragFloat3("Scale##transform", s, 0.1f, 0, INFINITY);
+
 	}
 
 	Quat new_rot = Quat::FromEulerXYZ(rot[0] * DEGTORAD, rot[1] * DEGTORAD, rot[2] * DEGTORAD);

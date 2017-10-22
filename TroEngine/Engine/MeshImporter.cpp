@@ -36,6 +36,10 @@ MeshImporter::~MeshImporter()
 bool MeshImporter::Awake(JSONDoc * config)
 {
 	bool ret = true;
+
+	App->CreateFolder("Assets\\Meshes");
+	App->CreateFolder("Library\\Meshes");
+
 	return ret;
 }
 

@@ -93,6 +93,13 @@ public:
 	void DrawModulesConfig();
 	void DrawPerformanceWindow();
 
+	//Try to create path folder. Return true if created or already exist, false if not created or don't exist
+	bool CreateFolder(const char* path) const;
+
+	//Copy file to target folder
+	bool CopyFileTo(const char* file, const char* target);
+
+
 private:
 
 	void AddModule(Module* mod);
