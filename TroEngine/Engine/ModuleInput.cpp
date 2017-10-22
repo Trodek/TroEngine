@@ -158,10 +158,16 @@ void ModuleInput::OnFileDropped(const char * path)
 	//check extension to do proper action
 	if(ext == "fbx" ||ext == "FBX")
 	{ 
+		//Copy the file to Assets\Meshes
+		App->CopyFileTo(path, "Assets\\Meshes");
+
 		App->mesh->LoadFile(path);
 	}
 	else if (ext == "png")
 	{
+		//Copy the file to Assets\Materials
+		App->CopyFileTo(path, "Assets\\Materials");
+
 		App->materials->ImportImage(path);
 	}
 }

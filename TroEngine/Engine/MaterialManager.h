@@ -20,10 +20,14 @@ public:
 
 	Material* ImportImage(const char* path);
 
+	void SaveAsDDS();
+
 	void RemoveMaterial(Material* mat);
 
 private:
 	std::list<Material*> materials;
+
+	uint save_id = 0;
 };
 
 #endif // !__MATERIALMANAGER__

@@ -10,6 +10,8 @@
 #include "GameObject.h"
 #include "ComponentMaterial.h"
 
+#include <cstdio>
+
 #pragma comment (lib, "engine/Devil/libx86/DevIL.lib")
 #pragma comment (lib, "engine/Devil/libx86/ILU.lib")
 #pragma comment (lib, "engine/Devil/libx86/ILUT.lib")
@@ -83,6 +85,8 @@ Material* MaterialManager::ImportImage(const char* path)
 		m = new Material(id, w, h, path);
 		materials.push_back(m);
 		
+		SaveAsDDS();
+
 		ilDeleteImage(ilGetInteger(IL_ACTIVE_IMAGE));
 	}
 	else
@@ -92,6 +96,30 @@ Material* MaterialManager::ImportImage(const char* path)
 	}
 
 	return m;
+}
+
+void MaterialManager::SaveAsDDS()
+{
+	ILuint		size;
+	ILubyte*	data;
+
+	ilSetInteger(IL_DXTC_FORMAT, IL_DXT5);
+
+	size = ilSaveL(IL_DDS, NULL, 0);
+	if (size > 0)
+	{
+		data = new ILubyte[size];
+		if (ilSaveL(IL_DDS, data, size) > 0)
+		{
+			char file[69];
+			sprintf_s(file, "Library\\Materials\\texture_%d.dds", save_id++);
+			FILE* tex_file = fopen(file, "w");
+			fwrite(data, sizeof(ILubyte), size, tex_file);
+			fclose(tex_file);
+			EDITOR_LOG("New material texture saved: %s.", file);
+		}
+	}
+
 }
 
 void MaterialManager::RemoveMaterial(Material * mat)
