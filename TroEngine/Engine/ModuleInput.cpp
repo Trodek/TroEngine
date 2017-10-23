@@ -161,7 +161,7 @@ void ModuleInput::OnFileDropped(const char * path)
 		//Copy the file to Assets\Meshes
 		App->CopyFileTo(path, "Assets\\Meshes");
 
-		App->mesh->LoadFile(path);
+		App->mesh->ImportFile(path);
 	}
 	else if (ext == "png")
 	{

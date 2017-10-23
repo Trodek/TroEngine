@@ -62,6 +62,21 @@ float * Mesh::GetVertices() const
 	return vertices;
 }
 
+uint Mesh::GetUVNum()
+{
+	return num_uv;
+}
+
+uint Mesh::GetUVID()
+{
+	return id_uv;
+}
+
+float * Mesh::GetUV()
+{
+	return uv;
+}
+
 AABB Mesh::GetAABB()
 {
 	return bounding_box;

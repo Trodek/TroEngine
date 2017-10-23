@@ -491,11 +491,11 @@ bool Application::CreateFolder(const char * path) const
 	{
 		if (GetLastError() == ERROR_ALREADY_EXISTS)
 		{
-			EDITOR_LOG("Can't create the folder. %d already exist", path);
+			EDITOR_LOG("Can't create the folder. %s already exist", path);
 		}
 		else if (GetLastError() == ERROR_PATH_NOT_FOUND)
 		{
-			EDITOR_LOG("Can't creat folder %d. One or more intermediate directories do not exist", path);
+			EDITOR_LOG("Can't creat folder %s. One or more intermediate directories do not exist", path);
 			ret = false;
 		}
 	}

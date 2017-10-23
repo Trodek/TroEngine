@@ -18,13 +18,16 @@ public:
 	bool Start();
 	bool CleanUp();
 
-	bool LoadFile(const char* path);
+	bool ImportFile(const char* path);
+	void SaveToLibrary(Mesh* mesh);
+	void LoadFile(const char* path);
 
 	void RemoveMesh(Mesh* m);
 
 private:
 	std::list<Mesh*> meshes;
 	int id = 0;
+	uint save_id = 0;
 };
 
 #endif // !__MESHIMPORTER__

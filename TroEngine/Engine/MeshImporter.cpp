@@ -51,6 +51,8 @@ bool MeshImporter::Start()
 	const uint severity = Assimp::Logger::Debugging | Assimp::Logger::Info | Assimp::Logger::Err | Assimp::Logger::Warn;
 	Assimp::DefaultLogger::get()->attachStream(new AssimpLogger(),severity);
 
+	LoadFile("Library\\Meshes\\mesh_0.tromesh");
+
 	return ret;
 }
 
@@ -71,7 +73,7 @@ bool MeshImporter::CleanUp()
 	return ret;
 }
 
-bool MeshImporter::LoadFile(const char * path)
+bool MeshImporter::ImportFile(const char * path)
 {
 	bool ret = true;
 
@@ -148,6 +150,9 @@ bool MeshImporter::LoadFile(const char * path)
 			{
 				Mesh* new_geo = new Mesh(num_vertices, vert, num_indices, indices, num_uv, uv);
 				meshes.push_back(new_geo);
+
+				//Save Mesh to Library for faster loading
+				SaveToLibrary(new_geo);
 
 				//add the mesh to game object
 				if (meshes_as_go)
@@ -241,6 +246,102 @@ bool MeshImporter::LoadFile(const char * path)
 	}
 
 	return ret;
+}
+
+void MeshImporter::SaveToLibrary(Mesh * mesh)
+{
+	// Save Mesh to file
+	// file structure has: 
+	// amount of indices / vertices / texture_coords
+	// indices / vertices / texture_coords data
+
+	uint elements_num[3] = { mesh->GetIndicesNum(), mesh->GetVerticesNum() * 3, mesh->GetUVNum() * 3 };
+	uint total_size = sizeof(elements_num) + sizeof(uint)*mesh->GetIndicesNum() + sizeof(float)*(mesh->GetVerticesNum() * 3 + mesh->GetUVNum() * 3);
+
+	char* data = new char[total_size];
+	char* cursor = data;
+
+	//store the number of elements of each type
+	uint size = sizeof(elements_num);
+	memcpy(cursor, elements_num, size);
+	cursor += size;
+
+	//store indices
+	size = sizeof(uint)*elements_num[0];
+	memcpy(cursor, mesh->GetIndices(), size);
+	cursor += size;
+
+	//store vertices
+	size = sizeof(float)*elements_num[1];
+	memcpy(cursor, mesh->GetVertices(), size);
+	cursor += size;
+
+	//store texture_coords
+	size = sizeof(float)*elements_num[2];
+	memcpy(cursor, mesh->GetUV(), size);
+	cursor += size;
+
+	//Serialize data to file
+	char file[69];
+	sprintf_s(file, "Library\\Meshes\\mesh_%d.tromesh",save_id++);
+
+	FILE* f = fopen(file, "w");
+	fwrite(data, sizeof(char), total_size, f);
+	fclose(f);
+
+	RELEASE_ARRAY(data);
+
+	EDITOR_LOG("Created %s.", file);
+}
+
+void MeshImporter::LoadFile(const char * path)
+{
+	//Open file path and get size
+	FILE* file = fopen(path, "r");
+	fseek(file, 0L, SEEK_END);
+	uint total_size = ftell(file);
+	rewind(file); //go back to file begining
+
+	// Copy file to a data buffer
+	char* data = new char[total_size];
+	char* cursor = data;
+	fread(data, sizeof(char), total_size, file);
+	fclose(file);
+
+	//Start reading num_elements for indices/vertices/texture_coords
+	uint elements_num[3];
+	uint size = sizeof(elements_num);
+	memcpy(elements_num, cursor, size);
+	cursor += size;
+
+	//Read indices
+	uint* ind = new uint[elements_num[0]];
+	size = sizeof(uint)*elements_num[0];
+	memcpy(ind, cursor, size);
+	cursor += size;
+
+	//Read vertices
+	float* vert = new float[elements_num[1]];
+	size = sizeof(float)*elements_num[1];
+	memcpy(vert, cursor, size);
+	cursor += size;
+
+	//Read texture coords
+	float* tex_coords = new float[elements_num[2]];
+	size = sizeof(float)*elements_num[2];
+	memcpy(tex_coords, cursor, size);
+	cursor += size;
+
+	//Create a mesh with this info
+	Mesh* geo = new Mesh(elements_num[1] / 3, vert, elements_num[0], ind, elements_num[2] / 3, tex_coords);
+	meshes.push_back(geo);
+
+	//TEST
+	GameObject* go = App->scene_manager->GetCurrentScene()->CreateGameObject();
+	MeshRenderer* mr = (MeshRenderer*)go->AddComponent(Component::Type::MeshRenderer);
+	mr->SetMesh(geo);
+
+	RELEASE_ARRAY(data);
 }
 
 void MeshImporter::RemoveMesh(Mesh * m)

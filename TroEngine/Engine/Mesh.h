@@ -17,6 +17,10 @@ public:
 	uint GetVerticesNum() const;
 	float* GetVertices() const;
 
+	uint GetUVNum();
+	uint GetUVID();
+	float* GetUV();
+
 	AABB GetAABB();
 
 	void Render(bool wireframe = false);
