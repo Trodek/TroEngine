@@ -10,6 +10,8 @@ public:
 	Transform(GameObject* owner);
 	~Transform();
 
+	void OnUpdateTransform();
+
 	void SetTransform(float3 pos, float3 scale, Quat rot);
 
 	float4x4 GetTransform();
@@ -20,6 +22,9 @@ private:
 	float3 position;
 	Quat rotation;
 	float3 scale;
+
+	float4x4 global_trans;
+	bool update_trans = true;
 };
 
 #endif // !__TRANSFORM__

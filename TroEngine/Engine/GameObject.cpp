@@ -276,6 +276,33 @@ uint GameObject::GetNumChilds() const
 	return childs.size();
 }
 
+void GameObject::TransformUpdate()
+{
+	//Ask all components for updates related to the transform
+	for (int i = 0; i < components.size(); ++i)
+	{
+		components[i]->OnUpdateTransform();
+	}
+
+	//Ask all childs to update to this transform change
+	for (int i = 0; i < childs.size(); ++i)
+	{
+		childs[i]->TransformUpdate();
+	}
+}
+
+float4x4 GameObject::GetTransform() const
+{
+	for (int i = 0; i < components.size(); ++i)
+	{
+		if (components[i]->GetType() == Component::Transform)
+		{
+			Transform* t = (Transform*)components[i];
+			return t->GetTransform();
+		}
+	}
+}
+
 void GameObject::DrawHierarchy()
 {
 	for (int i = 0; i < childs.size(); ++i)

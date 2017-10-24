@@ -38,6 +38,10 @@ public:
 	GameObject* GetChild(uint id) const;
 	uint GetNumChilds() const;
 
+	void TransformUpdate();
+
+	float4x4 GetTransform() const;
+
 	void DrawHierarchy();
 
 public:

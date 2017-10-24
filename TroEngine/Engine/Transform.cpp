@@ -7,10 +7,23 @@ Transform::Transform(GameObject * owner) :Component(Component::Type::Transform, 
 	rotation.Set(0, 0, 0, 1);
 	position.Set(0, 0, 0);
 	scale.Set(1, 1, 1);
+
+	global_trans = float4x4::FromTRS(position, rotation, scale);
 }
 
 Transform::~Transform()
 {
+}
+
+void Transform::OnUpdateTransform()
+{
+	if (GetOwner()->GetParent() == nullptr)
+		global_trans = float4x4::FromTRS(position, rotation, scale);
+	else
+	{
+		Transform* parent_trans = (Transform*)GetOwner()->GetParent()->GetComponent(Component::Type::Transform);
+		global_trans = parent_trans->GetTransform()*float4x4::FromTRS(position, rotation, scale);
+	}
 }
 
 void Transform::SetTransform(float3 pos, float3 scale, Quat rot)
@@ -18,19 +31,28 @@ void Transform::SetTransform(float3 pos, float3 scale, Quat rot)
 	rotation = rot;
 	this->scale = scale;
 	position = pos;
+
+	update_trans = true;
 }
 
 float4x4 Transform::GetTransform()
 {
-	float4x4 trans = float4x4::FromTRS(position,rotation,scale);
-
-	if (GetOwner()->GetParent() == nullptr)
-		return trans;
-	else
+	if (update_trans)
 	{
-		Transform* parent_trans = (Transform*)GetOwner()->GetParent()->GetComponent(Component::Type::Transform);
-		return parent_trans->GetTransform()*trans;
+		if (GetOwner()->GetParent() == nullptr)
+			global_trans = float4x4::FromTRS(position, rotation, scale);
+		else
+		{
+			Transform* parent_trans = (Transform*)GetOwner()->GetParent()->GetComponent(Component::Type::Transform);
+			global_trans =  parent_trans->GetTransform()*float4x4::FromTRS(position, rotation, scale);
+		}
+
+		GetOwner()->TransformUpdate();
+
+		update_trans = false;
 	}
+
+	return global_trans;
 }
 
 void Transform::DrawConfig()
@@ -49,7 +71,21 @@ void Transform::DrawConfig()
 
 	Quat new_rot = Quat::FromEulerXYZ(rot[0] * DEGTORAD, rot[1] * DEGTORAD, rot[2] * DEGTORAD);
 
-	position = float3(pos[0], pos[1], pos[2]);
-	scale = float3(s[0], s[1], s[2]);
-	rotation = new_rot;
+	if (pos[0] != position.x || pos[1] != position.y || pos[2] != position.z)
+	{
+		position = float3(pos[0], pos[1], pos[2]);
+		update_trans = true;
+	}
+	
+	if (s[0] != scale.x || s[1] != scale.y || s[2] != scale.z)
+	{
+		scale = float3(s[0], s[1], s[2]);
+		update_trans = true;
+	}
+	
+	if (rotation.Equals(new_rot) == false)
+	{
+		rotation = new_rot;
+		update_trans = true;
+	}
 }

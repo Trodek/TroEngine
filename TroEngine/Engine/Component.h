@@ -1,7 +1,7 @@
 #ifndef __COMPONENT__
 #define __COMPONENT__
 
-
+#include "MathGeoLib.h"
 
 class GameObject;
 
@@ -32,6 +32,8 @@ public:
 	virtual bool Start() { return true; }
 	virtual bool Update(float dt) { return true; }
 	virtual void CleanUp() {}
+
+	virtual void OnUpdateTransform() {}
 
 	virtual void DebugDraw() {}
 
