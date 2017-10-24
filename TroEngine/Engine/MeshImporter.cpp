@@ -13,6 +13,7 @@
 #include "Inspector.h"
 #include "ComponentMaterial.h"
 #include <direct.h>
+#include <fstream>
 
 #include "Assimp\include\cimport.h"
 #include "Assimp\include\scene.h"
@@ -285,7 +286,7 @@ void MeshImporter::SaveToLibrary(Mesh * mesh)
 	char file[69];
 	sprintf_s(file, "Library\\Meshes\\mesh_%d.tromesh",save_id++);
 
-	FILE* f = fopen(file, "w");
+	FILE* f = fopen(file, "wb");
 	fwrite(data, sizeof(char), total_size, f);
 	fclose(f);
 
@@ -297,7 +298,7 @@ void MeshImporter::SaveToLibrary(Mesh * mesh)
 void MeshImporter::LoadFile(const char * path)
 {
 	//Open file path and get size
-	FILE* file = fopen(path, "r");
+	FILE* file = fopen(path, "rb");
 	fseek(file, 0L, SEEK_END);
 	uint total_size = ftell(file);
 	rewind(file); //go back to file begining
