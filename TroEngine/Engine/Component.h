@@ -14,6 +14,7 @@ public:
 		Transform,
 		MeshRenderer,
 		C_Material,
+		Camera,
 	};
 
 public:

@@ -153,7 +153,8 @@ bool ModuleInput::CleanUp()
 void ModuleInput::OnFileDropped(const char * path)
 {
 	std::string file = path;
-	std::string ext = file.substr(file.size() - 3, 3);
+	uint cut = file.find_last_of(".");
+	std::string ext = file.substr(cut + 1, file.size() - cut + 1);
 	
 	//check extension to do proper action
 	if(ext == "fbx" ||ext == "FBX")

@@ -13,7 +13,6 @@
 #include "Inspector.h"
 #include "ComponentMaterial.h"
 #include <direct.h>
-#include <fstream>
 
 #include "Assimp\include\cimport.h"
 #include "Assimp\include\scene.h"

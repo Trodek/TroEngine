@@ -115,6 +115,9 @@
     <Filter Include="Source\Engine\Components\Material\Material">
       <UniqueIdentifier>{7137f51c-7220-4d03-8e4a-60c79f86407e}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\Components\Camera">
+      <UniqueIdentifier>{67a3223a-e53a-45df-9a73-7443beb5598f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -341,6 +344,9 @@
     </ClCompile>
     <ClCompile Include="Engine\Hierarchy.cpp">
       <Filter>Source\Editor\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Camera.cpp">
+      <Filter>Source\Engine\Components\Camera</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -721,6 +727,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Hierarchy.h">
       <Filter>Source\Editor\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Camera.h">
+      <Filter>Source\Engine\Components\Camera</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
