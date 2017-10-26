@@ -415,6 +415,11 @@ void ModuleRenderer3D::MultMatrix(float * matrix)
 	glMultMatrixf(matrix);
 }
 
+bool ModuleRenderer3D::GetCullFace() const
+{
+	return cull_face;
+}
+
 void ModuleRenderer3D::ToggleDepthTestState()
 {
 	if (depth_test)

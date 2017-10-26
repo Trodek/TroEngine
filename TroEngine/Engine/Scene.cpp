@@ -21,6 +21,14 @@ void Scene::Draw()
 	}
 }
 
+void Scene::DebugDraw()
+{
+	for (std::vector<GameObject*>::iterator go = game_objects.begin(); go != game_objects.end(); ++go)
+	{
+		(*go)->DebugDraw();
+	}
+}
+
 update_status Scene::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;

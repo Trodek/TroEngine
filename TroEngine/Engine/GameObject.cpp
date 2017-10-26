@@ -8,6 +8,7 @@
 #include "imgui.h"
 #include "ModuleGUI.h"
 #include "Inspector.h"
+#include "Camera.h"
 
 GameObject::GameObject(const char * name, bool active, GameObject * parent) : name(name), active(active), parent(parent)
 {
@@ -137,6 +138,16 @@ void GameObject::Draw()
 
 void GameObject::DebugDraw()
 {
+	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
+	{
+		(*c)->DebugDraw();
+	}
+
+	//Draw Childs
+	for (std::vector<GameObject*>::iterator go = childs.begin(); go != childs.end(); ++go)
+	{
+		(*go)->DebugDraw();
+	}
 }
 
 void GameObject::DrawConfig()
@@ -182,6 +193,13 @@ Component* GameObject::AddComponent(Component::Type type)
 		new_comp = cm;
 		break;
 	}
+	case Component::Camera:
+	{
+		Camera* cam = new Camera(this);
+		components.push_back(cam);
+		new_comp = cam;
+	}
+		break;
 	default:
 		break;
 	}

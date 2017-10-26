@@ -51,6 +51,7 @@ public:
 	void PopMatrix();
 	void MultMatrix(float* matrix);
 
+	bool GetCullFace()const;
 
 public:
 	Light lights[MAX_LIGHTS];

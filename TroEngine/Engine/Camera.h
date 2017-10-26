@@ -24,6 +24,9 @@ public:
 	float* GetViewMatrix() const;
 	float* GetProjectionMatrix() const;
 
+	void DrawConfig();
+	void DebugDraw();
+
 private:
 	Frustum frustum;
 	float aspect_ratio = 1.3f;

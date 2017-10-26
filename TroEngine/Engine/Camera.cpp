@@ -1,6 +1,9 @@
 #include "Camera.h"
 #include "Globals.h"
 #include "GameObject.h"
+#include "Application.h"
+#include "ModuleRenderer3D.h"
+#include "imgui.h"
 
 Camera::Camera(GameObject * owner) : Component(Component::Type::Camera, owner)
 {
@@ -67,4 +70,72 @@ float * Camera::GetProjectionMatrix() const
 	m = frustum.ProjectionMatrix();
 	m.Transpose();
 	return (float*)m.v;
+}
+
+void Camera::DrawConfig()
+{	
+	if (ImGui::CollapsingHeader("Camera"))
+	{
+		
+	}
+}
+
+void Camera::DebugDraw()
+{
+	GLenum mode = App->renderer3D->GetPolyMode();
+	App->renderer3D->PolygonModeWireframe();
+
+	vec* points = nullptr;
+	frustum.GetCornerPoints(points);
+
+	glLineWidth(2.0f);
+	App->renderer3D->DisableState(GL_CULL_FACE);
+
+	glBegin(GL_QUADS);
+
+	glVertex3fv((GLfloat*)&points[1]);
+	glVertex3fv((GLfloat*)&points[5]);
+	glVertex3fv((GLfloat*)&points[7]);
+	glVertex3fv((GLfloat*)&points[3]);
+
+	glVertex3fv((GLfloat*)&points[4]);
+	glVertex3fv((GLfloat*)&points[0]);
+	glVertex3fv((GLfloat*)&points[2]);
+	glVertex3fv((GLfloat*)&points[6]);
+
+	glVertex3fv((GLfloat*)&points[5]);
+	glVertex3fv((GLfloat*)&points[4]);
+	glVertex3fv((GLfloat*)&points[6]);
+	glVertex3fv((GLfloat*)&points[7]);
+
+	glVertex3fv((GLfloat*)&points[0]);
+	glVertex3fv((GLfloat*)&points[1]);
+	glVertex3fv((GLfloat*)&points[3]);
+	glVertex3fv((GLfloat*)&points[2]);
+
+	glVertex3fv((GLfloat*)&points[3]);
+	glVertex3fv((GLfloat*)&points[7]);
+	glVertex3fv((GLfloat*)&points[6]);
+	glVertex3fv((GLfloat*)&points[2]);
+
+	glVertex3fv((GLfloat*)&points[0]);
+	glVertex3fv((GLfloat*)&points[4]);
+	glVertex3fv((GLfloat*)&points[5]);
+	glVertex3fv((GLfloat*)&points[1]);
+
+	glEnd();
+
+	glLineWidth(1.0f);
+
+	if(App->renderer3D->GetCullFace())
+		App->renderer3D->EnableState(GL_CULL_FACE);
+
+	if (mode == GL_POINT)
+	{
+		App->renderer3D->PolygonModePoints();
+	}
+	else if (mode == GL_FILL)
+	{
+		App->renderer3D->PolygonModeFill();
+	}
 }

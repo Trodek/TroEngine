@@ -16,6 +16,7 @@ public:
 	bool Start();
 
 	void Draw();
+	void DebugDraw();
 
 	update_status Update(float dt);
 

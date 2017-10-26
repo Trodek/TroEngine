@@ -234,6 +234,7 @@ bool MeshImporter::ImportFile(const char * path)
 		float3 scale(scaling.x, scaling.y, scaling.z);
 		Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
 
+		//fix
 		Transform* t = (Transform*) App->scene_manager->GetCurrentScene()->GetGameObject(0)->GetComponent(Component::Type::Transform);
 		t->SetTransform(pos,scale,rot);
 
@@ -340,6 +341,7 @@ void MeshImporter::LoadFile(const char * path)
 	GameObject* go = App->scene_manager->GetCurrentScene()->CreateGameObject();
 	MeshRenderer* mr = (MeshRenderer*)go->AddComponent(Component::Type::MeshRenderer);
 	mr->SetMesh(geo);
+	go->AddComponent(Component::Type::Camera);
 
 	RELEASE_ARRAY(data);
 }
