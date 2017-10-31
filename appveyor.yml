@@ -14,7 +14,10 @@ build:
   project: TroEngine.sln
   verbosity: minimal
 before_package:
-- ps: Copy-Item C:\projects\TroEngine\$env:CONFIGURATION\TroEngine.exe C:\projects\TroEngine\TroEngine\EngineResources\.
+- ps: >-
+    Copy-Item C:\projects\TroEngine\$env:CONFIGURATION\TroEngine.exe C:\projects\TroEngine\TroEngine\EngineResources\.
+
+    Copy-Item C:\projects\TroEngine\README.md C:\projects\TroEngine\TroEngine\EngineResources\.
 artifacts:
 - path: TroEngine\EngineResources
   name: TroEngine
