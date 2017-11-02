@@ -12,6 +12,7 @@ Camera::Camera(GameObject * owner) : Component(Component::Type::Camera, owner)
 	frustum.SetUp(float3::unitY);
 	frustum.SetVerticalFovAndAspectRatio(60.f*DEGTORAD, 1.3f);
 	frustum.SetViewPlaneDistances(0.1f, 500.0f);
+	frustum.SetKind(math::FrustumProjectiveSpace::FrustumSpaceGL, math::FrustumLeftHanded);
 }
 
 Camera::~Camera()

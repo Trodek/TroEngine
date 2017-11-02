@@ -21,6 +21,7 @@ void MeshRenderer::Draw()
 
 void MeshRenderer::DebugDraw()
 {
+	
 }
 
 void MeshRenderer::CleanUp()

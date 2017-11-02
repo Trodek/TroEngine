@@ -25,9 +25,15 @@ public:
 	void RemoveMesh(Mesh* m);
 
 private:
+	void CubeMesh();
+
+private:
 	std::list<Mesh*> meshes;
 	int id = 0;
 	uint save_id = 0;
+
+	Mesh* cube = nullptr;
+
 };
 
 #endif // !__MESHIMPORTER__
