@@ -14,7 +14,7 @@ public:
 
 	void SetTransform(float3 pos, float3 scale, Quat rot);
 
-	float4x4 GetTransform();
+	float4x4 GetTransform() const;
 
 	void DrawConfig();
 
@@ -23,8 +23,8 @@ private:
 	Quat rotation;
 	float3 scale;
 
-	float4x4 global_trans;
-	bool update_trans = true;
+	mutable float4x4 global_trans;
+	mutable bool update_trans = true;
 };
 
 #endif // !__TRANSFORM__

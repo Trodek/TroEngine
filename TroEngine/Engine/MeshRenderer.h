@@ -21,6 +21,7 @@ public:
 	void SetMesh(Mesh* mesh);
 
 	void DrawConfig();
+	void OnUpdateTransform();
 
 	void RemoveMesh();
 

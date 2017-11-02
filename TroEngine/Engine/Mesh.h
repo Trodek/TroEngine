@@ -21,7 +21,8 @@ public:
 	uint GetUVID();
 	float* GetUV();
 
-	AABB GetAABB();
+	AABB GetAABB() const;
+	void UpdateAABB(const float4x4& trans);
 
 	void Render(bool wireframe = false);
 

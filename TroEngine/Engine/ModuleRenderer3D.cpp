@@ -172,7 +172,9 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	//Rendering pipeline
 	App->scene_manager->DrawScenes();
+
 	//Draw debug
+
 
 	//Draw GUI
 	bool light_state = lighting;

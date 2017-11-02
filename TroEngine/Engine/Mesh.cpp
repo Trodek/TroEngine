@@ -77,9 +77,16 @@ float * Mesh::GetUV()
 	return uv;
 }
 
-AABB Mesh::GetAABB()
+AABB Mesh::GetAABB() const
 {
 	return bounding_box;
+}
+
+void Mesh::UpdateAABB(const float4x4 & trans)
+{
+	bounding_box.SetNegativeInfinity();
+	bounding_box.Enclose((float3*)vertices, num_vertices);
+	bounding_box.TransformAsAABB(trans);
 }
 
 void Mesh::Render(bool wireframe)

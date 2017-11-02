@@ -46,6 +46,11 @@ void MeshRenderer::DrawConfig()
 	}
 }
 
+void MeshRenderer::OnUpdateTransform()
+{
+	mesh->UpdateAABB(GetOwner()->GetTransform());
+}
+
 void MeshRenderer::RemoveMesh()
 {
 	mesh = nullptr;

@@ -35,7 +35,7 @@ void Transform::SetTransform(float3 pos, float3 scale, Quat rot)
 	update_trans = true;
 }
 
-float4x4 Transform::GetTransform()
+float4x4 Transform::GetTransform() const
 {
 	if (update_trans)
 	{
@@ -46,10 +46,9 @@ float4x4 Transform::GetTransform()
 			Transform* parent_trans = (Transform*)GetOwner()->GetParent()->GetComponent(Component::Type::Transform);
 			global_trans =  parent_trans->GetTransform()*float4x4::FromTRS(position, rotation, scale);
 		}
-
-		GetOwner()->TransformUpdate();
-
 		update_trans = false;
+
+		GetOwner()->TransformUpdate();		
 	}
 
 	return global_trans;
