@@ -7,6 +7,8 @@
 class Mesh;
 class GameObject;
 class aiNode;
+class aiScene;
+class aiMesh;
 
 class MeshImporter : public Module
 {
@@ -19,12 +21,16 @@ public:
 	bool CleanUp();
 
 	bool ImportFile(const char* path);
+
 	void SaveToLibrary(Mesh* mesh);
 	void LoadFile(const char* path);
 
 	void RemoveMesh(Mesh* m);
 
 private:
+	bool ImportNode(aiScene* scene, aiNode* node, GameObject* parent);
+	bool ImportMesh(aiMesh* mesh, GameObject* owner);
+
 	void CubeMesh();
 
 private:

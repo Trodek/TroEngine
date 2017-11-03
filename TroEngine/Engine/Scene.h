@@ -26,6 +26,7 @@ public:
 
 	void AddGameObject(GameObject* go);
 	GameObject* CreateGameObject();
+	GameObject* CreateGameObject(const char* name);
 
 	GameObject* GetGameObject(uint id) const;
 

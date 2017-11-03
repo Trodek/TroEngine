@@ -3,8 +3,8 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 
-Mesh::Mesh(uint num_ver, float * ver, uint num_ind, uint * ind, uint num_uv, float* uv) :
-	 num_indices(num_ind), indices(ind), num_vertices(num_ver), vertices(ver), num_uv(num_uv), uv(uv)
+Mesh::Mesh(uint num_ver, float * ver, uint num_ind, uint * ind, uint num_uv, float* uv, uint num_norm, float* norm) :
+	 num_indices(num_ind), indices(ind), num_vertices(num_ver), vertices(ver), num_uv(num_uv), uv(uv), num_normals(num_norm), normals(norm)
 {
 	//Load vertices to vram
 	id_vertices = App->renderer3D->GenBuffer();
@@ -25,6 +25,15 @@ Mesh::Mesh(uint num_ver, float * ver, uint num_ind, uint * ind, uint num_uv, flo
 		id_uv = App->renderer3D->GenBuffer();
 		App->renderer3D->BindArrayBuffer(id_uv);
 		App->renderer3D->LoadArrayToVRAM(sizeof(float) * num_uv * 3, uv, GL_STATIC_DRAW);
+		App->renderer3D->UnbindArraybuffer();
+	}
+
+	//Load normals to vram
+	if (norm != nullptr)
+	{
+		id_normals = App->renderer3D->GenBuffer();
+		App->renderer3D->BindArrayBuffer(id_normals);
+		App->renderer3D->LoadArrayToVRAM(sizeof(float) * num_normals * 3, normals, GL_STATIC_DRAW);
 		App->renderer3D->UnbindArraybuffer();
 	}
 
@@ -136,4 +145,5 @@ void Mesh::CleanUp()
 	RELEASE_ARRAY(vertices);
 	RELEASE_ARRAY(indices);
 	RELEASE_ARRAY(uv);
+	RELEASE_ARRAY(normals);
 }

@@ -53,7 +53,7 @@ bool MeshImporter::Start()
 
 	LoadFile("Library\\Meshes\\mesh_0.tromesh");
 
-	CubeMesh();
+	//CubeMesh();
 
 	return ret;
 }
@@ -246,6 +246,103 @@ bool MeshImporter::ImportFile(const char * path)
 	{
 		EDITOR_LOG("Error loading scene %s", path);
 		ret = false;
+	}
+
+	return ret;
+}
+
+bool MeshImporter::ImportNode(aiScene * scene, aiNode * node, GameObject * parent)
+{
+	bool ret = true;
+
+
+
+	return ret;
+}
+
+bool MeshImporter::ImportMesh(aiMesh * mesh, GameObject * owner)
+{
+	bool ret = true;
+
+	if (mesh == nullptr || owner == nullptr)
+		ret = false;
+	else
+	{
+		//Load mesh Vertices
+		uint num_vertices = mesh->mNumVertices;
+		float* vert = new float[num_vertices * 3];
+		memcpy(vert, mesh->mVertices, sizeof(float) * num_vertices * 3);
+		EDITOR_LOG("Mesh has %d vertices", num_vertices);
+
+		//Load mesh Indices
+		uint num_indices;
+		uint* indices = nullptr;
+		if (mesh->HasFaces())
+		{
+			num_indices = mesh->mNumFaces * 3;
+			indices = new uint[num_indices]; // assume each face is a triangle
+			for (uint i = 0; i < mesh->mNumFaces; ++i)
+			{
+				if (mesh->mFaces[i].mNumIndices != 3)
+				{
+					EDITOR_LOG("WARNING, geometry face with != 3 indices!");
+					ret = false;
+				}
+				else
+					memcpy(&indices[i * 3], mesh->mFaces[i].mIndices, 3 * sizeof(uint));
+			}
+			EDITOR_LOG("Mesh has %d indices", num_indices);
+		}
+
+		//Load mesh UV
+		uint num_uv = 0;
+		float* uv = nullptr;
+		if (mesh->HasTextureCoords(0)) // assume mesh has one texture coords
+		{
+			num_uv = mesh->mNumVertices;
+
+			uv = new float[num_uv * 3];
+			memcpy(uv, mesh->mTextureCoords[0], sizeof(float)*num_uv * 3);
+		}
+		else
+		{
+			EDITOR_LOG("No Texture Coords found for mesh");
+			ret = false;
+		}
+
+		//Load mesh Normals
+		uint num_normals = 0;
+		float* normals = nullptr;
+		if (mesh->HasNormals())
+		{
+			num_normals = mesh->mNumVertices;
+
+			normals = new float[num_normals * 3];
+			memcpy(uv, mesh->mNormals, sizeof(float)*num_normals * 3);
+		}
+
+		if (ret == false) //invalild mesh, discart 
+		{
+			RELEASE_ARRAY(vert);
+			if (indices != nullptr)
+				RELEASE_ARRAY(indices);
+			if (uv != nullptr)
+				RELEASE_ARRAY(uv);
+			if (normals != nullptr)
+				RELEASE_ARRAY(normals);
+
+			EDITOR_LOG("Error loading mesh");
+		}
+		else //valid mesh, add to the list
+		{
+			Mesh* mesh = new Mesh(num_vertices, vert, num_indices, indices, num_uv, uv, num_normals, normals);
+			meshes.push_back(mesh);
+
+			//add a mesh renderer to owner game object
+			MeshRenderer* mr = (MeshRenderer*)owner->AddComponent(Component::Type::MeshRenderer);
+			//Set this mesh to the mesh renderer
+			mr->SetMesh(mesh);
+		}
 	}
 
 	return ret;

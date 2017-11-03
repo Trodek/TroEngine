@@ -7,7 +7,7 @@
 class Mesh
 {
 public:
-	Mesh(uint num_ver, float* ver, uint num_ind, uint* ind, uint num_uv = 0, float* uv = nullptr);
+	Mesh(uint num_ver, float* ver, uint num_ind, uint* ind, uint num_uv = 0, float* uv = nullptr, uint num_norm = 0, float* norm = nullptr);
 
 	uint GetIndicesID() const;
 	uint GetIndicesNum() const;
@@ -40,6 +40,10 @@ private:
 	uint id_uv = 0; // id in VRAM
 	uint num_uv = 0;
 	float* uv = nullptr;
+
+	uint id_normals = 0; //id in VRAM
+	uint num_normals = 0;
+	float* normals;
 
 	AABB bounding_box;
 };

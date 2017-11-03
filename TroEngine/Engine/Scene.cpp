@@ -81,6 +81,17 @@ GameObject * Scene::CreateGameObject()
 	return new_go;
 }
 
+GameObject * Scene::CreateGameObject(const char * name)
+{
+	GameObject* new_go = nullptr;
+
+	new_go = new GameObject(name);
+
+	AddGameObject(new_go);
+
+	return new_go;
+}
+
 GameObject * Scene::GetGameObject(uint id) const //FIX this to work with childs
 {
 	GameObject* ret = nullptr;
