@@ -5,6 +5,7 @@
 #include <list>
 
 class Mesh;
+class Material;
 class GameObject;
 class aiNode;
 class aiScene;
@@ -28,7 +29,7 @@ public:
 	void RemoveMesh(Mesh* m);
 
 private:
-	bool ImportNode(aiScene* scene, aiNode* node, GameObject* parent);
+	bool ImportNode(const aiScene* scene, aiNode* node, GameObject* parent, Material* mat);
 	bool ImportMesh(aiMesh* mesh, GameObject* owner);
 
 	void CubeMesh();

@@ -113,7 +113,7 @@ void MaterialManager::SaveAsDDS()
 		{
 			char file[69];
 			sprintf_s(file, "Library\\Materials\\texture_%d.dds", save_id++);
-			FILE* tex_file = fopen(file, "w");
+			FILE* tex_file = fopen(file, "wb");
 			fwrite(data, sizeof(ILubyte), size, tex_file);
 			fclose(tex_file);
 			EDITOR_LOG("New material texture saved: %s.", file);

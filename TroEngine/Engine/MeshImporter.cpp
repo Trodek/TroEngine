@@ -7,6 +7,7 @@
 #include "GameObject.h"
 #include "MeshRenderer.h"
 #include "Transform.h"
+#include "Material.h"
 #include "MaterialManager.h"
 #include "ModuleCamera3D.h"
 #include "ModuleGUI.h"
@@ -51,7 +52,7 @@ bool MeshImporter::Start()
 	const uint severity = Assimp::Logger::Debugging | Assimp::Logger::Info | Assimp::Logger::Err | Assimp::Logger::Warn;
 	Assimp::DefaultLogger::get()->attachStream(new AssimpLogger(),severity);
 
-	LoadFile("Library\\Meshes\\mesh_0.tromesh");
+	//LoadFile("Library\\Meshes\\mesh_0.tromesh");
 
 	//CubeMesh();
 
@@ -84,163 +85,26 @@ bool MeshImporter::ImportFile(const char * path)
 	{
 		EDITOR_LOG("%d Meshes detected. Start Loading...", scene->mNumMeshes);
 
-		AABB* bigest_bbox = nullptr;
-
-		GameObject* root_go = App->scene_manager->GetCurrentScene()->CreateGameObject();
-		bool meshes_as_go = false;
-		//check num meshes
-		if (scene->mNumMeshes > 1)
-		{
-			meshes_as_go = true;
-		}
-
-		for (uint i = 0; i < scene->mNumMeshes; ++i)
-		{
-			//Load vertices
-			aiMesh* curr_mesh = scene->mMeshes[i];
-			uint num_vertices = curr_mesh->mNumVertices;
-			float* vert = new float[num_vertices * 3];
-			memcpy(vert, curr_mesh->mVertices, sizeof(float) * num_vertices * 3);
-			EDITOR_LOG("Mesh %d has %d vertices", i+1, num_vertices);
-			
-			//Load indices
-			uint num_indices;
-			uint* indices = nullptr;
-			if (curr_mesh->HasFaces())
-			{
-				num_indices = curr_mesh->mNumFaces * 3;
-				indices = new uint[num_indices]; // assume each face is a triangle
-				for (uint i = 0; i < curr_mesh->mNumFaces; ++i)
-				{
-					if (curr_mesh->mFaces[i].mNumIndices != 3)
-					{
-						EDITOR_LOG("WARNING, geometry face with != 3 indices!");
-						ret = false;
-					}
-					else
-						memcpy(&indices[i * 3], curr_mesh->mFaces[i].mIndices, 3 * sizeof(uint));
-				}
-				EDITOR_LOG("Mesh %d has %d indices", i+1, num_indices);
-			}
-
-			//Load uv
-			uint num_uv = 0;
-			float* uv = nullptr;
-			if (curr_mesh->HasTextureCoords(0)) // assume mesh has one texture coords
-			{
-				num_uv = curr_mesh->mNumVertices;
-				
-				uv = new float[num_uv * 3];
-				memcpy(uv, curr_mesh->mTextureCoords[0], sizeof(float)*num_uv * 3);
-			}
-			else
-			{
-				EDITOR_LOG("No Texture Coords found for mesh %d", i + 1);
-				ret = false;
-			}
-
-			if (ret == false) //invalild mesh, discart 
-			{
-				RELEASE_ARRAY(vert);
-				if (indices != nullptr)
-					RELEASE_ARRAY(indices);
-				if (uv != nullptr)
-					RELEASE_ARRAY(uv);
-				EDITOR_LOG("Error loading mesh %d", i+1);
-			}
-			else //valid mesh, add to the list
-			{
-				Mesh* new_geo = new Mesh(num_vertices, vert, num_indices, indices, num_uv, uv);
-				meshes.push_back(new_geo);
-
-				//Save Mesh to Library for faster loading
-				SaveToLibrary(new_geo);
-
-				//add the mesh to game object
-				if (meshes_as_go)
-				{
-					char name[20];
-					sprintf_s(name, "Mesh %d", i);
-					GameObject* child = root_go->CreateChild(name);
-					
-					MeshRenderer* mr = (MeshRenderer*)child->AddComponent(Component::Type::MeshRenderer);
-					mr->SetMesh(new_geo);
-				}
-				else
-				{
-					MeshRenderer* mr = (MeshRenderer*)root_go->AddComponent(Component::Type::MeshRenderer);
-					mr->SetMesh(new_geo);
-				}
-
-				//check bbox size
-				if (bigest_bbox == nullptr)
-					bigest_bbox = &new_geo->GetAABB();
-				else
-				{
-					if (new_geo->GetAABB().Size().LengthSq() > bigest_bbox->Size().LengthSq())
-					{
-						bigest_bbox = &new_geo->GetAABB();
-					}
-				}
-				
-			}
-		}
-		//Open inspector to see properties
-		App->gui->inspector->active = true;
-
-		//focus camera to biggest mesh
-		if(bigest_bbox != nullptr)
-			App->camera->AdjustCameraToAABB(*bigest_bbox);
-
-		//Check if has a material associated
+		//Check if the scene has a material
+		Material* material = nullptr;
 		if (scene->HasMaterials())
 		{
 			aiMaterial* mat = scene->mMaterials[0]; //just one material is supported now
 			aiString path;
+			std::string p;
 			mat->GetTexture(aiTextureType_DIFFUSE, 0, &path);
+			p = path.C_Str();
+			uint cut = p.find_last_of("\\");
 
 			std::string rel_path = "Models\\";
-			rel_path += path.C_Str();
+			rel_path += p.substr(cut + 1, p.size() - cut + 1);
 
 			EDITOR_LOG("Mesh material path is: %s. Start importing it...", rel_path.c_str());
-			Material* material = App->materials->ImportImage(rel_path.c_str());
-
-			//if material is loaded, add it to game object
-			if (material != nullptr)
-			{
-				if (meshes_as_go)
-				{
-					for (int c = 0; c < root_go->GetNumChilds(); ++c)
-					{
-						GameObject* child = root_go->GetChild(c);
-						ComponentMaterial* cm = (ComponentMaterial*)child->AddComponent(Component::Type::C_Material);
-						cm->SetMaterial(material);
-					}
-				}
-				else
-				{
-					ComponentMaterial* cm = (ComponentMaterial*)root_go->AddComponent(Component::Type::C_Material);
-					cm->SetMaterial(material);
-				}
-			}
+			material = App->materials->ImportImage(rel_path.c_str());
 		}
 
-		//Get transform
-		aiNode* root = scene->mRootNode;
-
-		aiVector3D translation;
-		aiVector3D scaling;
-		aiQuaternion rotation;
-		root->mTransformation.Decompose(scaling, rotation, translation);
-		float3 pos(translation.x, translation.y, translation.z);
-		float3 scale(scaling.x, scaling.y, scaling.z);
-		Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
-
-		//fix
-		Transform* t = (Transform*) App->scene_manager->GetCurrentScene()->GetGameObject(0)->GetComponent(Component::Type::Transform);
-		t->SetTransform(pos,scale,rot);
-
-		aiReleaseImport(scene);
+		//Import scene from root node
+		ret = ImportNode(scene, scene->mRootNode, nullptr, material);
 	}
 	else
 	{
@@ -251,11 +115,61 @@ bool MeshImporter::ImportFile(const char * path)
 	return ret;
 }
 
-bool MeshImporter::ImportNode(aiScene * scene, aiNode * node, GameObject * parent)
+bool MeshImporter::ImportNode(const aiScene * scene, aiNode * node, GameObject * parent, Material * mat)
 {
 	bool ret = true;
 
+	//Get node transformation
+	aiVector3D translation;
+	aiVector3D scaling;
+	aiQuaternion rotation;
+	node->mTransformation.Decompose(scaling, rotation, translation);
+	float3 pos(translation.x, translation.y, translation.z);
+	float3 scale(scaling.x, scaling.y, scaling.z);
+	Quat rot(rotation.x, rotation.y, rotation.z, rotation.w);
 
+	//Get node name
+	aiString name = node->mName;
+
+	//Import node meshes
+	uint num_meshes = node->mNumMeshes;
+	GameObject* first_go = nullptr; //store the first mesh go as the parent of children meshes
+	for (uint i = 0; i < num_meshes; ++i)
+	{
+		GameObject* go = nullptr;
+
+		if (parent == nullptr)
+		{
+			go = App->scene_manager->GetCurrentScene()->CreateGameObject(name.C_Str());
+		}
+		else
+		{
+			go = parent->CreateChild(name.C_Str());
+		}
+
+		if (i == 0)
+			first_go = go;
+
+		//set the transform to the go
+		Transform* trans = (Transform*)go->GetComponent(Component::Transform);
+		trans->SetTransform(pos, scale, rot);
+
+		//import mesh
+		ret = ImportMesh(scene->mMeshes[node->mMeshes[i]], go);
+
+		//set material if any was loaded
+		if (mat != nullptr)
+		{
+			ComponentMaterial* material = (ComponentMaterial*)go->AddComponent(Component::C_Material);
+			material->SetMaterial(mat);
+		}
+	}
+
+	//Import child nodes
+	for (uint i = 0; i < node->mNumChildren; ++i)
+	{
+		ImportNode(scene, node->mChildren[i], first_go, mat);
+	}
 
 	return ret;
 }
@@ -318,7 +232,7 @@ bool MeshImporter::ImportMesh(aiMesh * mesh, GameObject * owner)
 			num_normals = mesh->mNumVertices;
 
 			normals = new float[num_normals * 3];
-			memcpy(uv, mesh->mNormals, sizeof(float)*num_normals * 3);
+			memcpy(normals, mesh->mNormals, sizeof(float)*num_normals * 3);
 		}
 
 		if (ret == false) //invalild mesh, discart 
