@@ -86,25 +86,36 @@ bool MeshImporter::ImportFile(const char * path)
 		EDITOR_LOG("%d Meshes detected. Start Loading...", scene->mNumMeshes);
 
 		//Check if the scene has a material
-		Material* material = nullptr;
+		std::vector<Material*> mats;
 		if (scene->HasMaterials())
 		{
-			aiMaterial* mat = scene->mMaterials[0]; //just one material is supported now
-			aiString path;
-			std::string p;
-			mat->GetTexture(aiTextureType_DIFFUSE, 0, &path);
-			p = path.C_Str();
-			uint cut = p.find_last_of("\\");
+			for (uint m = 0; m < scene->mNumMaterials; ++m)
+			{
+				Material* material = nullptr;
+				aiMaterial* curr_mat = scene->mMaterials[m];
+				aiString assimp_path;
+				curr_mat->GetTexture(aiTextureType_DIFFUSE, 0, &assimp_path);
+				std::string path = assimp_path.C_Str();
+				uint name_pos = path.find_last_of("\\");
+				
+				std::string rel_path = "Models\\";
+				rel_path += path.substr(name_pos + 1, path.size() - name_pos + 1);
+				EDITOR_LOG("File material %d path is: %s. Start importing it...", m, rel_path.c_str());
 
-			std::string rel_path = "Models\\";
-			rel_path += p.substr(cut + 1, p.size() - cut + 1);
-
-			EDITOR_LOG("Mesh material path is: %s. Start importing it...", rel_path.c_str());
-			material = App->materials->ImportImage(rel_path.c_str());
+				material = App->materials->ImportImage(rel_path.c_str());
+				mats.push_back(material);
+			}			
 		}
+		//Create base gameobject
+		std::string file_path = path;
+		uint name_start = file_path.find_last_of("\\");
+		uint name_end = file_path.find_last_of(".");
+		std::string root_go_name = file_path.substr(name_start+1,name_end-name_start-1);
+
+		GameObject* root_go = App->scene_manager->GetCurrentScene()->CreateGameObject(root_go_name.c_str());
 
 		//Import scene from root node
-		ret = ImportNode(scene, scene->mRootNode, nullptr, material);
+		ret = ImportNode(scene, scene->mRootNode, root_go, mats);
 	}
 	else
 	{
@@ -115,7 +126,7 @@ bool MeshImporter::ImportFile(const char * path)
 	return ret;
 }
 
-bool MeshImporter::ImportNode(const aiScene * scene, aiNode * node, GameObject * parent, Material * mat)
+bool MeshImporter::ImportNode(const aiScene * scene, aiNode * node, GameObject * parent, const std::vector<Material*>& mats)
 {
 	bool ret = true;
 
@@ -133,7 +144,7 @@ bool MeshImporter::ImportNode(const aiScene * scene, aiNode * node, GameObject *
 
 	//Import node meshes
 	uint num_meshes = node->mNumMeshes;
-	GameObject* first_go = nullptr; //store the first mesh go as the parent of children meshes
+	GameObject* first_go = parent; //store the first mesh go as the parent of children meshes, if the node has no meshes this node parent is the parent
 	for (uint i = 0; i < num_meshes; ++i)
 	{
 		GameObject* go = nullptr;
@@ -155,26 +166,19 @@ bool MeshImporter::ImportNode(const aiScene * scene, aiNode * node, GameObject *
 		trans->SetTransform(pos, scale, rot);
 
 		//import mesh
-		ret = ImportMesh(scene->mMeshes[node->mMeshes[i]], go);
-
-		//set material if any was loaded
-		if (mat != nullptr)
-		{
-			ComponentMaterial* material = (ComponentMaterial*)go->AddComponent(Component::C_Material);
-			material->SetMaterial(mat);
-		}
+		ret = ImportMesh(scene->mMeshes[node->mMeshes[i]], go, mats);
 	}
 
 	//Import child nodes
 	for (uint i = 0; i < node->mNumChildren; ++i)
 	{
-		ImportNode(scene, node->mChildren[i], first_go, mat);
+		ImportNode(scene, node->mChildren[i], first_go, mats);
 	}
 
 	return ret;
 }
 
-bool MeshImporter::ImportMesh(aiMesh * mesh, GameObject * owner)
+bool MeshImporter::ImportMesh(aiMesh * mesh, GameObject * owner, const std::vector<Material*>& mats)
 {
 	bool ret = true;
 
@@ -249,13 +253,17 @@ bool MeshImporter::ImportMesh(aiMesh * mesh, GameObject * owner)
 		}
 		else //valid mesh, add to the list
 		{
-			Mesh* mesh = new Mesh(num_vertices, vert, num_indices, indices, num_uv, uv, num_normals, normals);
-			meshes.push_back(mesh);
+			Mesh* new_mesh = new Mesh(num_vertices, vert, num_indices, indices, num_uv, uv, num_normals, normals);
+			meshes.push_back(new_mesh);
 
 			//add a mesh renderer to owner game object
 			MeshRenderer* mr = (MeshRenderer*)owner->AddComponent(Component::Type::MeshRenderer);
 			//Set this mesh to the mesh renderer
-			mr->SetMesh(mesh);
+			mr->SetMesh(new_mesh);
+
+			//Set corresponding material
+			ComponentMaterial* material = (ComponentMaterial*)owner->AddComponent(Component::Type::C_Material);
+			material->SetMaterial(mats[mesh->mMaterialIndex]);
 		}
 	}
 

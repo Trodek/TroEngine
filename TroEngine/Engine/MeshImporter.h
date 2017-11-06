@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include <list>
+#include <vector>
 
 class Mesh;
 class Material;
@@ -29,8 +30,8 @@ public:
 	void RemoveMesh(Mesh* m);
 
 private:
-	bool ImportNode(const aiScene* scene, aiNode* node, GameObject* parent, Material* mat);
-	bool ImportMesh(aiMesh* mesh, GameObject* owner);
+	bool ImportNode(const aiScene* scene, aiNode* node, GameObject* parent, const std::vector<Material*>& mats);
+	bool ImportMesh(aiMesh* mesh, GameObject* owner, const std::vector<Material*>& mats);
 
 	void CubeMesh();
 
