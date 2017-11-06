@@ -32,25 +32,11 @@ void Transform::SetTransform(float3 pos, float3 scale, Quat rot)
 	this->scale = scale;
 	position = pos;
 
-	update_trans = true;
+	UpdateTransform();
 }
 
 float4x4 Transform::GetTransform() const
 {
-	if (update_trans)
-	{
-		if (GetOwner()->GetParent() == nullptr)
-			global_trans = float4x4::FromTRS(position, rotation, scale);
-		else
-		{
-			Transform* parent_trans = (Transform*)GetOwner()->GetParent()->GetComponent(Component::Type::Transform);
-			global_trans =  parent_trans->GetTransform()*float4x4::FromTRS(position, rotation, scale);
-		}
-		update_trans = false;
-
-		GetOwner()->TransformUpdate();		
-	}
-
 	return global_trans;
 }
 
@@ -70,6 +56,8 @@ void Transform::DrawConfig()
 
 	Quat new_rot = Quat::FromEulerXYZ(rot[0] * DEGTORAD, rot[1] * DEGTORAD, rot[2] * DEGTORAD);
 
+	bool update_trans = false;
+
 	if (pos[0] != position.x || pos[1] != position.y || pos[2] != position.z)
 	{
 		position = float3(pos[0], pos[1], pos[2]);
@@ -87,4 +75,20 @@ void Transform::DrawConfig()
 		rotation = new_rot;
 		update_trans = true;
 	}
+
+	if(update_trans)
+		UpdateTransform();
+}
+
+void Transform::UpdateTransform()
+{
+	if (GetOwner()->GetParent() == nullptr)
+		global_trans = float4x4::FromTRS(position, rotation, scale);
+	else
+	{
+		Transform* parent_trans = (Transform*)GetOwner()->GetParent()->GetComponent(Component::Type::Transform);
+		global_trans = parent_trans->GetTransform()*float4x4::FromTRS(position, rotation, scale);
+	}
+
+	GetOwner()->TransformUpdate();
 }

@@ -19,12 +19,14 @@ public:
 	void DrawConfig();
 
 private:
+	void UpdateTransform();
+
+private:
 	float3 position;
 	Quat rotation;
 	float3 scale;
 
-	mutable float4x4 global_trans;
-	mutable bool update_trans = true;
+	float4x4 global_trans;
 };
 
 #endif // !__TRANSFORM__

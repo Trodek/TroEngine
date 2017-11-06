@@ -96,7 +96,6 @@ void GameObject::CleanUp()
 void GameObject::Draw()
 {
 	//Just Components Transform, Material and MeshRenderer are needed for drawing
-	/// Currently, transform is not implemented
 
 	//Find if the GameObject has a Material
 	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
