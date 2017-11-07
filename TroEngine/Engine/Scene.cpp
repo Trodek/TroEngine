@@ -52,7 +52,13 @@ bool Scene::CleanUp()
 {
 	bool ret = true;
 
-	//TODO
+	for (std::vector<GameObject*>::iterator go = game_objects.begin(); go!=game_objects.end();)
+	{
+		(*go)->CleanUp();
+		RELEASE(*go);
+
+		go = game_objects.erase(go);
+	}
 
 	return ret;
 }

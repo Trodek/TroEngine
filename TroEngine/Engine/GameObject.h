@@ -29,6 +29,7 @@ public:
 	Component* AddComponent(Component::Type type);
 
 	Component* GetComponent(Component::Type type)const;
+	bool HasComponent(Component::Type type)const;
 
 	void RemoveComponent(Component* comp);
 	void RemoveComponentsByType(Component::Type type);
@@ -37,6 +38,8 @@ public:
 	GameObject* CreateChild(const char* name);
 	GameObject* GetChild(uint id) const;
 	uint GetNumChilds() const;
+
+	void RemoveChild(GameObject* child);
 
 	void TransformUpdate();
 

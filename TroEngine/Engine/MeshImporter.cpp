@@ -165,6 +165,12 @@ bool MeshImporter::ImportNode(const aiScene * scene, aiNode * node, GameObject *
 		Transform* trans = (Transform*)go->GetComponent(Component::Transform);
 		trans->SetTransform(pos, scale, rot);
 
+		//Check if the mesh was imported to the gameobject, if not delete the go.
+		if (!go->HasComponent(Component::MeshRenderer))
+		{
+			//parent->ch
+		}
+
 		//import mesh
 		ret = ImportMesh(scene->mMeshes[node->mMeshes[i]], go, mats);
 	}

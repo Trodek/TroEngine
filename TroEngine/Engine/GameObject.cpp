@@ -216,6 +216,23 @@ Component * GameObject::GetComponent(Component::Type type) const
 		if ((*c)->GetType() == type)
 		{
 			ret = (*c);
+			break;
+		}
+	}
+
+	return ret;
+}
+
+bool GameObject::HasComponent(Component::Type type) const
+{
+	bool ret = false;
+
+	for (std::vector<Component*>::const_iterator c = components.begin(); c != components.end(); ++c)
+	{
+		if ((*c)->GetType() == type)
+		{
+			ret = true;
+			break;
 		}
 	}
 
