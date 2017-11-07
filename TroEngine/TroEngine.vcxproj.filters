@@ -118,6 +118,9 @@
     <Filter Include="Source\Engine\Components\Camera">
       <UniqueIdentifier>{67a3223a-e53a-45df-9a73-7443beb5598f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\Tools\K-D Tree">
+      <UniqueIdentifier>{0211e150-566f-43ba-97bf-241b5e5ee93c}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -347,6 +350,9 @@
     </ClCompile>
     <ClCompile Include="Engine\Camera.cpp">
       <Filter>Source\Engine\Components\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\KDTree.cpp">
+      <Filter>Source\Engine\Tools\K-D Tree</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -730,6 +736,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Camera.h">
       <Filter>Source\Engine\Components\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\KDTree.h">
+      <Filter>Source\Engine\Tools\K-D Tree</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

@@ -305,6 +305,20 @@ GameObject * GameObject::GetChild(uint id) const
 	return ret;
 }
 
+void GameObject::GetAllChilds(std::vector<GameObject*>& go) const
+{
+	for (int i = 0; i < childs.size(); ++i)
+	{
+		go.push_back(childs[i]);
+	}
+
+	//get children childrens
+	for (int i = 0; i < childs.size(); ++i)
+	{
+		childs[i]->GetAllChilds(go);
+	}
+}
+
 uint GameObject::GetNumChilds() const
 {
 	return childs.size();

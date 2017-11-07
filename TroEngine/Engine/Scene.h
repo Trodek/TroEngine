@@ -5,6 +5,8 @@
 #include "GameObject.h"
 #include <vector>
 
+class KDTree;
+
 class Scene
 {
 public:
@@ -32,9 +34,12 @@ public:
 
 	void DrawHierarchy() const;
 
+	void CreateTree() const;
+
 private:
 	bool active;
 	uint new_go_id = 0;
+	KDTree* kd_tree = nullptr;
 
 public:
 	std::vector<GameObject*> game_objects;

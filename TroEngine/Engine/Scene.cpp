@@ -5,10 +5,15 @@
 #include "Application.h"
 #include "ModuleGUI.h"
 #include "Inspector.h"
+#include "KDTree.h"
+
+#include "ModuleInput.h"
 
 bool Scene::Start()
 {
 	bool ret = true;
+
+	kd_tree = new KDTree();
 
 	return ret;
 }
@@ -43,7 +48,10 @@ update_status Scene::Update(float dt)
 			EDITOR_LOG("Error Updating GameObject: %s", (*go)->name.c_str());
 			ret = UPDATE_STOP;
 		}
-	}		
+	}
+
+	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
+		CreateTree();
 
 	return ret;
 }
@@ -130,4 +138,22 @@ void Scene::DrawHierarchy() const
 			game_objects[i]->DrawHierarchy();
 		}
 	}
+}
+
+void Scene::CreateTree() const
+{
+	if (kd_tree->HasTree())
+	{
+		kd_tree->EraseTree();
+	}
+
+	std::vector<GameObject*> go;
+
+	for (int i = 0; i < game_objects.size(); ++i)
+	{
+		go.push_back(game_objects[i]);
+		game_objects[i]->GetAllChilds(go);
+	}
+
+	kd_tree->CreateTree(go);
 }

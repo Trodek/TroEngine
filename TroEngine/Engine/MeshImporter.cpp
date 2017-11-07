@@ -161,9 +161,8 @@ bool MeshImporter::ImportNode(const aiScene * scene, aiNode * node, GameObject *
 		if (i == 0)
 			first_go = go;
 
-		//set the transform to the go
-		Transform* trans = (Transform*)go->GetComponent(Component::Transform);
-		trans->SetTransform(pos, scale, rot);
+		//import mesh
+		ret = ImportMesh(scene->mMeshes[node->mMeshes[i]], go, mats);
 
 		//Check if the mesh was imported to the gameobject, if not delete the go.
 		if (!go->HasComponent(Component::MeshRenderer))
@@ -171,8 +170,9 @@ bool MeshImporter::ImportNode(const aiScene * scene, aiNode * node, GameObject *
 			//parent->ch
 		}
 
-		//import mesh
-		ret = ImportMesh(scene->mMeshes[node->mMeshes[i]], go, mats);
+		//set the transform to the go
+		Transform* trans = (Transform*)go->GetComponent(Component::Transform);
+		trans->SetTransform(pos, scale, rot);
 	}
 
 	//Import child nodes
@@ -270,6 +270,9 @@ bool MeshImporter::ImportMesh(aiMesh * mesh, GameObject * owner, const std::vect
 			//Set corresponding material
 			ComponentMaterial* material = (ComponentMaterial*)owner->AddComponent(Component::Type::C_Material);
 			material->SetMaterial(mats[mesh->mMaterialIndex]);
+
+			//Sver to library
+			SaveToLibrary(new_mesh);
 		}
 	}
 

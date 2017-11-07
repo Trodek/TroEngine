@@ -37,6 +37,7 @@ public:
 
 	GameObject* CreateChild(const char* name);
 	GameObject* GetChild(uint id) const;
+	void GetAllChilds(std::vector<GameObject*>& go)const;
 	uint GetNumChilds() const;
 
 	void RemoveChild(GameObject* child);
