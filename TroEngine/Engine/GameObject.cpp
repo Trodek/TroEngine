@@ -24,6 +24,11 @@ void GameObject::SetActive(bool active)
 	this->active = active;
 }
 
+bool GameObject::IsActive() const
+{
+	return active;
+}
+
 GameObject * GameObject::GetParent() const
 {
 	return parent;
@@ -130,7 +135,8 @@ void GameObject::Draw()
 	//Draw Childs
 	for (std::vector<GameObject*>::iterator go = childs.begin(); go != childs.end(); ++go)
 	{
-		(*go)->Draw();
+		if ((*go)->active)
+			(*go)->Draw();
 	}
 
 }
@@ -151,6 +157,7 @@ void GameObject::DebugDraw()
 
 void GameObject::DrawConfig()
 {
+	ImGui::Checkbox("Active##go", &active);
 	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
 	{
 		(*c)->DrawConfig();

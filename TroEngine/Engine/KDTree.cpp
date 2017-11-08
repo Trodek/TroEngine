@@ -2,6 +2,11 @@
 #include "GameObject.h"
 #include "MeshRenderer.h"
 #include <algorithm>
+#include "Color.h"
+#include "Application.h"
+#include "ModuleRenderer3D.h"
+#include "MeshImporter.h"
+#include "Mesh.h"
 
 KDTree::Node::Node(uint partition_num) : partition_num(partition_num)
 {
@@ -227,6 +232,95 @@ KDTree::Node * KDTree::Node::GetRight() const
 	return right;
 }
 
+void KDTree::Node::DrawPlane(float size_x, float size_z, float3 prev_translation)
+{
+	if (right != nullptr && left != nullptr)
+	{
+		//calculate the transform to apply to a unit plane defined on axis x,z
+		//Scale
+		float3 size(size_x, 1.f, size_z);
+
+		//Rotation and translation and set color 
+		Quat rotation;
+		Color c;
+		float3 translation = prev_translation;
+
+		float next_x = size_x;
+		float next_z = size_z;
+		float center_distance = (size_x > size_z) ? size_z : size_x;
+
+		switch (axis)
+		{
+		case KDTree::Node::A_X:
+			//rotation
+			rotation = Quat::FromEulerXYZ(0 * DEGTORAD, 0 * DEGTORAD, 90 * DEGTORAD);
+
+			//translation
+			translation.x = cut_plane.d;
+			if (parent != nullptr)
+			{
+				float diff = (center_distance / 2)*((parent->right == this) ? 1 : -1);
+				translation.y += diff;
+			}
+			next_x /= 2;
+
+			//set color green
+			c.Set(0, 1.f, 0, .5f);
+			break;
+		case KDTree::Node::A_Y:
+			//rotation
+			rotation = Quat::identity;
+
+			//translation
+			translation.y = cut_plane.d;
+			if (parent != nullptr)
+			{
+				float diff = (center_distance / 2)*((parent->right == this) ? 1 : -1);
+				translation.z += diff;
+			}
+			//next_x /= 2;
+
+			//set color red
+			c.Set(1.f, 0, 0, .5f);
+			break;
+		case KDTree::Node::A_Z:
+			//rotation
+			rotation = Quat::FromEulerXYZ(90 * DEGTORAD, 0 * DEGTORAD, 0 * DEGTORAD);
+
+			//translation
+			translation.z = cut_plane.d;
+			if (parent != nullptr)
+			{
+				float diff = (center_distance / 2)*((parent->right == this) ? 1 : -1);
+				translation.x += diff;
+			}
+			next_z /= 2;
+
+			//set color red
+			c.Set(0, 0, 1.f, .5f);
+			break;
+		}
+		//calculate transform from data below
+		float4x4 transfrom = float4x4::FromTRS(translation, rotation, size);
+
+		//Draw the plane
+		App->renderer3D->PushMatrix();
+		App->renderer3D->MultMatrix(transfrom.Transposed().ptr());
+
+		App->renderer3D->SetColor(c);
+
+		App->mesh->plane->Render();
+
+		App->renderer3D->ResetColor();
+
+		App->renderer3D->PopMatrix();
+
+		//Draw children if needed
+		left->DrawPlane(next_x, next_z, translation);
+		right->DrawPlane(next_x, next_z, translation);
+	}
+}
+
 void KDTree::Node::CheckPartition()
 {
 	if (elements.size() > partition_num)
@@ -296,32 +390,6 @@ bool KDTree::HasTree() const
 
 void KDTree::DebugDraw() const
 {
-	std::vector<Node*> planes_to_draw;
-	std::vector<Node*> nodes_to_visit;
-	planes_to_draw.push_back(root_node);
-	nodes_to_visit.push_back(root_node);
-
-	//get all children that have planes
-	while (!nodes_to_visit.empty())
-	{
-		//add childs to visit and draw them later 
-		if ((*nodes_to_visit.begin())->GetLeft() != nullptr && (*nodes_to_visit.begin())->GetRight() != nullptr)
-		{
-			nodes_to_visit.push_back((*nodes_to_visit.begin())->GetLeft());
-			nodes_to_visit.push_back((*nodes_to_visit.begin())->GetRight());
-			planes_to_draw.push_back((*nodes_to_visit.begin())->GetLeft());
-			planes_to_draw.push_back((*nodes_to_visit.begin())->GetRight());
-		}
-
-		//remove curr node from the nodes to visit
-		nodes_to_visit.erase(nodes_to_visit.begin());
-	}
-
-	float plane_size = 100.0f;
-
-	for (int p = 0; p < planes_to_draw.size();++p)
-	{
-		Plane plane_info = planes_to_draw[p]->cut_plane;
-
-	}
+	float3 initial_translation = float3::zero;
+	root_node->DrawPlane(100, 100, initial_translation);
 }

@@ -13,6 +13,7 @@ public:
 	~GameObject();
 
 	void SetActive(bool active);
+	bool IsActive()const;
 	GameObject* GetParent() const;
 	void SetNewParent(GameObject* new_parent);
 

@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "GLInclude.h"
 #include "Light.h"
+#include "Color.h"
 
 #define MAX_LIGHTS 8
 
@@ -54,7 +55,18 @@ public:
 
 	void SetLineWidth(float size);
 
+	void SetColor(Color color);
+	void ResetColor();
+
 	bool GetCullFace()const;
+
+private:
+	void ToggleDepthTestState();
+	void ToggleCullFaceState();
+	void ToggleLightingState();
+	void ToggleTexture2DState();
+	void ToggleColorMaterialState();
+	void ToggleVSYNC();
 
 public:
 	Light lights[MAX_LIGHTS];
@@ -79,13 +91,5 @@ private:
 	bool vsync			= false;
 
 	uint checker_id		= 0;
-
-private:
-	void ToggleDepthTestState();
-	void ToggleCullFaceState();
-	void ToggleLightingState();
-	void ToggleTexture2DState();
-	void ToggleColorMaterialState();
-	void ToggleVSYNC();
 
 };

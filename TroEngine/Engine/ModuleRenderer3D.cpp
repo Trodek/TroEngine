@@ -122,6 +122,8 @@ bool ModuleRenderer3D::Awake(JSONDoc* config)
 		color_material = true;
 		glEnable(GL_TEXTURE_2D);
 		texture_2d = true;
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 	
 
@@ -171,11 +173,20 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	//Rendering pipeline
-	App->scene_manager->DrawScenes();
+	if(!App->debug_mode) // for debug proposes avoid drawing geometry, just the debug boxes
+		App->scene_manager->DrawScenes();
 
 	//Draw debug
+	bool cull_face_state = cull_face; //disable cull face when in debug
+	if (cull_face == true)
+	{
+		cull_face = false;
+		ToggleCullFaceState();
+	}
 	if(App->debug_mode)
 		App->scene_manager->DebugDrawScenes();
+	cull_face = cull_face_state;
+	ToggleCullFaceState();
 
 	//Draw GUI
 	bool light_state = lighting;
@@ -437,6 +448,16 @@ void ModuleRenderer3D::MultMatrix(float * matrix)
 void ModuleRenderer3D::SetLineWidth(float size)
 {
 	glLineWidth(size);
+}
+
+void ModuleRenderer3D::SetColor(Color color)
+{
+	glColor4f(color.r, color.g, color.b, color.a);
+}
+
+void ModuleRenderer3D::ResetColor()
+{
+	glColor4f(1.f, 1.f, 1.f, 1.f);
 }
 
 bool ModuleRenderer3D::GetCullFace() const

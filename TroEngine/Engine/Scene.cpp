@@ -22,6 +22,7 @@ void Scene::Draw()
 {
 	for (std::vector<GameObject*>::iterator go = game_objects.begin(); go != game_objects.end(); ++go)
 	{
+		if((*go)->IsActive())
 		(*go)->Draw();
 	}
 }
@@ -32,6 +33,8 @@ void Scene::DebugDraw()
 	{
 		(*go)->DebugDraw();
 	}
+
+	kd_tree->DebugDraw();
 }
 
 update_status Scene::Update(float dt)

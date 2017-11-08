@@ -1,0 +1,93 @@
+Info,  T22400: Load C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\Street environment_V01.FBX
+Info,  T22400: Found a matching importer for this file format: Autodesk FBX Importer.
+Info,  T22400: Import root directory is 'C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\'
+Warn,  T22400: FBX-DOM (TOK_KEY, offset 0x1c9c1b) failed to resolve target Model/NodeAttribute/Constraint for AnimationCurveNode
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Skipping one or more lines with the same contents
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Warn,  T22400: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Warn,  T22400: FBX: ignoring node animation, did not find any transformation key frames
+Info,  T22400: FBX: generating full transformation chain for node: Sky001
+Info,  T22400: FBX: generating full transformation chain for node: Dummy001
+Info,  T22400: FBX: generating full transformation chain for node: Camera001
+Skipping one or more lines with the same contents
+Info,  T22400: FBX: generating full transformation chain for node: Spot001
+Skipping one or more lines with the same contents
+Info,  T22400: Entering post processing pipeline
+Info,  T22400: FindInstancesProcess finished. Found 13 instances
+Warn,  T22400: Found 2 degenerated primitives
+Info,  T22400: Points: 0, Lines: 1, Triangles: 17, Polygons: 0 (Meshes, X = removed)
+Info,  T22400: Tangents are undefined for line and point meshes
+Error, T22400: Failed to compute tangents; need UV data in channel0
+Skipping one or more lines with the same contents
+Info,  T22400: CalcTangentsProcess finished. Tangents have been calculated
+Info,  T22400: JoinVerticesProcess finished | Verts in: 81181 out: 48324 | ~40.5%
+Error, T22400: This algorithm works on triangle meshes only
+Info,  T22400: Cache relevant are 17 meshes (27059 faces). Average output ACMR is 1.794745
+Info,  T22400: Leaving post processing pipeline
