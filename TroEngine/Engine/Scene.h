@@ -31,6 +31,9 @@ public:
 	GameObject* CreateGameObject(const char* name);
 
 	GameObject* GetGameObject(uint id) const;
+	void GetAllStaticGameObjects(std::vector<GameObject*>& vector_to_fill)const;
+	void GetAllDynamicGameObjects(std::vector<GameObject*>& vector_to_fill)const;
+	void GetAllGameObjects(std::vector<GameObject*>& vector_to_fill)const;
 
 	void DrawHierarchy() const;
 
@@ -43,6 +46,8 @@ private:
 
 public:
 	std::vector<GameObject*> game_objects;
+
+	bool update_kd_tree = false;
 };
 
 

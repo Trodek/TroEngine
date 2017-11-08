@@ -40,6 +40,12 @@ void Scene::DebugDraw()
 update_status Scene::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
+	
+	if (update_kd_tree)
+	{
+		update_kd_tree = false;
+		CreateTree();
+	}
 
 	bool go_ret = true;
 	for (std::vector<GameObject*>::iterator go = game_objects.begin(); go != game_objects.end(); ++go)
@@ -52,9 +58,6 @@ update_status Scene::Update(float dt)
 			ret = UPDATE_STOP;
 		}
 	}
-
-	if (App->input->GetKey(SDL_SCANCODE_F10) == KEY_DOWN)
-		CreateTree();
 
 	return ret;
 }
@@ -127,6 +130,35 @@ GameObject * Scene::GetGameObject(uint id) const //FIX this to work with childs
 	return ret;
 }
 
+void Scene::GetAllStaticGameObjects(std::vector<GameObject*>& vector_to_fill) const
+{
+	for (int i = 0; i < game_objects.size(); ++i)
+	{
+		if (game_objects[i]->IsStatic())
+			vector_to_fill.push_back(game_objects[i]);
+		game_objects[i]->GetAllStaticChilds(vector_to_fill);
+	}
+}
+
+void Scene::GetAllDynamicGameObjects(std::vector<GameObject*>& vector_to_fill) const
+{
+	for (int i = 0; i < game_objects.size(); ++i)
+	{
+		if(!game_objects[i]->IsStatic())
+			vector_to_fill.push_back(game_objects[i]);
+		game_objects[i]->GetAllDynamicChilds(vector_to_fill);
+	}
+}
+
+void Scene::GetAllGameObjects(std::vector<GameObject*>& vector_to_fill) const
+{
+	for (int i = 0; i < game_objects.size(); ++i)
+	{
+		vector_to_fill.push_back(game_objects[i]);
+		game_objects[i]->GetAllChilds(vector_to_fill);
+	}
+}
+
 void Scene::DrawHierarchy() const
 {
 	for (int i = 0; i < game_objects.size(); ++i)
@@ -152,11 +184,7 @@ void Scene::CreateTree() const
 
 	std::vector<GameObject*> go;
 
-	for (int i = 0; i < game_objects.size(); ++i)
-	{
-		go.push_back(game_objects[i]);
-		game_objects[i]->GetAllChilds(go);
-	}
+	GetAllStaticGameObjects(go);
 
 	kd_tree->CreateTree(go);
 }

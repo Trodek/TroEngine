@@ -390,6 +390,9 @@ bool KDTree::HasTree() const
 
 void KDTree::DebugDraw() const
 {
-	float3 initial_translation = float3::zero;
-	root_node->DrawPlane(100, 100, initial_translation);
+	if (root_node != nullptr)
+	{
+		float3 initial_translation = float3::zero;
+		root_node->DrawPlane(100, 100, initial_translation);
+	}
 }

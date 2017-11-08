@@ -9,6 +9,8 @@
 #include "ModuleGUI.h"
 #include "Inspector.h"
 #include "Camera.h"
+#include "SceneManager.h"
+#include "Scene.h"
 
 GameObject::GameObject(const char * name, bool active, GameObject * parent) : name(name), active(active), parent(parent)
 {
@@ -61,6 +63,13 @@ bool GameObject::Start()
 bool GameObject::Update(float dt)
 {
 	bool ret = true;
+
+	//change static state
+	if (change_static)
+	{
+		change_static = false;
+		SetChildrenStatic(is_static);
+	}
 
 	//Update components
 	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
@@ -158,6 +167,14 @@ void GameObject::DebugDraw()
 void GameObject::DrawConfig()
 {
 	ImGui::Checkbox("Active##go", &active);
+	ImGui::SameLine();
+	if (ImGui::Checkbox("Static##go", &is_static))
+	{
+		change_static = true;
+	}
+	if (ImGui::IsItemHovered())
+		ImGui::SetTooltip("This will affect all childs");
+
 	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
 	{
 		(*c)->DrawConfig();
@@ -326,9 +343,48 @@ void GameObject::GetAllChilds(std::vector<GameObject*>& go) const
 	}
 }
 
+void GameObject::GetAllStaticChilds(std::vector<GameObject*>& go) const
+{
+	for (int i = 0; i < childs.size(); ++i)
+	{
+		if (childs[i]->IsStatic())
+			go.push_back(childs[i]);
+	}
+
+	//get children childrens
+	for (int i = 0; i < childs.size(); ++i)
+	{
+		childs[i]->GetAllStaticChilds(go);
+	}
+}
+
+void GameObject::GetAllDynamicChilds(std::vector<GameObject*>& go) const
+{
+	for (int i = 0; i < childs.size(); ++i)
+	{
+		if (!childs[i]->IsStatic())
+			go.push_back(childs[i]);
+	}
+
+	//get children childrens
+	for (int i = 0; i < childs.size(); ++i)
+	{
+		childs[i]->GetAllDynamicChilds(go);
+	}
+}
+
 uint GameObject::GetNumChilds() const
 {
 	return childs.size();
+}
+
+bool GameObject::IsStatic() const
+{
+	return is_static;
+}
+
+void GameObject::RemoveChild(GameObject * child)
+{
 }
 
 void GameObject::TransformUpdate()
@@ -368,9 +424,21 @@ void GameObject::DrawHierarchy()
 			App->gui->inspector->selected = childs[i];
 
 		if (node_open)
-		{	
+		{
 			childs[i]->DrawHierarchy();
 		}
 	}
 	ImGui::TreePop();
+}
+
+void GameObject::SetChildrenStatic(bool _is_static)
+{
+	is_static = _is_static;
+
+	for (int i = 0; i < childs.size(); ++i)
+	{
+		childs[i]->SetChildrenStatic(is_static);
+	}
+
+	App->scene_manager->GetCurrentScene()->update_kd_tree = true;
 }

@@ -54,30 +54,33 @@ void Transform::DrawConfig()
 
 	}
 
-	Quat new_rot = Quat::FromEulerXYZ(rot[0] * DEGTORAD, rot[1] * DEGTORAD, rot[2] * DEGTORAD);
-
-	bool update_trans = false;
-
-	if (pos[0] != position.x || pos[1] != position.y || pos[2] != position.z)
+	if (!GetOwner()->IsStatic())
 	{
-		position = float3(pos[0], pos[1], pos[2]);
-		update_trans = true;
-	}
-	
-	if (s[0] != scale.x || s[1] != scale.y || s[2] != scale.z)
-	{
-		scale = float3(s[0], s[1], s[2]);
-		update_trans = true;
-	}
-	
-	if (rotation.Equals(new_rot) == false)
-	{
-		rotation = new_rot;
-		update_trans = true;
-	}
+		Quat new_rot = Quat::FromEulerXYZ(rot[0] * DEGTORAD, rot[1] * DEGTORAD, rot[2] * DEGTORAD);
 
-	if(update_trans)
-		UpdateTransform();
+		bool update_trans = false;
+
+		if (pos[0] != position.x || pos[1] != position.y || pos[2] != position.z)
+		{
+			position = float3(pos[0], pos[1], pos[2]);
+			update_trans = true;
+		}
+
+		if (s[0] != scale.x || s[1] != scale.y || s[2] != scale.z)
+		{
+			scale = float3(s[0], s[1], s[2]);
+			update_trans = true;
+		}
+
+		if (rotation.Equals(new_rot) == false)
+		{
+			rotation = new_rot;
+			update_trans = true;
+		}
+
+		if (update_trans)
+			UpdateTransform();
+	}
 }
 
 void Transform::UpdateTransform()

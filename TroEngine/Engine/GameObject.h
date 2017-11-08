@@ -39,7 +39,11 @@ public:
 	GameObject* CreateChild(const char* name);
 	GameObject* GetChild(uint id) const;
 	void GetAllChilds(std::vector<GameObject*>& go)const;
+	void GetAllStaticChilds(std::vector<GameObject*>& go)const;
+	void GetAllDynamicChilds(std::vector<GameObject*>& go)const;
 	uint GetNumChilds() const;
+
+	bool IsStatic()const;
 
 	void RemoveChild(GameObject* child);
 
@@ -49,6 +53,9 @@ public:
 
 	void DrawHierarchy();
 
+private:
+	void SetChildrenStatic(bool is_static);
+
 public:
 	bool kill_me = false;
 	std::string name;
@@ -57,7 +64,10 @@ private:
 	std::vector<GameObject*> childs;
 	std::vector<Component*> components;
 	bool active = false;
+	bool is_static = false;
 	GameObject* parent = nullptr;
+
+	bool change_static = false;
 };
 
 #endif // !__GAMEOBJECT__
