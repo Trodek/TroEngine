@@ -93,6 +93,16 @@ void SceneManager::DrawScenes()
 	}
 }
 
+void SceneManager::DebugDrawScenes()
+{
+	//Debug draw all active scenes
+	for (std::list<Scene*>::iterator s = scenes.begin(); s != scenes.end(); ++s)
+	{
+		if ((*s)->IsActive())
+			(*s)->DebugDraw();
+	}
+}
+
 void SceneManager::ConfigGUI()
 {
 }

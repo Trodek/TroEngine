@@ -174,7 +174,8 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	App->scene_manager->DrawScenes();
 
 	//Draw debug
-
+	if(App->debug_mode)
+		App->scene_manager->DebugDrawScenes();
 
 	//Draw GUI
 	bool light_state = lighting;
@@ -375,6 +376,22 @@ GLenum ModuleRenderer3D::GetPolyMode() const
 	return poly_mode;
 }
 
+void ModuleRenderer3D::SetPolyMode(GLenum mode)
+{
+	if (mode == GL_FILL)
+	{
+		PolygonModeFill();
+	}
+	else if (mode == GL_LINE)
+	{
+		PolygonModeWireframe();
+	}
+	else if (mode == GL_POINT)
+	{
+		PolygonModePoints();
+	}
+}
+
 void ModuleRenderer3D::PolygonModePoints()
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
@@ -415,6 +432,11 @@ void ModuleRenderer3D::PopMatrix()
 void ModuleRenderer3D::MultMatrix(float * matrix)
 {
 	glMultMatrixf(matrix);
+}
+
+void ModuleRenderer3D::SetLineWidth(float size)
+{
+	glLineWidth(size);
 }
 
 bool ModuleRenderer3D::GetCullFace() const

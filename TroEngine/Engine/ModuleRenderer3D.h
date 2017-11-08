@@ -43,6 +43,7 @@ public:
 	uint LoadTextureToVRAM(uint w, uint h, GLubyte* tex_data, GLint format) const;
 
 	GLenum GetPolyMode()const;
+	void SetPolyMode(GLenum mode);
 	void PolygonModePoints();
 	void PolygonModeWireframe();
 	void PolygonModeFill();
@@ -50,6 +51,8 @@ public:
 	void PushMatrix();
 	void PopMatrix();
 	void MultMatrix(float* matrix);
+
+	void SetLineWidth(float size);
 
 	bool GetCullFace()const;
 

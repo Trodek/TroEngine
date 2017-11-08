@@ -102,16 +102,16 @@ void KDTree::Node::CreatePartition()
 
 			if (mr == nullptr)
 			{
-				++ele;
+				ele = elements.erase(ele);
 				continue;
 			}
 
 			switch (axis)
 			{
 			case KDTree::Node::A_X:
-				if (mr->GetMeshAABB().MaxX() > mid_point)
+				if (mr->GetMeshAABB().MaxX() >= mid_point)
 				{
-					if (mr->GetMeshAABB().MinX() > mid_point)
+					if (mr->GetMeshAABB().MinX() >= mid_point)
 						node = 1;
 					else
 						node = 0;
@@ -125,9 +125,9 @@ void KDTree::Node::CreatePartition()
 				}
 				break;
 			case KDTree::Node::A_Y:
-				if (mr->GetMeshAABB().MaxY() > mid_point)
+				if (mr->GetMeshAABB().MaxY() >= mid_point)
 				{
-					if (mr->GetMeshAABB().MinY() > mid_point)
+					if (mr->GetMeshAABB().MinY() >= mid_point)
 						node = 1;
 					else
 						node = 0;
@@ -141,9 +141,9 @@ void KDTree::Node::CreatePartition()
 				}
 				break;
 			case KDTree::Node::A_Z:
-				if (mr->GetMeshAABB().MaxZ() > mid_point)
+				if (mr->GetMeshAABB().MaxZ() >= mid_point)
 				{
-					if (mr->GetMeshAABB().MinZ() > mid_point)
+					if (mr->GetMeshAABB().MinZ() >= mid_point)
 						node = 1;
 					else
 						node = 0;
@@ -292,4 +292,36 @@ void KDTree::GetElementsToTest(const AABB & box) const
 bool KDTree::HasTree() const
 {
 	return root_node != nullptr;
+}
+
+void KDTree::DebugDraw() const
+{
+	std::vector<Node*> planes_to_draw;
+	std::vector<Node*> nodes_to_visit;
+	planes_to_draw.push_back(root_node);
+	nodes_to_visit.push_back(root_node);
+
+	//get all children that have planes
+	while (!nodes_to_visit.empty())
+	{
+		//add childs to visit and draw them later 
+		if ((*nodes_to_visit.begin())->GetLeft() != nullptr && (*nodes_to_visit.begin())->GetRight() != nullptr)
+		{
+			nodes_to_visit.push_back((*nodes_to_visit.begin())->GetLeft());
+			nodes_to_visit.push_back((*nodes_to_visit.begin())->GetRight());
+			planes_to_draw.push_back((*nodes_to_visit.begin())->GetLeft());
+			planes_to_draw.push_back((*nodes_to_visit.begin())->GetRight());
+		}
+
+		//remove curr node from the nodes to visit
+		nodes_to_visit.erase(nodes_to_visit.begin());
+	}
+
+	float plane_size = 100.0f;
+
+	for (int p = 0; p < planes_to_draw.size();++p)
+	{
+		Plane plane_info = planes_to_draw[p]->cut_plane;
+
+	}
 }

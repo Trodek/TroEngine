@@ -68,6 +68,7 @@ public:
 	void GetElementsToTest(const AABB& box) const;
 
 	bool HasTree()const;
+	void DebugDraw()const;
 
 private:
 	Node* root_node = nullptr;

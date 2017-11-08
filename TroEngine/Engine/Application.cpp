@@ -294,6 +294,10 @@ update_status Application::Update()
 
 	FinishUpdate();
 
+	//debug mode
+	if (input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		debug_mode = !debug_mode;
+
 	if (close_app)
 	{
 		ret = UPDATE_STOP;

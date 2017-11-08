@@ -54,7 +54,8 @@ bool MeshImporter::Start()
 
 	//LoadFile("Library\\Meshes\\mesh_0.tromesh");
 
-	//CubeMesh();
+	CubeMesh();
+	PlaneMesh();
 
 	return ret;
 }
@@ -393,28 +394,149 @@ void MeshImporter::RemoveMesh(Mesh * m)
 
 void MeshImporter::CubeMesh()
 {
-	float ver[24] =
+	uint ind[6 * 6] =
 	{
-		15.f,5.f,5.f,
-		10.f,5.f,5.f,
-		10.f,0.f,5.f,
-		15.f,0.f,5.f,
-		15.f,0.f,0.f,
-		15.f,5.f,0.f,
-		10.f,5.f,0.f,
-		10.f,0.f,0.f
+		2, 7, 6, 2, 3, 7, // front
+		11, 9, 10, 11, 8, 9, // right
+		1, 4, 0, 1, 5, 4, // back
+		15, 13, 12, 15, 14, 13, // left
+		1, 3, 2, 1, 0, 3, // top
+		7, 5, 6, 7, 4, 5  // bottom
 	};
 
-	uint indices[36] =
+	uint num_indices = 6 * 6;
+	uint bytes = sizeof(uint) * num_indices;
+	uint* indices = new uint[num_indices];
+	memcpy(indices, ind, bytes);
+
+	//  vertices ------------------------
+	float vert[16 * 3] =
 	{
-		0,1,2, 2,3,0,
-		0,3,4, 4,5,0,
-		0,5,6, 6,1,0,
-		1,6,7, 7,2,1,
-		7,4,3, 3,2,7,
-		4,7,6, 6,5,4 
+		0.5f,  0.5f,  0.5f, // 0
+		-0.5f,  0.5f,  0.5f, // 1
+		-0.5f,  0.5f, -0.5f, // 2
+		0.5f,  0.5f, -0.5f, // 3
+
+		0.5f, -0.5f,  0.5f, // 4
+		-0.5f, -0.5f,  0.5f, // 5
+		-0.5f, -0.5f, -0.5f, // 6
+		0.5f, -0.5f, -0.5f, // 7
+
+		0.5f,  0.5f,  0.5f,  // 8
+		0.5f, -0.5f,  0.5f,  // 9
+		0.5f, -0.5f, -0.5f,  //10
+		0.5f,  0.5f, -0.5f,  //11
+
+		-0.5f,  0.5f,  0.5f,  //12
+		-0.5f, -0.5f,  0.5f,  //13
+		-0.5f, -0.5f, -0.5f,  //14
+		-0.5f,  0.5f, -0.5f,  //15
 	};
 
-	cube = new Mesh(24, ver, 36, indices);
+	uint num_vertices = 16;
+	bytes = sizeof(float) * num_vertices * 3;
+	float* vertices = new float[num_vertices * 3];
+	memcpy(vertices, vert, bytes);
+
+	// Load texture coords
+	float texture_coords[16 * 3] =
+	{
+		1.f,  1.f,  0.f,
+		0.f,  1.f,  0.f,
+		0.f,  0.f,  0.f,
+		1.f,  0.f,  0.f,
+
+		1.f,  0.f,  0.f,
+		0.f,  0.f,  0.f,
+		0.f,  1.f,  0.f,
+		1.f,  1.f,  0.f,
+
+		1.f,  1.f,  0.f,
+		0.f,  1.f,  0.f,
+		0.f,  0.f,  0.f,
+		1.f,  0.f,  0.f,
+
+		0.f,  1.f,  0.f,
+		1.f,  1.f,  0.f,
+		1.f,  0.f,  0.f,
+		0.f,  0.f,  0.f,
+	};
+
+	float* text_coords = new float[num_vertices * 3];
+	memcpy(text_coords, texture_coords, bytes);
+
+	//create the mesh
+	cube = new Mesh(num_vertices, vertices, num_indices, indices, num_vertices, text_coords);
 	meshes.push_back(cube);
+
+}
+
+//All primitives are extracted from: http://wiki.unity3d.com/index.php/ProceduralPrimitives
+
+void MeshImporter::PlaneMesh()
+{
+	float length = 1.f;
+	float width = 1.f;
+	int resX = 2; // 2 minimum
+	int resZ = 2;
+
+	//vertices
+	uint num_vert = resX*resZ;
+	float3 ver[4];
+	for (int z = 0; z < resZ; z++)
+	{
+		// [ -length / 2, length / 2 ]
+		float zPos = ((float)z / (resZ - 1) - .5f) * length;
+		for (int x = 0; x < resX; x++)
+		{
+			// [ -width / 2, width / 2 ]
+			float xPos = ((float)x / (resX - 1) - .5f) * width;
+			ver[x + z * resX] = float3(xPos, 0.f, zPos);
+		}
+	}
+
+	float* vertices = new float[num_vert * 3];
+	for (int i = 0; i < num_vert; ++i)
+	{
+		memcpy(vertices + i * 3, ver[i].ptr(), sizeof(float) * 3);
+	}
+
+	//indices
+	uint num_indices = (resX - 1) * (resZ - 1) * 6;
+	uint ind[6];
+	int t = 0;
+	for (int face = 0; face < num_indices / 6; ++face)
+	{
+		int i = face % (resX - 1) + (face / (resZ - 1) * resX);
+
+		ind[t++] = i + resX;
+		ind[t++] = i + 1;
+		ind[t++] = i;
+		
+		ind[t++] = i + resX;
+		ind[t++] = i + resX + 1;
+		ind[t++] = i + 1;
+	}
+	uint* indices = new uint[num_indices];
+	memcpy(indices, ind, sizeof(uint)*num_indices);
+
+	//uv
+	float3 uvs[4];
+	for (int v = 0; v < resZ; v++)
+	{
+		for (int u = 0; u < resX; u++)
+		{
+			uvs[u + v * resX] = float3((float)u / (resX - 1), (float)v / (resZ - 1),0.f);
+		}
+	}
+
+	float* uv = new float[num_vert * 3];
+	for (int i = 0; i < num_vert; ++i)
+	{
+		memcpy(uv + i * 3, uvs[i].ptr(), sizeof(float) * 3);
+	}
+
+	//create mesh
+	plane = new Mesh(num_vert, vertices, num_indices, indices, num_vert, uv);
+	meshes.push_back(plane);
 }

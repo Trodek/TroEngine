@@ -21,6 +21,7 @@ public:
 
 	void AddScene(Scene* scene);
 	void DrawScenes();
+	void DebugDrawScenes();
 
 	void ConfigGUI();
 

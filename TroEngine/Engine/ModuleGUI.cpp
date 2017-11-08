@@ -8,6 +8,7 @@
 #include "ConsoleGUI.h"
 #include "Inspector.h"
 #include "Hierarchy.h"
+#include "GameObject.h"
 
 ModuleGUI::ModuleGUI(bool start_enabled) : Module(start_enabled) 
 {
@@ -64,6 +65,8 @@ update_status ModuleGUI::Update(float dt)
 
 void ModuleGUI::RenderGUI()
 {
+	if (inspector->selected != nullptr)
+		inspector->selected->DebugDraw();
 	ImGui::Render();
 }
 

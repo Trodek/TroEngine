@@ -34,14 +34,16 @@ private:
 	bool ImportMesh(aiMesh* mesh, GameObject* owner, const std::vector<Material*>& mats);
 
 	void CubeMesh();
+	void PlaneMesh();
 
 private:
 	std::list<Mesh*> meshes;
 	int id = 0;
 	uint save_id = 0;
 
+public:
 	Mesh* cube = nullptr;
-
+	Mesh* plane = nullptr;
 };
 
 #endif // !__MESHIMPORTER__

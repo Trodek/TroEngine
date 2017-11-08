@@ -36,6 +36,8 @@ public:
 	MeshImporter* mesh;
 	MaterialManager* materials;
 
+	bool debug_mode = false;
+
 private:
 
 	std::list<Module*>	list_modules;
