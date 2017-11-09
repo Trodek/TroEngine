@@ -172,7 +172,7 @@ bool MeshImporter::ImportNode(const aiScene * scene, aiNode * node, GameObject *
 		}
 
 		//set the transform to the go
-		Transform* trans = (Transform*)go->GetComponent(Component::Transform);
+		Transform* trans = (Transform*)go->GetComponent(Component::C_Transform);
 		trans->SetTransform(pos, scale, rot);
 	}
 

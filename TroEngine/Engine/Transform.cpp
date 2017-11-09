@@ -2,7 +2,7 @@
 #include "imgui.h"
 #include "GameObject.h"
 
-Transform::Transform(GameObject * owner) :Component(Component::Type::Transform, owner)
+Transform::Transform(GameObject * owner) :Component(Component::Type::C_Transform, owner)
 {
 	rotation.Set(0, 0, 0, 1);
 	position.Set(0, 0, 0);
@@ -21,7 +21,7 @@ void Transform::OnUpdateTransform()
 		global_trans = float4x4::FromTRS(position, rotation, scale);
 	else
 	{
-		Transform* parent_trans = (Transform*)GetOwner()->GetParent()->GetComponent(Component::Type::Transform);
+		Transform* parent_trans = (Transform*)GetOwner()->GetParent()->GetComponent(Component::Type::C_Transform);
 		global_trans = parent_trans->GetTransform()*float4x4::FromTRS(position, rotation, scale);
 	}
 }
@@ -33,6 +33,35 @@ void Transform::SetTransform(float3 pos, float3 scale, Quat rot)
 	position = pos;
 
 	UpdateTransform();
+}
+
+void Transform::SetTranslate(float3 new_translate)
+{
+	position = new_translate;
+	UpdateTransform();
+}
+
+void Transform::SetRotation(Quat rot)
+{
+	rotation = rot;
+	UpdateTransform();
+}
+
+void Transform::Translate(float3 movement)
+{
+	position += movement;
+	UpdateTransform();
+}
+
+void Transform::Rotate(Quat _rotation)
+{
+	rotation = rotation*_rotation;
+	UpdateTransform();
+}
+
+void Transform::Scale(float3 scale)
+{
+	this->scale = scale;
 }
 
 float4x4 Transform::GetTransform() const
@@ -89,7 +118,7 @@ void Transform::UpdateTransform()
 		global_trans = float4x4::FromTRS(position, rotation, scale);
 	else
 	{
-		Transform* parent_trans = (Transform*)GetOwner()->GetParent()->GetComponent(Component::Type::Transform);
+		Transform* parent_trans = (Transform*)GetOwner()->GetParent()->GetComponent(Component::Type::C_Transform);
 		global_trans = parent_trans->GetTransform()*float4x4::FromTRS(position, rotation, scale);
 	}
 

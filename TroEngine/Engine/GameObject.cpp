@@ -14,7 +14,7 @@
 
 GameObject::GameObject(const char * name, bool active, GameObject * parent) : name(name), active(active), parent(parent)
 {
-	AddComponent(Component::Type::Transform);
+	AddComponent(Component::Type::C_Transform);
 }
 
 GameObject::~GameObject()
@@ -127,7 +127,7 @@ void GameObject::Draw()
 		if ((*c)->GetType() == Component::Type::MeshRenderer)
 		{
 			App->renderer3D->PushMatrix();
-			Transform* trans = (Transform*)GetComponent(Component::Type::Transform);
+			Transform* trans = (Transform*)GetComponent(Component::Type::C_Transform);
 			App->renderer3D->MultMatrix(trans->GetTransform().Transposed().ptr());
 
 			MeshRenderer* mr = (MeshRenderer*)(*c);
@@ -195,7 +195,7 @@ Component* GameObject::AddComponent(Component::Type type)
 	{
 	case Component::Null:
 		break;
-	case Component::Transform:
+	case Component::C_Transform:
 	{
 		Transform* t = new Transform(this);
 		components.push_back(t);
@@ -406,7 +406,7 @@ float4x4 GameObject::GetTransform() const
 {
 	for (int i = 0; i < components.size(); ++i)
 	{
-		if (components[i]->GetType() == Component::Transform)
+		if (components[i]->GetType() == Component::C_Transform)
 		{
 			Transform* t = (Transform*)components[i];
 			return t->GetTransform();

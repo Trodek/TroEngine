@@ -1,6 +1,7 @@
 #include "Camera.h"
 #include "Globals.h"
 #include "GameObject.h"
+#include "Transform.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "imgui.h"
@@ -86,7 +87,7 @@ void Camera::DebugDraw()
 	GLenum mode = App->renderer3D->GetPolyMode();
 	App->renderer3D->PolygonModeWireframe();
 
-	vec* points = nullptr;
+	float3* points = nullptr;
 	frustum.GetCornerPoints(points);
 
 	glLineWidth(2.0f);
@@ -139,4 +140,83 @@ void Camera::DebugDraw()
 	{
 		App->renderer3D->PolygonModeFill();
 	}
+}
+
+void Camera::MoveFront(const float & speed)
+{
+	float3 movement = frustum.Front()*speed;
+
+	Transform* comp_transform = (Transform*)GetOwner()->GetComponent(Component::Type::C_Transform);
+	comp_transform->Translate(movement);
+}
+
+void Camera::MoveBack(const float & speed)
+{
+	float3 movement = frustum.Front()*speed;
+
+	Transform* comp_transform = (Transform*)GetOwner()->GetComponent(Component::Type::C_Transform);
+	comp_transform->Translate(-movement);
+}
+
+void Camera::MoveRight(const float & speed)
+{
+	float3 movement = frustum.WorldRight()*speed;
+
+	Transform* comp_transform = (Transform*)GetOwner()->GetComponent(Component::Type::C_Transform);
+	comp_transform->Translate(movement);
+}
+
+void Camera::MoveLeft(const float & speed)
+{
+	float3 movement = frustum.WorldRight()*speed;
+
+	Transform* comp_transform = (Transform*)GetOwner()->GetComponent(Component::Type::C_Transform);
+	comp_transform->Translate(-movement);
+}
+
+void Camera::MoveUp(const float & speed)
+{
+	float3 movement = frustum.Up()*speed;
+
+	Transform* comp_transform = (Transform*)GetOwner()->GetComponent(Component::Type::C_Transform);
+	comp_transform->Translate(movement);
+}
+
+void Camera::MoveDown(const float & speed)
+{
+	float3 movement = frustum.Up()*speed;
+
+	Transform* comp_transform = (Transform*)GetOwner()->GetComponent(Component::Type::C_Transform);
+	comp_transform->Translate(-movement);
+}
+
+void Camera::OrbitCamera(const float3 & orbit_center, const float & mouse_dx, const float & mouse_dy)
+{
+	float3 distance = frustum.Pos() - orbit_center;
+
+	Quat X(frustum.WorldRight(), mouse_dx);
+	Quat Y(frustum.Up(), mouse_dy);
+
+	distance = X.Transform(distance);
+	distance = Y.Transform(distance);
+
+	Transform* comp_transform = (Transform*)GetOwner()->GetComponent(Component::Type::C_Transform);
+	comp_transform->SetTranslate(distance);
+}
+
+void Camera::RotateCamera(const float & mouse_dx, const float & mouse_dy)
+{
+	Quat rot = Quat::RotateAxisAngle(frustum.Up(), mouse_dx);
+	rot = rot * Quat::RotateAxisAngle(frustum.WorldRight(), mouse_dy);
+
+	Transform* comp_transform = (Transform*)GetOwner()->GetComponent(Component::Type::C_Transform);
+	comp_transform->Rotate(rot);
+}
+
+void Camera::FocusCamera(const float3 & focus_point, float distance)
+{
+}
+
+void Camera::LookAt(const float3 & Spot)
+{
 }

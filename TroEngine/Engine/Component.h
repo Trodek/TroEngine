@@ -11,7 +11,7 @@ public:
 	enum Type
 	{
 		Null,
-		Transform,
+		C_Transform,
 		MeshRenderer,
 		C_Material,
 		Camera,

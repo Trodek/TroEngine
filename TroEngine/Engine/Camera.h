@@ -5,6 +5,7 @@
 #include "MathGeoLib.h"
 
 class GameObject;
+class Transform;
 
 class Camera : public Component
 {
@@ -26,6 +27,18 @@ public:
 
 	void DrawConfig();
 	void DebugDraw();
+
+	void MoveFront(const float& speed);
+	void MoveBack(const float& speed);
+	void MoveRight(const float& speed);
+	void MoveLeft(const float& speed);
+	void MoveUp(const float& speed);
+	void MoveDown(const float& speed);
+
+	void OrbitCamera(const float3& orbit_center, const float& mouse_dx, const float& mouse_dy);
+	void RotateCamera(const float& mouse_dx, const float& mouse_dy);
+	void FocusCamera(const float3& focus_point, float distance);
+	void LookAt(const float3& Spot);
 
 private:
 	Frustum frustum;
