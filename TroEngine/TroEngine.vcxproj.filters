@@ -740,6 +740,9 @@
     <ClInclude Include="Engine\KDTree.h">
       <Filter>Source\Engine\Tools\K-D Tree</Filter>
     </ClInclude>
+    <ClInclude Include="Engine\UID.h">
+      <Filter>Source\Engine\Tools</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <None Include="Engine\Geometry\KDTree.inl">
