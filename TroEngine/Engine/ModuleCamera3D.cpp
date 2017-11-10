@@ -2,19 +2,15 @@
 #include "Application.h"
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
+#include "GameObject.h"
+#include "Camera.h"
 
 #define MAX_ADJUST_DISTANCE 300.f
 
 ModuleCamera3D::ModuleCamera3D(bool start_enabled) : Module(start_enabled)
 {
-	CalculateViewMatrix();
-
-	X = vec3(1.0f, 0.0f, 0.0f);
-	Y = vec3(0.0f, 1.0f, 0.0f);
-	Z = vec3(0.0f, 0.0f, 1.0f);
-
-	Position = vec3(0.0f, 0.0f, 5.0f);
-	Reference = vec3(0.0f, 0.0f, 0.0f);
+	cam_go = new GameObject("cam_go");
+	cam = (Camera*)cam_go->AddComponent(Component::Type::Camera);
 
 	SetName("camera");
 }
@@ -27,9 +23,6 @@ bool ModuleCamera3D::Start()
 {
 	EDITOR_LOG("Setting up the camera");
 	bool ret = true;
-
-	Move(vec3(1.0f, 1.0f, 0.0f));
-	LookAt(vec3(0, 0, 0));
 
 	return ret;
 }
@@ -50,50 +43,51 @@ update_status ModuleCamera3D::Update(float dt)
 
 	if (App->input->GetMouseWheel() == 1)
 	{
-		MoveFront(mouse_wheel_speed);
+		cam->MoveFront(mouse_wheel_speed);
 	}
 	if (App->input->GetMouseWheel() == -1)
 	{
-		MoveBack(mouse_wheel_speed);
+		cam->MoveBack(mouse_wheel_speed);
 	}
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
-		RotateCamera(App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
+		cam->RotateCamera(-App->input->GetMouseXMotion()*mouse_sensivility, -App->input->GetMouseYMotion()*mouse_sensivility);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT)
-		MoveUp(cam_speed);
+		cam->MoveUp(cam_speed);
 
 	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_REPEAT)
-		MoveDown(cam_speed);
+		cam->MoveDown(cam_speed);
 
 	if (App->input->GetKey(SDL_SCANCODE_W) == KEY_REPEAT)
-		MoveFront(cam_speed);
+		cam->MoveFront(cam_speed);
 
 	if (App->input->GetKey(SDL_SCANCODE_S) == KEY_REPEAT)
-		MoveBack(cam_speed);
+		cam->MoveBack(cam_speed);
 
 	if (App->input->GetKey(SDL_SCANCODE_A) == KEY_REPEAT)
-		MoveLeft(cam_speed);
+		cam->MoveLeft(cam_speed);
 
 	if (App->input->GetKey(SDL_SCANCODE_D) == KEY_REPEAT)
-		MoveRight(cam_speed);
+		cam->MoveRight(cam_speed);
 
 	if (App->input->GetMouseButton(SDL_BUTTON_LEFT) == KEY_REPEAT)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 		{		
-			OrbitCamera(vec3(0,0,0), App->input->GetMouseXMotion(), App->input->GetMouseYMotion());
+			cam->OrbitCamera(float3(0,0,0), -App->input->GetMouseXMotion()*mouse_sensivility, -App->input->GetMouseYMotion()*mouse_sensivility);
 		}
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_F) == KEY_DOWN)
 	{
-		FocusCamera(vec3(0,0,0), 10);
+		cam->FocusCamera(float3(0,0,0), 10);
 	}
-
-	// Recalculate matrix -------------
-	CalculateViewMatrix();
+	if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+	{
+		cam->LookAt(float3(0,0,0));
+	}
 
 	return UPDATE_CONTINUE;
 }
@@ -142,7 +136,7 @@ void ModuleCamera3D::Move(const vec3 &Movement)
 // -----------------------------------------------------------------
 float* ModuleCamera3D::GetViewMatrix()
 {
-	return &ViewMatrix;
+	return cam->GetViewMatrix();
 }
 
 // -----------------------------------------------------------------

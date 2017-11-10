@@ -4,6 +4,9 @@
 #include "glmath.h"
 #include "MathGeoLib.h"
 
+class GameObject;
+class Camera;
+
 class ModuleCamera3D : public Module
 {
 public:
@@ -39,6 +42,9 @@ public:
 	vec3 X, Y, Z, Position, Reference;
 	
 private:
+	GameObject* cam_go = nullptr;
+	Camera* cam = nullptr;
+
 	bool attach = false;
 	mat4x4 ViewMatrix, ViewMatrixInverse;
 
