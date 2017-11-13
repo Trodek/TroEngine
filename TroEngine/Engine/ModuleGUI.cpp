@@ -50,7 +50,8 @@ update_status ModuleGUI::PreUpdate(float dt)
 {
 	ImGui_ImplSdlGL2_NewFrame(App->window->window);
 	ImGuizmo::BeginFrame();
-	ImGuizmo::SetDrawlist();
+	ImGuizmo::Enable(true);
+
 
 	return UPDATE_CONTINUE;
 }
@@ -73,6 +74,18 @@ update_status ModuleGUI::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 		gizmo_op = ImGuizmo::OPERATION::SCALE;
 
+	float3 snap(2, 2, 2);
+
+	if (inspector->selected != nullptr)
+	{
+		ImGui::Begin("guizmo");
+		ImGuiIO& io = ImGui::GetIO();
+		ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
+		ImGuizmo::SetDrawlist();
+		ImGuizmo::Manipulate(App->camera->GetViewMatrix(), App->renderer3D->ProjectionMatrix.M, gizmo_op, ImGuizmo::MODE::LOCAL, inspector->selected->GetTransform().ptr(), NULL, snap.ptr());
+		ImGui::End();
+	}
+
 	return ret;
 }
 
@@ -81,8 +94,7 @@ void ModuleGUI::RenderGUI()
 	if (inspector->selected != nullptr)
 	{
 		inspector->selected->DebugDraw();
-		ImGuizmo::Enable(true);
-		ImGuizmo::Manipulate(App->camera->GetViewMatrix(), &App->renderer3D->ProjectionMatrix, gizmo_op, ImGuizmo::WORLD, inspector->selected->GetTransform().ptr());
+		//ImGuizmo::Manipulate(App->camera->GetViewMatrix(), &App->renderer3D->ProjectionMatrix, gizmo_op, ImGuizmo::WORLD, inspector->selected->GetTransform().ptr());
 		
 	}
 	ImGui::Render();
