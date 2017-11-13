@@ -29,6 +29,7 @@
     <ClCompile Include="Engine\ConsoleGUI.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
     <ClCompile Include="Engine\Hierarchy.cpp" />
+    <ClCompile Include="Engine\ImGuizmo.cpp" />
     <ClCompile Include="Engine\Inspector.cpp" />
     <ClCompile Include="Engine\KDTree.cpp" />
     <ClCompile Include="Engine\Material.cpp" />
@@ -121,6 +122,7 @@
     <ClInclude Include="Engine\Devil\include\ilu_region.h" />
     <ClInclude Include="Engine\Devil\include\il_wrap.h" />
     <ClInclude Include="Engine\GameObject.h" />
+    <ClInclude Include="Engine\ImGuizmo.h" />
     <ClInclude Include="Engine\UID.h" />
     <ClInclude Include="Engine\KDTree.h" />
     <ClInclude Include="Engine\Hierarchy.h" />

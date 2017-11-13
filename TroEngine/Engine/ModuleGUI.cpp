@@ -9,6 +9,9 @@
 #include "Inspector.h"
 #include "Hierarchy.h"
 #include "GameObject.h"
+#include "ModuleCamera3D.h"
+#include "ModuleInput.h"
+#include "ModuleRenderer3D.h"
 
 ModuleGUI::ModuleGUI(bool start_enabled) : Module(start_enabled) 
 {
@@ -46,6 +49,8 @@ bool ModuleGUI::Start()
 update_status ModuleGUI::PreUpdate(float dt)
 {
 	ImGui_ImplSdlGL2_NewFrame(App->window->window);
+	ImGuizmo::BeginFrame();
+	ImGuizmo::SetDrawlist();
 
 	return UPDATE_CONTINUE;
 }
@@ -60,13 +65,26 @@ update_status ModuleGUI::Update(float dt)
 	{
 		ret = (*ele)->UpdateGUI(dt);
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		gizmo_op = ImGuizmo::OPERATION::TRANSLATE;
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+		gizmo_op = ImGuizmo::OPERATION::ROTATE;
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+		gizmo_op = ImGuizmo::OPERATION::SCALE;
+
 	return ret;
 }
 
 void ModuleGUI::RenderGUI()
 {
 	if (inspector->selected != nullptr)
+	{
 		inspector->selected->DebugDraw();
+		ImGuizmo::Enable(true);
+		ImGuizmo::Manipulate(App->camera->GetViewMatrix(), &App->renderer3D->ProjectionMatrix, gizmo_op, ImGuizmo::WORLD, inspector->selected->GetTransform().ptr());
+		
+	}
 	ImGui::Render();
 }
 

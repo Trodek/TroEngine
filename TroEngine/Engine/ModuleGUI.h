@@ -4,6 +4,7 @@
 #include "Module.h"
 #include "Globals.h"
 #include <list>
+#include "ImGuizmo.h"
 
 class GUIElement;
 class ConsoleGUI;
@@ -32,6 +33,7 @@ public:
 
 private:
 	std::list<GUIElement*> gui_elements;
+	ImGuizmo::OPERATION gizmo_op = ImGuizmo::OPERATION::TRANSLATE;
 };
 
 #endif // !__MODULEGUI__

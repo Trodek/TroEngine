@@ -121,6 +121,9 @@
     <Filter Include="Source\Engine\Tools\K-D Tree">
       <UniqueIdentifier>{0211e150-566f-43ba-97bf-241b5e5ee93c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Editor\GUI\ImGuizmo">
+      <UniqueIdentifier>{6d9070ef-e5c8-41fc-9dae-82254190dd44}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -353,6 +356,9 @@
     </ClCompile>
     <ClCompile Include="Engine\KDTree.cpp">
       <Filter>Source\Engine\Tools\K-D Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ImGuizmo.cpp">
+      <Filter>Source\Editor\GUI\ImGuizmo</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -742,6 +748,9 @@
     </ClInclude>
     <ClInclude Include="Engine\UID.h">
       <Filter>Source\Engine\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ImGuizmo.h">
+      <Filter>Source\Editor\GUI\ImGuizmo</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
