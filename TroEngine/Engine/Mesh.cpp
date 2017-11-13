@@ -114,6 +114,14 @@ void Mesh::Render(bool wireframe)
 		App->renderer3D->SetTexCoordPointer();
 	}
 
+	//Apply Normals if exist
+	if (num_normals != 0)
+	{
+		App->renderer3D->EnableState(GL_NORMAL_ARRAY);
+		App->renderer3D->BindArrayBuffer(id_normals);
+		App->renderer3D->SetNormalsPointer();
+	}
+
 	//Set Wireframe if needed
 	GLenum curr_mode = App->renderer3D->GetPolyMode();
 	if (wireframe && curr_mode != GL_LINE)

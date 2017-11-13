@@ -157,6 +157,9 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(App->camera->GetProjectionMatrix());
+
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->camera->GetViewMatrix());
 
@@ -227,12 +230,12 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
-	glLoadMatrixf(&ProjectionMatrix);
+	//ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
+	//glLoadMatrixf(&ProjectionMatrix);
 
 	//TODO: Check why this don't work
-	//App->camera->Resize((float)width / (float)height);
-	//glLoadMatrixf(App->camera->GetProjectionMatrix());
+	App->camera->Resize((float)width / (float)height);
+	glLoadMatrixf(App->camera->GetProjectionMatrix());
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -338,6 +341,11 @@ void ModuleRenderer3D::DisableState(GLenum type) const
 void ModuleRenderer3D::SetVertexPointer() const
 {
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
+}
+
+void ModuleRenderer3D::SetNormalsPointer() const
+{
+	glNormalPointer(GL_FLOAT, 0, NULL);
 }
 
 void ModuleRenderer3D::SetCheckerTexture() const

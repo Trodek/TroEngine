@@ -8,13 +8,12 @@
 
 Camera::Camera(GameObject * owner) : Component(Component::Type::Camera, owner)
 {
+	frustum.SetKind(math::FrustumProjectiveSpace::FrustumSpaceGL, FrustumHandedness::FrustumRightHanded);
 	frustum.SetPos(float3(0, 0, 0));
 	frustum.SetFront(float3::unitZ);
 	frustum.SetUp(float3::unitY);
-	frustum.SetVerticalFovAndAspectRatio(60.f*DEGTORAD, 1.3f);
-	frustum.SetViewPlaneDistances(0.1f, 500.0f);
-	frustum.SetKind(math::FrustumProjectiveSpace::FrustumSpaceGL, math::FrustumLeftHanded);
-	frustum.ComputeViewProjMatrix();
+	frustum.SetHorizontalFovAndAspectRatio(60.f*DEGTORAD, 1.3f);
+	frustum.SetViewPlaneDistances(0.1f, 1000.0f);
 }
 
 Camera::~Camera()
@@ -23,7 +22,6 @@ Camera::~Camera()
 
 bool Camera::Start()
 {
-	SetCamera();
 	return true;
 }
 
@@ -40,24 +38,25 @@ void Camera::SetAspectRatio(float aspect)
 
 	if (r > 0.0f)
 	{
-		frustum.SetVerticalFovAndAspectRatio(fov*DEGTORAD, aspect);
+		frustum.SetHorizontalFovAndAspectRatio(fov*DEGTORAD, aspect);
 		aspect_ratio = aspect;
 	}
 }
 
 void Camera::SetFOV(float angle)
 {
-	frustum.SetVerticalFovAndAspectRatio(angle*DEGTORAD, aspect_ratio);
+	frustum.SetHorizontalFovAndAspectRatio(angle*DEGTORAD, aspect_ratio);
 	fov = angle;
+	frustum.ComputeProjectionMatrix();
 }
 
 void Camera::SetCamera(float fov_angle, float aspect_ratio, float near_dist, float far_dist)
 {
-	float r = DEGTORAD * fov_angle;
+	float r = DEGTORAD * aspect_ratio;
 
 	if (r > 0.0f)
 	{
-		frustum.SetVerticalFovAndAspectRatio(fov_angle*DEGTORAD, aspect_ratio);
+		frustum.SetHorizontalFovAndAspectRatio(fov_angle*DEGTORAD, aspect_ratio);
 		this->aspect_ratio = aspect_ratio;
 		fov = fov_angle;
 	}
@@ -71,7 +70,7 @@ float * Camera::GetViewMatrix() const
 
 	m = frustum.ViewMatrix();
 	m.Transpose();
-	return (float*)m.v;
+	return m.ptr();
 }
 
 float * Camera::GetProjectionMatrix() const
@@ -80,17 +79,17 @@ float * Camera::GetProjectionMatrix() const
 
 	m = frustum.ProjectionMatrix();
 	m.Transpose();
-	return (float*)m.v;
+	return m.ptr();
 }
 
 void Camera::DrawConfig()
 {	
 	if (ImGui::CollapsingHeader("Camera"))
 	{
-		if(ImGui::SliderFloat("FOV##cam", &fov, 0, 360, "%.2f"))
-			SetFOV(fov);
-		if (ImGui::SliderFloat("Aspect Ratio##cam", &aspect_ratio, 1, 2))
-			SetAspectRatio(aspect_ratio);
+		ImGui::SliderFloat("FOV##cam", &fov, 0, 360, "%.2f");
+		SetFOV(fov);
+		ImGui::SliderFloat("Aspect Ratio##cam", &aspect_ratio, 1, 2);
+		SetAspectRatio(aspect_ratio);
 
 	}
 }
@@ -160,7 +159,7 @@ void Camera::MoveFront(const float & speed)
 	float3 movement = frustum.Front()*speed;
 
 	Transform* comp_transform = (Transform*)GetOwner()->GetComponent(Component::Type::C_Transform);
-	comp_transform->Translate(-movement);
+	comp_transform->Translate(movement);
 }
 
 void Camera::MoveBack(const float & speed)
@@ -168,7 +167,7 @@ void Camera::MoveBack(const float & speed)
 	float3 movement = frustum.Front()*speed;
 
 	Transform* comp_transform = (Transform*)GetOwner()->GetComponent(Component::Type::C_Transform);
-	comp_transform->Translate(movement);
+	comp_transform->Translate(-movement);
 }
 
 void Camera::MoveRight(const float & speed)
@@ -192,7 +191,7 @@ void Camera::MoveUp(const float & speed)
 	float3 movement = frustum.Up()*speed;
 
 	Transform* comp_transform = (Transform*)GetOwner()->GetComponent(Component::Type::C_Transform);
-	comp_transform->Translate(movement);
+	comp_transform->Translate(-movement);
 }
 
 void Camera::MoveDown(const float & speed)
@@ -200,7 +199,7 @@ void Camera::MoveDown(const float & speed)
 	float3 movement = frustum.Up()*speed;
 
 	Transform* comp_transform = (Transform*)GetOwner()->GetComponent(Component::Type::C_Transform);
-	comp_transform->Translate(-movement);
+	comp_transform->Translate(movement);
 }
 
 void Camera::OrbitCamera(const float3 & orbit_center, const float & mouse_dx, const float & mouse_dy)
@@ -224,19 +223,22 @@ void Camera::RotateCamera(const float & mouse_dx, const float & mouse_dy)
 	// Rotate Up
 	if (mouse_dx != 0.f)
 	{
-		Quat rot = Quat::RotateY(mouse_dx*DEGTORAD);
-		frustum.SetFront(rot.Mul(frustum.Front()).Normalized());
-		frustum.SetUp(rot.Mul(frustum.Up()).Normalized());
-		comp_transform->SetRotation(frustum.WorldMatrix().RotatePart().ToQuat());
+		//Quat rot = Quat::RotateY(mouse_dx*DEGTORAD);
+		//EDITOR_LOG("prev rot: %f, %f, %f", comp_transform->GetTransform().RotatePart().ToEulerXYZ().x, comp_transform->GetTransform().RotatePart().ToEulerXYZ().y, comp_transform->GetTransform().RotatePart().ToEulerXYZ().z);
+		//frustum.SetFront(rot.Mul(frustum.Front()).Normalized());
+		//frustum.SetUp(rot.Mul(frustum.Up()).Normalized());
+		//comp_transform->SetRotation(frustum.WorldMatrix().RotatePart().ToQuat());
+		//EDITOR_LOG("post rot: %f, %f, %f", comp_transform->GetTransform().RotatePart().ToEulerXYZ().x, comp_transform->GetTransform().RotatePart().ToEulerXYZ().y, comp_transform->GetTransform().RotatePart().ToEulerXYZ().z);
+
 	}
 
 	//Rotate Front
 	if (mouse_dy != 0.f)
 	{
 		Quat rot = Quat::RotateAxisAngle(frustum.WorldRight(), mouse_dy*DEGTORAD);
-
+		
 		float3 new_up = rot.Mul(frustum.Up()).Normalized();
-
+		
 		frustum.SetUp(new_up);
 		frustum.SetFront(rot.Mul(frustum.Front()).Normalized());
 		comp_transform->SetRotation(frustum.WorldMatrix().RotatePart().ToQuat());
@@ -258,5 +260,5 @@ void Camera::LookAt(const float3 & spot) // TODO: fix
 
 	float3 target_dir = spot - comp_transform->GetTransform().TranslatePart();
 
-	comp_transform->Rotate(float3x3::LookAt(frustum.Front(), target_dir.Normalized(), frustum.Up(), float3::unitY).ToQuat());
+	//comp_transform->Rotate(float3x3::LookAt(frustum.Front(), target_dir.Normalized(), frustum.Up(), float3::unitY).ToQuat());
 }

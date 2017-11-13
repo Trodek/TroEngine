@@ -12,6 +12,7 @@
 #include "ModuleCamera3D.h"
 #include "ModuleInput.h"
 #include "ModuleRenderer3D.h"
+#include "Transform.h"
 
 ModuleGUI::ModuleGUI(bool start_enabled) : Module(start_enabled) 
 {
@@ -60,7 +61,34 @@ update_status ModuleGUI::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	std::list<GUIElement*>::iterator ele = gui_elements.begin();
+	float3 snap(2, 2, 2);
+
+	if (inspector->selected != nullptr)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		ImGui::SetNextWindowPos(ImVec2(0, 0));
+		ImGui::Begin("guizmo", 0, ImVec2(App->window->GetWidth(), App->window->GetHeight()), 0.001f,ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBringToFrontOnFocus);
+		ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
+		ImGuizmo::SetDrawlist();
+		float transformation[16];
+		float4x4 t = inspector->selected->GetTransform();
+		ImGuizmo::Manipulate(App->camera->GetViewMatrix(), App->camera->GetProjectionMatrix(), gizmo_op, ImGuizmo::MODE::WORLD, t.ptr(), transformation);
+		
+		if (ImGuizmo::IsUsing())
+		{
+			float pos[3];
+			float rot[3];
+			float scale[3];
+			ImGuizmo::DecomposeMatrixToComponents(transformation, pos, rot, scale);
+			
+			Transform* trans = (Transform*)inspector->selected->GetComponent(Component::Type::C_Transform);
+
+			trans->Translate(float3(pos[0], pos[1], pos[2]));
+			trans->SetScale(float3(scale[0], scale[1], scale[2]));
+			trans->Rotate(Quat::FromEulerXYZ(rot[0] * DEGTORAD, rot[1] * DEGTORAD, rot[2] * DEGTORAD));
+		}
+		ImGui::End();
+	}
 
 	for (std::list<GUIElement*>::iterator ele = gui_elements.begin(); ele != gui_elements.end(); ++ele)
 	{
@@ -74,17 +102,7 @@ update_status ModuleGUI::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
 		gizmo_op = ImGuizmo::OPERATION::SCALE;
 
-	float3 snap(2, 2, 2);
-
-	if (inspector->selected != nullptr)
-	{
-		ImGui::Begin("guizmo");
-		ImGuiIO& io = ImGui::GetIO();
-		ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
-		ImGuizmo::SetDrawlist();
-		ImGuizmo::Manipulate(App->camera->GetViewMatrix(), App->renderer3D->ProjectionMatrix.M, gizmo_op, ImGuizmo::MODE::LOCAL, inspector->selected->GetTransform().ptr(), NULL, snap.ptr());
-		ImGui::End();
-	}
+	
 
 	return ret;
 }
@@ -94,8 +112,6 @@ void ModuleGUI::RenderGUI()
 	if (inspector->selected != nullptr)
 	{
 		inspector->selected->DebugDraw();
-		//ImGuizmo::Manipulate(App->camera->GetViewMatrix(), &App->renderer3D->ProjectionMatrix, gizmo_op, ImGuizmo::WORLD, inspector->selected->GetTransform().ptr());
-		
 	}
 	ImGui::Render();
 }

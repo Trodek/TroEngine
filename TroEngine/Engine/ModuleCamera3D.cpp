@@ -76,7 +76,7 @@ update_status ModuleCamera3D::Update(float dt)
 	}
 	if (App->input->GetMouseButton(SDL_BUTTON_RIGHT) == KEY_REPEAT)
 	{
-		cam->RotateCamera(-App->input->GetMouseXMotion()*mouse_sensivility, -App->input->GetMouseYMotion()*mouse_sensivility);
+		cam->RotateCamera(App->input->GetMouseXMotion()*mouse_sensivility, App->input->GetMouseYMotion()*mouse_sensivility);
 	}
 
 	if (App->input->GetKey(SDL_SCANCODE_Q) == KEY_REPEAT)
@@ -101,7 +101,7 @@ update_status ModuleCamera3D::Update(float dt)
 	{
 		if (App->input->GetKey(SDL_SCANCODE_LALT) == KEY_REPEAT)
 		{		
-			cam->OrbitCamera(float3(0,0,0), -App->input->GetMouseXMotion()*mouse_sensivility, -App->input->GetMouseYMotion()*mouse_sensivility);
+			cam->OrbitCamera(float3(0,0,0), (App->input->GetMouseXMotion()*mouse_sensivility), (App->input->GetMouseYMotion()*mouse_sensivility));
 		}
 	}
 

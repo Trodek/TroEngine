@@ -33,6 +33,7 @@ public:
 	void EnableState(GLenum type) const;
 	void DisableState(GLenum type) const;
 	void SetVertexPointer() const;
+	void SetNormalsPointer() const;
 	void SetCheckerTexture() const;
 	void BindTexure(uint id) const;
 	void UnbindTexture() const;

@@ -15,6 +15,7 @@ public:
 	void SetTransform(float3 pos, float3 scale, Quat rot);
 	void SetTranslate(float3 new_translate);
 	void SetRotation(Quat rot);
+	void SetScale(float3 scale);
 	void Translate(float3 movement);
 	void Rotate(Quat rotation);
 	void Scale(float3 scale);
