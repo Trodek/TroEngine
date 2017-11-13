@@ -35,6 +35,31 @@ bool ModuleCamera3D::CleanUp()
 	return true;
 }
 
+void ModuleCamera3D::ConfigGUI()
+{
+	cam->DrawConfig();
+}
+
+float * ModuleCamera3D::GetProjectionMatrix() const
+{
+	return cam->GetProjectionMatrix();
+}
+
+float * ModuleCamera3D::GetViewMatrix() const
+{
+	return cam->GetViewMatrix();
+}
+
+float3 ModuleCamera3D::GetPos() const
+{
+	return cam_go->GetTransform().TranslatePart();
+}
+
+void ModuleCamera3D::Resize(float new_aspect)
+{
+	cam->SetAspectRatio(new_aspect);
+}
+
 // -----------------------------------------------------------------
 update_status ModuleCamera3D::Update(float dt)
 {
@@ -86,182 +111,9 @@ update_status ModuleCamera3D::Update(float dt)
 	}
 	if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
 	{
-		cam->LookAt(float3(0,0,0));
+		cam->LookAt(float3(1,0,0));
 	}
 
 	return UPDATE_CONTINUE;
 }
 
-// -----------------------------------------------------------------
-void ModuleCamera3D::Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference)
-{
-	this->Position = Position;
-	this->Reference = Reference;
-
-	Z = normalize(Position - Reference);
-	X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
-	Y = cross(Z, X);
-
-	if(!RotateAroundReference)
-	{
-		this->Reference = this->Position;
-		this->Position += Z * 0.05f;
-	}
-
-	CalculateViewMatrix();
-}
-
-// -----------------------------------------------------------------
-void ModuleCamera3D::LookAt( const vec3 &Spot)
-{
-	Reference = Spot;
-
-	Z = normalize(Position - Reference);
-	X = normalize(cross(vec3(0.0f, 1.0f, 0.0f), Z));
-	Y = cross(Z, X);
-
-	CalculateViewMatrix();
-}
-
-
-// -----------------------------------------------------------------
-void ModuleCamera3D::Move(const vec3 &Movement)
-{
-	Position += Movement;
-	Reference += Movement;
-
-	CalculateViewMatrix();
-}
-
-// -----------------------------------------------------------------
-float* ModuleCamera3D::GetViewMatrix()
-{
-	return cam->GetViewMatrix();
-}
-
-// -----------------------------------------------------------------
-void ModuleCamera3D::AdjustCameraToAABB(AABB & bb)
-{
-	float distance = (bb.Size().Length() *1.5f < MAX_ADJUST_DISTANCE) ? bb.Size().Length() *1.5f : MAX_ADJUST_DISTANCE;
-	FocusCamera(vec3(0, 0, 0), distance);
-}
-
-// -----------------------------------------------------------------
-void ModuleCamera3D::CalculateViewMatrix()
-{
-	ViewMatrix = mat4x4(X.x, Y.x, Z.x, 0.0f, X.y, Y.y, Z.y, 0.0f, X.z, Y.z, Z.z, 0.0f, -dot(X, Position), -dot(Y, Position), -dot(Z, Position), 1.0f);
-	ViewMatrixInverse = inverse(ViewMatrix);
-}
-
-void ModuleCamera3D::MoveFront(const float & speed)
-{
-	vec3 move(0, 0, 0);
-
-	move -= Z*speed;
-	Position += move;
-	Reference += move;
-
-}
-
-void ModuleCamera3D::MoveBack(const float & speed)
-{
-	vec3 move(0, 0, 0);
-
-	move += Z*speed;
-	Position += move;
-	Reference += move;
-}
-
-void ModuleCamera3D::MoveRight(const float & speed)
-{
-	vec3 move(0, 0, 0);
-
-	move += X*speed;
-	Position += move;
-	Reference += move;
-}
-
-void ModuleCamera3D::MoveLeft(const float & speed)
-{
-	vec3 move(0, 0, 0);
-
-	move -= X*speed;
-	Position += move;
-	Reference += move;
-}
-
-void ModuleCamera3D::MoveUp(const float & speed)
-{
-	vec3 move(0, 0, 0);
-
-	move += Y*speed;
-	Position += move;
-	Reference += move;
-}
-
-void ModuleCamera3D::MoveDown(const float & speed)
-{
-	vec3 move(0, 0, 0);
-
-	move -= Y*speed;
-	Position += move;
-	Reference += move;
-}
-
-void ModuleCamera3D::OrbitCamera(const vec3 & orbit_center, const float & mouse_dx, const float & mouse_dy)
-{
-	Reference = orbit_center;
-	Position -= Reference;
-
-	//Rotate arround y axis
-	if (mouse_dx != 0.f)
-	{
-		float delta_x = -mouse_dx*mouse_sensivility;
-
-		X = rotate(X, delta_x, vec3(0.0f, 1.0f, 0.0f));
-		Y = rotate(Y, delta_x, vec3(0.0f, 1.0f, 0.0f));
-		Z = rotate(Z, delta_x, vec3(0.0f, 1.0f, 0.0f));
-	}
-
-	if (mouse_dy != 0)// Rotate arround the X direction
-	{
-		float delta_y = -mouse_dy * mouse_sensivility;
-		
-		Y = rotate(Y, delta_y, X);
-		Z = rotate(Z, delta_y, X);
-	}
-
-	Position = Reference + Z * length(Position);
-}
-
-void ModuleCamera3D::RotateCamera(const float & mouse_dx, const float & mouse_dy)
-{
-	Position -= Reference;
-
-	if (mouse_dx != 0)
-	{
-		float delta_x = -mouse_dx * mouse_sensivility;
-
-		X = rotate(X, delta_x, vec3(0.0f, 1.0f, 0.0f));
-		Y = rotate(Y, delta_x, vec3(0.0f, 1.0f, 0.0f));
-		Z = rotate(Z, delta_x, vec3(0.0f, 1.0f, 0.0f));
-	}
-
-	if (mouse_dy != 0)
-	{
-		float delta_y = -mouse_dy * mouse_sensivility;
-
-		Y = rotate(Y, delta_y, X);
-		Z = rotate(Z, delta_y, X);
-
-	}
-
-	Position = Reference + Z * length(Position);
-}
-
-void ModuleCamera3D::FocusCamera(const vec3 & focus_point, float distance)
-{
-	Position = focus_point + Z*distance;
-
-	LookAt(focus_point);
-}

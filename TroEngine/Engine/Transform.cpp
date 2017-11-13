@@ -55,7 +55,7 @@ void Transform::Translate(float3 movement)
 
 void Transform::Rotate(Quat _rotation)
 {
-	rotation = rotation*_rotation;
+	rotation.Mul(_rotation);
 	UpdateTransform();
 }
 

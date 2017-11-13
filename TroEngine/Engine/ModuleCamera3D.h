@@ -17,36 +17,17 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	void Look(const vec3 &Position, const vec3 &Reference, bool RotateAroundReference = false);
-	void LookAt(const vec3 &Spot);
-	void Move(const vec3 &Movement);
-	float* GetViewMatrix();
+	void ConfigGUI();
 
-	void AdjustCameraToAABB(AABB& bb);
+	float* GetProjectionMatrix() const;
+	float* GetViewMatrix() const;
+	float3 GetPos()const;
 
-private:
-	void CalculateViewMatrix();
-
-	void MoveFront(const float& speed);
-	void MoveBack(const float& speed);
-	void MoveRight(const float& speed);
-	void MoveLeft(const float& speed);
-	void MoveUp(const float& speed);
-	void MoveDown(const float& speed);
-
-	void OrbitCamera(const vec3 &orbit_center, const float& mouse_dx, const float& mouse_dy);
-	void RotateCamera(const float& mouse_dx, const float& mouse_dy);
-	void FocusCamera(const vec3& focus_point, float distance);
-
-public:
-	vec3 X, Y, Z, Position, Reference;
+	void Resize(float new_aspect);
 	
 private:
 	GameObject* cam_go = nullptr;
 	Camera* cam = nullptr;
-
-	bool attach = false;
-	mat4x4 ViewMatrix, ViewMatrixInverse;
 
 	//Movement variables
 	float speed = 10.f;

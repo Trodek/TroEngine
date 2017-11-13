@@ -14,6 +14,7 @@ Camera::Camera(GameObject * owner) : Component(Component::Type::Camera, owner)
 	frustum.SetVerticalFovAndAspectRatio(60.f*DEGTORAD, 1.3f);
 	frustum.SetViewPlaneDistances(0.1f, 500.0f);
 	frustum.SetKind(math::FrustumProjectiveSpace::FrustumSpaceGL, math::FrustumLeftHanded);
+	frustum.ComputeViewProjMatrix();
 }
 
 Camera::~Camera()
@@ -52,12 +53,13 @@ void Camera::SetFOV(float angle)
 
 void Camera::SetCamera(float fov_angle, float aspect_ratio, float near_dist, float far_dist)
 {
-	float r = DEGTORAD * aspect_ratio;
+	float r = DEGTORAD * fov_angle;
 
 	if (r > 0.0f)
 	{
-		frustum.SetVerticalFovAndAspectRatio(fov*DEGTORAD, aspect_ratio);
+		frustum.SetVerticalFovAndAspectRatio(fov_angle*DEGTORAD, aspect_ratio);
 		this->aspect_ratio = aspect_ratio;
+		fov = fov_angle;
 	}
 
 	frustum.SetViewPlaneDistances(near_dist, far_dist);
@@ -85,7 +87,11 @@ void Camera::DrawConfig()
 {	
 	if (ImGui::CollapsingHeader("Camera"))
 	{
-		
+		if(ImGui::SliderFloat("FOV##cam", &fov, 0, 360, "%.2f"))
+			SetFOV(fov);
+		if (ImGui::SliderFloat("Aspect Ratio##cam", &aspect_ratio, 1, 2))
+			SetAspectRatio(aspect_ratio);
+
 	}
 }
 
@@ -214,13 +220,27 @@ void Camera::OrbitCamera(const float3 & orbit_center, const float & mouse_dx, co
 void Camera::RotateCamera(const float & mouse_dx, const float & mouse_dy)
 {
 	Transform* comp_transform = (Transform*)GetOwner()->GetComponent(Component::Type::C_Transform);
+	
+	// Rotate Up
+	if (mouse_dx != 0.f)
+	{
+		Quat rot = Quat::RotateY(mouse_dx*DEGTORAD);
+		frustum.SetFront(rot.Mul(frustum.Front()).Normalized());
+		frustum.SetUp(rot.Mul(frustum.Up()).Normalized());
+		comp_transform->SetRotation(frustum.WorldMatrix().RotatePart().ToQuat());
+	}
 
-	float3 rot = comp_transform->GetTransform().RotatePart().ToEulerXYZ();
+	//Rotate Front
+	if (mouse_dy != 0.f)
+	{
+		Quat rot = Quat::RotateAxisAngle(frustum.WorldRight(), mouse_dy*DEGTORAD);
 
-	rot += float3(mouse_dy*DEGTORAD, mouse_dx*DEGTORAD, 0.f);
+		float3 new_up = rot.Mul(frustum.Up()).Normalized();
 
-	Quat rotation = Quat::FromEulerXYZ(rot.x, rot.y, rot.z);
-	comp_transform->SetRotation(rotation);
+		frustum.SetUp(new_up);
+		frustum.SetFront(rot.Mul(frustum.Front()).Normalized());
+		comp_transform->SetRotation(frustum.WorldMatrix().RotatePart().ToQuat());
+	}
 }
 
 void Camera::FocusCamera(const float3 & focus_point, float distance)
@@ -232,13 +252,11 @@ void Camera::FocusCamera(const float3 & focus_point, float distance)
 	comp_transform->SetTranslate(new_cam_pos);
 }
 
-void Camera::LookAt(const float3 & Spot)
+void Camera::LookAt(const float3 & spot) // TODO: fix
 {
 	Transform* comp_transform = (Transform*)GetOwner()->GetComponent(Component::Type::C_Transform);
 
-	float3 target_dir = comp_transform->GetTransform().TranslatePart() - Spot;
+	float3 target_dir = spot - comp_transform->GetTransform().TranslatePart();
 
-	Quat new_rot = Quat::RotateFromTo(frustum.Front(), target_dir.Normalized());
-
-	comp_transform->SetRotation(new_rot);
+	comp_transform->Rotate(float3x3::LookAt(frustum.Front(), target_dir.Normalized(), frustum.Up(), float3::unitY).ToQuat());
 }
