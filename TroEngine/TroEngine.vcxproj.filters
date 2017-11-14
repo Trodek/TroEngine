@@ -64,9 +64,6 @@
     <Filter Include="Source\Engine\Tools\Memory">
       <UniqueIdentifier>{e8793d86-d1f1-4120-b5ab-16af8a76681f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Engine\Tools\ParsonJSON">
-      <UniqueIdentifier>{01f3ae59-337d-40a3-84ed-f016f8c30b9c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Engine\Modules\Renderer\GLEW">
       <UniqueIdentifier>{1db21459-d1c1-472b-8894-90b05cbd8b3b}</UniqueIdentifier>
     </Filter>
@@ -123,6 +120,12 @@
     </Filter>
     <Filter Include="Source\Editor\GUI\ImGuizmo">
       <UniqueIdentifier>{6d9070ef-e5c8-41fc-9dae-82254190dd44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Modules\JSONManager">
+      <UniqueIdentifier>{096bd702-eee2-4ce2-b6f7-2ec92045d4a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Modules\JSONManager\ParsonJSON">
+      <UniqueIdentifier>{01f3ae59-337d-40a3-84ed-f016f8c30b9c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -298,10 +301,7 @@
       <Filter>Source\Engine\Tools\Memory</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Parson\parson.c">
-      <Filter>Source\Engine\Tools\ParsonJSON</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\JSONManager.cpp">
-      <Filter>Source\Engine\Tools</Filter>
+      <Filter>Source\Engine\Modules\JSONManager\ParsonJSON</Filter>
     </ClCompile>
     <ClCompile Include="Engine\SceneManager.cpp">
       <Filter>Source\Editor\Scenes</Filter>
@@ -359,6 +359,9 @@
     </ClCompile>
     <ClCompile Include="Engine\ImGuizmo.cpp">
       <Filter>Source\Editor\GUI\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\JSONManager.cpp">
+      <Filter>Source\Engine\Modules\JSONManager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -630,10 +633,7 @@
       <Filter>Source\Engine\Tools\Memory</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Parson\parson.h">
-      <Filter>Source\Engine\Tools\ParsonJSON</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\JSONManager.h">
-      <Filter>Source\Engine\Tools</Filter>
+      <Filter>Source\Engine\Modules\JSONManager\ParsonJSON</Filter>
     </ClInclude>
     <ClInclude Include="Engine\glew-2.1.0\include\GL\eglew.h">
       <Filter>Source\Engine\Modules\Renderer\GLEW</Filter>
@@ -751,6 +751,9 @@
     </ClInclude>
     <ClInclude Include="Engine\ImGuizmo.h">
       <Filter>Source\Editor\GUI\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\JSONManager.h">
+      <Filter>Source\Engine\Modules\JSONManager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
