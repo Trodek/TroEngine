@@ -39,6 +39,24 @@ bool SceneManager::Start()
 	return ret;
 }
 
+update_status SceneManager::PreUpdate(float dt)
+{
+	update_status ret = UPDATE_CONTINUE;
+	
+	bool scene_ret = true;
+
+	for (std::list<Scene*>::iterator s = scenes.begin(); s != scenes.end(); ++s)
+	{
+		if ((*s)->IsActive())
+			scene_ret = (*s)->PreUpdate();
+	}
+
+	if (scene_ret == false)
+		ret = UPDATE_ERROR;
+
+	return ret;
+}
+
 update_status SceneManager::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;

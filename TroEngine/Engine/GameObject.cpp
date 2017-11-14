@@ -60,6 +60,24 @@ bool GameObject::Start()
 	return ret;
 }
 
+bool GameObject::PreUpdate()
+{
+	bool ret = true;
+	//Remove marked components
+	RemoveComponents();
+
+	//Delete marked children
+	RemoveChilds();
+
+	//Preupdate children
+	for (std::vector<GameObject*>::iterator go = childs.begin(); go != childs.end(); ++go)
+	{
+		ret = (*go)->PreUpdate();
+	}
+
+	return ret;
+}
+
 bool GameObject::Update(float dt)
 {
 	bool ret = true;
@@ -269,14 +287,10 @@ void GameObject::RemoveComponent(Component * comp)
 	{
 		if ((*c) == comp)
 		{
-			(*c)->CleanUp();
-			RELEASE(*c);
-
-			components.erase(c);
+			(*c)->kill_me = true;
 			break;
 		}
 	}
-
 }
 
 void GameObject::RemoveComponentsByType(Component::Type type)
@@ -285,10 +299,7 @@ void GameObject::RemoveComponentsByType(Component::Type type)
 	{
 		if ((*c)->GetType() == type)
 		{
-			(*c)->CleanUp();
-			RELEASE(*c);
-
-			c = components.erase(c);
+			(*c)->kill_me = true;
 		}
 		else
 			++c;
@@ -299,16 +310,23 @@ void GameObject::RemoveAllComponents()
 {
 	for (std::vector<Component*>::iterator c = components.begin(); c != components.end();)
 	{
-		(*c)->CleanUp();
-		RELEASE(*c);
-
-		c = components.erase(c);
+		(*c)->kill_me = true;
 	}
 }
 
 GameObject * GameObject::CreateChild(const char* name)
 {
 	GameObject* go = new GameObject(name,true,this);
+	childs.push_back(go);
+	return go;
+}
+
+GameObject * GameObject::CreateChild()
+{
+	char name[20];
+	sprintf_s(name, "GameObject %d", new_child_id++);
+
+	GameObject* go = new GameObject(name, true, this);
 	childs.push_back(go);
 	return go;
 }
@@ -383,8 +401,24 @@ bool GameObject::IsStatic() const
 	return is_static;
 }
 
+void GameObject::Delete()
+{
+	if (parent == nullptr)
+		kill_me = true;
+	else
+		parent->RemoveChild(this);
+}
+
 void GameObject::RemoveChild(GameObject * child)
 {
+	for (std::vector<GameObject*>::iterator go = childs.begin(); go != childs.end(); ++go)
+	{
+		if ((*go) == child)
+		{
+			(*go)->kill_me = true;
+			break;
+		}
+	}
 }
 
 void GameObject::TransformUpdate()
@@ -419,9 +453,34 @@ void GameObject::DrawHierarchy()
 	for (int i = 0; i < childs.size(); ++i)
 	{
 		bool node_open = ImGui::TreeNodeEx(childs[i]->name.c_str(), (App->gui->inspector->selected == childs[i] ? ImGuiTreeNodeFlags_Selected : 0));
+		bool clicked = false;
 
 		if (ImGui::IsItemClicked())
 			App->gui->inspector->selected = childs[i];
+
+		char name[30];
+		sprintf_s(name, "GameObject options##go%d", i);
+
+		if (clicked = ImGui::IsItemClicked(1))
+		{		
+			ImGui::OpenPopup(name);
+		}
+
+		if (ImGui::BeginPopup(name))
+		{
+			if (ImGui::MenuItem("Add Child"))
+			{
+				childs[i]->CreateChild();
+			}
+			if (ImGui::MenuItem("Delete"))
+			{
+				childs[i]->Delete();
+				if (App->gui->inspector->selected == childs[i])
+					App->gui->inspector->selected = nullptr;
+			}
+			ImGui::EndPopup();
+		}
+		
 
 		if (node_open)
 		{
@@ -441,4 +500,36 @@ void GameObject::SetChildrenStatic(bool _is_static)
 	}
 
 	App->scene_manager->GetCurrentScene()->update_kd_tree = true;
+}
+
+void GameObject::RemoveComponents()
+{
+	for (std::vector<Component*>::iterator c = components.begin(); c != components.end();)
+	{
+		if ((*c)->kill_me == true)
+		{
+			(*c)->CleanUp();
+			RELEASE(*c);
+
+			c = components.erase(c);
+		}
+		else
+			++c;
+	}
+}
+
+void GameObject::RemoveChilds()
+{
+	for (std::vector<GameObject*>::iterator go = childs.begin(); go != childs.end();)
+	{
+		if ((*go)->kill_me == true)
+		{
+			(*go)->CleanUp();
+			RELEASE(*go);
+
+			go = childs.erase(go);
+		}
+		else
+			++go;
+	}
 }

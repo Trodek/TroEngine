@@ -36,6 +36,20 @@ void Hierarchy::CreateHierarchy()
 
 		App->scene_manager->GetCurrentScene()->DrawHierarchy();
 
+		if (ImGui::Button("Add"))
+		{
+			ImGui::OpenPopup("hierarchy options");
+		}
+
+		if (ImGui::BeginPopup("hierarchy options"))
+		{
+			if (ImGui::MenuItem("GameObject"))
+			{
+				App->scene_manager->GetCurrentScene()->CreateGameObject();
+			}
+			ImGui::EndPopup();
+		}
+
 		ImGui::End();
 	}
 }

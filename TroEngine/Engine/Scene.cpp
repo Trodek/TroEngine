@@ -37,6 +37,31 @@ void Scene::DebugDraw()
 	kd_tree->DebugDraw();
 }
 
+bool Scene::PreUpdate()
+{
+	bool ret = true;
+
+	for (std::vector<GameObject*>::iterator go = game_objects.begin(); go != game_objects.end();)
+	{
+		if ((*go)->kill_me == true)
+		{
+			(*go)->CleanUp();
+			RELEASE(*go);
+
+			go = game_objects.erase(go);
+		}
+		else
+			++go;
+	}
+
+	for (std::vector<GameObject*>::iterator go = game_objects.begin(); go != game_objects.end(); ++go)
+	{
+		(*go)->PreUpdate();
+	}
+
+	return ret;
+}
+
 update_status Scene::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
@@ -167,6 +192,29 @@ void Scene::DrawHierarchy() const
 
 		if(ImGui::IsItemClicked())
 			App->gui->inspector->selected = game_objects[i];
+
+		char name[30];
+		sprintf_s(name, "GameObject options##scene%d", i);
+
+		if (ImGui::IsItemClicked(1))
+		{
+			ImGui::OpenPopup(name);
+		}
+
+		if (ImGui::BeginPopup(name))
+		{
+			if (ImGui::MenuItem("Add Child"))
+			{
+				game_objects[i]->CreateChild();
+			}
+			if (ImGui::MenuItem("Delete"))
+			{
+				game_objects[i]->Delete();
+				if (App->gui->inspector->selected = game_objects[i])
+					App->gui->inspector->selected = nullptr;
+			}
+			ImGui::EndPopup();
+		}
 
 		if (node_open)
 		{

@@ -50,6 +50,7 @@ void Transform::SetRotation(Quat rot)
 void Transform::SetScale(float3 scale)
 {
 	this->scale = scale;
+	UpdateTransform();
 }
 
 void Transform::Translate(float3 movement)
@@ -75,6 +76,7 @@ void Transform::Rotate(float3 rot)
 void Transform::Scale(float3 scale)
 {
 	this->scale += scale;
+	UpdateTransform();
 }
 
 float4x4 Transform::GetTransform() const

@@ -18,6 +18,7 @@ public:
 	void SetNewParent(GameObject* new_parent);
 
 	bool Start();
+	bool PreUpdate();
 	bool Update(float dt);
 	void CleanUp();
 
@@ -37,13 +38,12 @@ public:
 	void RemoveAllComponents();
 
 	GameObject* CreateChild(const char* name);
+	GameObject* CreateChild();
 	GameObject* GetChild(uint id) const;
 	void GetAllChilds(std::vector<GameObject*>& go)const;
 	void GetAllStaticChilds(std::vector<GameObject*>& go)const;
 	void GetAllDynamicChilds(std::vector<GameObject*>& go)const;
 	uint GetNumChilds() const;
-
-	bool IsStatic()const;
 
 	void RemoveChild(GameObject* child);
 
@@ -53,8 +53,14 @@ public:
 
 	void DrawHierarchy();
 
+	bool IsStatic()const;
+
+	void Delete();
+
 private:
 	void SetChildrenStatic(bool is_static);
+	void RemoveComponents();
+	void RemoveChilds();
 
 public:
 	bool kill_me = false;
@@ -68,6 +74,8 @@ private:
 	GameObject* parent = nullptr;
 
 	bool change_static = false;
+
+	uint new_child_id = 0;
 };
 
 #endif // !__GAMEOBJECT__

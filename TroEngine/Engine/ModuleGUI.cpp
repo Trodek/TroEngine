@@ -86,7 +86,7 @@ update_status ModuleGUI::Update(float dt)
 			if(gizmo_op == ImGuizmo::TRANSLATE)
 				trans->Translate(float3(pos[0], pos[1], pos[2]));
 			else if (gizmo_op == ImGuizmo::SCALE)
-				trans->Scale(float3(scale[0], scale[1], scale[2]));
+				trans->SetScale(float3(scale[0], scale[1], scale[2]));
 			else if (gizmo_op == ImGuizmo::ROTATE)
 				trans->Rotate(float3(rot[0] * DEGTORAD, rot[1] * DEGTORAD, rot[2] * DEGTORAD));
 		}

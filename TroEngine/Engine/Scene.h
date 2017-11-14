@@ -20,6 +20,7 @@ public:
 	void Draw();
 	void DebugDraw();
 
+	bool PreUpdate();
 	update_status Update(float dt);
 
 	bool CleanUp();
