@@ -28,8 +28,6 @@ bool Camera::Start()
 void Camera::OnUpdateTransform()
 {
 	frustum.SetPos(GetOwner()->GetTransform().TranslatePart());
-	frustum.SetFront(GetOwner()->GetTransform().WorldZ().Normalized());
-	frustum.SetUp(GetOwner()->GetTransform().WorldY().Normalized());
 }
 
 void Camera::SetAspectRatio(float aspect)
@@ -223,25 +221,20 @@ void Camera::RotateCamera(const float & mouse_dx, const float & mouse_dy)
 	// Rotate Up
 	if (mouse_dx != 0.f)
 	{
-		//Quat rot = Quat::RotateY(mouse_dx*DEGTORAD);
-		//EDITOR_LOG("prev rot: %f, %f, %f", comp_transform->GetTransform().RotatePart().ToEulerXYZ().x, comp_transform->GetTransform().RotatePart().ToEulerXYZ().y, comp_transform->GetTransform().RotatePart().ToEulerXYZ().z);
-		//frustum.SetFront(rot.Mul(frustum.Front()).Normalized());
-		//frustum.SetUp(rot.Mul(frustum.Up()).Normalized());
-		//comp_transform->SetRotation(frustum.WorldMatrix().RotatePart().ToQuat());
-		//EDITOR_LOG("post rot: %f, %f, %f", comp_transform->GetTransform().RotatePart().ToEulerXYZ().x, comp_transform->GetTransform().RotatePart().ToEulerXYZ().y, comp_transform->GetTransform().RotatePart().ToEulerXYZ().z);
-
+		Quat rot = Quat::RotateY(mouse_dx*DEGTORAD);
+		frustum.SetFront(rot.Mul(frustum.Front()).Normalized());
+		frustum.SetUp(rot.Mul(frustum.Up()).Normalized());
+		comp_transform->SetRotation(frustum.WorldMatrix().RotatePart().ToQuat());
 	}
 
 	//Rotate Front
 	if (mouse_dy != 0.f)
 	{
 		Quat rot = Quat::RotateAxisAngle(frustum.WorldRight(), mouse_dy*DEGTORAD);
-		
 		float3 new_up = rot.Mul(frustum.Up()).Normalized();
 		
 		frustum.SetUp(new_up);
 		frustum.SetFront(rot.Mul(frustum.Front()).Normalized());
-		comp_transform->SetRotation(frustum.WorldMatrix().RotatePart().ToQuat());
 	}
 }
 

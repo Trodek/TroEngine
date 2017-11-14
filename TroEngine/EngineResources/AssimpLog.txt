@@ -1,93 +1,30 @@
-Info,  T8980: Load C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\Street environment_V01.FBX
-Info,  T8980: Found a matching importer for this file format: Autodesk FBX Importer.
-Info,  T8980: Import root directory is 'C:\Users\ibanm\Desktop\TroEngine\TroEngine\EngineResources\Models\'
-Warn,  T8980: FBX-DOM (TOK_KEY, offset 0x1c9c1b) failed to resolve target Model/NodeAttribute/Constraint for AnimationCurveNode
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
+Info,  T8500: Load C:\Users\ibanmo1\Documents\GitHub\TroEngine\TroEngine\EngineResources\Models\Infernal.FBX
+Info,  T8500: Found a matching importer for this file format: Autodesk FBX Importer.
+Info,  T8500: Import root directory is 'C:\Users\ibanmo1\Documents\GitHub\TroEngine\TroEngine\EngineResources\Models\'
+Info,  T8500: FBX: generating full transformation chain for node: infernal003
+Info,  T8500: FBX: generating full transformation chain for node: golem
+Info,  T8500: Entering post processing pipeline
+Info,  T8500: RemoveRedundantMatsProcess finished. Removed 3 redundant and 0 unused materials.
+Info,  T8500: Points: 0, Lines: 0, Triangles: 10, Polygons: 0 (Meshes, X = removed)
+Warn,  T8500: Simplified dummy tracks with just one key
 Skipping one or more lines with the same contents
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Warn,  T8980: FBX: no animation curves assigned to AnimationCurveNode: AnimCurveNode::T
-Warn,  T8980: FBX: ignoring node animation, did not find any transformation key frames
-Info,  T8980: FBX: generating full transformation chain for node: Sky001
-Info,  T8980: FBX: generating full transformation chain for node: Dummy001
-Info,  T8980: FBX: generating full transformation chain for node: Camera001
+Info,  T8500: OptimizeMeshesProcess finished. Input meshes: 10, Output meshes: 7
+Info,  T8500: CalcTangentsProcess finished. Tangents have been calculated
+Info,  T8500: JoinVerticesProcess finished | Verts in: 41646 out: 14602 | ~64.9%
+Info,  T8500: Cache relevant are 7 meshes (13882 faces). Average output ACMR is 1.193776
+Info,  T8500: Leaving post processing pipeline
+Info,  T8500: Load C:\Users\ibanmo1\Documents\GitHub\TroEngine\TroEngine\EngineResources\Models\Infernal.FBX
+Info,  T8500: Found a matching importer for this file format: Autodesk FBX Importer.
+Info,  T8500: Import root directory is 'C:\Users\ibanmo1\Documents\GitHub\TroEngine\TroEngine\EngineResources\Models\'
+Info,  T8500: FBX: generating full transformation chain for node: infernal003
+Info,  T8500: FBX: generating full transformation chain for node: golem
+Info,  T8500: Entering post processing pipeline
+Info,  T8500: RemoveRedundantMatsProcess finished. Removed 3 redundant and 0 unused materials.
+Info,  T8500: Points: 0, Lines: 0, Triangles: 10, Polygons: 0 (Meshes, X = removed)
+Warn,  T8500: Simplified dummy tracks with just one key
 Skipping one or more lines with the same contents
-Info,  T8980: FBX: generating full transformation chain for node: Spot001
-Skipping one or more lines with the same contents
-Info,  T8980: Entering post processing pipeline
-Info,  T8980: FindInstancesProcess finished. Found 13 instances
-Warn,  T8980: Found 2 degenerated primitives
-Info,  T8980: Points: 0, Lines: 1, Triangles: 17, Polygons: 0 (Meshes, X = removed)
-Info,  T8980: Tangents are undefined for line and point meshes
-Error, T8980: Failed to compute tangents; need UV data in channel0
-Skipping one or more lines with the same contents
-Info,  T8980: CalcTangentsProcess finished. Tangents have been calculated
-Info,  T8980: JoinVerticesProcess finished | Verts in: 81181 out: 48324 | ~40.5%
-Error, T8980: This algorithm works on triangle meshes only
-Info,  T8980: Cache relevant are 17 meshes (27059 faces). Average output ACMR is 1.794745
-Info,  T8980: Leaving post processing pipeline
+Info,  T8500: OptimizeMeshesProcess finished. Input meshes: 10, Output meshes: 7
+Info,  T8500: CalcTangentsProcess finished. Tangents have been calculated
+Info,  T8500: JoinVerticesProcess finished | Verts in: 41646 out: 14602 | ~64.9%
+Info,  T8500: Cache relevant are 7 meshes (13882 faces). Average output ACMR is 1.193776
+Info,  T8500: Leaving post processing pipeline

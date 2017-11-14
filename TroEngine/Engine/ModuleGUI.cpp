@@ -71,7 +71,7 @@ update_status ModuleGUI::Update(float dt)
 		ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
 		ImGuizmo::SetDrawlist();
 		float transformation[16];
-		float4x4 t = inspector->selected->GetTransform();
+		float4x4 t = inspector->selected->GetTransform().Transposed();
 		ImGuizmo::Manipulate(App->camera->GetViewMatrix(), App->camera->GetProjectionMatrix(), gizmo_op, ImGuizmo::MODE::WORLD, t.ptr(), transformation);
 		
 		if (ImGuizmo::IsUsing())
@@ -83,9 +83,12 @@ update_status ModuleGUI::Update(float dt)
 			
 			Transform* trans = (Transform*)inspector->selected->GetComponent(Component::Type::C_Transform);
 
-			trans->Translate(float3(pos[0], pos[1], pos[2]));
-			trans->SetScale(float3(scale[0], scale[1], scale[2]));
-			trans->Rotate(Quat::FromEulerXYZ(rot[0] * DEGTORAD, rot[1] * DEGTORAD, rot[2] * DEGTORAD));
+			if(gizmo_op == ImGuizmo::TRANSLATE)
+				trans->Translate(float3(pos[0], pos[1], pos[2]));
+			else if (gizmo_op == ImGuizmo::SCALE)
+				trans->SetScale(float3(scale[0], scale[1], scale[2]));
+			else if (gizmo_op == ImGuizmo::ROTATE)
+				trans->Rotate(float3(rot[0] * DEGTORAD, rot[1] * DEGTORAD, rot[2] * DEGTORAD));
 		}
 		ImGui::End();
 	}

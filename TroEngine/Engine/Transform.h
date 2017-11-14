@@ -18,6 +18,7 @@ public:
 	void SetScale(float3 scale);
 	void Translate(float3 movement);
 	void Rotate(Quat rotation);
+	void Rotate(float3 rot);
 	void Scale(float3 scale);
 
 	float4x4 GetTransform() const;

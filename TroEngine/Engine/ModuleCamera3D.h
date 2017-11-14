@@ -32,5 +32,5 @@ private:
 	//Movement variables
 	float speed = 10.f;
 	float mouse_wheel_speed = 5.f;
-	float mouse_sensivility = 0.025f;
+	float mouse_sensivility = 0.25f;
 };

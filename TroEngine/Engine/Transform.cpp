@@ -60,8 +60,16 @@ void Transform::Translate(float3 movement)
 
 void Transform::Rotate(Quat _rotation)
 {
-	rotation.Mul(_rotation);
+	_rotation.Mul(rotation);
+	rotation = _rotation;
 	UpdateTransform();
+}
+
+void Transform::Rotate(float3 rot)
+{
+	float3 curr_rot = rotation.ToEulerXYZ();
+	curr_rot += rot;
+	SetRotation(Quat::FromEulerXYZ(curr_rot.x, curr_rot.y, curr_rot.z));
 }
 
 void Transform::Scale(float3 scale)
