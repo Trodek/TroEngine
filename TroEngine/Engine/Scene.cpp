@@ -210,6 +210,14 @@ void Scene::DrawHierarchy() const
 			{
 				game_objects[i]->CreateChild();
 			}
+
+			if (ImGui::MenuItem("Save as prefab"))
+			{
+				char name[65];
+				sprintf_s(name, "%s_prefab.json",game_objects[i]->name.c_str());
+				App->scene_importer->SaveScene(game_objects[i], name);
+			}
+
 			if (ImGui::MenuItem("Delete"))
 			{
 				game_objects[i]->Delete();

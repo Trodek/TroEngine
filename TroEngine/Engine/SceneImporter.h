@@ -14,8 +14,8 @@ public:
 	~SceneImporter();
 
 	void SaveScene(Scene* scene, const char* path);
-	void SaveScene(GameObject* scene, const char* path);
-	void SaveScene(GameObject* scene, JSONDoc* doc);
+	void SaveScene(GameObject* go, const char* path);
+	void SaveScene(GameObject* go, JSONDoc* doc);
 
 	GameObject* LoadScene(const char* path);
 	void LoadScene(const char* path, Scene* scene);

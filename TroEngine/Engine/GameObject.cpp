@@ -13,6 +13,7 @@
 #include "Scene.h"
 #include "JSONManager.h"
 #include "UID.h"
+#include "SceneImporter.h"
 
 GameObject::GameObject(const char * name, bool active, GameObject * parent) : name(name), active(active), parent(parent)
 {
@@ -543,6 +544,14 @@ void GameObject::DrawHierarchy()
 			{
 				childs[i]->CreateChild();
 			}
+
+			if (ImGui::MenuItem("Save as prefab"))
+			{
+				char name[65];
+				sprintf_s(name, "%s_prefab.json", childs[i]->name.c_str());
+				App->scene_importer->SaveScene(childs[i], name);
+			}
+
 			if (ImGui::MenuItem("Delete"))
 			{
 				childs[i]->Delete();

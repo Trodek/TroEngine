@@ -30,11 +30,24 @@ void SceneImporter::SaveScene(Scene * scene, const char * path)
 	doc->SaveFile();
 }
 
-void SceneImporter::SaveScene(GameObject * scene, const char * path)
+void SceneImporter::SaveScene(GameObject * go, const char * path)
 {
+	JSONDoc* doc = App->json->LoadJSONFile(path);
+
+	if (doc == nullptr)
+		doc = App->json->CreateJSONFile(path);
+	else
+		doc->EraseContent();
+
+	doc->AddArray("GameObjects");
+	doc->AddArray("Components");
+
+	go->Serialize(doc);
+
+	doc->SaveFile();
 }
 
-void SceneImporter::SaveScene(GameObject * scene, JSONDoc * doc)
+void SceneImporter::SaveScene(GameObject * go, JSONDoc * doc)
 {
 }
 
