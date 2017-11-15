@@ -40,6 +40,8 @@ public:
 	void FocusCamera(const float3& focus_point, float distance);
 	void LookAt(const float3& Spot);
 
+	void Serialize(JSONDoc* doc);
+
 private:
 	Frustum frustum;
 	float aspect_ratio = 1.3f;

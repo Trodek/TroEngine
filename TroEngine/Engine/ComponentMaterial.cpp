@@ -5,6 +5,7 @@
 #include "MaterialManager.h"
 #include "GameObject.h"
 #include "imgui.h"
+#include "JSONManager.h"
 
 ComponentMaterial::ComponentMaterial(GameObject* owner) : Component(C_Material, owner)
 {
@@ -66,4 +67,17 @@ void ComponentMaterial::DrawConfig()
 void ComponentMaterial::UseChecker()
 {
 	use_checker = true;
+}
+
+void ComponentMaterial::Serialize(JSONDoc * doc)
+{
+	doc->AddSectionToArray("Components");
+	doc->MoveToSectionFromArray("Components", doc->GetArraySize("Components") - 1);
+
+	doc->SetNumber("type", GetType());
+	doc->SetNumber("owner", GetOwner()->GetUID());
+	if (material != nullptr)
+		doc->SetNumber("material", material->GetUID());
+	else
+		doc->SetNumber("material", 0);
 }

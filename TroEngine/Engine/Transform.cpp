@@ -1,6 +1,7 @@
 #include "Transform.h"
 #include "imgui.h"
 #include "GameObject.h"
+#include "JSONManager.h"
 
 Transform::Transform(GameObject * owner) :Component(Component::Type::C_Transform, owner)
 {
@@ -125,6 +126,18 @@ void Transform::DrawConfig()
 		if (update_trans)
 			UpdateTransform();
 	}
+}
+
+void Transform::Serialize(JSONDoc * doc)
+{
+	doc->AddSectionToArray("Components");
+	doc->MoveToSectionFromArray("Components", doc->GetArraySize("Components") - 1);
+
+	doc->SetNumber("type", GetType());
+	doc->SetNumber("owner", GetOwner()->GetUID());
+	doc->SetVector3("position", position);
+	doc->SetVector3("scale", scale);
+	doc->SetVector4("rotation", rotation.CastToFloat4());
 }
 
 void Transform::UpdateTransform()

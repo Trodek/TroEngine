@@ -27,6 +27,8 @@ public:
 
 	AABB GetMeshAABB();
 
+	void Serialize(JSONDoc* doc);
+
 private:
 	Mesh* mesh = nullptr;
 	bool wireframe = false;

@@ -5,6 +5,7 @@
 #include "Application.h"
 #include "ModuleRenderer3D.h"
 #include "imgui.h"
+#include "JSONManager.h"
 
 Camera::Camera(GameObject * owner) : Component(Component::Type::Camera, owner)
 {
@@ -202,4 +203,17 @@ void Camera::LookAt(const float3 & spot) // TODO: fix
 	float3 target_dir = spot - comp_transform->GetTransform().TranslatePart();
 
 	//comp_transform->Rotate(float3x3::LookAt(frustum.Front(), target_dir.Normalized(), frustum.Up(), float3::unitY).ToQuat());
+}
+
+void Camera::Serialize(JSONDoc * doc)
+{
+	doc->AddSectionToArray("Components");
+	doc->MoveToSectionFromArray("Components", doc->GetArraySize("Components") - 1);
+
+	doc->SetNumber("type", GetType());
+	doc->SetNumber("owner", GetOwner()->GetUID());
+	doc->SetNumber("aspect_ratio", aspect_ratio);
+	doc->SetNumber("fov", fov);
+	doc->SetNumber("near", frustum.NearPlaneDistance());
+	doc->SetNumber("far", frustum.FarPlaneDistance());
 }

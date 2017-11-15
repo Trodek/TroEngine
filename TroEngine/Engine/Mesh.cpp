@@ -2,6 +2,7 @@
 #include "GLInclude.h"
 #include "Application.h"
 #include "ModuleRenderer3D.h"
+#include "UID.h"
 
 Mesh::Mesh(uint num_ver, float * ver, uint num_ind, uint * ind, uint num_uv, float* uv, uint num_norm, float* norm) :
 	 num_indices(num_ind), indices(ind), num_vertices(num_ver), vertices(ver), num_uv(num_uv), uv(uv), num_normals(num_norm), normals(norm)
@@ -39,6 +40,16 @@ Mesh::Mesh(uint num_ver, float * ver, uint num_ind, uint * ind, uint num_uv, flo
 
 	bounding_box.SetNegativeInfinity();
 	bounding_box.Enclose((float3*)ver, num_ver);
+
+	void* a = this;
+	void** a_ptr = &a;
+	uint size = sizeof(this);
+	char* data = new char[size];
+	memcpy(data, a_ptr, size);
+
+	uint* uid = md5(data, size);
+	UID = *uid;
+	RELEASE_ARRAY(data);
 }
 
 uint Mesh::GetIndicesID() const
@@ -96,6 +107,11 @@ void Mesh::UpdateAABB(const float4x4 & trans)
 	bounding_box.SetNegativeInfinity();
 	bounding_box.Enclose((float3*)vertices, num_vertices);
 	bounding_box.TransformAsAABB(trans);
+}
+
+uint Mesh::GetUID() const
+{
+	return UID;
 }
 
 void Mesh::Render(bool wireframe)

@@ -4,6 +4,7 @@
 #include "MathGeoLib.h"
 
 class GameObject;
+class JSONDoc;
 
 class Component
 {
@@ -38,6 +39,8 @@ public:
 	virtual void DebugDraw() {}
 
 	virtual void DrawConfig() {}
+
+	virtual void Serialize(JSONDoc* doc){}
 
 public:
 	bool kill_me = false;

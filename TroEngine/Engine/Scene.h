@@ -6,6 +6,7 @@
 #include <vector>
 
 class KDTree;
+class JSONDoc;
 
 class Scene
 {
@@ -39,6 +40,8 @@ public:
 	void DrawHierarchy() const;
 
 	void CreateTree() const;
+
+	void SerializeScene(JSONDoc* doc);
 
 private:
 	bool active;

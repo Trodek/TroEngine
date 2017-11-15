@@ -15,11 +15,15 @@ public:
 	uint GetWidth() const;
 	uint GetHeight() const;
 
+	uint GetUID() const;
+
 private:
 	std::string path;
 	uint id_material	= 0;
 	uint width			= 0;
 	uint height			= 0;
+
+	uint UID = 0;
 };
 
 #endif // !__MATERIAL__

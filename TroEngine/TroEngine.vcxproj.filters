@@ -127,6 +127,9 @@
     <Filter Include="Source\Engine\Modules\JSONManager\ParsonJSON">
       <UniqueIdentifier>{01f3ae59-337d-40a3-84ed-f016f8c30b9c}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\Modules\SceneImporter">
+      <UniqueIdentifier>{1b747206-0ff2-48c0-806f-58365af4bc50}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -362,6 +365,12 @@
     </ClCompile>
     <ClCompile Include="Engine\JSONManager.cpp">
       <Filter>Source\Engine\Modules\JSONManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SceneImporter.cpp">
+      <Filter>Source\Engine\Modules\SceneImporter</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\UID.cpp">
+      <Filter>Source\Engine\Tools</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -754,6 +763,9 @@
     </ClInclude>
     <ClInclude Include="Engine\JSONManager.h">
       <Filter>Source\Engine\Modules\JSONManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SceneImporter.h">
+      <Filter>Source\Engine\Modules\SceneImporter</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

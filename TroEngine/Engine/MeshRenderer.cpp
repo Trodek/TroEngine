@@ -5,6 +5,7 @@
 #include "MeshImporter.h"
 #include "imgui.h"
 #include "ModuleRenderer3D.h"
+#include "JSONManager.h"
 
 MeshRenderer::MeshRenderer(GameObject* owner) : Component(Component::Type::MeshRenderer,owner)
 {
@@ -86,4 +87,17 @@ void MeshRenderer::RemoveMesh()
 AABB MeshRenderer::GetMeshAABB()
 {
 	return mesh->GetAABB();
+}
+
+void MeshRenderer::Serialize(JSONDoc * doc)
+{
+	doc->AddSectionToArray("Components");
+	doc->MoveToSectionFromArray("Components", doc->GetArraySize("Components") - 1);
+
+	doc->SetNumber("type", GetType());
+	doc->SetNumber("owner", GetOwner()->GetUID());
+	if (mesh != nullptr)
+		doc->SetNumber("mesh", mesh->GetUID());
+	else
+		doc->SetNumber("mesh", 0);
 }

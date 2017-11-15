@@ -6,6 +6,8 @@
 #include <string>
 #include "Component.h"
 
+class JSONDoc;
+
 class GameObject
 {
 public:
@@ -15,6 +17,7 @@ public:
 	void SetActive(bool active);
 	bool IsActive()const;
 	GameObject* GetParent() const;
+	uint GetUID() const;
 	void SetNewParent(GameObject* new_parent);
 
 	bool Start();
@@ -57,6 +60,8 @@ public:
 
 	void Delete();
 
+	void Serialize(JSONDoc* doc);
+
 private:
 	void SetChildrenStatic(bool is_static);
 	void RemoveComponents();
@@ -76,6 +81,8 @@ private:
 	bool change_static = false;
 
 	uint new_child_id = 0;
+
+	uint UID = 0;
 };
 
 #endif // !__GAMEOBJECT__

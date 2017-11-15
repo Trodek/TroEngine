@@ -11,10 +11,22 @@
 #include "Camera.h"
 #include "SceneManager.h"
 #include "Scene.h"
+#include "JSONManager.h"
+#include "UID.h"
 
 GameObject::GameObject(const char * name, bool active, GameObject * parent) : name(name), active(active), parent(parent)
 {
 	AddComponent(Component::Type::C_Transform);
+
+	void* a = this;
+	void** a_ptr = &a;
+	uint size = sizeof(this);
+	char* data = new char[size];
+	memcpy(data, a_ptr, size);
+
+	uint* uid = md5(data, size);
+	UID = *uid;
+	RELEASE_ARRAY(data);
 }
 
 GameObject::~GameObject()
@@ -34,6 +46,11 @@ bool GameObject::IsActive() const
 GameObject * GameObject::GetParent() const
 {
 	return parent;
+}
+
+uint GameObject::GetUID() const
+{
+	return UID;
 }
 
 void GameObject::SetNewParent(GameObject * new_parent)
@@ -184,6 +201,14 @@ void GameObject::DebugDraw()
 
 void GameObject::DrawConfig()
 {
+	char new_name[50];
+	strcpy_s(new_name, name.c_str());
+
+	if (ImGui::InputText(new_name, new_name, 50))
+	{
+		name = new_name;
+	}
+
 	ImGui::Checkbox("Active##go", &active);
 	ImGui::SameLine();
 	if (ImGui::Checkbox("Static##go", &is_static))
@@ -192,6 +217,8 @@ void GameObject::DrawConfig()
 	}
 	if (ImGui::IsItemHovered())
 		ImGui::SetTooltip("This will affect all childs");
+
+	ImGui::Text("UID: %u", UID);
 
 	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
 	{
@@ -419,6 +446,38 @@ void GameObject::Delete()
 		kill_me = true;
 	else
 		parent->RemoveChild(this);
+}
+
+void GameObject::Serialize(JSONDoc * doc)
+{
+	//Save this game object
+	doc->AddSectionToArray("GameObjects");
+	doc->MoveToSectionFromArray("GameObjects", doc->GetArraySize("GameObjects") - 1);
+
+	doc->SetNumber("UID", UID);
+	doc->SetString("name", name.c_str());
+	doc->SetBool("active", active);
+	doc->SetBool("is_static", is_static);
+	if(parent != nullptr)
+		doc->SetNumber("parent", parent->GetUID());
+	else
+		doc->SetNumber("parent", 0);
+	doc->SetNumber("new_child_id", new_child_id);
+
+	doc->MoveToRoot();
+	//Save components 
+	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
+	{
+		(*c)->Serialize(doc);
+	}
+	doc->MoveToRoot();
+	//Save childs
+	for (std::vector<GameObject*>::iterator go = childs.begin(); go != childs.end(); ++go)
+	{
+		(*go)->Serialize(doc);
+	}
+	doc->MoveToRoot();
+
 }
 
 void GameObject::RemoveChild(GameObject * child)

@@ -15,6 +15,7 @@
 #include "JSONManager.h"
 #include "MeshImporter.h"
 #include "MaterialManager.h"
+#include "SceneImporter.h"
 
 #include "Algorithm\Random\LCG.h"
 #include "imgui.h"
@@ -33,6 +34,7 @@ Application::Application()
 	json = new JSONManager();
 	mesh = new MeshImporter();
 	materials = new MaterialManager();
+	scene_importer = new SceneImporter();
 
 	// The order of calls is very important!
 	// Modules will Awake() Start() and Update() in this order
@@ -45,6 +47,7 @@ Application::Application()
 	AddModule(input);
 	AddModule(audio);
 	AddModule(json);
+	AddModule(scene_importer);
 	AddModule(mesh);
 	AddModule(materials);
 

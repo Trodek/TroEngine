@@ -6,7 +6,7 @@
 #include "ModuleGUI.h"
 #include "Inspector.h"
 #include "KDTree.h"
-
+#include "SceneImporter.h"
 #include "ModuleInput.h"
 
 bool Scene::Start()
@@ -83,6 +83,9 @@ update_status Scene::Update(float dt)
 			ret = UPDATE_STOP;
 		}
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_4) == KEY_DOWN)
+		App->scene_importer->SaveScene(this, "test.json");
 
 	return ret;
 }
@@ -235,4 +238,12 @@ void Scene::CreateTree() const
 	GetAllStaticGameObjects(go);
 
 	kd_tree->CreateTree(go);
+}
+
+void Scene::SerializeScene(JSONDoc * doc)
+{
+	for (std::vector<GameObject*>::iterator go = game_objects.begin(); go != game_objects.end(); ++go)
+	{
+		(*go)->Serialize(doc);
+	}
 }

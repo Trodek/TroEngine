@@ -21,6 +21,7 @@ class ModuleGUI;
 class JSONManager;
 class MeshImporter;
 class MaterialManager;
+class SceneImporter;
 
 class Application
 {
@@ -35,6 +36,7 @@ public:
 	JSONManager* json;
 	MeshImporter* mesh;
 	MaterialManager* materials;
+	SceneImporter* scene_importer;
 
 	bool debug_mode = false;
 

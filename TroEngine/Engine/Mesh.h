@@ -24,6 +24,8 @@ public:
 	AABB GetAABB() const;
 	void UpdateAABB(const float4x4& trans);
 
+	uint GetUID() const;
+
 	void Render(bool wireframe = false);
 
 	void CleanUp();
@@ -46,6 +48,8 @@ private:
 	float* normals;
 
 	AABB bounding_box;
+
+	uint UID = 0;
 };
 
 

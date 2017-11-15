@@ -25,6 +25,8 @@ public:
 
 	void DrawConfig();
 
+	void Serialize(JSONDoc* doc);
+
 private:
 	void UpdateTransform();
 
