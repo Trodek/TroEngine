@@ -215,30 +215,42 @@ Component* GameObject::AddComponent(Component::Type type)
 		break;
 	case Component::C_Transform:
 	{
-		Transform* t = new Transform(this);
-		components.push_back(t);
-		new_comp = t;
+		if (!HasComponent(Component::C_Transform))
+		{
+			Transform* t = new Transform(this);
+			components.push_back(t);
+			new_comp = t;
+		}
 		break;
 	}
 	case Component::MeshRenderer:
 	{
-		MeshRenderer* mr = new MeshRenderer(this);
-		components.push_back(mr);
-		new_comp = mr;
+		if (!HasComponent(Component::MeshRenderer))
+		{
+			MeshRenderer* mr = new MeshRenderer(this);
+			components.push_back(mr);
+			new_comp = mr;
+		}
 		break; 
 	}
 	case Component::C_Material:
 	{
-		ComponentMaterial* cm = new ComponentMaterial(this);
-		components.push_back(cm);
-		new_comp = cm;
+		if (!HasComponent(Component::C_Material))
+		{
+			ComponentMaterial* cm = new ComponentMaterial(this);
+			components.push_back(cm);
+			new_comp = cm;
+		}
 		break;
 	}
 	case Component::Camera:
 	{
-		Camera* cam = new Camera(this);
-		components.push_back(cam);
-		new_comp = cam;
+		if (!HasComponent(Component::Camera))
+		{
+			Camera* cam = new Camera(this);
+			components.push_back(cam);
+			new_comp = cam;
+		}
 	}
 		break;
 	default:

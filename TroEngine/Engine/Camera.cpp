@@ -84,6 +84,9 @@ void Camera::DrawConfig()
 {	
 	if (ImGui::CollapsingHeader("Camera"))
 	{
+		if (ImGui::Button("Delete"))
+			GetOwner()->RemoveComponent(this);
+
 		ImGui::SliderFloat("FOV##cam", &fov, 0, 360, "%.2f");
 		SetFOV(fov);
 		ImGui::SliderFloat("Aspect Ratio##cam", &aspect_ratio, 1, 2);
@@ -94,62 +97,7 @@ void Camera::DrawConfig()
 
 void Camera::DebugDraw()
 {
-	GLenum mode = App->renderer3D->GetPolyMode();
-	App->renderer3D->PolygonModeWireframe();
-
-	float3* points = nullptr;
-	frustum.GetCornerPoints(points);
-
-	glLineWidth(2.0f);
-	App->renderer3D->DisableState(GL_CULL_FACE);
-
-	glBegin(GL_QUADS);
-
-	glVertex3fv((GLfloat*)&points[1]);
-	glVertex3fv((GLfloat*)&points[5]);
-	glVertex3fv((GLfloat*)&points[7]);
-	glVertex3fv((GLfloat*)&points[3]);
-
-	glVertex3fv((GLfloat*)&points[4]);
-	glVertex3fv((GLfloat*)&points[0]);
-	glVertex3fv((GLfloat*)&points[2]);
-	glVertex3fv((GLfloat*)&points[6]);
-
-	glVertex3fv((GLfloat*)&points[5]);
-	glVertex3fv((GLfloat*)&points[4]);
-	glVertex3fv((GLfloat*)&points[6]);
-	glVertex3fv((GLfloat*)&points[7]);
-
-	glVertex3fv((GLfloat*)&points[0]);
-	glVertex3fv((GLfloat*)&points[1]);
-	glVertex3fv((GLfloat*)&points[3]);
-	glVertex3fv((GLfloat*)&points[2]);
-
-	glVertex3fv((GLfloat*)&points[3]);
-	glVertex3fv((GLfloat*)&points[7]);
-	glVertex3fv((GLfloat*)&points[6]);
-	glVertex3fv((GLfloat*)&points[2]);
-
-	glVertex3fv((GLfloat*)&points[0]);
-	glVertex3fv((GLfloat*)&points[4]);
-	glVertex3fv((GLfloat*)&points[5]);
-	glVertex3fv((GLfloat*)&points[1]);
-
-	glEnd();
-
-	glLineWidth(1.0f);
-
-	if(App->renderer3D->GetCullFace())
-		App->renderer3D->EnableState(GL_CULL_FACE);
-
-	if (mode == GL_POINT)
-	{
-		App->renderer3D->PolygonModePoints();
-	}
-	else if (mode == GL_FILL)
-	{
-		App->renderer3D->PolygonModeFill();
-	}
+	
 }
 
 void Camera::MoveFront(const float & speed)

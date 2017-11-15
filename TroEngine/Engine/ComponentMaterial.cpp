@@ -3,6 +3,7 @@
 #include "ModuleRenderer3D.h"
 #include "Material.h"
 #include "MaterialManager.h"
+#include "GameObject.h"
 #include "imgui.h"
 
 ComponentMaterial::ComponentMaterial(GameObject* owner) : Component(C_Material, owner)
@@ -44,9 +45,11 @@ void ComponentMaterial::ApplyMaterial() const
 
 void ComponentMaterial::DrawConfig()
 {
-	if (material != nullptr)
+	if (ImGui::CollapsingHeader("Material"))
 	{
-		if (ImGui::CollapsingHeader("Material"))
+		if (ImGui::Button("Delete"))
+			GetOwner()->RemoveComponent(this);
+		if (material != nullptr)
 		{
 			ImGui::Checkbox("Use Checker Material", &use_checker);
 
@@ -55,6 +58,8 @@ void ComponentMaterial::DrawConfig()
 			ImGui::LabelText("Height##material", "%d", material->GetHeight());
 			ImGui::LabelText("Path##material", "%s", material->GetPath().c_str());
 		}
+		else
+			ImGui::Text("No material assigned");
 	}
 }
 

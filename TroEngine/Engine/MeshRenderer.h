@@ -28,7 +28,7 @@ public:
 	AABB GetMeshAABB();
 
 private:
-	Mesh* mesh;
+	Mesh* mesh = nullptr;
 	bool wireframe = false;
 
 };
