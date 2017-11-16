@@ -187,6 +187,26 @@ void Scene::GetAllGameObjects(std::vector<GameObject*>& vector_to_fill) const
 	}
 }
 
+void Scene::TestToKDTree(const Ray & ray, float p1_distance, float p2_distance, std::vector<GameObject*>& vec_to_fill) const
+{
+	kd_tree->GetElementsToTest(ray, p1_distance, p2_distance, vec_to_fill);
+}
+
+void Scene::TestToKDTree(const AABB & box, std::vector<GameObject*>& vec_to_fill) const
+{
+	kd_tree->GetElementsToTest(box, vec_to_fill);
+}
+
+void Scene::TestToKDTree(const LineSegment & segment, std::vector<GameObject*>& vec_to_fill) const
+{
+	kd_tree->GetElementsToTest(segment, vec_to_fill);
+}
+
+void Scene::TestToKDTree(const Frustum & frustum, std::vector<GameObject*>& vec_to_fill) const
+{
+	kd_tree->GetElementsToTest(frustum, vec_to_fill);
+}
+
 void Scene::DrawHierarchy() const
 {
 	for (int i = 0; i < game_objects.size(); ++i)

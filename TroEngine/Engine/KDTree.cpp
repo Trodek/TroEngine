@@ -18,7 +18,8 @@ KDTree::Node::~Node()
 
 void KDTree::Node::AddElement(GameObject * element)
 {
-	elements.push_back(element);
+	if(element->HasComponent(Component::MeshRenderer))
+		elements.push_back(element);
 }
 
 void KDTree::Node::CreatePartition()
@@ -321,7 +322,7 @@ void KDTree::Node::DrawPlane(float size_x, float size_z, float3 prev_translation
 	}
 }
 
-void KDTree::Node::GetElementsToTest(const Ray & ray, float p1_distance, float p2_distance, std::vector<GameObject*> vec_to_fill) const
+void KDTree::Node::GetElementsToTest(const Ray & ray, float p1_distance, float p2_distance, std::vector<GameObject*>& vec_to_fill) const
 {
 	if (right != nullptr && left != nullptr)
 	{
@@ -355,7 +356,7 @@ void KDTree::Node::GetElementsToTest(const Ray & ray, float p1_distance, float p
 	}
 }
 
-void KDTree::Node::GetElementsToTest(const AABB & box, std::vector<GameObject*> vec_to_fill) const
+void KDTree::Node::GetElementsToTest(const AABB & box, std::vector<GameObject*>& vec_to_fill) const
 {
 	if (right != nullptr && left != nullptr)
 	{
@@ -385,7 +386,7 @@ void KDTree::Node::GetElementsToTest(const AABB & box, std::vector<GameObject*> 
 	}
 }
 
-void KDTree::Node::GetElementsToTest(const Frustum & frustum, std::vector<GameObject*> vec_to_fill) const
+void KDTree::Node::GetElementsToTest(const Frustum & frustum, std::vector<GameObject*>& vec_to_fill) const
 {
 	if (right != nullptr && left != nullptr)
 	{
@@ -420,6 +421,35 @@ void KDTree::Node::GetElementsToTest(const Frustum & frustum, std::vector<GameOb
 		{
 			right->GetElementsToTest(frustum, vec_to_fill);
 			left->GetElementsToTest(frustum, vec_to_fill);
+		}
+	}
+	else
+	{
+		GetElements(vec_to_fill);
+	}
+}
+
+void KDTree::Node::GetElementsToTest(const LineSegment & segment, std::vector<GameObject*>& vec_to_fill) const
+{
+	if (right != nullptr && left != nullptr)
+	{
+		//check if this segment is on one of the plane sides or it crosses the plane
+		if (cut_plane.AreOnSameSide(segment.a, segment.b))
+		{
+			//check on which side the segment is
+			if (cut_plane.IsOnPositiveSide(segment.a))
+			{
+				right->GetElementsToTest(segment, vec_to_fill);
+			}
+			else
+			{
+				left->GetElementsToTest(segment, vec_to_fill);
+			}
+		}
+		else //the segment 
+		{
+			right->GetElementsToTest(segment, vec_to_fill);
+			left->GetElementsToTest(segment, vec_to_fill);
 		}
 	}
 	else
@@ -478,7 +508,7 @@ void KDTree::EraseTree()
 	}
 }
 
-void KDTree::GetElementsToTest(const Frustum & frustum, std::vector<GameObject*> vec_to_fill) const
+void KDTree::GetElementsToTest(const Frustum & frustum, std::vector<GameObject*>& vec_to_fill) const
 {
 	if (root_node != nullptr)
 	{
@@ -486,7 +516,7 @@ void KDTree::GetElementsToTest(const Frustum & frustum, std::vector<GameObject*>
 	}
 }
 
-void KDTree::GetElementsToTest(const Ray & ray, float p1_distance, float p2_distance, std::vector<GameObject*> vec_to_fill) const
+void KDTree::GetElementsToTest(const Ray & ray, float p1_distance, float p2_distance, std::vector<GameObject*>& vec_to_fill) const
 {
 	if (root_node != nullptr)
 	{
@@ -494,11 +524,19 @@ void KDTree::GetElementsToTest(const Ray & ray, float p1_distance, float p2_dist
 	}
 }
 
-void KDTree::GetElementsToTest(const AABB & box, std::vector<GameObject*> vec_to_fill) const
+void KDTree::GetElementsToTest(const AABB & box, std::vector<GameObject*>& vec_to_fill) const
 {
 	if (root_node != nullptr)
 	{
 		root_node->GetElementsToTest(box, vec_to_fill);
+	}
+}
+
+void KDTree::GetElementsToTest(const LineSegment & segment, std::vector<GameObject*>& vec_to_fill) const
+{
+	if (root_node != nullptr)
+	{
+		root_node->GetElementsToTest(segment, vec_to_fill);
 	}
 }
 

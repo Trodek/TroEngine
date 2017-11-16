@@ -81,6 +81,16 @@ float * Camera::GetProjectionMatrix() const
 	return m.ptr();
 }
 
+float Camera::GetNearPlaneDistance() const
+{
+	return frustum.NearPlaneDistance();
+}
+
+float Camera::GetFarPlaneDistance() const
+{
+	return frustum.FarPlaneDistance();
+}
+
 void Camera::DrawConfig()
 {	
 	if (ImGui::CollapsingHeader("Camera"))
@@ -216,4 +226,14 @@ void Camera::Serialize(JSONDoc * doc)
 	doc->SetNumber("fov", fov);
 	doc->SetNumber("near", frustum.NearPlaneDistance());
 	doc->SetNumber("far", frustum.FarPlaneDistance());
+}
+
+LineSegment Camera::UnProjectSegment(float x, float y)
+{
+	return frustum.UnProjectLineSegment(x, y);
+}
+
+Ray Camera::UnProject(float x, float y)
+{
+	return frustum.UnProject(x, y);
 }

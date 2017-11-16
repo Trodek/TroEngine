@@ -29,6 +29,8 @@ public:
 
 	void Serialize(JSONDoc* doc);
 
+	bool TestSegmentToMesh(LineSegment segment, float& distance, float3& hit) const;
+
 private:
 	Mesh* mesh = nullptr;
 	bool wireframe = false;

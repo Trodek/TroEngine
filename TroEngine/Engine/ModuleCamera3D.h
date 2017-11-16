@@ -24,6 +24,8 @@ public:
 	float3 GetPos()const;
 
 	void Resize(float new_aspect);
+
+	void Pick(uint mouse_x, uint mouse_y);
 	
 private:
 	GameObject* cam_go = nullptr;

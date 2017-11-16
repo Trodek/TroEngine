@@ -4,6 +4,13 @@
 #include "ModuleInput.h"
 #include "GameObject.h"
 #include "Camera.h"
+#include "ModuleWindow.h"
+#include "Scene.h"
+#include "KDTree.h"
+#include "SceneManager.h"
+#include "MeshRenderer.h"
+#include "ModuleGUI.h"
+#include "Inspector.h"
 
 #define MAX_ADJUST_DISTANCE 300.f
 
@@ -60,6 +67,65 @@ void ModuleCamera3D::Resize(float new_aspect)
 	cam->SetAspectRatio(new_aspect);
 }
 
+void ModuleCamera3D::Pick(uint mouse_x, uint mouse_y)
+{
+	//convert pick to -1, 1 range (linear interpolation info here: https://en.wikipedia.org/wiki/Linear_interpolation)
+	float x = -1 + ((float)2 / App->window->GetWidth())*mouse_x;
+	float y = 1 + ((float)-2 / App->window->GetHeight())*mouse_y;
+
+	//create a ray to test
+	Ray ray = cam->UnProject(x, y);
+
+	//get the list of gameobjects to test
+	std::vector<GameObject*> objects_to_test;
+	App->scene_manager->GetCurrentScene()->GetAllDynamicGameObjects(objects_to_test);
+	///clean all objects that doesn't have aabb
+	for (std::vector<GameObject*>::iterator it = objects_to_test.begin(); it != objects_to_test.end();)
+	{
+		if (!(*it)->HasComponent(Component::Type::MeshRenderer))
+			it = objects_to_test.erase(it);
+		else it++;
+	}
+	App->scene_manager->GetCurrentScene()->TestToKDTree(ray, cam->GetNearPlaneDistance(), cam->GetFarPlaneDistance(), objects_to_test);
+
+	//test the pick ray vs the objects aabb. if they dont colide, erase from the vector
+	for (std::vector<GameObject*>::iterator it = objects_to_test.begin(); it != objects_to_test.end();)
+	{
+		MeshRenderer* mr = (MeshRenderer*)(*it)->GetComponent(Component::Type::MeshRenderer);
+		AABB box = mr->GetMeshAABB();
+		if (!ray.Intersects(box))
+			it = objects_to_test.erase(it);
+		else it++;
+	}
+
+	//create segment from the ray
+	LineSegment segment(ray.GetPoint(cam->GetNearPlaneDistance()), ray.GetPoint(cam->GetFarPlaneDistance()));
+
+	GameObject* picked = nullptr;
+	float distance = cam->GetFarPlaneDistance();
+
+	for (std::vector<GameObject*>::iterator it = objects_to_test.begin(); it != objects_to_test.end(); ++it)
+	{
+		MeshRenderer* mr = (MeshRenderer*)(*it)->GetComponent(Component::Type::MeshRenderer);
+		float dist;
+		float3 hit;
+		if (mr->TestSegmentToMesh(segment, dist, hit))
+		{
+			if (dist < distance)
+			{
+				distance = dist;
+				picked = (*it);
+			}
+		}
+	}
+
+	if (picked != nullptr)
+	{
+		App->gui->inspector->selected = picked;
+	}
+
+}
+
 // -----------------------------------------------------------------
 update_status ModuleCamera3D::Update(float dt)
 {
@@ -112,6 +178,11 @@ update_status ModuleCamera3D::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
 	{
 		cam->LookAt(float3(1,0,0));
+	}
+
+	if (App->input->GetMouseButton(1) == KEY_DOWN)
+	{
+		Pick(App->input->GetMouseX(), App->input->GetMouseY());
 	}
 
 	return UPDATE_CONTINUE;

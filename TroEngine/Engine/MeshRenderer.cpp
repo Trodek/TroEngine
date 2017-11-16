@@ -101,3 +101,17 @@ void MeshRenderer::Serialize(JSONDoc * doc)
 	else
 		doc->SetNumber("mesh", 0);
 }
+
+bool MeshRenderer::TestSegmentToMesh(LineSegment segment, float & distance, float3 & hit) const
+{
+	if (mesh != nullptr)
+	{	
+		//convert the segment to local space
+		LineSegment segment_local(segment);
+		segment_local.Transform(GetOwner()->GetTransform().Inverted());
+
+		return mesh->TestSegmentToTriangles(segment_local, distance, hit);
+	}
+	else
+		return false;
+}

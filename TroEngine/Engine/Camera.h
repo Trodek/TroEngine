@@ -24,6 +24,8 @@ public:
 
 	float* GetViewMatrix() const;
 	float* GetProjectionMatrix() const;
+	float GetNearPlaneDistance()const;
+	float GetFarPlaneDistance()const;
 
 	void DrawConfig();
 	void DebugDraw();
@@ -41,6 +43,8 @@ public:
 	void LookAt(const float3& Spot);
 
 	void Serialize(JSONDoc* doc);
+	Ray UnProject(float x, float y);
+	LineSegment UnProjectSegment(float x, float y);
 
 private:
 	Frustum frustum;

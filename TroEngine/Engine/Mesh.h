@@ -28,6 +28,8 @@ public:
 
 	void Render(bool wireframe = false);
 
+	bool TestSegmentToTriangles(const LineSegment& segment, float& distance, float3& hit);
+
 	void CleanUp();
 
 private:

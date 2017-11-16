@@ -164,6 +164,34 @@ void Mesh::Render(bool wireframe)
 	
 }
 
+bool Mesh::TestSegmentToTriangles(const LineSegment & segment, float & distance, float3 & hit)
+{
+	bool ret = false;
+	distance = 9999999999999.f;
+
+	for (int i = 0; i < num_indices; i += 3)
+	{
+		Triangle tri;
+		tri.a.Set(vertices[(3 * indices[i])], vertices[(3 * indices[i] + 1)], vertices[(3 * indices[i] + 2)]);
+		tri.b.Set(vertices[(3 * indices[i + 1])], vertices[(3 * indices[i + 1] + 1)], vertices[(3 * indices[i + 1] + 2)]);
+		tri.c.Set(vertices[(3 * indices[i + 2])], vertices[(3 * indices[i + 2] + 1)], vertices[(3 * indices[i + 2] + 2)]);
+
+		float dist;
+		float3 hit_point;
+		if (segment.Intersects(tri, &dist, &hit_point))
+		{
+			ret = true;
+			if (dist < distance)
+			{
+				distance = dist;
+				hit = hit_point;
+			}
+		}
+	}
+
+	return ret;
+}
+
 void Mesh::CleanUp()
 {
 	RELEASE_ARRAY(vertices);
