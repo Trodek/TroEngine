@@ -102,6 +102,9 @@ bool Scene::CleanUp()
 		go = game_objects.erase(go);
 	}
 
+	kd_tree->EraseTree();
+	RELEASE(kd_tree);
+
 	return ret;
 }
 
@@ -153,6 +156,28 @@ GameObject * Scene::GetGameObject(uint id) const //FIX this to work with childs
 			break;
 		}
 		++i;
+	}
+
+	return ret;
+}
+
+GameObject * Scene::GetGameObjectByUID(uint uid) const
+{
+	GameObject* ret = nullptr;
+
+	for (int i = 0; i < game_objects.size(); ++i)
+	{
+		if (game_objects[i]->GetUID() == uid)
+		{
+			ret = game_objects[i];
+			break;
+		}
+		else
+		{
+			game_objects[i]->GetChildByUID(uid, ret);
+			if (ret != nullptr)
+				break;
+		}
 	}
 
 	return ret;

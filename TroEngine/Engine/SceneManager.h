@@ -3,6 +3,7 @@
 
 #include "Module.h"
 #include <list>
+#include "Timer.h"
 
 class Scene;
 
@@ -26,9 +27,24 @@ public:
 
 	void ConfigGUI();
 
+	float ReadGameTimer()const;
+
+	void Play();
+	void Pause();
+	void Tick();
+
 private:
 	std::list<Scene*> scenes;
 	Scene* curr_scene = nullptr;
+
+	bool play = false;
+	bool paused = false;
+	bool do_tick = false;
+	bool load_scene = false;
+
+	Timer game_clock;
+	float last_game_frame_time = 0.f;
+	float game_dt = 0.f;
 };
 
 #endif // !__SCENEMANAGER__

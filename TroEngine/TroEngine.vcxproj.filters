@@ -372,6 +372,9 @@
     <ClCompile Include="Engine\UID.cpp">
       <Filter>Source\Engine\Tools</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\PlayPauseUI.cpp">
+      <Filter>Source\Editor\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Application.h">
@@ -766,6 +769,9 @@
     </ClInclude>
     <ClInclude Include="Engine\SceneImporter.h">
       <Filter>Source\Engine\Modules\SceneImporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\PlayPauseUI.h">
+      <Filter>Source\Editor\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

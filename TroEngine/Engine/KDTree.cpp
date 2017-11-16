@@ -487,24 +487,27 @@ void KDTree::CreateTree(std::vector<GameObject*>& elements, uint ele_on_partitio
 
 void KDTree::EraseTree()
 {
-	std::vector<Node*> nodes_to_visit;
-	nodes_to_visit.push_back(root_node);
-	root_node = nullptr;
-
-	while (!nodes_to_visit.empty())
+	if (root_node != nullptr) 
 	{
-		//add childs to visit them later
-		if ((*nodes_to_visit.begin())->GetLeft() != nullptr && (*nodes_to_visit.begin())->GetRight() != nullptr)
+		std::vector<Node*> nodes_to_visit;
+		nodes_to_visit.push_back(root_node);
+		root_node = nullptr;
+
+		while (!nodes_to_visit.empty())
 		{
-			nodes_to_visit.push_back((*nodes_to_visit.begin())->GetLeft());
-			nodes_to_visit.push_back((*nodes_to_visit.begin())->GetRight());
+			//add childs to visit them later
+			if ((*nodes_to_visit.begin())->GetLeft() != nullptr && (*nodes_to_visit.begin())->GetRight() != nullptr)
+			{
+				nodes_to_visit.push_back((*nodes_to_visit.begin())->GetLeft());
+				nodes_to_visit.push_back((*nodes_to_visit.begin())->GetRight());
+			}
+
+			//Remove node data
+			RELEASE(*nodes_to_visit.begin());
+
+			//remove curr node from the nodes to visit
+			nodes_to_visit.erase(nodes_to_visit.begin());
 		}
-
-		//Remove node data
-		RELEASE(*nodes_to_visit.begin());
-
-		//remove curr node from the nodes to visit
-		nodes_to_visit.erase(nodes_to_visit.begin());
 	}
 }
 

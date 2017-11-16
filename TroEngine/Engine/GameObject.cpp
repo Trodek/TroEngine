@@ -30,6 +30,11 @@ GameObject::GameObject(const char * name, bool active, GameObject * parent) : na
 	RELEASE_ARRAY(data);
 }
 
+GameObject::GameObject(const char * name, uint UID, bool active, GameObject * parent) : name(name), active(active), parent(parent), UID(UID)
+{
+	AddComponent(Component::Type::C_Transform);
+}
+
 GameObject::~GameObject()
 {
 }
@@ -57,6 +62,11 @@ uint GameObject::GetUID() const
 void GameObject::SetNewParent(GameObject * new_parent)
 {
 	this->parent = parent;
+}
+
+void GameObject::SetNewChildId(uint id)
+{
+	new_child_id = id;
 }
 
 bool GameObject::Start()
@@ -93,19 +103,19 @@ bool GameObject::PreUpdate()
 		ret = (*go)->PreUpdate();
 	}
 
-	return ret;
-}
-
-bool GameObject::Update(float dt)
-{
-	bool ret = true;
-
 	//change static state
 	if (change_static)
 	{
 		change_static = false;
 		SetChildrenStatic(is_static);
 	}
+
+	return ret;
+}
+
+bool GameObject::Update(float dt)
+{
+	bool ret = true;
 
 	//Update components
 	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
@@ -354,6 +364,11 @@ void GameObject::RemoveAllComponents()
 	}
 }
 
+void GameObject::AddChild(GameObject * go)
+{
+	childs.push_back(go);
+}
+
 GameObject * GameObject::CreateChild(const char* name)
 {
 	GameObject* go = new GameObject(name,true,this);
@@ -385,6 +400,24 @@ GameObject * GameObject::GetChild(uint id) const
 	}
 
 	return ret;
+}
+
+void GameObject::GetChildByUID(uint UID, GameObject * go) const
+{
+	for (int i = 0; i < childs.size(); ++i)
+	{
+		if (childs[i]->GetUID() == UID)
+		{
+			go = childs[i];
+			break;
+		}
+		else
+		{
+			childs[i]->GetChildByUID(UID, go);
+			if (go != nullptr)
+				break;
+		}
+	}
 }
 
 void GameObject::GetAllChilds(std::vector<GameObject*>& go) const
@@ -439,6 +472,12 @@ uint GameObject::GetNumChilds() const
 bool GameObject::IsStatic() const
 {
 	return is_static;
+}
+
+void GameObject::SetStatic(bool value)
+{
+	is_static = value;
+	change_static = true;
 }
 
 void GameObject::Delete()

@@ -12,6 +12,7 @@ class GameObject
 {
 public:
 	GameObject(const char* name, bool active = true, GameObject* parent = nullptr);
+	GameObject(const char* name, uint UID, bool active = true, GameObject* parent = nullptr);
 	~GameObject();
 
 	void SetActive(bool active);
@@ -19,6 +20,7 @@ public:
 	GameObject* GetParent() const;
 	uint GetUID() const;
 	void SetNewParent(GameObject* new_parent);
+	void SetNewChildId(uint id);
 
 	bool Start();
 	bool PreUpdate();
@@ -40,9 +42,11 @@ public:
 	void RemoveComponentsByType(Component::Type type);
 	void RemoveAllComponents();
 
+	void AddChild(GameObject* go);
 	GameObject* CreateChild(const char* name);
 	GameObject* CreateChild();
 	GameObject* GetChild(uint id) const;
+	void GetChildByUID(uint UID, GameObject* go)const;
 	void GetAllChilds(std::vector<GameObject*>& go)const;
 	void GetAllStaticChilds(std::vector<GameObject*>& go)const;
 	void GetAllDynamicChilds(std::vector<GameObject*>& go)const;
@@ -57,6 +61,7 @@ public:
 	void DrawHierarchy();
 
 	bool IsStatic()const;
+	void SetStatic(bool value);
 
 	void Delete();
 

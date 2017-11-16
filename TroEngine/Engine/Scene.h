@@ -33,6 +33,7 @@ public:
 	GameObject* CreateGameObject(const char* name);
 
 	GameObject* GetGameObject(uint id) const;
+	GameObject* GetGameObjectByUID(uint uid)const;
 	void GetAllStaticGameObjects(std::vector<GameObject*>& vector_to_fill)const;
 	void GetAllDynamicGameObjects(std::vector<GameObject*>& vector_to_fill)const;
 	void GetAllGameObjects(std::vector<GameObject*>& vector_to_fill)const;

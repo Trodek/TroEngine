@@ -13,6 +13,7 @@
 #include "ModuleInput.h"
 #include "ModuleRenderer3D.h"
 #include "Transform.h"
+#include "PlayPauseUI.h"
 
 ModuleGUI::ModuleGUI(bool start_enabled) : Module(start_enabled) 
 {
@@ -43,6 +44,7 @@ bool ModuleGUI::Start()
 	inspector = new Inspector();
 	AddElement(inspector);
 	AddElement(new Hierarchy());
+	AddElement(new PlayPauseUI());
 
 	return true;
 }
