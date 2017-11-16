@@ -83,12 +83,32 @@ update_status ModuleGUI::Update(float dt)
 			
 			Transform* trans = (Transform*)inspector->selected->GetComponent(Component::Type::C_Transform);
 
-			if(gizmo_op == ImGuizmo::TRANSLATE)
-				trans->Translate(float3(pos[0], pos[1], pos[2]));
+			if (gizmo_op == ImGuizmo::TRANSLATE)
+			{
+				float3 translate(pos[0], pos[1], pos[2]);
+				if(inspector->selected->GetParent() != nullptr)
+					translate = inspector->selected->GetParent()->GetTransform().Inverted().TransformPos(translate);
+				trans->Translate(translate);
+			}
 			else if (gizmo_op == ImGuizmo::SCALE)
-				trans->SetScale(float3(scale[0], scale[1], scale[2]));
+			{
+				float3 curr_scale(inspector->selected->GetTransform().GetScale());
+				float3 scale_mod(scale[0], scale[1], scale[2]);
+				if (inspector->selected->GetParent() != nullptr)
+					scale_mod = inspector->selected->GetParent()->GetTransform().Inverted().TransformPos(scale_mod);
+				curr_scale.x *= scale_mod.x;
+				curr_scale.y *= scale_mod.y;
+				curr_scale.z *= scale_mod.z;
+
+				trans->SetScale(curr_scale);
+			}
 			else if (gizmo_op == ImGuizmo::ROTATE)
-				trans->Rotate(float3(rot[0] * DEGTORAD, rot[1] * DEGTORAD, rot[2] * DEGTORAD));
+			{
+				float3 rotation(rot[0] * DEGTORAD, rot[1] * DEGTORAD, rot[2] * DEGTORAD);
+				if (inspector->selected->GetParent() != nullptr)
+					rotation = inspector->selected->GetParent()->GetTransform().Inverted().TransformPos(rotation);
+				trans->Rotate(rotation);
+			}
 		}
 		ImGui::End();
 	}
