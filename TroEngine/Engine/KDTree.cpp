@@ -18,7 +18,7 @@ KDTree::Node::~Node()
 
 void KDTree::Node::AddElement(GameObject * element)
 {
-	if(element->HasComponent(Component::MeshRenderer))
+	if(element->HasComponent(Component::C_MeshRenderer))
 		elements.push_back(element);
 }
 
@@ -54,10 +54,10 @@ void KDTree::Node::CreatePartition()
 		std::vector<float> points;
 		for (int i = 0; i < elements.size(); ++i)
 		{
-			if (!elements[i]->HasComponent(Component::Type::MeshRenderer))
+			if (!elements[i]->HasComponent(Component::Type::C_MeshRenderer))
 				continue;
 
-			MeshRenderer* mr = (MeshRenderer*)elements[i]->GetComponent(Component::Type::MeshRenderer);
+			MeshRenderer* mr = (MeshRenderer*)elements[i]->GetComponent(Component::Type::C_MeshRenderer);
 
 			switch (axis)
 			{
@@ -104,7 +104,7 @@ void KDTree::Node::CreatePartition()
 		{
 			int node = 0; // new node is decided between positive part or negative part of the plane.
 
-			MeshRenderer* mr = (MeshRenderer*)(*ele)->GetComponent(Component::Type::MeshRenderer);
+			MeshRenderer* mr = (MeshRenderer*)(*ele)->GetComponent(Component::Type::C_MeshRenderer);
 
 			if (mr == nullptr)
 			{

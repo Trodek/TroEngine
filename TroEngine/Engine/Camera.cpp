@@ -6,6 +6,9 @@
 #include "ModuleRenderer3D.h"
 #include "imgui.h"
 #include "JSONManager.h"
+#include "SceneManager.h"
+#include "Scene.h"
+#include "MeshRenderer.h"
 
 Camera::Camera(GameObject * owner) : Component(Component::Type::Camera, owner)
 {
@@ -231,6 +234,67 @@ void Camera::Serialize(JSONDoc * doc)
 LineSegment Camera::UnProjectSegment(float x, float y)
 {
 	return frustum.UnProjectLineSegment(x, y);
+}
+
+void Camera::GetElementsToDraw(std::vector<GameObject*>& vec_to_fill) const
+{
+	std::vector<GameObject*> objects_to_test;
+	App->scene_manager->GetCurrentScene()->GetAllDynamicGameObjects(objects_to_test);
+	///clean all objects that doesn't have aabb
+	for (std::vector<GameObject*>::iterator it = objects_to_test.begin(); it != objects_to_test.end();)
+	{
+		if (!(*it)->HasComponent(Component::Type::C_MeshRenderer))
+			it = objects_to_test.erase(it);
+		else it++;
+	}
+	App->scene_manager->GetCurrentScene()->TestToKDTree(frustum, objects_to_test);
+
+	//test elements with frustum
+	for (std::vector<GameObject*>::iterator it = objects_to_test.begin(); it != objects_to_test.end();)
+	{
+		MeshRenderer* mr = (MeshRenderer*)(*it)->GetComponent(Component::Type::C_MeshRenderer);
+
+		if (!FrustumContains(mr->GetMeshAABB()))
+			it = objects_to_test.erase(it);
+		else it++;
+	}
+
+	//copy elements to vector
+	for (std::vector<GameObject*>::iterator it = objects_to_test.begin(); it != objects_to_test.end(); ++it)
+	{
+		vec_to_fill.push_back((*it));
+	}
+}
+
+bool Camera::FrustumContains(const AABB & box) const
+{
+	bool ret = true;
+
+	float3 corners[8];
+	box.GetCornerPoints(corners);
+
+	//test all corners for each plane
+	for (int p = 0; p < 6; ++p)
+	{
+		uint corners_in = 8;
+		
+		for (int c = 0; c < 8; ++c)
+		{
+			if (frustum.GetPlane(p).IsOnPositiveSide(corners[c]))
+			{
+				corners_in--;
+			}
+		}
+
+		if (corners_in == 0)
+		{
+			ret = false;
+			break;
+		}
+
+	}
+
+	return ret;
 }
 
 Ray Camera::UnProject(float x, float y)

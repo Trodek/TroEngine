@@ -3,6 +3,7 @@
 
 #include "Component.h"
 #include "MathGeoLib.h"
+#include <vector>
 
 class GameObject;
 class Transform;
@@ -45,6 +46,11 @@ public:
 	void Serialize(JSONDoc* doc);
 	Ray UnProject(float x, float y);
 	LineSegment UnProjectSegment(float x, float y);
+
+	void GetElementsToDraw(std::vector<GameObject*>& vec_to_fill)const;
+
+private:
+	bool FrustumContains(const AABB& box) const;
 
 private:
 	Frustum frustum;

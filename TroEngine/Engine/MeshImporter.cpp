@@ -166,7 +166,7 @@ bool MeshImporter::ImportNode(const aiScene * scene, aiNode * node, GameObject *
 		ret = ImportMesh(scene->mMeshes[node->mMeshes[i]], go, mats);
 
 		//Check if the mesh was imported to the gameobject, if not delete the go.
-		if (!go->HasComponent(Component::MeshRenderer))
+		if (!go->HasComponent(Component::C_MeshRenderer))
 		{
 			//parent->ch
 		}
@@ -264,7 +264,7 @@ bool MeshImporter::ImportMesh(aiMesh * mesh, GameObject * owner, const std::vect
 			meshes.push_back(new_mesh);
 
 			//add a mesh renderer to owner game object
-			MeshRenderer* mr = (MeshRenderer*)owner->AddComponent(Component::Type::MeshRenderer);
+			MeshRenderer* mr = (MeshRenderer*)owner->AddComponent(Component::Type::C_MeshRenderer);
 			//Set this mesh to the mesh renderer
 			mr->SetMesh(new_mesh);
 
@@ -370,7 +370,7 @@ void MeshImporter::LoadFile(const char * path)
 
 	//TEST
 	GameObject* go = App->scene_manager->GetCurrentScene()->CreateGameObject();
-	MeshRenderer* mr = (MeshRenderer*)go->AddComponent(Component::Type::MeshRenderer);
+	MeshRenderer* mr = (MeshRenderer*)go->AddComponent(Component::Type::C_MeshRenderer);
 	mr->SetMesh(geo);
 	go->AddComponent(Component::Type::Camera);
 

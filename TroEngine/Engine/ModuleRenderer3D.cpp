@@ -176,8 +176,8 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	//Rendering pipeline
-	if(!App->debug_mode) // for debug proposes avoid drawing geometry, just the debug boxes
-		App->scene_manager->DrawScenes();
+	if (!App->debug_mode) // for debug proposes avoid drawing geometry, just the debug boxes
+		App->camera->DrawElementsOnFrustum();
 
 	//Draw debug
 	bool cull_face_state = cull_face; //disable cull face when in debug

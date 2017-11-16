@@ -46,7 +46,7 @@ void Inspector::CreateInspector()
 
 				if (ImGui::MenuItem("Mesh Renderer"))
 				{
-					comp_type = Component::Type::MeshRenderer;
+					comp_type = Component::Type::C_MeshRenderer;
 				}
 
 				if (ImGui::MenuItem("Material"))

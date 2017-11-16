@@ -26,10 +26,15 @@ public:
 	void Resize(float new_aspect);
 
 	void Pick(uint mouse_x, uint mouse_y);
+
+	void DrawElementsOnFrustum()const;
 	
 private:
 	GameObject* cam_go = nullptr;
 	Camera* cam = nullptr;
+
+	bool main_cam_active = false;
+	Camera* main_cam = nullptr;
 
 	//Movement variables
 	float speed = 10.f;

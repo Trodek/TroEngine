@@ -7,7 +7,7 @@
 #include "ModuleRenderer3D.h"
 #include "JSONManager.h"
 
-MeshRenderer::MeshRenderer(GameObject* owner) : Component(Component::Type::MeshRenderer,owner)
+MeshRenderer::MeshRenderer(GameObject* owner) : Component(Component::Type::C_MeshRenderer, owner)
 {
 }
 

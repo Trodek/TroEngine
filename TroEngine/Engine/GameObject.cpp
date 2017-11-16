@@ -160,7 +160,7 @@ void GameObject::Draw()
 	//Draw MeshRenderer
 	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
 	{
-		if ((*c)->GetType() == Component::Type::MeshRenderer)
+		if ((*c)->GetType() == Component::Type::C_MeshRenderer)
 		{
 			App->renderer3D->PushMatrix();
 			Transform* trans = (Transform*)GetComponent(Component::Type::C_Transform);
@@ -251,9 +251,9 @@ Component* GameObject::AddComponent(Component::Type type)
 		}
 		break;
 	}
-	case Component::MeshRenderer:
+	case Component::C_MeshRenderer:
 	{
-		if (!HasComponent(Component::MeshRenderer))
+		if (!HasComponent(Component::C_MeshRenderer))
 		{
 			MeshRenderer* mr = new MeshRenderer(this);
 			components.push_back(mr);

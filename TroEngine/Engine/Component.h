@@ -13,7 +13,7 @@ public:
 	{
 		Null,
 		C_Transform,
-		MeshRenderer,
+		C_MeshRenderer,
 		C_Material,
 		Camera,
 	};

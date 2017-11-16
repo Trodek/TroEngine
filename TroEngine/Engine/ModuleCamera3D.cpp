@@ -49,12 +49,12 @@ void ModuleCamera3D::ConfigGUI()
 
 float * ModuleCamera3D::GetProjectionMatrix() const
 {
-	return cam->GetProjectionMatrix();
+	return (main_cam_active == true) ? main_cam->GetProjectionMatrix():cam->GetProjectionMatrix();
 }
 
 float * ModuleCamera3D::GetViewMatrix() const
 {
-	return cam->GetViewMatrix();
+	return (main_cam_active == true) ? main_cam->GetViewMatrix():cam->GetViewMatrix();
 }
 
 float3 ModuleCamera3D::GetPos() const
@@ -82,7 +82,7 @@ void ModuleCamera3D::Pick(uint mouse_x, uint mouse_y)
 	///clean all objects that doesn't have aabb
 	for (std::vector<GameObject*>::iterator it = objects_to_test.begin(); it != objects_to_test.end();)
 	{
-		if (!(*it)->HasComponent(Component::Type::MeshRenderer))
+		if (!(*it)->HasComponent(Component::Type::C_MeshRenderer))
 			it = objects_to_test.erase(it);
 		else it++;
 	}
@@ -91,7 +91,7 @@ void ModuleCamera3D::Pick(uint mouse_x, uint mouse_y)
 	//test the pick ray vs the objects aabb. if they dont colide, erase from the vector
 	for (std::vector<GameObject*>::iterator it = objects_to_test.begin(); it != objects_to_test.end();)
 	{
-		MeshRenderer* mr = (MeshRenderer*)(*it)->GetComponent(Component::Type::MeshRenderer);
+		MeshRenderer* mr = (MeshRenderer*)(*it)->GetComponent(Component::Type::C_MeshRenderer);
 		AABB box = mr->GetMeshAABB();
 		if (!ray.Intersects(box))
 			it = objects_to_test.erase(it);
@@ -106,7 +106,7 @@ void ModuleCamera3D::Pick(uint mouse_x, uint mouse_y)
 
 	for (std::vector<GameObject*>::iterator it = objects_to_test.begin(); it != objects_to_test.end(); ++it)
 	{
-		MeshRenderer* mr = (MeshRenderer*)(*it)->GetComponent(Component::Type::MeshRenderer);
+		MeshRenderer* mr = (MeshRenderer*)(*it)->GetComponent(Component::Type::C_MeshRenderer);
 		float dist;
 		float3 hit;
 		if (mr->TestSegmentToMesh(segment, dist, hit))
@@ -124,6 +124,19 @@ void ModuleCamera3D::Pick(uint mouse_x, uint mouse_y)
 		App->gui->inspector->selected = picked;
 	}
 
+}
+
+void ModuleCamera3D::DrawElementsOnFrustum() const
+{
+	std::vector<GameObject*> elements;
+	
+	(main_cam_active == true) ? main_cam->GetElementsToDraw(elements) : cam->GetElementsToDraw(elements);
+
+	for (std::vector<GameObject*>::iterator go = elements.begin(); go != elements.end(); ++go)
+	{
+		if ((*go)->IsActive())
+			(*go)->Draw();
+	}
 }
 
 // -----------------------------------------------------------------
@@ -180,7 +193,7 @@ update_status ModuleCamera3D::Update(float dt)
 		cam->LookAt(float3(1,0,0));
 	}
 
-	if (App->input->GetMouseButton(1) == KEY_DOWN)
+	if (App->input->GetMouseButton(1) == KEY_DOWN && !ImGuizmo::IsUsing())
 	{
 		Pick(App->input->GetMouseX(), App->input->GetMouseY());
 	}
