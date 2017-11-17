@@ -16,6 +16,7 @@
 #include "MeshImporter.h"
 #include "MaterialManager.h"
 #include "SceneImporter.h"
+#include "ResourceManager.h"
 
 #include "Algorithm\Random\LCG.h"
 #include "imgui.h"
@@ -35,6 +36,7 @@ Application::Application()
 	mesh = new MeshImporter();
 	materials = new MaterialManager();
 	scene_importer = new SceneImporter();
+	resources = new ResourceManager();
 
 	// The order of calls is very important!
 	// Modules will Awake() Start() and Update() in this order
@@ -43,6 +45,7 @@ Application::Application()
 	// Main Modules
 	AddModule(window);
 	AddModule(gui);
+	AddModule(resources);
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
@@ -524,6 +527,38 @@ bool Application::CopyFileTo(const char * file, const char * target)
 	CopyFile(file, dest_file.c_str(), false);
 
 	return ret;
+}
+
+void Application::GetFilesInPath(std::vector<std::string>& paths, const char * path, const char * extension)
+{
+	WIN32_FIND_DATA search_data;
+
+	std::string path_ex = path;
+
+	if (extension != nullptr)
+	{
+		path_ex += "*.";
+		path_ex += extension;
+	}
+	else
+	{
+		path_ex += "*.*";
+	}
+
+	HANDLE handle = FindFirstFile(path_ex.c_str(), &search_data);
+
+	while (handle != INVALID_HANDLE_VALUE)
+	{
+		std::string path_new = path;
+		path_new += search_data.cFileName;
+		paths.push_back(path_new);
+
+		if (FindNextFile(handle, &search_data) == FALSE)
+			break;
+	}
+
+	if (handle)
+		FindClose(handle);
 }
 
 void Application::AddModule(Module* mod)

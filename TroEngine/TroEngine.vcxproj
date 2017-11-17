@@ -89,6 +89,7 @@
     <ClCompile Include="Engine\ModuleInput.cpp" />
     <ClCompile Include="Engine\ModuleRenderer3D.cpp" />
     <ClCompile Include="Engine\PlayPauseUI.cpp" />
+    <ClCompile Include="Engine\ResourceManager.cpp" />
     <ClCompile Include="Engine\Scene.cpp" />
     <ClCompile Include="Engine\SceneImporter.cpp" />
     <ClCompile Include="Engine\SceneManager.cpp" />
@@ -127,6 +128,7 @@
     <ClInclude Include="Engine\GameObject.h" />
     <ClInclude Include="Engine\ImGuizmo.h" />
     <ClInclude Include="Engine\PlayPauseUI.h" />
+    <ClInclude Include="Engine\ResourceManager.h" />
     <ClInclude Include="Engine\SceneImporter.h" />
     <ClInclude Include="Engine\UID.h" />
     <ClInclude Include="Engine\KDTree.h" />

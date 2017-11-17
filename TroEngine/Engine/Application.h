@@ -22,6 +22,7 @@ class JSONManager;
 class MeshImporter;
 class MaterialManager;
 class SceneImporter;
+class ResourceManager;
 
 class Application
 {
@@ -37,6 +38,7 @@ public:
 	MeshImporter* mesh;
 	MaterialManager* materials;
 	SceneImporter* scene_importer;
+	ResourceManager* resources;
 
 	bool debug_mode = false;
 
@@ -102,6 +104,9 @@ public:
 
 	//Copy file to target folder
 	bool CopyFileTo(const char* file, const char* target);
+
+	//fills paths vector with files found on path. if a extension is specified, returns files with that extension
+	void GetFilesInPath(std::vector<std::string>& paths, const char * path, const char* extension = nullptr);
 
 
 private:

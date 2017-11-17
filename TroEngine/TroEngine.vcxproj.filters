@@ -130,6 +130,9 @@
     <Filter Include="Source\Engine\Modules\SceneImporter">
       <UniqueIdentifier>{1b747206-0ff2-48c0-806f-58365af4bc50}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\Modules\Resource Manager">
+      <UniqueIdentifier>{cd42ae87-9dc9-41de-bdaa-9a2a914518e3}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -374,6 +377,9 @@
     </ClCompile>
     <ClCompile Include="Engine\PlayPauseUI.cpp">
       <Filter>Source\Editor\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ResourceManager.cpp">
+      <Filter>Source\Engine\Modules\Resource Manager</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -772,6 +778,9 @@
     </ClInclude>
     <ClInclude Include="Engine\PlayPauseUI.h">
       <Filter>Source\Editor\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ResourceManager.h">
+      <Filter>Source\Engine\Modules\Resource Manager</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
