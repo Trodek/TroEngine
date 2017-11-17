@@ -42,6 +42,13 @@ void PlayPauseUI::CreatePlayPauseUI()
 		
 		ImGui::Text("%.2f", App->scene_manager->ReadGameTimer());
 
+		ImGui::SameLine();
+		float speed = App->scene_manager->GetGameTimerSpeed();
+		if (ImGui::DragFloat("Speed##time", &speed, 0.1f, 0.5f, 3.f, "%.1f"))
+		{
+			App->scene_manager->SetGameTimerSpeed(speed);
+		}
+
 		ImGui::End();
 	}
 }

@@ -156,6 +156,16 @@ float SceneManager::ReadGameTimer() const
 	return game_clock.ReadSec();
 }
 
+float SceneManager::GetGameTimerSpeed() const
+{
+	return game_clock.GetSpeed();
+}
+
+void SceneManager::SetGameTimerSpeed(float s)
+{
+	game_clock.SetSpeed(s);
+}
+
 void SceneManager::Play()
 {
 	if (!play)

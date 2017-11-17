@@ -28,6 +28,8 @@ public:
 	void ConfigGUI();
 
 	float ReadGameTimer()const;
+	float GetGameTimerSpeed()const;
+	void SetGameTimerSpeed(float s);
 
 	void Play();
 	void Pause();
