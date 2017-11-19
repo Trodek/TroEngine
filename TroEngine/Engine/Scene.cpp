@@ -61,18 +61,18 @@ bool Scene::PreUpdate()
 			(*go)->draw = false;
 	}
 
+	if (update_kd_tree)
+	{
+		update_kd_tree = false;
+		CreateTree();
+	}
+
 	return ret;
 }
 
 update_status Scene::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
-	
-	if (update_kd_tree)
-	{
-		update_kd_tree = false;
-		CreateTree();
-	}
 
 	bool go_ret = true;
 	for (std::vector<GameObject*>::iterator go = game_objects.begin(); go != game_objects.end(); ++go)
