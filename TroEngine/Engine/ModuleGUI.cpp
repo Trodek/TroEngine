@@ -14,6 +14,7 @@
 #include "ModuleRenderer3D.h"
 #include "Transform.h"
 #include "PlayPauseUI.h"
+#include "Explorer.h"
 
 ModuleGUI::ModuleGUI(bool start_enabled) : Module(start_enabled) 
 {
@@ -45,7 +46,8 @@ bool ModuleGUI::Start()
 	AddElement(inspector);
 	AddElement(new Hierarchy());
 	AddElement(new PlayPauseUI());
-
+	explorer = new Explorer();
+	AddElement(explorer);
 	return true;
 }
 

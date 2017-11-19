@@ -1,0 +1,14 @@
+{
+    "resources": [
+        {
+            "name": "Rock",
+            "extension": "fbx",
+            "rel_path": "Assets\\Meshes\\",
+            "lib_name": "mesh_0",
+            "lib_path": "Library\\Meshes\\",
+            "file_id": 0,
+            "type": 1,
+            "UID": 2156644594
+        }
+    ]
+}

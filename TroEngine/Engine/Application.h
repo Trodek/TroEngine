@@ -103,7 +103,7 @@ public:
 	bool CreateFolder(const char* path) const;
 
 	//Copy file to target folder
-	bool CopyFileTo(const char* file, const char* target);
+	bool CopyFileTo(const char* file, const char* target, std::string* new_path = nullptr);
 
 	//fills paths vector with files found on path. if a extension is specified, returns files with that extension
 	void GetFilesInPath(std::vector<std::string>& paths, const char * path, const char* extension = nullptr);

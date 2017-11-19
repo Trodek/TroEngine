@@ -381,6 +381,9 @@
     <ClCompile Include="Engine\ResourceManager.cpp">
       <Filter>Source\Engine\Modules\Resource Manager</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\Explorer.cpp">
+      <Filter>Source\Editor\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Application.h">
@@ -781,6 +784,9 @@
     </ClInclude>
     <ClInclude Include="Engine\ResourceManager.h">
       <Filter>Source\Engine\Modules\Resource Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Explorer.h">
+      <Filter>Source\Editor\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

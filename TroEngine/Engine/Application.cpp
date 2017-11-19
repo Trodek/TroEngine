@@ -512,7 +512,7 @@ bool Application::CreateFolder(const char * path) const
 	return ret;
 }
 
-bool Application::CopyFileTo(const char * file, const char * target)
+bool Application::CopyFileTo(const char * file, const char * target, std::string* new_path)
 {
 	bool ret = true;
 
@@ -525,6 +525,9 @@ bool Application::CopyFileTo(const char * file, const char * target)
 		dest_file += curr_file.substr(cut, curr_file.size() - cut);
 
 	CopyFile(file, dest_file.c_str(), false);
+	
+	if (new_path != nullptr)
+		*new_path = dest_file;
 
 	return ret;
 }

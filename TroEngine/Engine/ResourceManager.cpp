@@ -90,13 +90,17 @@ void ResourceManager::Load(const char * path)
 	ResourceType file_type = GetTypeFromPath(path);
 	
 	bool create_meta = true;
+	std::string copy_path;
 	switch (file_type)
 	{
 	case R_NULL:
 		break;
 	case R_MESH:
-		App->mesh->ImportFile(path);
-		break;
+	{
+		App->CopyFileTo(path, "Assets\\Meshes", &copy_path);
+		App->mesh->ImportFile(copy_path.c_str());
+		break; 
+	}
 	case R_TEXTURE:
 		App->materials->ImportImage(path);
 		break;
@@ -115,7 +119,7 @@ void ResourceManager::Load(const char * path)
 	}
 
 	if(create_meta)
-		CreateMeta(path);
+		CreateMeta(copy_path.c_str());
 }
 
 Resource * ResourceManager::LoadMeta(const char * path)
