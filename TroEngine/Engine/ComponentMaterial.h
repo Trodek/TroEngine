@@ -23,6 +23,8 @@ public:
 
 	void UseChecker();
 
+	void Serialize(JSONDoc* doc);
+
 private:
 	Material* material = nullptr;
 	bool use_checker = false;

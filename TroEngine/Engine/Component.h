@@ -1,9 +1,10 @@
 #ifndef __COMPONENT__
 #define __COMPONENT__
 
-
+#include "MathGeoLib.h"
 
 class GameObject;
+class JSONDoc;
 
 class Component
 {
@@ -11,9 +12,10 @@ public:
 	enum Type
 	{
 		Null,
-		Transform,
-		MeshRenderer,
+		C_Transform,
+		C_MeshRenderer,
 		C_Material,
+		Camera,
 	};
 
 public:
@@ -32,9 +34,13 @@ public:
 	virtual bool Update(float dt) { return true; }
 	virtual void CleanUp() {}
 
+	virtual void OnUpdateTransform() {}
+
 	virtual void DebugDraw() {}
 
 	virtual void DrawConfig() {}
+
+	virtual void Serialize(JSONDoc* doc){}
 
 public:
 	bool kill_me = false;

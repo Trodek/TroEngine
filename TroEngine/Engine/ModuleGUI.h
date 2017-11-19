@@ -4,10 +4,12 @@
 #include "Module.h"
 #include "Globals.h"
 #include <list>
+#include "ImGuizmo.h"
 
 class GUIElement;
 class ConsoleGUI;
 class Inspector;
+class Explorer;
 
 class ModuleGUI : public Module
 {
@@ -29,9 +31,11 @@ public:
 public:
 	ConsoleGUI* console = nullptr;
 	Inspector* inspector = nullptr;
+	Explorer* explorer = nullptr;
 
 private:
 	std::list<GUIElement*> gui_elements;
+	ImGuizmo::OPERATION gizmo_op = ImGuizmo::OPERATION::TRANSLATE;
 };
 
 #endif // !__MODULEGUI__

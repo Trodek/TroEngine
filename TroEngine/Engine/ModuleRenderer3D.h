@@ -3,6 +3,7 @@
 #include "Globals.h"
 #include "GLInclude.h"
 #include "Light.h"
+#include "Color.h"
 
 #define MAX_LIGHTS 8
 
@@ -32,6 +33,7 @@ public:
 	void EnableState(GLenum type) const;
 	void DisableState(GLenum type) const;
 	void SetVertexPointer() const;
+	void SetNormalsPointer() const;
 	void SetCheckerTexture() const;
 	void BindTexure(uint id) const;
 	void UnbindTexture() const;
@@ -43,9 +45,29 @@ public:
 	uint LoadTextureToVRAM(uint w, uint h, GLubyte* tex_data, GLint format) const;
 
 	GLenum GetPolyMode()const;
+	void SetPolyMode(GLenum mode);
 	void PolygonModePoints();
 	void PolygonModeWireframe();
 	void PolygonModeFill();
+
+	void PushMatrix();
+	void PopMatrix();
+	void MultMatrix(float* matrix);
+
+	void SetLineWidth(float size);
+
+	void SetColor(Color color);
+	void ResetColor();
+
+	bool GetCullFace()const;
+
+private:
+	void ToggleDepthTestState();
+	void ToggleCullFaceState();
+	void ToggleLightingState();
+	void ToggleTexture2DState();
+	void ToggleColorMaterialState();
+	void ToggleVSYNC();
 
 public:
 	Light lights[MAX_LIGHTS];
@@ -70,13 +92,5 @@ private:
 	bool vsync			= false;
 
 	uint checker_id		= 0;
-
-private:
-	void ToggleDepthTestState();
-	void ToggleCullFaceState();
-	void ToggleLightingState();
-	void ToggleTexture2DState();
-	void ToggleColorMaterialState();
-	void ToggleVSYNC();
 
 };

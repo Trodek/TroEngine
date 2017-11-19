@@ -1,47 +1,154 @@
 #include "Transform.h"
 #include "imgui.h"
+#include "GameObject.h"
+#include "JSONManager.h"
 
-Transform::Transform(GameObject * owner) :Component(Component::Type::Transform, owner)
+Transform::Transform(GameObject * owner) :Component(Component::Type::C_Transform, owner)
 {
-	transform.SetIdentity();
+	rotation.Set(0, 0, 0, 1);
+	position.Set(0, 0, 0);
+	scale.Set(1, 1, 1);
 
-	float3x3 rot_mat;
-	transform.Decompose(position, rot_mat, scale);
-	rotation = rot_mat.ToEulerXYZ();
+	global_trans = float4x4::FromTRS(position, rotation, scale);
 }
 
 Transform::~Transform()
 {
 }
 
-void Transform::SetTransform(const float * values)
+void Transform::OnUpdateTransform()
 {
-	transform.Set(values);
-
-	float3x3 rot_mat;
-	transform.Decompose(position, rot_mat, scale);
-	rotation = rot_mat.ToEulerXYZ();
+	if (GetOwner()->GetParent() == nullptr)
+		global_trans = float4x4::FromTRS(position, rotation, scale);
+	else
+	{
+		Transform* parent_trans = (Transform*)GetOwner()->GetParent()->GetComponent(Component::Type::C_Transform);
+		global_trans = parent_trans->GetTransform()*float4x4::FromTRS(position, rotation, scale);
+	}
 }
 
-void Transform::SetTransform(const float4x4 & matrix)
+void Transform::SetTransform(float3 pos, float3 scale, Quat rot)
 {
-	transform.Set(matrix);
+	rotation = rot;
+	this->scale = scale;
+	position = pos;
 
-	float3x3 rot_mat;
-	transform.Decompose(position, rot_mat, scale);
-	rotation = rot_mat.ToEulerXYZ();
+	UpdateTransform();
+}
+
+void Transform::SetTranslate(float3 new_translate)
+{
+	position = new_translate;
+	UpdateTransform();
+}
+
+void Transform::SetRotation(Quat rot)
+{
+	rotation = rot;
+	UpdateTransform();
+}
+
+void Transform::SetScale(float3 scale)
+{
+	this->scale = scale;
+	UpdateTransform();
+}
+
+void Transform::Translate(float3 movement)
+{
+	position += movement;
+	UpdateTransform();
+}
+
+void Transform::Rotate(Quat _rotation)
+{
+	_rotation.Mul(rotation);
+	rotation = _rotation;
+	UpdateTransform();
+}
+
+void Transform::Rotate(float3 rot)
+{
+	float3 curr_rot = rotation.ToEulerXYZ();
+	curr_rot += rot;
+	SetRotation(Quat::FromEulerXYZ(curr_rot.x, curr_rot.y, curr_rot.z));
+}
+
+void Transform::Scale(float3 scale)
+{
+	this->scale += scale;
+	UpdateTransform();
+}
+
+float4x4 Transform::GetTransform() const
+{
+	return global_trans;
 }
 
 void Transform::DrawConfig()
 {
 	float pos[3] = { position.x,position.y,position.z };
-	float rot[3] = { rotation.x,rotation.y,rotation.z };
+	float rot[3] = { rotation.ToEulerXYZ().x*RADTODEG,rotation.ToEulerXYZ().y*RADTODEG,rotation.ToEulerXYZ().z*RADTODEG };
 	float s[3] = { scale.x,scale.y,scale.z };
 
 	if (ImGui::CollapsingHeader("Transform"))
 	{
-		ImGui::InputFloat3("Pos##transform", pos, 2);
-		ImGui::InputFloat3("Rot##transform", rot, 2);
-		ImGui::InputFloat3("Scale##transform", s, 2);
+		ImGui::DragFloat3("Position##transform", pos, 0.1f, -INFINITY, INFINITY);
+		ImGui::DragFloat3("Rotation##transform", rot, 0.1f, -360, 360);
+		ImGui::DragFloat3("Scale##transform", s, 0.1f, 0, INFINITY);
+
 	}
+
+	if (!GetOwner()->IsStatic())
+	{
+		Quat new_rot = Quat::FromEulerXYZ(rot[0] * DEGTORAD, rot[1] * DEGTORAD, rot[2] * DEGTORAD);
+
+		bool update_trans = false;
+
+		if (pos[0] != position.x || pos[1] != position.y || pos[2] != position.z)
+		{
+			position = float3(pos[0], pos[1], pos[2]);
+			update_trans = true;
+		}
+
+		if (s[0] != scale.x || s[1] != scale.y || s[2] != scale.z)
+		{
+			scale = float3(s[0], s[1], s[2]);
+			update_trans = true;
+		}
+
+		if (rotation.Equals(new_rot) == false)
+		{
+			rotation = new_rot;
+			update_trans = true;
+		}
+
+		if (update_trans)
+			UpdateTransform();
+	}
+}
+
+void Transform::Serialize(JSONDoc * doc)
+{
+	doc->AddSectionToArray("Components");
+	doc->MoveToSectionFromArray("Components", doc->GetArraySize("Components") - 1);
+
+	doc->SetNumber("type", GetType());
+	doc->SetNumber("owner", GetOwner()->GetUID());
+	doc->SetVector3("position", position);
+	doc->SetVector3("scale", scale);
+	doc->SetVector4("rotation", rotation.CastToFloat4());
+}
+
+void Transform::UpdateTransform()
+{
+	if (GetOwner()->GetParent() == nullptr)
+		global_trans = float4x4::FromTRS(position, rotation, scale);
+	else
+	{
+		Transform* parent_trans = (Transform*)GetOwner()->GetParent()->GetComponent(Component::Type::C_Transform);
+		global_trans = parent_trans->GetTransform()*float4x4::FromTRS(position, rotation, scale);
+	}
+
+	GetOwner()->TransformUpdate();
 }

@@ -6,11 +6,7 @@
 #include "SceneManager.h"
 #include "ModuleGUI.h"
 #include "JSONManager.h"
-#include "glew-2.1.0\include\GL\glew.h"
-#include "SDL\include\SDL_opengl.h"
-#include <gl/GL.h>
-#include <gl/GLU.h>
-#include "Brofiler\Brofiler.h"
+#include "GLInclude.h"
 #include "imgui.h"
 
 #include "MeshImporter.h"
@@ -126,6 +122,8 @@ bool ModuleRenderer3D::Awake(JSONDoc* config)
 		color_material = true;
 		glEnable(GL_TEXTURE_2D);
 		texture_2d = true;
+		glEnable(GL_BLEND);
+		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 	}
 	
 
@@ -159,11 +157,14 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
+	glMatrixMode(GL_PROJECTION);
+	glLoadMatrixf(App->camera->GetProjectionMatrix());
+
 	glMatrixMode(GL_MODELVIEW);
 	glLoadMatrixf(App->camera->GetViewMatrix());
 
 	// light 0 on cam pos
-	lights[0].SetPos(App->camera->Position.x, App->camera->Position.y, App->camera->Position.z);
+	lights[0].SetPos(App->camera->GetPos().x, App->camera->GetPos().y, App->camera->GetPos().z);
 
 	for(uint i = 0; i < MAX_LIGHTS; ++i)
 		lights[i].Render();
@@ -174,11 +175,24 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 // PostUpdate present buffer to screen
 update_status ModuleRenderer3D::PostUpdate(float dt)
 {
-	BROFILER_CATEGORY("Render PostUpdate", Profiler::Color::Green);
-
 	//Rendering pipeline
-	App->scene_manager->DrawScenes();
+	if (!App->debug_mode) // for debug proposes avoid drawing geometry, just the debug boxes
+	{
+		App->camera->SetDrawOnFrustumElements();
+		App->scene_manager->DrawScenes();
+	}
+
 	//Draw debug
+	bool cull_face_state = cull_face; //disable cull face when in debug
+	if (cull_face == true)
+	{
+		cull_face = false;
+		ToggleCullFaceState();
+	}
+	if(App->debug_mode)
+		App->scene_manager->DebugDrawScenes();
+	cull_face = cull_face_state;
+	ToggleCullFaceState();
 
 	//Draw GUI
 	bool light_state = lighting;
@@ -219,8 +233,9 @@ void ModuleRenderer3D::OnResize(int width, int height)
 
 	glMatrixMode(GL_PROJECTION);
 	glLoadIdentity();
-	ProjectionMatrix = perspective(60.0f, (float)width / (float)height, 0.125f, 512.0f);
-	glLoadMatrixf(&ProjectionMatrix);
+
+	App->camera->Resize((float)width / (float)height);
+	glLoadMatrixf(App->camera->GetProjectionMatrix());
 
 	glMatrixMode(GL_MODELVIEW);
 	glLoadIdentity();
@@ -328,6 +343,11 @@ void ModuleRenderer3D::SetVertexPointer() const
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
 }
 
+void ModuleRenderer3D::SetNormalsPointer() const
+{
+	glNormalPointer(GL_FLOAT, 0, NULL);
+}
+
 void ModuleRenderer3D::SetCheckerTexture() const
 {
 	glBindTexture(GL_TEXTURE_2D, checker_id);
@@ -379,6 +399,22 @@ GLenum ModuleRenderer3D::GetPolyMode() const
 	return poly_mode;
 }
 
+void ModuleRenderer3D::SetPolyMode(GLenum mode)
+{
+	if (mode == GL_FILL)
+	{
+		PolygonModeFill();
+	}
+	else if (mode == GL_LINE)
+	{
+		PolygonModeWireframe();
+	}
+	else if (mode == GL_POINT)
+	{
+		PolygonModePoints();
+	}
+}
+
 void ModuleRenderer3D::PolygonModePoints()
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
@@ -404,6 +440,41 @@ void ModuleRenderer3D::PolygonModeFill()
 	points = false;
 	fill = true;
 	poly_mode = GL_FILL;
+}
+
+void ModuleRenderer3D::PushMatrix()
+{
+	glPushMatrix();
+}
+
+void ModuleRenderer3D::PopMatrix()
+{
+	glPopMatrix();
+}
+
+void ModuleRenderer3D::MultMatrix(float * matrix)
+{
+	glMultMatrixf(matrix);
+}
+
+void ModuleRenderer3D::SetLineWidth(float size)
+{
+	glLineWidth(size);
+}
+
+void ModuleRenderer3D::SetColor(Color color)
+{
+	glColor4f(color.r, color.g, color.b, color.a);
+}
+
+void ModuleRenderer3D::ResetColor()
+{
+	glColor4f(1.f, 1.f, 1.f, 1.f);
+}
+
+bool ModuleRenderer3D::GetCullFace() const
+{
+	return cull_face;
 }
 
 void ModuleRenderer3D::ToggleDepthTestState()

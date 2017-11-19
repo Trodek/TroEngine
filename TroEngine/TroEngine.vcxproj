@@ -22,12 +22,17 @@
     <ClCompile Include="Engine\Algorithm\GJK.cpp" />
     <ClCompile Include="Engine\Algorithm\Random\LCG.cpp" />
     <ClCompile Include="Engine\Application.cpp" />
+    <ClCompile Include="Engine\Camera.cpp" />
     <ClCompile Include="Engine\Color.cpp" />
     <ClCompile Include="Engine\Component.cpp" />
     <ClCompile Include="Engine\ComponentMaterial.cpp" />
     <ClCompile Include="Engine\ConsoleGUI.cpp" />
+    <ClCompile Include="Engine\Explorer.cpp" />
     <ClCompile Include="Engine\GameObject.cpp" />
+    <ClCompile Include="Engine\Hierarchy.cpp" />
+    <ClCompile Include="Engine\ImGuizmo.cpp" />
     <ClCompile Include="Engine\Inspector.cpp" />
+    <ClCompile Include="Engine\KDTree.cpp" />
     <ClCompile Include="Engine\Material.cpp" />
     <ClCompile Include="Engine\MaterialManager.cpp" />
     <ClCompile Include="Engine\Mesh.cpp" />
@@ -84,7 +89,10 @@
     <ClCompile Include="Engine\ModuleGUI.cpp" />
     <ClCompile Include="Engine\ModuleInput.cpp" />
     <ClCompile Include="Engine\ModuleRenderer3D.cpp" />
+    <ClCompile Include="Engine\PlayPauseUI.cpp" />
+    <ClCompile Include="Engine\ResourceManager.cpp" />
     <ClCompile Include="Engine\Scene.cpp" />
+    <ClCompile Include="Engine\SceneImporter.cpp" />
     <ClCompile Include="Engine\SceneManager.cpp" />
     <ClCompile Include="Engine\ModuleWindow.cpp" />
     <ClCompile Include="Engine\Parson\parson.c" />
@@ -93,6 +101,7 @@
     <ClCompile Include="Engine\Timer.cpp" />
     <ClCompile Include="Engine\Time\Clock.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
+    <ClCompile Include="Engine\UID.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Algorithm\GJK.h" />
@@ -104,6 +113,7 @@
     <ClInclude Include="Engine\Assimp\include\cimport.h" />
     <ClInclude Include="Engine\Assimp\include\postprocess.h" />
     <ClInclude Include="Engine\Assimp\include\scene.h" />
+    <ClInclude Include="Engine\Camera.h" />
     <ClInclude Include="Engine\Color.h" />
     <ClInclude Include="Engine\Component.h" />
     <ClInclude Include="Engine\ComponentMaterial.h" />
@@ -116,7 +126,15 @@
     <ClInclude Include="Engine\Devil\include\ilut_config.h" />
     <ClInclude Include="Engine\Devil\include\ilu_region.h" />
     <ClInclude Include="Engine\Devil\include\il_wrap.h" />
+    <ClInclude Include="Engine\Explorer.h" />
     <ClInclude Include="Engine\GameObject.h" />
+    <ClInclude Include="Engine\ImGuizmo.h" />
+    <ClInclude Include="Engine\PlayPauseUI.h" />
+    <ClInclude Include="Engine\ResourceManager.h" />
+    <ClInclude Include="Engine\SceneImporter.h" />
+    <ClInclude Include="Engine\UID.h" />
+    <ClInclude Include="Engine\KDTree.h" />
+    <ClInclude Include="Engine\Hierarchy.h" />
     <ClInclude Include="Engine\Inspector.h" />
     <ClInclude Include="Engine\Material.h" />
     <ClInclude Include="Engine\MaterialManager.h" />

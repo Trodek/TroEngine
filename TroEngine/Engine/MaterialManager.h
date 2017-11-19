@@ -5,8 +5,10 @@
 #include "Module.h"
 #include "GLInclude.h"
 #include <list>
+#include <vector>
 
 class Material;
+class Resource;
 
 class MaterialManager : public Module
 {
@@ -18,12 +20,21 @@ public:
 	bool Start();
 	bool CleanUp();
 
-	void ImportImage(const char* path);
+	Material* GetMaterial(uint id);
+
+	Material* ImportImage(const char* path, Resource* res = nullptr);
+
+	void SaveAsDDS(Resource* res);
 
 	void RemoveMaterial(Material* mat);
 
 private:
-	std::list<Material*> materials;
+	void CheckSaveID(const char* file);
+
+private:
+	std::vector<Material*> materials;
+
+	uint save_id = 0;
 };
 
 #endif // !__MATERIALMANAGER__

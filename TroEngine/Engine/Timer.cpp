@@ -20,7 +20,9 @@ Timer::~Timer()
 void Timer::Start()
 {
 	started_at = SDL_GetTicks();
+	last_read = started_at;
 	active = true;
+	paused = false;
 }
 
 // ---------------------------------------------
@@ -31,7 +33,12 @@ Uint32 Timer::Read() const
 		if (paused)
 			return (paused_at - started_at);
 		else
+		{
+			started_at -= (SDL_GetTicks() - last_read)*(speed - 1);
+			last_read = SDL_GetTicks();
 			return (SDL_GetTicks() - started_at);
+		}
+			
 	}
 	else
 		return 0;
@@ -67,10 +74,26 @@ void Timer::PauseOff()
 	if (paused == true)
 	{
 		started_at += (SDL_GetTicks() - paused_at);
+		last_read += (SDL_GetTicks() - paused_at);
 
 		paused_at = 0;
 		paused = false;
 	}
+}
+
+void Timer::SetSpeed(float s)
+{
+	if (active && !paused)
+	{
+		started_at -= (SDL_GetTicks() - last_read)*(speed - 1);
+		last_read = SDL_GetTicks();
+	}
+	speed = s;
+}
+
+float Timer::GetSpeed() const
+{
+	return speed;
 }
 
 bool Timer::IsActive()

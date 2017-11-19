@@ -19,12 +19,16 @@ public:
 	void Stop();
 	void PauseOn();
 	void PauseOff();
+	void SetSpeed(float s);
+	float GetSpeed()const;
 
 	bool IsActive();
 
 
 private:
-	Uint32	started_at;
+	mutable Uint32	started_at;
+	mutable Uint32	last_read;
+	float	speed = 1.f;
 	bool	paused = false;
 	Uint32  paused_at = 0;
 	bool	active = false;

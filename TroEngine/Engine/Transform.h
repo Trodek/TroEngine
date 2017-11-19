@@ -10,16 +10,32 @@ public:
 	Transform(GameObject* owner);
 	~Transform();
 
-	void SetTransform(const float* values);
-	void SetTransform(const float4x4& matrix);
+	void OnUpdateTransform();
+
+	void SetTransform(float3 pos, float3 scale, Quat rot);
+	void SetTranslate(float3 new_translate);
+	void SetRotation(Quat rot);
+	void SetScale(float3 scale);
+	void Translate(float3 movement);
+	void Rotate(Quat rotation);
+	void Rotate(float3 rot);
+	void Scale(float3 scale);
+
+	float4x4 GetTransform() const;
 
 	void DrawConfig();
 
+	void Serialize(JSONDoc* doc);
+
 private:
-	float4x4 transform;
+	void UpdateTransform();
+
+private:
 	float3 position;
-	float3 rotation;
+	Quat rotation;
 	float3 scale;
+
+	float4x4 global_trans;
 };
 
 #endif // !__TRANSFORM__

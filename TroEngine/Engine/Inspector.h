@@ -3,6 +3,8 @@
 
 #include "GUIElement.h"
 
+class GameObject;
+
 class Inspector : public GUIElement
 {
 public:
@@ -15,6 +17,7 @@ public:
 	
 public:
 	bool active = false;
+	GameObject* selected = nullptr;
 
 private:
 };

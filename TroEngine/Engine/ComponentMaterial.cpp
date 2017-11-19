@@ -3,7 +3,10 @@
 #include "ModuleRenderer3D.h"
 #include "Material.h"
 #include "MaterialManager.h"
+#include "GameObject.h"
 #include "imgui.h"
+#include "JSONManager.h"
+#include "ResourceManager.h"
 
 ComponentMaterial::ComponentMaterial(GameObject* owner) : Component(C_Material, owner)
 {
@@ -19,7 +22,6 @@ ComponentMaterial::~ComponentMaterial()
 
 void ComponentMaterial::CleanUp()
 {
-	App->materials->RemoveMaterial(material);
 	material = nullptr;
 }
 
@@ -32,6 +34,12 @@ void ComponentMaterial::SetMaterial(Material * new_mat)
 
 void ComponentMaterial::SetMaterial(uint mat_id)
 {
+	if (mat_id != 0) //invalid id
+	{
+		Resource* res = App->resources->GetResource(mat_id);
+		if(res!=nullptr)
+			material = App->materials->GetMaterial(res->manager_id);
+	}
 }
 
 void ComponentMaterial::ApplyMaterial() const
@@ -44,9 +52,11 @@ void ComponentMaterial::ApplyMaterial() const
 
 void ComponentMaterial::DrawConfig()
 {
-	if (material != nullptr)
+	if (ImGui::CollapsingHeader("Material"))
 	{
-		if (ImGui::CollapsingHeader("Material"))
+		if (ImGui::Button("Delete"))
+			GetOwner()->RemoveComponent(this);
+		if (material != nullptr)
 		{
 			ImGui::Checkbox("Use Checker Material", &use_checker);
 
@@ -55,10 +65,25 @@ void ComponentMaterial::DrawConfig()
 			ImGui::LabelText("Height##material", "%d", material->GetHeight());
 			ImGui::LabelText("Path##material", "%s", material->GetPath().c_str());
 		}
+		else
+			ImGui::Text("No material assigned");
 	}
 }
 
 void ComponentMaterial::UseChecker()
 {
 	use_checker = true;
+}
+
+void ComponentMaterial::Serialize(JSONDoc * doc)
+{
+	doc->AddSectionToArray("Components");
+	doc->MoveToSectionFromArray("Components", doc->GetArraySize("Components") - 1);
+
+	doc->SetNumber("type", GetType());
+	doc->SetNumber("owner", GetOwner()->GetUID());
+	if (material != nullptr)
+		doc->SetNumber("material", material->GetUID());
+	else
+		doc->SetNumber("material", 0);
 }

@@ -64,9 +64,6 @@
     <Filter Include="Source\Engine\Tools\Memory">
       <UniqueIdentifier>{e8793d86-d1f1-4120-b5ab-16af8a76681f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source\Engine\Tools\ParsonJSON">
-      <UniqueIdentifier>{01f3ae59-337d-40a3-84ed-f016f8c30b9c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source\Engine\Modules\Renderer\GLEW">
       <UniqueIdentifier>{1db21459-d1c1-472b-8894-90b05cbd8b3b}</UniqueIdentifier>
     </Filter>
@@ -111,6 +108,30 @@
     </Filter>
     <Filter Include="Source\Editor\GUI\ImGUI">
       <UniqueIdentifier>{a3b8584c-3070-49b8-be2f-154836bf29e9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Components\Material\Material">
+      <UniqueIdentifier>{7137f51c-7220-4d03-8e4a-60c79f86407e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Components\Camera">
+      <UniqueIdentifier>{67a3223a-e53a-45df-9a73-7443beb5598f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Tools\K-D Tree">
+      <UniqueIdentifier>{0211e150-566f-43ba-97bf-241b5e5ee93c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\GUI\ImGuizmo">
+      <UniqueIdentifier>{6d9070ef-e5c8-41fc-9dae-82254190dd44}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Modules\JSONManager">
+      <UniqueIdentifier>{096bd702-eee2-4ce2-b6f7-2ec92045d4a5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Modules\JSONManager\ParsonJSON">
+      <UniqueIdentifier>{01f3ae59-337d-40a3-84ed-f016f8c30b9c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Modules\SceneImporter">
+      <UniqueIdentifier>{1b747206-0ff2-48c0-806f-58365af4bc50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Modules\Resource Manager">
+      <UniqueIdentifier>{cd42ae87-9dc9-41de-bdaa-9a2a914518e3}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -286,10 +307,7 @@
       <Filter>Source\Engine\Tools\Memory</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Parson\parson.c">
-      <Filter>Source\Engine\Tools\ParsonJSON</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\JSONManager.cpp">
-      <Filter>Source\Engine\Tools</Filter>
+      <Filter>Source\Engine\Modules\JSONManager\ParsonJSON</Filter>
     </ClCompile>
     <ClCompile Include="Engine\SceneManager.cpp">
       <Filter>Source\Editor\Scenes</Filter>
@@ -308,9 +326,6 @@
     </ClCompile>
     <ClCompile Include="Engine\MaterialManager.cpp">
       <Filter>Source\Engine\Modules\MaterialManager</Filter>
-    </ClCompile>
-    <ClCompile Include="Engine\Material.cpp">
-      <Filter>Source\Engine\Components\Material</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Component.cpp">
       <Filter>Source\Engine\Components</Filter>
@@ -334,6 +349,39 @@
       <Filter>Source\Engine\Components\Transform</Filter>
     </ClCompile>
     <ClCompile Include="Engine\Inspector.cpp">
+      <Filter>Source\Editor\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Material.cpp">
+      <Filter>Source\Engine\Components\Material\Material</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Hierarchy.cpp">
+      <Filter>Source\Editor\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Camera.cpp">
+      <Filter>Source\Engine\Components\Camera</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\KDTree.cpp">
+      <Filter>Source\Engine\Tools\K-D Tree</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ImGuizmo.cpp">
+      <Filter>Source\Editor\GUI\ImGuizmo</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\JSONManager.cpp">
+      <Filter>Source\Engine\Modules\JSONManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\SceneImporter.cpp">
+      <Filter>Source\Engine\Modules\SceneImporter</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\UID.cpp">
+      <Filter>Source\Engine\Tools</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\PlayPauseUI.cpp">
+      <Filter>Source\Editor\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ResourceManager.cpp">
+      <Filter>Source\Engine\Modules\Resource Manager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Explorer.cpp">
       <Filter>Source\Editor\GUI</Filter>
     </ClCompile>
   </ItemGroup>
@@ -606,10 +654,7 @@
       <Filter>Source\Engine\Tools\Memory</Filter>
     </ClInclude>
     <ClInclude Include="Engine\Parson\parson.h">
-      <Filter>Source\Engine\Tools\ParsonJSON</Filter>
-    </ClInclude>
-    <ClInclude Include="Engine\JSONManager.h">
-      <Filter>Source\Engine\Tools</Filter>
+      <Filter>Source\Engine\Modules\JSONManager\ParsonJSON</Filter>
     </ClInclude>
     <ClInclude Include="Engine\glew-2.1.0\include\GL\eglew.h">
       <Filter>Source\Engine\Modules\Renderer\GLEW</Filter>
@@ -686,9 +731,6 @@
     <ClInclude Include="Engine\MaterialManager.h">
       <Filter>Source\Engine\Modules\MaterialManager</Filter>
     </ClInclude>
-    <ClInclude Include="Engine\Material.h">
-      <Filter>Source\Engine\Components\Material</Filter>
-    </ClInclude>
     <ClInclude Include="Engine\Component.h">
       <Filter>Source\Engine\Components</Filter>
     </ClInclude>
@@ -712,6 +754,39 @@
     </ClInclude>
     <ClInclude Include="Engine\AssimpLogger.h">
       <Filter>Source\Engine\Modules\MeshImporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Material.h">
+      <Filter>Source\Engine\Components\Material\Material</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Hierarchy.h">
+      <Filter>Source\Editor\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Camera.h">
+      <Filter>Source\Engine\Components\Camera</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\KDTree.h">
+      <Filter>Source\Engine\Tools\K-D Tree</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\UID.h">
+      <Filter>Source\Engine\Tools</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ImGuizmo.h">
+      <Filter>Source\Editor\GUI\ImGuizmo</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\JSONManager.h">
+      <Filter>Source\Engine\Modules\JSONManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\SceneImporter.h">
+      <Filter>Source\Engine\Modules\SceneImporter</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\PlayPauseUI.h">
+      <Filter>Source\Editor\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ResourceManager.h">
+      <Filter>Source\Engine\Modules\Resource Manager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Explorer.h">
+      <Filter>Source\Editor\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

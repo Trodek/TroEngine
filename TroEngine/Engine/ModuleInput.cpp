@@ -13,6 +13,7 @@
 #include "SceneManager.h"
 #include "Component.h"
 #include "ComponentMaterial.h"
+#include "ResourceManager.h"
 
 #define MAX_KEYS 300
 
@@ -130,7 +131,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 			case SDL_DROPFILE:
 			{
-				OnFileDropped(e.drop.file);
+				App->resources->Load(e.drop.file);
 				break;
 			}
 		}
@@ -153,23 +154,22 @@ bool ModuleInput::CleanUp()
 void ModuleInput::OnFileDropped(const char * path)
 {
 	std::string file = path;
-	std::string ext = file.substr(file.size() - 3, 3);
+	uint cut = file.find_last_of(".");
+	std::string ext = file.substr(cut + 1, file.size() - cut + 1);
 	
 	//check extension to do proper action
 	if(ext == "fbx" ||ext == "FBX")
 	{ 
-		// for now, clean all previous meshes befor importing new ones
-		MeshRenderer* mr = (MeshRenderer*)App->scene_manager->GetCurrentScene()->GetGameObject(0)->GetComponent(Component::Type::MeshRenderer);
-		mr->RemoveAllMeshes();
+		//Copy the file to Assets\Meshes
+		App->CopyFileTo(path, "Assets\\Meshes");
 
-		// remove material befor loading new fbx
-		ComponentMaterial* cm = (ComponentMaterial*)App->scene_manager->GetCurrentScene()->GetGameObject(0)->GetComponent(Component::Type::C_Material);
-		cm->CleanUp();
-
-		App->mesh->LoadFile(path);
+		App->mesh->ImportFile(path);
 	}
 	else if (ext == "png")
 	{
+		//Copy the file to Assets\Materials
+		App->CopyFileTo(path, "Assets\\Materials");
+
 		App->materials->ImportImage(path);
 	}
 }

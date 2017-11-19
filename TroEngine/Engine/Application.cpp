@@ -1,11 +1,10 @@
 #include "Application.h"
-#include "Brofiler/Brofiler.h"
 #include "SDL\include\SDL_cpuinfo.h"
 #include "gpudetect\DeviceId.h"
 #include <locale>
 #include <codecvt>
 #include "mmgr\mmgr.h"
-
+#include <Windows.h>
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
@@ -16,6 +15,8 @@
 #include "JSONManager.h"
 #include "MeshImporter.h"
 #include "MaterialManager.h"
+#include "SceneImporter.h"
+#include "ResourceManager.h"
 
 #include "Algorithm\Random\LCG.h"
 #include "imgui.h"
@@ -34,6 +35,8 @@ Application::Application()
 	json = new JSONManager();
 	mesh = new MeshImporter();
 	materials = new MaterialManager();
+	scene_importer = new SceneImporter();
+	resources = new ResourceManager();
 
 	// The order of calls is very important!
 	// Modules will Awake() Start() and Update() in this order
@@ -42,10 +45,12 @@ Application::Application()
 	// Main Modules
 	AddModule(window);
 	AddModule(gui);
+	AddModule(resources);
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
 	AddModule(json);
+	AddModule(scene_importer);
 	AddModule(mesh);
 	AddModule(materials);
 
@@ -84,6 +89,10 @@ bool Application::Init()
 	new_fps = config->GetNumber("app.max_fps");
 	CapFPS(new_fps);
 
+	//Check/Create Assets and Library folders
+	ret = CreateFolder("Assets");
+	ret = CreateFolder("Library");
+
 	// Call Awake() in all modules
 	std::list<Module*>::iterator item = list_modules.begin();
 
@@ -111,7 +120,7 @@ bool Application::Init()
 		ret = (*item)->Start();
 		++item;
 	}
-	
+
 	PERF_PEEK(ptimer);
 
 	return ret;
@@ -226,8 +235,6 @@ void Application::SaveConfig()
 // Call PreUpdate, Update and PostUpdate on all modules
 update_status Application::Update()
 {
-	BROFILER_CATEGORY("UpdateLogic", Profiler::Color::Azure);
-
 	update_status ret = UPDATE_CONTINUE;
 
 	logic_timer.Start();
@@ -292,6 +299,10 @@ update_status Application::Update()
 		mem_log.erase(mem_log.begin());
 
 	FinishUpdate();
+
+	//debug mode
+	if (input->GetKey(SDL_SCANCODE_F1) == KEY_DOWN)
+		debug_mode = !debug_mode;
 
 	if (close_app)
 	{
@@ -480,6 +491,77 @@ void Application::DrawPerformanceWindow()
 		++item;
 		++m;
 	}
+}
+
+bool Application::CreateFolder(const char * path) const
+{
+	bool ret = true;
+
+	if (!CreateDirectory(path, NULL))
+	{
+		if (GetLastError() == ERROR_ALREADY_EXISTS)
+		{
+			EDITOR_LOG("Can't create the folder. %s already exist", path);
+		}
+		else if (GetLastError() == ERROR_PATH_NOT_FOUND)
+		{
+			EDITOR_LOG("Can't creat folder %s. One or more intermediate directories do not exist", path);
+			ret = false;
+		}
+	}
+	return ret;
+}
+
+bool Application::CopyFileTo(const char * file, const char * target, std::string* new_path)
+{
+	bool ret = true;
+
+	std::string curr_file = file;
+	uint cut = curr_file.find_last_of("\\");
+	std::string dest_file = target;
+	if (dest_file.find_last_of("\\") == dest_file.size() - 1)
+		dest_file += curr_file.substr(cut + 1, curr_file.size() - cut + 1);
+	else
+		dest_file += curr_file.substr(cut, curr_file.size() - cut);
+
+	CopyFile(file, dest_file.c_str(), false);
+	
+	if (new_path != nullptr)
+		*new_path = dest_file;
+
+	return ret;
+}
+
+void Application::GetFilesInPath(std::vector<std::string>& paths, const char * path, const char * extension)
+{
+	WIN32_FIND_DATA search_data;
+
+	std::string path_ex = path;
+
+	if (extension != nullptr)
+	{
+		path_ex += "*.";
+		path_ex += extension;
+	}
+	else
+	{
+		path_ex += "*.*";
+	}
+
+	HANDLE handle = FindFirstFile(path_ex.c_str(), &search_data);
+
+	while (handle != INVALID_HANDLE_VALUE)
+	{
+		std::string path_new = path;
+		path_new += search_data.cFileName;
+		paths.push_back(path_new);
+
+		if (FindNextFile(handle, &search_data) == FALSE)
+			break;
+	}
+
+	if (handle)
+		FindClose(handle);
 }
 
 void Application::AddModule(Module* mod)

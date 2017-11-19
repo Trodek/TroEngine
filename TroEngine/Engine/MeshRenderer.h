@@ -18,17 +18,27 @@ public:
 	void DebugDraw();
 	void CleanUp();
 
-	void AddMesh(Mesh* mesh);
+	void SetMesh(Mesh* mesh);
+	void SetMesh(uint uid);
 
 	void DrawConfig();
+	void OnUpdateTransform();
 
-	void RemoveAllMeshes();
+	void RemoveMesh();
 
-	AABB GetMeshAABB(uint mesh_id);
+	AABB GetMeshAABB();
+
+	void Serialize(JSONDoc* doc);
+
+	bool TestSegmentToMesh(LineSegment segment, float& distance, float3& hit) const;
 
 private:
-	std::list<Mesh*> meshes;
+	void UpdateAABB(const float4x4 & trans);
+
+private:
+	Mesh* mesh = nullptr;
 	bool wireframe = false;
+	AABB bounding_box;
 
 };
 

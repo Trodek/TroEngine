@@ -7,6 +7,14 @@
 #include "MenuGUI.h"
 #include "ConsoleGUI.h"
 #include "Inspector.h"
+#include "Hierarchy.h"
+#include "GameObject.h"
+#include "ModuleCamera3D.h"
+#include "ModuleInput.h"
+#include "ModuleRenderer3D.h"
+#include "Transform.h"
+#include "PlayPauseUI.h"
+#include "Explorer.h"
 
 ModuleGUI::ModuleGUI(bool start_enabled) : Module(start_enabled) 
 {
@@ -36,13 +44,19 @@ bool ModuleGUI::Start()
 	AddElement(new MenuGUI());
 	inspector = new Inspector();
 	AddElement(inspector);
-
+	AddElement(new Hierarchy());
+	AddElement(new PlayPauseUI());
+	explorer = new Explorer();
+	AddElement(explorer);
 	return true;
 }
 
 update_status ModuleGUI::PreUpdate(float dt)
 {
 	ImGui_ImplSdlGL2_NewFrame(App->window->window);
+	ImGuizmo::BeginFrame();
+	ImGuizmo::Enable(true);
+
 
 	return UPDATE_CONTINUE;
 }
@@ -51,17 +65,81 @@ update_status ModuleGUI::Update(float dt)
 {
 	update_status ret = UPDATE_CONTINUE;
 
-	std::list<GUIElement*>::iterator ele = gui_elements.begin();
+	float3 snap(2, 2, 2);
+
+	if (inspector->selected != nullptr)
+	{
+		ImGuiIO& io = ImGui::GetIO();
+		ImGui::SetNextWindowPos(ImVec2(0, 0));
+		ImGui::Begin("guizmo", 0, ImVec2(App->window->GetWidth(), App->window->GetHeight()), 0.001f,ImGuiWindowFlags_NoMove | ImGuiWindowFlags_NoCollapse | ImGuiWindowFlags_NoTitleBar | ImGuiWindowFlags_NoBringToFrontOnFocus);
+		ImGuizmo::SetRect(0, 0, io.DisplaySize.x, io.DisplaySize.y);
+		ImGuizmo::SetDrawlist();
+		float transformation[16];
+		float4x4 t = inspector->selected->GetTransform().Transposed();
+		ImGuizmo::Manipulate(App->camera->GetViewMatrix(), App->camera->GetProjectionMatrix(), gizmo_op, ImGuizmo::MODE::WORLD, t.ptr(), transformation);
+		
+		if (ImGuizmo::IsUsing())
+		{
+			float pos[3];
+			float rot[3];
+			float scale[3];
+			ImGuizmo::DecomposeMatrixToComponents(transformation, pos, rot, scale);
+			
+			Transform* trans = (Transform*)inspector->selected->GetComponent(Component::Type::C_Transform);
+
+			if (gizmo_op == ImGuizmo::TRANSLATE)
+			{
+				float3 translate(pos[0], pos[1], pos[2]);
+				if(inspector->selected->GetParent() != nullptr)
+					translate = inspector->selected->GetParent()->GetTransform().Inverted().TransformPos(translate);
+				trans->Translate(translate);
+			}
+			else if (gizmo_op == ImGuizmo::SCALE)
+			{
+				float3 curr_scale(inspector->selected->GetTransform().GetScale());
+				float3 scale_mod(scale[0], scale[1], scale[2]);
+				if (inspector->selected->GetParent() != nullptr)
+					scale_mod = inspector->selected->GetParent()->GetTransform().Inverted().TransformPos(scale_mod);
+				curr_scale.x *= scale_mod.x;
+				curr_scale.y *= scale_mod.y;
+				curr_scale.z *= scale_mod.z;
+
+				trans->SetScale(curr_scale);
+			}
+			else if (gizmo_op == ImGuizmo::ROTATE) //TODO: fix rotate with parent transform
+			{
+				float3 rotation(rot[0] * DEGTORAD, rot[1] * DEGTORAD, rot[2] * DEGTORAD);
+				if (inspector->selected->GetParent() != nullptr)
+					rotation = inspector->selected->GetParent()->GetTransform().Inverted().TransformPos(rotation);
+				trans->Rotate(rotation);
+			}
+		}
+		ImGui::End();
+	}
 
 	for (std::list<GUIElement*>::iterator ele = gui_elements.begin(); ele != gui_elements.end(); ++ele)
 	{
 		ret = (*ele)->UpdateGUI(dt);
 	}
+
+	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+		gizmo_op = ImGuizmo::OPERATION::TRANSLATE;
+	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+		gizmo_op = ImGuizmo::OPERATION::ROTATE;
+	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+		gizmo_op = ImGuizmo::OPERATION::SCALE;
+
+	
+
 	return ret;
 }
 
 void ModuleGUI::RenderGUI()
 {
+	if (inspector->selected != nullptr)
+	{
+		inspector->selected->DebugDraw();
+	}
 	ImGui::Render();
 }
 

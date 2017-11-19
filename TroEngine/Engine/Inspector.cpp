@@ -26,7 +26,40 @@ void Inspector::CreateInspector()
 	{
 		ImGui::Begin("Inspector", &active);
 
-		App->scene_manager->GetCurrentScene()->GetGameObject(0)->DrawConfig();
+		if (selected != nullptr)
+		{
+			selected->DrawConfig();
+
+			if (ImGui::Button("Add"))
+			{
+				ImGui::OpenPopup("inspector options");
+			}
+
+			if (ImGui::BeginPopup("inspector options"))
+			{
+				Component::Type comp_type = Component::Type::Null;
+
+				if (ImGui::MenuItem("Camera"))
+				{
+					comp_type = Component::Type::Camera;
+				}
+
+				if (ImGui::MenuItem("Mesh Renderer"))
+				{
+					comp_type = Component::Type::C_MeshRenderer;
+				}
+
+				if (ImGui::MenuItem("Material"))
+				{
+					comp_type = Component::Type::C_Material;
+				}
+
+				if (comp_type != Component::Type::Null)
+					selected->AddComponent(comp_type);
+
+				ImGui::EndPopup();
+			}
+		}
 
 		ImGui::End();
 	}

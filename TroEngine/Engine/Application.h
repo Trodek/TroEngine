@@ -21,6 +21,8 @@ class ModuleGUI;
 class JSONManager;
 class MeshImporter;
 class MaterialManager;
+class SceneImporter;
+class ResourceManager;
 
 class Application
 {
@@ -35,6 +37,10 @@ public:
 	JSONManager* json;
 	MeshImporter* mesh;
 	MaterialManager* materials;
+	SceneImporter* scene_importer;
+	ResourceManager* resources;
+
+	bool debug_mode = false;
 
 private:
 
@@ -92,6 +98,16 @@ public:
 
 	void DrawModulesConfig();
 	void DrawPerformanceWindow();
+
+	//Try to create path folder. Return true if created or already exist, false if not created or don't exist
+	bool CreateFolder(const char* path) const;
+
+	//Copy file to target folder
+	bool CopyFileTo(const char* file, const char* target, std::string* new_path = nullptr);
+
+	//fills paths vector with files found on path. if a extension is specified, returns files with that extension
+	void GetFilesInPath(std::vector<std::string>& paths, const char * path, const char* extension = nullptr);
+
 
 private:
 

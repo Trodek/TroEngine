@@ -7,7 +7,8 @@
 class Mesh
 {
 public:
-	Mesh(uint num_ver, float* ver, uint num_ind, uint* ind, uint num_uv = 0, float* uv = nullptr, uint tex_id = 0);
+	Mesh(uint num_ver, float* ver, uint num_ind, uint* ind, uint num_uv = 0, float* uv = nullptr, uint num_norm = 0, float* norm = nullptr);
+	Mesh(uint uid, uint num_ver, float* ver, uint num_ind, uint* ind, uint num_uv = 0, float* uv = nullptr, uint num_norm = 0, float* norm = nullptr);
 
 	uint GetIndicesID() const;
 	uint GetIndicesNum() const;
@@ -17,9 +18,15 @@ public:
 	uint GetVerticesNum() const;
 	float* GetVertices() const;
 
-	AABB GetAABB();
+	uint GetUVNum();
+	uint GetUVID();
+	float* GetUV();
+
+	uint GetUID() const;
 
 	void Render(bool wireframe = false);
+
+	bool TestSegmentToTriangles(const LineSegment& segment, float& distance, float3& hit);
 
 	void CleanUp();
 
@@ -36,9 +43,11 @@ private:
 	uint num_uv = 0;
 	float* uv = nullptr;
 
-	uint texture_id = 0;
+	uint id_normals = 0; //id in VRAM
+	uint num_normals = 0;
+	float* normals;
 
-	AABB bounding_box;
+	uint UID = 0;
 };
 
 
