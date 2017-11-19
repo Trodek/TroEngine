@@ -62,15 +62,20 @@ bool MaterialManager::CleanUp()
 	return ret;
 }
 
-Material* MaterialManager::ImportImage(const char* path)
+Material * MaterialManager::GetMaterial(uint id)
+{
+	return (id < materials.size()) ? materials[id] : nullptr;
+}
+
+Material* MaterialManager::ImportImage(const char* path, Resource* res)
 {
 	uint id = 0;
 	ILenum error;
 	Material* m = nullptr;
 
 	//check if material already exist
-	Resource* res = App->resources->ExistResource(std::string(path));
-	if(res != nullptr) // already exist
+	Resource* r = App->resources->ExistResource(std::string(path));
+	if(r != nullptr) // already exist
 	{
 		m = materials[res->manager_id];
 	}
@@ -79,11 +84,16 @@ Material* MaterialManager::ImportImage(const char* path)
 		//Data will be handled by renderer. Devil is only used to load the image.
 		if (ilLoad(IL_TYPE_UNKNOWN, path))
 		{
+			
 			ILinfo info;
 			iluGetImageInfo(&info);
-			if (info.Origin == IL_ORIGIN_UPPER_LEFT)
+			std::string ext = App->resources->GetExtensionFromPath(path);
+			bool is_flipped = false;
+			if (res != nullptr)is_flipped = res->flipped;
+			if (info.Origin == IL_ORIGIN_UPPER_LEFT && !is_flipped)
 			{
 				iluFlipImage();
+				is_flipped = true;
 			}
 
 			ilConvertImage(IL_RGB, IL_UNSIGNED_BYTE);
@@ -91,21 +101,34 @@ Material* MaterialManager::ImportImage(const char* path)
 			int h = ilGetInteger(IL_IMAGE_HEIGHT);
 			id = App->renderer3D->LoadTextureToVRAM(w, h, ilGetData(), ilGetInteger(IL_IMAGE_FORMAT));
 
-			res = new Resource();
-			res->extension = App->resources->GetExtensionFromPath(path);
-			res->file_id = 0; //there's just 1 texture on each file
-			res->name = App->resources->GetNameFromPath(path);
-			res->rel_path = App->resources->GetRelativePathFromPath(path);
+			if(res == nullptr)
+				m = new Material(id, w, h, path);
+			else
+				m = new Material(res->UID, id, w, h, path);
 
-			m = new Material(id, w, h, path);
 			materials.push_back(m);
-			res->manager_id = materials.size() - 1;
-			res->type = ResourceType::R_TEXTURE;
-			res->UID = m->GetUID();
 
-			SaveAsDDS(res);
-			App->resources->resources[App->resources->CreateResource(path)].push_back(res);
-			App->resources->CreateMeta(path);
+			if (res == nullptr)
+			{
+				r = new Resource();
+				r->extension = App->resources->GetExtensionFromPath(path);
+				r->file_id = 0; //there's just 1 texture on each file
+				r->name = App->resources->GetNameFromPath(path);
+				r->rel_path = App->resources->GetRelativePathFromPath(path);
+
+				r->manager_id = materials.size() - 1;
+				r->type = ResourceType::R_TEXTURE;
+				r->UID = m->GetUID();
+				r->flipped = is_flipped;
+				SaveAsDDS(r);
+				App->resources->resources[App->resources->CreateResource(path)].push_back(r);
+				App->resources->CreateMeta(path);
+			}
+			else
+			{
+				res->manager_id = materials.size() - 1;
+				CheckSaveID(res->lib_name.c_str());
+			}
 
 			ilDeleteImage(ilGetInteger(IL_ACTIVE_IMAGE));
 		}
@@ -159,4 +182,15 @@ void MaterialManager::RemoveMaterial(Material * mat)
 			break;
 		}
 	}
+}
+
+void MaterialManager::CheckSaveID(const char * file)
+{
+	std::string f = file;
+	uint cut = f.find_last_of("_");
+	std::string num = f.substr(cut+1);
+
+	int id = atoi(num.c_str());
+	if (id > save_id)
+		save_id = id+1;
 }

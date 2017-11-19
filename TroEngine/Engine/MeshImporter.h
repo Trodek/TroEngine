@@ -23,6 +23,8 @@ public:
 	bool Start();
 	bool CleanUp();
 
+	Mesh* GetMesh(uint id) const;
+
 	bool ImportFile(const char* path);
 	bool ImportMesh(const char* path, uint mesh_id, Resource* res);
 
@@ -38,6 +40,8 @@ private:
 
 	void CubeMesh();
 	void PlaneMesh();
+
+	void CheckSaveID(const char* file);
 
 private:
 	std::vector<Mesh*> meshes;

@@ -19,6 +19,7 @@ public:
 	void CleanUp();
 
 	void SetMesh(Mesh* mesh);
+	void SetMesh(uint uid);
 
 	void DrawConfig();
 	void OnUpdateTransform();

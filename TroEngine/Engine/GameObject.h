@@ -46,7 +46,7 @@ public:
 	GameObject* CreateChild(const char* name);
 	GameObject* CreateChild();
 	GameObject* GetChild(uint id) const;
-	void GetChildByUID(uint UID, GameObject* go)const;
+	void GetChildByUID(uint UID, GameObject*& go)const;
 	void GetAllChilds(std::vector<GameObject*>& go)const;
 	void GetAllStaticChilds(std::vector<GameObject*>& go)const;
 	void GetAllDynamicChilds(std::vector<GameObject*>& go)const;

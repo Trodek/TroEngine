@@ -78,6 +78,11 @@ bool MeshImporter::CleanUp()
 	return ret;
 }
 
+Mesh * MeshImporter::GetMesh(uint id) const
+{
+	return (id < meshes.size()) ? meshes[id] : nullptr;
+}
+
 bool MeshImporter::ImportFile(const char * path)
 {
 	bool ret = true;
@@ -528,6 +533,7 @@ bool MeshImporter::LoadFile(const char * path, Resource* res)
 			Mesh* geo = new Mesh(res->UID, elements_num[1] / 3, vert, elements_num[0], ind, elements_num[2] / 3, tex_coords);
 			meshes.push_back(geo);
 			res->manager_id = meshes.size() - 1;
+			CheckSaveID(res->lib_name.c_str());
 		}
 		else
 		{
@@ -706,4 +712,15 @@ void MeshImporter::PlaneMesh()
 	//create mesh
 	plane = new Mesh(num_vert, vertices, num_indices, indices, num_vert, uv);
 	meshes.push_back(plane);
+}
+
+void MeshImporter::CheckSaveID(const char * file)
+{
+	std::string f = file;
+	uint cut = f.find_last_of("_");
+	std::string num = f.substr(cut + 1);
+
+	int id = atoi(num.c_str());
+	if (id > save_id)
+		save_id = id+1;
 }

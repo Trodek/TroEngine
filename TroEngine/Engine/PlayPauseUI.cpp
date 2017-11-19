@@ -2,6 +2,8 @@
 #include "imgui.h"
 #include "Application.h"
 #include "SceneManager.h"
+#include "ModuleGUI.h"
+#include "Inspector.h"
 
 PlayPauseUI::PlayPauseUI()
 {
@@ -25,6 +27,7 @@ void PlayPauseUI::CreatePlayPauseUI()
 		if (ImGui::Button("Play"))
 		{
 			App->scene_manager->Play();
+			App->gui->inspector->selected = nullptr;
 		}
 		ImGui::SameLine();
 

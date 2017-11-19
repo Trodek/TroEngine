@@ -20,11 +20,16 @@ public:
 	bool Start();
 	bool CleanUp();
 
-	Material* ImportImage(const char* path);
+	Material* GetMaterial(uint id);
+
+	Material* ImportImage(const char* path, Resource* res = nullptr);
 
 	void SaveAsDDS(Resource* res);
 
 	void RemoveMaterial(Material* mat);
+
+private:
+	void CheckSaveID(const char* file);
 
 private:
 	std::vector<Material*> materials;

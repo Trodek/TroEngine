@@ -24,6 +24,7 @@ Resource::Resource(JSONDoc * doc, int id)
 	file_id = doc->GetNumber("file_id");
 	type = static_cast<ResourceType>((int)doc->GetNumber("type"));
 	UID = doc->GetNumber("UID");
+	flipped = doc->GetBool("flipped");
 	doc->MoveToRoot();
 }
 
@@ -43,6 +44,7 @@ bool ResourceManager::Start()
 {
 	bool ret = true;
 
+	LoadFolder("Assets");
 
 	return ret;
 }
@@ -70,15 +72,23 @@ bool ResourceManager::CleanUp()
 	return ret;
 }
 
-Resource * ResourceManager::GetResource(uint uid_key) const
+Resource * ResourceManager::GetResource(uint uid) const
 {
 	Resource* ret = nullptr;
 
-	for (std::vector<Resource*>::const_iterator r = resources.find(uid_key)->second.begin(); r != resources.find(uid_key)->second.end(); ++r)
+	for (std::map<uint, std::vector<Resource*>>::const_iterator it = resources.begin(); it != resources.end();++it)
 	{
-		ret = (*r);
-		break;
-		//TODO: think abiut something to solve that
+		bool found = false;
+		for (std::vector<Resource*>::const_iterator r = it->second.begin(); r != it->second.end();++r)
+		{
+			if ((*r)->UID == uid)
+			{
+				found = true;
+				ret = (*r);
+				break;
+			}
+		}
+		if (found) break;
 	}
 
 	return ret;
@@ -113,10 +123,12 @@ void ResourceManager::Load(const char * path)
 			create_meta = false; //since other importes can request texture loading, the material importer will call createmeta autonomously
 			break;
 		case R_PREFAB:
-			App->scene_manager->GetCurrentScene()->AddGameObject(App->scene_importer->LoadPrefab(path));
+			App->scene_importer->LoadPrefab(path);
 			break;
 		case R_SCENE:
 			App->scene_importer->LoadScene(path, App->scene_manager->GetCurrentScene());
+			App->scene_manager->GetCurrentScene()->UpdateTransforms();
+			create_meta = false;
 			break;
 		case R_META: //if its a meta file, create the resource that it descrives.
 			LoadMeta(path);
@@ -142,34 +154,38 @@ Resource * ResourceManager::LoadMeta(const char * path)
 		//create the entrance on the map for this file
 		std::string assets_path = BuildAssetPath(meta_doc);
 		uint key = CreateResource(assets_path.c_str());
-
-		for (int i = 0; i < meta_doc->GetArraySize("resources"); ++i)
+		if (resources.find(key) == resources.end()) //check if the file has already been imported
 		{
-			Resource* res = new Resource(meta_doc, i);
-			std::string lib_path = BuildLibraryPath(meta_doc, i);
-			switch (GetTypeFromMeta(meta_doc, i))
+			for (int i = 0; i < meta_doc->GetArraySize("resources"); ++i)
 			{
-			case R_NULL:
-				break;
-			case R_MESH:
-				if (App->mesh->LoadFile(lib_path.c_str(), res) == false)
+				Resource* res = new Resource(meta_doc, i);
+				std::string lib_path = BuildLibraryPath(meta_doc, i);
+				switch (GetTypeFromMeta(meta_doc, i))
 				{
-					//the file doesnt exist on the library, import it and update resource info
-					App->mesh->ImportMesh(assets_path.c_str(), res->file_id, res);
+				case R_NULL:
+					break;
+				case R_MESH:
+					if (App->mesh->LoadFile(lib_path.c_str(), res) == false)
+					{
+						//the file doesnt exist on the library, import it and update resource info
+						App->mesh->ImportMesh(assets_path.c_str(), res->file_id, res);
+					}
+					break;
+				case R_TEXTURE:
+					if (App->materials->ImportImage(lib_path.c_str(), res) == nullptr)
+						App->materials->ImportImage(assets_path.c_str(), res);
+					break;
+				case R_PREFAB:
+					break;
+				case R_SCENE:
+					break;
+				case R_META:
+					break;
+				default:
+					break;
 				}
-				break;
-			case R_TEXTURE:
-				break;
-			case R_PREFAB:
-				break;
-			case R_SCENE:
-				break;
-			case R_META:
-				break;
-			default:
-				break;
+				resources[key].push_back(res);
 			}
-			resources[key].push_back(res);
 		}
 		
 	}
@@ -181,8 +197,7 @@ Resource * ResourceManager::ExistResource(std::string & file, int file_id)
 {
 	Resource* ret = nullptr;
 
-	uint cut = file.find_last_of(".");
-	std::string file_name = file.substr(0, cut);
+	std::string file_name = GetNameFromPath(file.c_str());
 
 	for (std::map<uint, std::vector<Resource*>>::iterator it = resources.begin(); it != resources.end(); ++it)
 	{
@@ -239,6 +254,7 @@ void ResourceManager::CreateMeta(const char * path)
 		meta->SetNumber("file_id", resources[key][i]->file_id);
 		meta->SetNumber("type", resources[key][i]->type);
 		meta->SetNumber("UID", resources[key][i]->UID);
+		meta->SetBool("flipped", resources[key][i]->flipped);
 
 		meta->MoveToRoot();
 	}
@@ -462,11 +478,21 @@ std::string ResourceManager::GetRelativePathFromPath(const char * path)
 void ResourceManager::LoadFolder(const char * path)
 {
 	std::vector<std::string> files;
-	App->GetFilesInPath(files, path);
+	std::string _p = path;
+	_p += "\\";
+	App->GetFilesInPath(files, _p.c_str());
 
 	for(std::vector<std::string>::iterator f = files.begin(); f!= files.end();++f)
 	{
-		//TODO
+		if ((*f).find(".") == -1)
+		{
+			LoadFolder((*f).c_str());
+		}
+		else
+		{
+			if(GetTypeFromPath((*f).c_str())==R_META)
+				Load((*f).c_str());
+		}
 	}
 }
 

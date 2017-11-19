@@ -6,6 +6,7 @@
 #include "imgui.h"
 #include "ModuleRenderer3D.h"
 #include "JSONManager.h"
+#include "ResourceManager.h"
 
 MeshRenderer::MeshRenderer(GameObject* owner) : Component(Component::Type::C_MeshRenderer, owner)
 {
@@ -57,6 +58,12 @@ void MeshRenderer::SetMesh(Mesh * mesh)
 	this->mesh = mesh;
 	bounding_box.SetNegativeInfinity();
 	bounding_box.Enclose((float3*)mesh->GetVertices(), mesh->GetVerticesNum());
+}
+
+void MeshRenderer::SetMesh(uint uid)
+{
+	Resource* res = App->resources->GetResource(uid);
+	mesh = App->mesh->GetMesh(res->manager_id);
 }
 
 void MeshRenderer::DrawConfig()

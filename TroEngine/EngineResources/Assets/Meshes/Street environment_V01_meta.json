@@ -8,7 +8,8 @@
             "lib_path": "Library\\Meshes\\",
             "file_id": 0,
             "type": 1,
-            "UID": 2505318538
+            "UID": 420704639,
+            "flipped": false
         },
         {
             "name": "Street environment_V01",
@@ -18,7 +19,8 @@
             "lib_path": "Library\\Meshes\\",
             "file_id": 1,
             "type": 1,
-            "UID": 1433010203
+            "UID": 2347101259,
+            "flipped": false
         },
         {
             "name": "Street environment_V01",
@@ -28,7 +30,8 @@
             "lib_path": "Library\\Meshes\\",
             "file_id": 2,
             "type": 1,
-            "UID": 1007073578
+            "UID": 1659355308,
+            "flipped": false
         },
         {
             "name": "Street environment_V01",
@@ -38,7 +41,8 @@
             "lib_path": "Library\\Meshes\\",
             "file_id": 3,
             "type": 1,
-            "UID": 2672179420
+            "UID": 3875926185,
+            "flipped": false
         },
         {
             "name": "Street environment_V01",
@@ -48,7 +52,8 @@
             "lib_path": "Library\\Meshes\\",
             "file_id": 9,
             "type": 1,
-            "UID": 3817481560
+            "UID": 223087489,
+            "flipped": false
         },
         {
             "name": "Street environment_V01",
@@ -58,7 +63,8 @@
             "lib_path": "Library\\Meshes\\",
             "file_id": 5,
             "type": 1,
-            "UID": 4103952572
+            "UID": 2355334028,
+            "flipped": false
         },
         {
             "name": "Street environment_V01",
@@ -68,7 +74,8 @@
             "lib_path": "Library\\Meshes\\",
             "file_id": 6,
             "type": 1,
-            "UID": 214141488
+            "UID": 2731051852,
+            "flipped": false
         },
         {
             "name": "Street environment_V01",
@@ -78,7 +85,8 @@
             "lib_path": "Library\\Meshes\\",
             "file_id": 10,
             "type": 1,
-            "UID": 3600815136
+            "UID": 3493657439,
+            "flipped": false
         },
         {
             "name": "Street environment_V01",
@@ -88,7 +96,8 @@
             "lib_path": "Library\\Meshes\\",
             "file_id": 11,
             "type": 1,
-            "UID": 1076409213
+            "UID": 1069890741,
+            "flipped": false
         },
         {
             "name": "Street environment_V01",
@@ -98,7 +107,8 @@
             "lib_path": "Library\\Meshes\\",
             "file_id": 12,
             "type": 1,
-            "UID": 2149963471
+            "UID": 969526178,
+            "flipped": false
         },
         {
             "name": "Street environment_V01",
@@ -108,7 +118,8 @@
             "lib_path": "Library\\Meshes\\",
             "file_id": 7,
             "type": 1,
-            "UID": 1950862228
+            "UID": 2284950271,
+            "flipped": false
         },
         {
             "name": "Street environment_V01",
@@ -118,7 +129,8 @@
             "lib_path": "Library\\Meshes\\",
             "file_id": 14,
             "type": 1,
-            "UID": 3840148896
+            "UID": 2480913481,
+            "flipped": false
         },
         {
             "name": "Street environment_V01",
@@ -128,7 +140,8 @@
             "lib_path": "Library\\Meshes\\",
             "file_id": 15,
             "type": 1,
-            "UID": 3407761523
+            "UID": 934701661,
+            "flipped": false
         },
         {
             "name": "Street environment_V01",
@@ -138,7 +151,8 @@
             "lib_path": "Library\\Meshes\\",
             "file_id": 16,
             "type": 1,
-            "UID": 3714327195
+            "UID": 1248454950,
+            "flipped": false
         },
         {
             "name": "Street environment_V01",
@@ -148,7 +162,8 @@
             "lib_path": "Library\\Meshes\\",
             "file_id": 17,
             "type": 1,
-            "UID": 4246744890
+            "UID": 2885211479,
+            "flipped": false
         }
     ]
 }

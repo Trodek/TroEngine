@@ -5,6 +5,8 @@
 #include "imgui.h"
 #include "ModuleGUI.h"
 #include "Inspector.h"
+#include "SceneImporter.h"
+#include "SceneManager.h"
 
 MenuGUI::MenuGUI()
 {
@@ -22,6 +24,7 @@ update_status MenuGUI::UpdateGUI(float dt)
 	MathTest();
 	Config();
 	PerformanceMenu();
+	SaveSceneMenu();
 	
 	return UPDATE_CONTINUE;
 }
@@ -34,6 +37,10 @@ void MenuGUI::CreateGUI()
 		{
 			if (ImGui::MenuItem("Configuration##menu", NULL, &show_config))
 			{
+			}
+
+			if (ImGui::MenuItem("Save Scene##menu", NULL, &save_scene))
+			{ 
 			}
 
 			if (ImGui::MenuItem("Close App"))
@@ -260,6 +267,26 @@ void MenuGUI::PerformanceMenu()
 		ImGui::Begin("Performance##Window", &show_performance);
 
 		App->DrawPerformanceWindow();
+
+		ImGui::End();
+	}
+}
+
+void MenuGUI::SaveSceneMenu()
+{
+	if (save_scene)
+	{
+		ImGui::Begin("Save Scene##win", &save_scene);
+		
+		ImGui::InputText("Scene Name", name, 100);
+
+		if (ImGui::Button("Save##scene"))
+		{
+			std::string path = "Assets\\Scenes\\";
+			path += name;
+			path += "_scene.json";
+			App->scene_importer->SaveScene(App->scene_manager->GetCurrentScene(), path.c_str());
+		}
 
 		ImGui::End();
 	}

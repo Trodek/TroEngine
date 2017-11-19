@@ -404,7 +404,7 @@ GameObject * GameObject::GetChild(uint id) const
 	return ret;
 }
 
-void GameObject::GetChildByUID(uint UID, GameObject * go) const
+void GameObject::GetChildByUID(uint UID, GameObject *& go) const
 {
 	for (int i = 0; i < childs.size(); ++i)
 	{
@@ -511,8 +511,9 @@ void GameObject::Serialize(JSONDoc * doc)
 	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
 	{
 		(*c)->Serialize(doc);
+		doc->MoveToRoot();
 	}
-	doc->MoveToRoot();
+
 	//Save childs
 	for (std::vector<GameObject*>::iterator go = childs.begin(); go != childs.end(); ++go)
 	{

@@ -38,12 +38,7 @@ public:
 	uint file_id = 0; // if the file contain more than 1 resource (ex: fbx) the index on file
 	uint manager_id; // index on the respective manager vector
 	uint UID = 0;
-	union ptr
-	{
-		Mesh* mesh_ptr;
-		GameObject* go_ptr;
-		Material* mat_ptr;
-	};
+	bool flipped = false;
 };
 
 class ResourceManager : public Module
@@ -56,7 +51,7 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	Resource* GetResource(uint uid_key)const;
+	Resource* GetResource(uint uid)const;
 
 	void Load(const char* path);
 	Resource* LoadMeta(const char* path);

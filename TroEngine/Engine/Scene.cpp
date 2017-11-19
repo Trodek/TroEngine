@@ -177,6 +177,7 @@ GameObject * Scene::GetGameObjectByUID(uint uid) const
 		else
 		{
 			game_objects[i]->GetChildByUID(uid, ret);
+
 			if (ret != nullptr)
 				break;
 		}
@@ -300,5 +301,13 @@ void Scene::SerializeScene(JSONDoc * doc)
 	for (std::vector<GameObject*>::iterator go = game_objects.begin(); go != game_objects.end(); ++go)
 	{
 		(*go)->Serialize(doc);
+	}
+}
+
+void Scene::UpdateTransforms() const
+{
+	for (int i = 0; i < game_objects.size(); ++i)
+	{
+		game_objects[i]->TransformUpdate();
 	}
 }

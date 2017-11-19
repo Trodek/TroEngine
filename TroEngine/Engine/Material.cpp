@@ -16,6 +16,10 @@ Material::Material(uint id, uint w, uint h, const char* path) : id_material(id),
 	RELEASE_ARRAY(data);
 }
 
+Material::Material(uint uid, uint id, uint w, uint h, const char * path) : id_material(id), width(w), height(h), path(path), UID(uid)
+{
+}
+
 Material::~Material()
 {
 }

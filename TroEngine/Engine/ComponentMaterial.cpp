@@ -6,6 +6,7 @@
 #include "GameObject.h"
 #include "imgui.h"
 #include "JSONManager.h"
+#include "ResourceManager.h"
 
 ComponentMaterial::ComponentMaterial(GameObject* owner) : Component(C_Material, owner)
 {
@@ -21,7 +22,6 @@ ComponentMaterial::~ComponentMaterial()
 
 void ComponentMaterial::CleanUp()
 {
-	App->materials->RemoveMaterial(material);
 	material = nullptr;
 }
 
@@ -34,6 +34,12 @@ void ComponentMaterial::SetMaterial(Material * new_mat)
 
 void ComponentMaterial::SetMaterial(uint mat_id)
 {
+	if (mat_id != 0) //invalid id
+	{
+		Resource* res = App->resources->GetResource(mat_id);
+		if(res!=nullptr)
+			material = App->materials->GetMaterial(res->manager_id);
+	}
 }
 
 void ComponentMaterial::ApplyMaterial() const

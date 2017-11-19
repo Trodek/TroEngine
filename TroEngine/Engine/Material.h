@@ -8,6 +8,7 @@ class Material
 {
 public:
 	Material(uint id, uint w, uint h, const char* path);
+	Material(uint uid, uint id, uint w, uint h, const char* path);
 	~Material();
 
 	uint GetMaterialID()const;

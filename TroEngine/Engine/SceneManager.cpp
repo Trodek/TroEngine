@@ -48,7 +48,9 @@ update_status SceneManager::PreUpdate(float dt)
 	
 	if (load_scene)
 	{
-		App->scene_importer->LoadSceneFromBuffer(GetCurrentScene());
+		App->scene_importer->LoadSceneFromBuffer(curr_scene);
+		curr_scene->update_kd_tree = true;
+		curr_scene->UpdateTransforms();
 		load_scene = false;
 	}
 

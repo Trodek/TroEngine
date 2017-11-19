@@ -106,7 +106,7 @@ update_status ModuleGUI::Update(float dt)
 
 				trans->SetScale(curr_scale);
 			}
-			else if (gizmo_op == ImGuizmo::ROTATE)
+			else if (gizmo_op == ImGuizmo::ROTATE) //TODO: fix rotate with parent transform
 			{
 				float3 rotation(rot[0] * DEGTORAD, rot[1] * DEGTORAD, rot[2] * DEGTORAD);
 				if (inspector->selected->GetParent() != nullptr)

@@ -1,26 +1,26 @@
 {
     "resources": [
         {
-            "name": "building03_c",
-            "extension": "tga",
+            "name": "Infernal_fx1",
+            "extension": "png",
             "rel_path": "Assets\\Materials\\",
-            "lib_name": "texture_0",
+            "lib_name": "texture_8",
             "lib_path": "Library\\Materials\\",
             "file_id": 0,
             "type": 2,
-            "UID": 3671571530,
-            "flipped": false
+            "UID": 1101179947,
+            "flipped": true
         },
         {
-            "name": "building 01_c",
-            "extension": "tga",
+            "name": "Infernal2_Gray",
+            "extension": "png",
             "rel_path": "Assets\\Materials\\",
-            "lib_name": "texture_4",
+            "lib_name": "texture_9",
             "lib_path": "Library\\Materials\\",
             "file_id": 0,
             "type": 2,
-            "UID": 2162617051,
-            "flipped": false
+            "UID": 206023680,
+            "flipped": true
         }
     ]
 }

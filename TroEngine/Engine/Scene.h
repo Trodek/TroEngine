@@ -49,6 +49,8 @@ public:
 
 	void SerializeScene(JSONDoc* doc);
 
+	void UpdateTransforms()const;
+
 private:
 	bool active;
 	uint new_go_id = 0;

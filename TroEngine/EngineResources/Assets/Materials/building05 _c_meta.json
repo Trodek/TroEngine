@@ -8,7 +8,8 @@
             "lib_path": "Library\\Materials\\",
             "file_id": 0,
             "type": 2,
-            "UID": 4064692631
+            "UID": 3671571530,
+            "flipped": false
         },
         {
             "name": "building 01_c",
@@ -18,7 +19,8 @@
             "lib_path": "Library\\Materials\\",
             "file_id": 0,
             "type": 2,
-            "UID": 2947696743
+            "UID": 2162617051,
+            "flipped": false
         },
         {
             "name": "building05 _c",
@@ -28,7 +30,8 @@
             "lib_path": "Library\\Materials\\",
             "file_id": 0,
             "type": 2,
-            "UID": 1496930540
+            "UID": 709334673,
+            "flipped": false
         }
     ]
 }
