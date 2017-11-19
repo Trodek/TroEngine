@@ -55,6 +55,8 @@ void MeshRenderer::CleanUp()
 void MeshRenderer::SetMesh(Mesh * mesh)
 {
 	this->mesh = mesh;
+	bounding_box.SetNegativeInfinity();
+	bounding_box.Enclose((float3*)mesh->GetVertices(), mesh->GetVerticesNum());
 }
 
 void MeshRenderer::DrawConfig()
@@ -76,7 +78,14 @@ void MeshRenderer::DrawConfig()
 
 void MeshRenderer::OnUpdateTransform()
 {
-	mesh->UpdateAABB(GetOwner()->GetTransform());
+	UpdateAABB(GetOwner()->GetTransform());
+}
+
+void MeshRenderer::UpdateAABB(const float4x4 & trans)
+{
+	bounding_box.SetNegativeInfinity();
+	bounding_box.Enclose((float3*)mesh->GetVertices(), mesh->GetVerticesNum());
+	bounding_box.TransformAsAABB(trans);
 }
 
 void MeshRenderer::RemoveMesh()
@@ -86,7 +95,7 @@ void MeshRenderer::RemoveMesh()
 
 AABB MeshRenderer::GetMeshAABB()
 {
-	return mesh->GetAABB();
+	return bounding_box;
 }
 
 void MeshRenderer::Serialize(JSONDoc * doc)

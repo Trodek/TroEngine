@@ -8,6 +8,7 @@ class Mesh
 {
 public:
 	Mesh(uint num_ver, float* ver, uint num_ind, uint* ind, uint num_uv = 0, float* uv = nullptr, uint num_norm = 0, float* norm = nullptr);
+	Mesh(uint uid, uint num_ver, float* ver, uint num_ind, uint* ind, uint num_uv = 0, float* uv = nullptr, uint num_norm = 0, float* norm = nullptr);
 
 	uint GetIndicesID() const;
 	uint GetIndicesNum() const;
@@ -20,9 +21,6 @@ public:
 	uint GetUVNum();
 	uint GetUVID();
 	float* GetUV();
-
-	AABB GetAABB() const;
-	void UpdateAABB(const float4x4& trans);
 
 	uint GetUID() const;
 
@@ -48,8 +46,6 @@ private:
 	uint id_normals = 0; //id in VRAM
 	uint num_normals = 0;
 	float* normals;
-
-	AABB bounding_box;
 
 	uint UID = 0;
 };

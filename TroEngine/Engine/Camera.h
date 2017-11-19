@@ -47,7 +47,7 @@ public:
 	Ray UnProject(float x, float y);
 	LineSegment UnProjectSegment(float x, float y);
 
-	void GetElementsToDraw(std::vector<GameObject*>& vec_to_fill)const;
+	void SetElementsToDraw()const;
 
 private:
 	bool FrustumContains(const AABB& box) const;

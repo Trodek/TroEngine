@@ -74,6 +74,7 @@ private:
 
 public:
 	bool kill_me = false;
+	bool draw = true;
 	std::string name;
 
 private:

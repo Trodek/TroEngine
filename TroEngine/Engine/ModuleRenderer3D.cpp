@@ -177,7 +177,10 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 {
 	//Rendering pipeline
 	if (!App->debug_mode) // for debug proposes avoid drawing geometry, just the debug boxes
-		App->camera->DrawElementsOnFrustum();
+	{
+		App->camera->SetDrawOnFrustumElements();
+		App->scene_manager->DrawScenes();
+	}
 
 	//Draw debug
 	bool cull_face_state = cull_face; //disable cull face when in debug

@@ -38,9 +38,6 @@ Mesh::Mesh(uint num_ver, float * ver, uint num_ind, uint * ind, uint num_uv, flo
 		App->renderer3D->UnbindArraybuffer();
 	}
 
-	bounding_box.SetNegativeInfinity();
-	bounding_box.Enclose((float3*)ver, num_ver);
-
 	void* a = this;
 	void** a_ptr = &a;
 	uint size = sizeof(this);
@@ -50,6 +47,41 @@ Mesh::Mesh(uint num_ver, float * ver, uint num_ind, uint * ind, uint num_uv, flo
 	uint* uid = md5(data, size);
 	UID = *uid;
 	RELEASE_ARRAY(data);
+}
+
+Mesh::Mesh(uint uid, uint num_ver, float * ver, uint num_ind, uint * ind, uint num_uv, float * uv, uint num_norm, float * norm) :
+	num_indices(num_ind), indices(ind), num_vertices(num_ver), vertices(ver), num_uv(num_uv), uv(uv), num_normals(num_norm), normals(norm), UID(uid)
+{
+	//Load vertices to vram
+	id_vertices = App->renderer3D->GenBuffer();
+	App->renderer3D->BindArrayBuffer(id_vertices);
+	App->renderer3D->LoadArrayToVRAM(sizeof(float) * num_vertices * 3, ver, GL_STATIC_DRAW);
+	App->renderer3D->UnbindArraybuffer();
+
+	//Load indices to vram
+	id_indices = App->renderer3D->GenBuffer();
+	App->renderer3D->BindArrayBuffer(id_indices);
+	App->renderer3D->LoadArrayToVRAM(sizeof(uint) * num_indices, ind, GL_STATIC_DRAW);
+	App->renderer3D->UnbindArraybuffer();
+
+
+	//Load uv to vram
+	if (uv != nullptr)
+	{
+		id_uv = App->renderer3D->GenBuffer();
+		App->renderer3D->BindArrayBuffer(id_uv);
+		App->renderer3D->LoadArrayToVRAM(sizeof(float) * num_uv * 3, uv, GL_STATIC_DRAW);
+		App->renderer3D->UnbindArraybuffer();
+	}
+
+	//Load normals to vram
+	if (norm != nullptr)
+	{
+		id_normals = App->renderer3D->GenBuffer();
+		App->renderer3D->BindArrayBuffer(id_normals);
+		App->renderer3D->LoadArrayToVRAM(sizeof(float) * num_normals * 3, normals, GL_STATIC_DRAW);
+		App->renderer3D->UnbindArraybuffer();
+	}
 }
 
 uint Mesh::GetIndicesID() const
@@ -95,18 +127,6 @@ uint Mesh::GetUVID()
 float * Mesh::GetUV()
 {
 	return uv;
-}
-
-AABB Mesh::GetAABB() const
-{
-	return bounding_box;
-}
-
-void Mesh::UpdateAABB(const float4x4 & trans)
-{
-	bounding_box.SetNegativeInfinity();
-	bounding_box.Enclose((float3*)vertices, num_vertices);
-	bounding_box.TransformAsAABB(trans);
 }
 
 uint Mesh::GetUID() const

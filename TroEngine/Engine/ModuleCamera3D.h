@@ -27,7 +27,7 @@ public:
 
 	void Pick(uint mouse_x, uint mouse_y);
 
-	void DrawElementsOnFrustum()const;
+	void SetDrawOnFrustumElements()const;
 	
 private:
 	GameObject* cam_go = nullptr;

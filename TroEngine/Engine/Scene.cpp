@@ -22,8 +22,8 @@ void Scene::Draw()
 {
 	for (std::vector<GameObject*>::iterator go = game_objects.begin(); go != game_objects.end(); ++go)
 	{
-		if((*go)->IsActive())
-		(*go)->Draw();
+		if((*go)->IsActive() && (*go)->draw)
+			(*go)->Draw();
 	}
 }
 
@@ -57,6 +57,8 @@ bool Scene::PreUpdate()
 	for (std::vector<GameObject*>::iterator go = game_objects.begin(); go != game_objects.end(); ++go)
 	{
 		(*go)->PreUpdate();
+		if ((*go)->HasComponent(Component::C_MeshRenderer))
+			(*go)->draw = false;
 	}
 
 	return ret;

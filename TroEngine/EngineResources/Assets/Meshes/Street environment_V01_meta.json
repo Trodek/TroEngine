@@ -1,0 +1,154 @@
+{
+    "resources": [
+        {
+            "name": "Street environment_V01",
+            "extension": "FBX",
+            "rel_path": "C:\\Users\\ibanm\\Desktop\\TroEngine\\TroEngine\\EngineResources\\Assets\\Meshes\\",
+            "lib_name": "mesh_0",
+            "lib_path": "Library\\Meshes\\",
+            "file_id": 0,
+            "type": 1,
+            "UID": 3094395329
+        },
+        {
+            "name": "Street environment_V01",
+            "extension": "FBX",
+            "rel_path": "C:\\Users\\ibanm\\Desktop\\TroEngine\\TroEngine\\EngineResources\\Assets\\Meshes\\",
+            "lib_name": "mesh_1",
+            "lib_path": "Library\\Meshes\\",
+            "file_id": 1,
+            "type": 1,
+            "UID": 375752902
+        },
+        {
+            "name": "Street environment_V01",
+            "extension": "FBX",
+            "rel_path": "C:\\Users\\ibanm\\Desktop\\TroEngine\\TroEngine\\EngineResources\\Assets\\Meshes\\",
+            "lib_name": "mesh_2",
+            "lib_path": "Library\\Meshes\\",
+            "file_id": 2,
+            "type": 1,
+            "UID": 2260203538
+        },
+        {
+            "name": "Street environment_V01",
+            "extension": "FBX",
+            "rel_path": "C:\\Users\\ibanm\\Desktop\\TroEngine\\TroEngine\\EngineResources\\Assets\\Meshes\\",
+            "lib_name": "mesh_3",
+            "lib_path": "Library\\Meshes\\",
+            "file_id": 3,
+            "type": 1,
+            "UID": 3060033717
+        },
+        {
+            "name": "Street environment_V01",
+            "extension": "FBX",
+            "rel_path": "C:\\Users\\ibanm\\Desktop\\TroEngine\\TroEngine\\EngineResources\\Assets\\Meshes\\",
+            "lib_name": "mesh_4",
+            "lib_path": "Library\\Meshes\\",
+            "file_id": 9,
+            "type": 1,
+            "UID": 3872911135
+        },
+        {
+            "name": "Street environment_V01",
+            "extension": "FBX",
+            "rel_path": "C:\\Users\\ibanm\\Desktop\\TroEngine\\TroEngine\\EngineResources\\Assets\\Meshes\\",
+            "lib_name": "mesh_5",
+            "lib_path": "Library\\Meshes\\",
+            "file_id": 5,
+            "type": 1,
+            "UID": 982217452
+        },
+        {
+            "name": "Street environment_V01",
+            "extension": "FBX",
+            "rel_path": "C:\\Users\\ibanm\\Desktop\\TroEngine\\TroEngine\\EngineResources\\Assets\\Meshes\\",
+            "lib_name": "mesh_6",
+            "lib_path": "Library\\Meshes\\",
+            "file_id": 6,
+            "type": 1,
+            "UID": 1176627139
+        },
+        {
+            "name": "Street environment_V01",
+            "extension": "FBX",
+            "rel_path": "C:\\Users\\ibanm\\Desktop\\TroEngine\\TroEngine\\EngineResources\\Assets\\Meshes\\",
+            "lib_name": "mesh_7",
+            "lib_path": "Library\\Meshes\\",
+            "file_id": 10,
+            "type": 1,
+            "UID": 2042077842
+        },
+        {
+            "name": "Street environment_V01",
+            "extension": "FBX",
+            "rel_path": "C:\\Users\\ibanm\\Desktop\\TroEngine\\TroEngine\\EngineResources\\Assets\\Meshes\\",
+            "lib_name": "mesh_8",
+            "lib_path": "Library\\Meshes\\",
+            "file_id": 11,
+            "type": 1,
+            "UID": 3940892104
+        },
+        {
+            "name": "Street environment_V01",
+            "extension": "FBX",
+            "rel_path": "C:\\Users\\ibanm\\Desktop\\TroEngine\\TroEngine\\EngineResources\\Assets\\Meshes\\",
+            "lib_name": "mesh_9",
+            "lib_path": "Library\\Meshes\\",
+            "file_id": 12,
+            "type": 1,
+            "UID": 1897315678
+        },
+        {
+            "name": "Street environment_V01",
+            "extension": "FBX",
+            "rel_path": "C:\\Users\\ibanm\\Desktop\\TroEngine\\TroEngine\\EngineResources\\Assets\\Meshes\\",
+            "lib_name": "mesh_10",
+            "lib_path": "Library\\Meshes\\",
+            "file_id": 7,
+            "type": 1,
+            "UID": 2125423789
+        },
+        {
+            "name": "Street environment_V01",
+            "extension": "FBX",
+            "rel_path": "C:\\Users\\ibanm\\Desktop\\TroEngine\\TroEngine\\EngineResources\\Assets\\Meshes\\",
+            "lib_name": "mesh_11",
+            "lib_path": "Library\\Meshes\\",
+            "file_id": 14,
+            "type": 1,
+            "UID": 214242392
+        },
+        {
+            "name": "Street environment_V01",
+            "extension": "FBX",
+            "rel_path": "C:\\Users\\ibanm\\Desktop\\TroEngine\\TroEngine\\EngineResources\\Assets\\Meshes\\",
+            "lib_name": "mesh_12",
+            "lib_path": "Library\\Meshes\\",
+            "file_id": 15,
+            "type": 1,
+            "UID": 1795973567
+        },
+        {
+            "name": "Street environment_V01",
+            "extension": "FBX",
+            "rel_path": "C:\\Users\\ibanm\\Desktop\\TroEngine\\TroEngine\\EngineResources\\Assets\\Meshes\\",
+            "lib_name": "mesh_13",
+            "lib_path": "Library\\Meshes\\",
+            "file_id": 16,
+            "type": 1,
+            "UID": 2316135813
+        },
+        {
+            "name": "Street environment_V01",
+            "extension": "FBX",
+            "rel_path": "C:\\Users\\ibanm\\Desktop\\TroEngine\\TroEngine\\EngineResources\\Assets\\Meshes\\",
+            "lib_name": "mesh_14",
+            "lib_path": "Library\\Meshes\\",
+            "file_id": 17,
+            "type": 1,
+            "UID": 2741337348
+        }
+    ]
+}

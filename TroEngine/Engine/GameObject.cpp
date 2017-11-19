@@ -101,6 +101,8 @@ bool GameObject::PreUpdate()
 	for (std::vector<GameObject*>::iterator go = childs.begin(); go != childs.end(); ++go)
 	{
 		ret = (*go)->PreUpdate();
+		if((*go)->HasComponent(Component::C_MeshRenderer))
+			(*go)->draw = false;
 	}
 
 	//change static state
@@ -190,7 +192,7 @@ void GameObject::Draw()
 	//Draw Childs
 	for (std::vector<GameObject*>::iterator go = childs.begin(); go != childs.end(); ++go)
 	{
-		if ((*go)->active)
+		if ((*go)->active && (*go)->draw)
 			(*go)->Draw();
 	}
 

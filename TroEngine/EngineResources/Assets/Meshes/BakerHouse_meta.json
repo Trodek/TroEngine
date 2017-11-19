@@ -1,0 +1,24 @@
+{
+    "resources": [
+        {
+            "name": "BakerHouse",
+            "extension": "fbx",
+            "rel_path": "C:\\Users\\ibanm\\Desktop\\TroEngine\\TroEngine\\EngineResources\\Assets\\Meshes\\",
+            "lib_name": "mesh_0",
+            "lib_path": "Library\\Meshes\\",
+            "file_id": 0,
+            "type": 1,
+            "UID": 1902338973
+        },
+        {
+            "name": "BakerHouse",
+            "extension": "fbx",
+            "rel_path": "C:\\Users\\ibanm\\Desktop\\TroEngine\\TroEngine\\EngineResources\\Assets\\Meshes\\",
+            "lib_name": "mesh_1",
+            "lib_path": "Library\\Meshes\\",
+            "file_id": 0,
+            "type": 1,
+            "UID": 997985130
+        }
+    ]
+}

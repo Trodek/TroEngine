@@ -11,6 +11,7 @@ class GameObject;
 class aiNode;
 class aiScene;
 class aiMesh;
+class Resource;
 
 class MeshImporter : public Module
 {
@@ -23,21 +24,23 @@ public:
 	bool CleanUp();
 
 	bool ImportFile(const char* path);
+	bool ImportMesh(const char* path, uint mesh_id, Resource* res);
 
-	void SaveToLibrary(Mesh* mesh);
-	void LoadFile(const char* path);
+	void SaveToLibrary(Mesh* mesh, Resource* res);
+	void SaveToLibrary(Mesh* mesh, const char* path);
+	bool LoadFile(const char* path, Resource* res = nullptr);
 
 	void RemoveMesh(Mesh* m);
 
 private:
-	bool ImportNode(const aiScene* scene, aiNode* node, GameObject* parent, const std::vector<Material*>& mats);
-	bool ImportMesh(aiMesh* mesh, GameObject* owner, const std::vector<Material*>& mats);
+	bool ImportNode(const aiScene* scene, aiNode* node, GameObject* parent,const std::vector<Material*>& mats, uint res_key, const char* path);
+	bool ImportMesh(aiMesh* mesh, GameObject* owner, const std::vector<Material*>& mats,Resource* res);
 
 	void CubeMesh();
 	void PlaneMesh();
 
 private:
-	std::list<Mesh*> meshes;
+	std::vector<Mesh*> meshes;
 	int id = 0;
 	uint save_id = 0;
 

@@ -32,8 +32,12 @@ public:
 	bool TestSegmentToMesh(LineSegment segment, float& distance, float3& hit) const;
 
 private:
+	void UpdateAABB(const float4x4 & trans);
+
+private:
 	Mesh* mesh = nullptr;
 	bool wireframe = false;
+	AABB bounding_box;
 
 };
 

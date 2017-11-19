@@ -13,6 +13,7 @@
 #include "SceneManager.h"
 #include "Component.h"
 #include "ComponentMaterial.h"
+#include "ResourceManager.h"
 
 #define MAX_KEYS 300
 
@@ -130,7 +131,7 @@ update_status ModuleInput::PreUpdate(float dt)
 
 			case SDL_DROPFILE:
 			{
-				OnFileDropped(e.drop.file);
+				App->resources->Load(e.drop.file);
 				break;
 			}
 		}

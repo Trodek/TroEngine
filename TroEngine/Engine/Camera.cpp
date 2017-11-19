@@ -236,7 +236,7 @@ LineSegment Camera::UnProjectSegment(float x, float y)
 	return frustum.UnProjectLineSegment(x, y);
 }
 
-void Camera::GetElementsToDraw(std::vector<GameObject*>& vec_to_fill) const
+void Camera::SetElementsToDraw() const
 {
 	std::vector<GameObject*> objects_to_test;
 	App->scene_manager->GetCurrentScene()->GetAllDynamicGameObjects(objects_to_test);
@@ -259,10 +259,10 @@ void Camera::GetElementsToDraw(std::vector<GameObject*>& vec_to_fill) const
 		else it++;
 	}
 
-	//copy elements to vector
+	//set elements to draw
 	for (std::vector<GameObject*>::iterator it = objects_to_test.begin(); it != objects_to_test.end(); ++it)
 	{
-		vec_to_fill.push_back((*it));
+		(*it)->draw = true;
 	}
 }
 

@@ -3,10 +3,12 @@
 
 #include "Module.h"
 #include <map>
+#include <vector>
 
 class Mesh;
 class GameObject;
 class Material;
+class JSONDoc;
 
 enum ResourceType
 {
@@ -15,12 +17,14 @@ enum ResourceType
 	R_TEXTURE,
 	R_PREFAB,
 	R_SCENE,
+	R_META,
 };
 
 class Resource
 {
 public:
 	Resource();
+	Resource(JSONDoc* doc, int id);
 	~Resource();
 
 public:
@@ -52,25 +56,40 @@ public:
 	update_status Update(float dt);
 	bool CleanUp();
 
-	void AddResource(uint uid_key, Resource* resource);
+	Resource* GetResource(uint uid_key)const;
 
 	void Load(const char* path);
+	Resource* LoadMeta(const char* path);
 
 	//Check if the resouce exist. Returns a pointer to the resource or nullptr
 	Resource* ExistResource(std::string& file, int file_id = -1);
 
+	//Create an entry on the resources map and returns a reference to its Resource vector
+	uint CreateResource(const char* path);
+	void CreateMeta(const char* path);
+
 	std::string BuildAssetPath(uint key);
 	std::string BuildAssetPath(Resource* resource);
-	std::string BuildLibraryPath(uint key);
+	std::string BuildAssetPath(JSONDoc* doc);
+	std::string BuildLibraryPath(uint key, int id = -1);
 	std::string BuildLibraryPath(Resource* resource);
+	std::string BuildLibraryPath(JSONDoc* doc, int id);
 	std::string BuildMetaPath(uint key);
 	std::string BuildMetaPath(Resource* resource);
 
-private:
-	void LoadFolder(const char* path);
+	bool GenerateFileUID(const char* path, uint& uid);
+
+	std::string GetNameFromPath(const char* path);
+	std::string GetExtensionFromPath(const char* path);
+	std::string GetRelativePathFromPath(const char* path);
 
 private:
-	std::map<uint, Resource*> resources;
+	void LoadFolder(const char* path);
+	ResourceType GetTypeFromPath(const char* path) const;
+	ResourceType GetTypeFromMeta(JSONDoc* doc, int id) const;
+
+public:
+	std::map<uint, std::vector<Resource*>> resources;
 
 };
 

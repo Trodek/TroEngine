@@ -126,17 +126,9 @@ void ModuleCamera3D::Pick(uint mouse_x, uint mouse_y)
 
 }
 
-void ModuleCamera3D::DrawElementsOnFrustum() const
+void ModuleCamera3D::SetDrawOnFrustumElements() const
 {
-	std::vector<GameObject*> elements;
-	
-	(main_cam_active == true) ? main_cam->GetElementsToDraw(elements) : cam->GetElementsToDraw(elements);
-
-	for (std::vector<GameObject*>::iterator go = elements.begin(); go != elements.end(); ++go)
-	{
-		if ((*go)->IsActive())
-			(*go)->Draw();
-	}
+	(main_cam_active == true) ? main_cam->SetElementsToDraw() : cam->SetElementsToDraw();
 }
 
 // -----------------------------------------------------------------
