@@ -6,11 +6,10 @@
 Basic 3D Engine based on OpenGL 2.1
 
 ## Current State:
-Currently the engine is a geometry viewer. This means that the engine is capable
-of loading FBX files and PNG texture images. If the FBX file contains the path of 
-the texture it will be loaded automatically. That way, the engine may be able to 
-load other texture formats.
-The engine accepts one diffuse texture and as many meshes as the fbx files contain.
+Currently the engine is a base to buid more complex systems. This means that the engine is capable
+of loading FBX files and PNG texture images, create gameobjects structure and save scenes.
+If the FBX file contains the path of the texture it will be loaded automatically. 
+That way, the engine may be able to load other texture formats.
 
 ## Usage
 To use the engine, drag and drop your files inside, the rest is handled for you.
@@ -29,8 +28,13 @@ A performance window can be aopened at view -> performance.
 
 Theres also a configuration widow at file menu.
 
-Take in acount that camera will adjust has a maximum value to avoid moving outside 
-vision range.
+New GameObjects can be created from the Hierarchy. Use the Inspector to attach components to them.
+
+Elements can be picked with the mouse and moved with gizmos (still work in progress :))
+
+To save the current scene theres an option at File->Save Scene. The scenes can be loaded using drag n drop.
+
+GameObjects can be saved as prefabs, but can't be loaded at the moment. Wierd things can happen if you try it.
 
 ## GitHub
 The engine is mantained by Trodek.
