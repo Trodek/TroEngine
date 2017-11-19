@@ -1,0 +1,34 @@
+{
+    "resources": [
+        {
+            "name": "building03_c",
+            "extension": "tga",
+            "rel_path": "Assets\\Materials\\",
+            "lib_name": "texture_0",
+            "lib_path": "Library\\Materials\\",
+            "file_id": 0,
+            "type": 2,
+            "UID": 4064692631
+        },
+        {
+            "name": "building 01_c",
+            "extension": "tga",
+            "rel_path": "Assets\\Materials\\",
+            "lib_name": "texture_4",
+            "lib_path": "Library\\Materials\\",
+            "file_id": 0,
+            "type": 2,
+            "UID": 2947696743
+        },
+        {
+            "name": "building05 _c",
+            "extension": "tga",
+            "rel_path": "Assets\\Materials\\",
+            "lib_name": "texture_6",
+            "lib_path": "Library\\Materials\\",
+            "file_id": 0,
+            "type": 2,
+            "UID": 1496930540
+        }
+    ]
+}

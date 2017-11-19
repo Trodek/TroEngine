@@ -100,8 +100,8 @@ bool MeshImporter::ImportFile(const char * path)
 				std::string path = assimp_path.C_Str();
 				uint name_pos = path.find_last_of("\\");
 				
-				std::string rel_path = "Models\\";
-				rel_path += path.substr(name_pos + 1, path.size() - name_pos + 1);
+				std::string rel_path = "Assets\\Materials\\";
+				rel_path += path.substr(name_pos + 1);
 				EDITOR_LOG("File material %d path is: %s. Start importing it...", m, rel_path.c_str());
 
 				material = App->materials->ImportImage(rel_path.c_str());

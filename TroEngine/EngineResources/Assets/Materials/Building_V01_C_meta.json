@@ -1,0 +1,14 @@
+{
+    "resources": [
+        {
+            "name": "Building_V01_C",
+            "extension": "png",
+            "rel_path": "Assets\\Materials\\",
+            "lib_name": "texture_7",
+            "lib_path": "Library\\Materials\\",
+            "file_id": 0,
+            "type": 2,
+            "UID": 1496156996
+        }
+    ]
+}

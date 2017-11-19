@@ -86,40 +86,49 @@ Resource * ResourceManager::GetResource(uint uid_key) const
 
 void ResourceManager::Load(const char * path)
 {
-	//identidy type of the file
-	ResourceType file_type = GetTypeFromPath(path);
-	
-	bool create_meta = true;
-	std::string copy_path;
-	switch (file_type)
-	{
-	case R_NULL:
-		break;
-	case R_MESH:
-	{
-		App->CopyFileTo(path, "Assets\\Meshes", &copy_path);
-		App->mesh->ImportFile(copy_path.c_str());
-		break; 
+	//check if the resource already exist
+	if (resources.find(CreateResource(path))!=resources.end()) {
+		EDITOR_LOG("Resource %s already exist", GetNameFromPath(path).c_str());
 	}
-	case R_TEXTURE:
-		App->materials->ImportImage(path);
-		break;
-	case R_PREFAB:
-		App->scene_manager->GetCurrentScene()->AddGameObject(App->scene_importer->LoadScene(path));
-		break;
-	case R_SCENE:
-		App->scene_importer->LoadScene(path, App->scene_manager->GetCurrentScene());
-		break;
-	case R_META: //if its a meta file, create the resource that it descrives.
-		LoadMeta(path);
-		create_meta = false;
-		break;
-	default:
-		break;
-	}
+	else
+	{
+		//identidy type of the file
+		ResourceType file_type = GetTypeFromPath(path);
 
-	if(create_meta)
-		CreateMeta(copy_path.c_str());
+		bool create_meta = true;
+		std::string copy_path;
+		switch (file_type)
+		{
+		case R_NULL:
+			break;
+		case R_MESH:
+		{
+			App->CopyFileTo(path, "Assets\\Meshes", &copy_path);
+			App->mesh->ImportFile(copy_path.c_str());
+			break;
+		}
+		case R_TEXTURE:
+			App->CopyFileTo(path, "Assets\\Materials", &copy_path);
+			App->materials->ImportImage(copy_path.c_str());
+			create_meta = false; //since other importes can request texture loading, the material importer will call createmeta autonomously
+			break;
+		case R_PREFAB:
+			App->scene_manager->GetCurrentScene()->AddGameObject(App->scene_importer->LoadPrefab(path));
+			break;
+		case R_SCENE:
+			App->scene_importer->LoadScene(path, App->scene_manager->GetCurrentScene());
+			break;
+		case R_META: //if its a meta file, create the resource that it descrives.
+			LoadMeta(path);
+			create_meta = false;
+			break;
+		default:
+			break;
+		}
+
+		if (create_meta)
+			CreateMeta(copy_path.c_str());
+	}
 }
 
 Resource * ResourceManager::LoadMeta(const char * path)
@@ -490,9 +499,9 @@ ResourceType ResourceManager::GetTypeFromPath(const char * path) const
 	{
 		ret = R_MESH;
 	}
-	else if (extension == "png") // textures
+	else if (extension == "png" || extension == "tga") // textures
 	{
-		ret = R_MESH;
+		ret = R_TEXTURE;
 	}
 
 	return ret;

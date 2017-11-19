@@ -1,0 +1,14 @@
+{
+    "resources": [
+        {
+            "name": "building03_c",
+            "extension": "tga",
+            "rel_path": "Assets\\Materials\\",
+            "lib_name": "texture_0",
+            "lib_path": "Library\\Materials\\",
+            "file_id": 0,
+            "type": 2,
+            "UID": 4064692631
+        }
+    ]
+}

@@ -13,6 +13,13 @@ SceneImporter::~SceneImporter()
 {
 }
 
+bool SceneImporter::Awake(JSONDoc * doc)
+{
+	App->CreateFolder("Assets\\Prefabs");
+	App->CreateFolder("Library\\Prefabs");
+	return true;
+}
+
 void SceneImporter::SaveScene(Scene * scene, const char * path)
 {
 	JSONDoc* doc = App->json->LoadJSONFile(path);
@@ -71,7 +78,7 @@ void SceneImporter::SaveSceneToBuffer(Scene * scene)
 }
 
 
-GameObject * SceneImporter::LoadScene(const char * path)
+GameObject * SceneImporter::LoadPrefab(const char * path)
 {
 	return nullptr;
 }

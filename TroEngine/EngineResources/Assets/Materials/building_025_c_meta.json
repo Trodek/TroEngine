@@ -1,0 +1,24 @@
+{
+    "resources": [
+        {
+            "name": "building_016_c",
+            "extension": "tga",
+            "rel_path": "Assets\\Materials\\",
+            "lib_name": "texture_2",
+            "lib_path": "Library\\Materials\\",
+            "file_id": 0,
+            "type": 2,
+            "UID": 4164588732
+        },
+        {
+            "name": "building_025_c",
+            "extension": "tga",
+            "rel_path": "Assets\\Materials\\",
+            "lib_name": "texture_3",
+            "lib_path": "Library\\Materials\\",
+            "file_id": 0,
+            "type": 2,
+            "UID": 2337290864
+        }
+    ]
+}
