@@ -185,7 +185,7 @@ update_status ModuleCamera3D::Update(float dt)
 		cam->LookAt(float3(1,0,0));
 	}
 
-	if (App->input->GetMouseButton(1) == KEY_DOWN && !ImGuizmo::IsUsing())
+	if (App->input->GetMouseButton(1) == KEY_DOWN && !ImGuizmo::IsOver())
 	{
 		Pick(App->input->GetMouseX(), App->input->GetMouseY());
 	}

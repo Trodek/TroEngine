@@ -122,13 +122,15 @@ update_status ModuleGUI::Update(float dt)
 		ret = (*ele)->UpdateGUI(dt);
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-		gizmo_op = ImGuizmo::OPERATION::TRANSLATE;
-	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-		gizmo_op = ImGuizmo::OPERATION::ROTATE;
-	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-		gizmo_op = ImGuizmo::OPERATION::SCALE;
-
+	if (!ImGuizmo::IsUsing())
+	{
+		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+			gizmo_op = ImGuizmo::OPERATION::TRANSLATE;
+		if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+			gizmo_op = ImGuizmo::OPERATION::ROTATE;
+		if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+			gizmo_op = ImGuizmo::OPERATION::SCALE;
+	}
 	
 
 	return ret;
