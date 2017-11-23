@@ -58,21 +58,8 @@ bool ModuleRenderer3D::Awake(JSONDoc* config)
 		if (vsync && SDL_GL_SetSwapInterval(1) < 0)
 			EDITOR_LOG("Warning: Unable to set VSync! SDL Error: %s\n", SDL_GetError());
 
-		//Initialize Projection Matrix
-		glMatrixMode(GL_PROJECTION);
-		glLoadIdentity();
-
 		//Check for error
 		GLenum error = glGetError();
-		if (error != GL_NO_ERROR)
-		{
-			EDITOR_LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
-			ret = false;
-		}
-
-		//Initialize Modelview Matrix
-		glMatrixMode(GL_MODELVIEW);
-		glLoadIdentity();
 
 		//Check for error
 		error = glGetError();
@@ -82,7 +69,8 @@ bool ModuleRenderer3D::Awake(JSONDoc* config)
 			ret = false;
 		}
 
-		glHint(GL_PERSPECTIVE_CORRECTION_HINT, GL_NICEST);
+		glHint(GL_FRAGMENT_SHADER_DERIVATIVE_HINT, GL_NICEST);
+		glHint(GL_TEXTURE_COMPRESSION_HINT, GL_NICEST);
 		glClearDepth(1.0f);
 
 		//Initialize clear color
@@ -96,34 +84,32 @@ bool ModuleRenderer3D::Awake(JSONDoc* config)
 			ret = false;
 		}
 
-		GLfloat LightModelAmbient[] = { 0.4f, 0.4f, 0.4f, 1.0f };
-		glLightModelfv(GL_LIGHT_MODEL_AMBIENT, LightModelAmbient);
-
-		lights[0].ref = GL_LIGHT0;
-		lights[0].ambient.Set(0.25f, 0.25f, 0.25f, 1.0f);
-		lights[0].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
-		lights[0].SetPos(0.0f, 0.0f, 2.5f);
-		lights[0].Init();
-
-		GLfloat MaterialAmbient[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-		glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, MaterialAmbient);
-
-		GLfloat MaterialDiffuse[] = { 1.0f, 1.0f, 1.0f, 1.0f };
-		glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, MaterialDiffuse);
+		//lights[0].ref = GL_LIGHT0;
+		//lights[0].ambient.Set(0.25f, 0.25f, 0.25f, 1.0f);
+		//lights[0].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
+		//lights[0].SetPos(0.0f, 0.0f, 2.5f);
+		//lights[0].Init();
 
 		glEnable(GL_DEPTH_TEST);
 		depth_test = true;
 		glEnable(GL_CULL_FACE);
 		cull_face = true;
-		lights[0].Active(true);
-		glEnable(GL_LIGHTING);
+		//lights[0].Active(true);
+		//glEnable(GL_LIGHTING);
 		lighting = true;
-		glEnable(GL_COLOR_MATERIAL);
+		//glEnable(GL_COLOR_MATERIAL);
 		color_material = true;
-		glEnable(GL_TEXTURE_2D);
+		//glEnable(GL_TEXTURE_2D);
 		texture_2d = true;
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+
+		error = glGetError();
+		if (error != GL_NO_ERROR)
+		{
+			EDITOR_LOG("Error initializing OpenGL! %s\n", gluErrorString(error));
+			ret = false;
+		}
 	}
 	
 
