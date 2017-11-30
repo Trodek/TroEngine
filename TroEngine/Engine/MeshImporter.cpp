@@ -181,11 +181,6 @@ bool MeshImporter::ImportMesh(const char * path, uint mesh_id, Resource * res)
 			uv = new float[num_uv * 3];
 			memcpy(uv, mesh->mTextureCoords[0], sizeof(float)*num_uv * 3);
 		}
-		else
-		{
-			EDITOR_LOG("No Texture Coords found for mesh");
-			ret = false;
-		}
 
 		//Load mesh Normals
 		uint num_normals = 0;
@@ -198,6 +193,17 @@ bool MeshImporter::ImportMesh(const char * path, uint mesh_id, Resource * res)
 			memcpy(normals, mesh->mNormals, sizeof(float)*num_normals * 3);
 		}
 
+		//Load mesh Colors
+		uint colors_num = 0;
+		float* colors = nullptr;
+		if(mesh->HasVertexColors(0)) //assume mesh has only one vertex color channel
+		{
+			colors_num = mesh->mNumVertices;
+
+			colors = new float[colors_num * 4];
+			memcpy(colors, mesh->mColors[0], sizeof(float)*colors_num * 4);
+		}
+
 		if (ret == false) //invalild mesh, discart 
 		{
 			RELEASE_ARRAY(vert);
@@ -207,12 +213,43 @@ bool MeshImporter::ImportMesh(const char * path, uint mesh_id, Resource * res)
 				RELEASE_ARRAY(uv);
 			if (normals != nullptr)
 				RELEASE_ARRAY(normals);
+			if (colors != nullptr)
+				RELEASE_ARRAY(colors);
 
 			EDITOR_LOG("Error loading mesh");
 		}
 		else //valid mesh, add to the list
 		{
-			Mesh* new_mesh = new Mesh(res->UID, num_vertices, vert, num_indices, indices, num_uv, uv, num_normals, normals);
+			//create the buffer from loaded info
+			float* vert_info = new float[num_vertices * 13]; // vert pos, tex coords, normals, color
+
+			float null[3] = { 0.f,0.f,0.f };
+			float null_color[4] = { 1.f,1.f,1.f,1.f };
+			for (int v = 0; v < num_vertices; ++v)
+			{
+				//copy vertex pos
+				memcpy(vert_info + v * 13, vert + v * 3, sizeof(float) * 3);
+
+				//copy tex coord
+				if(uv != nullptr)
+					memcpy(vert_info + v * 13 + 3, uv + v * 3, sizeof(float) * 3);
+				else
+					memcpy(vert_info + v * 13 + 3, null, sizeof(float) * 3);
+
+				//copy normals
+				if (normals != nullptr)
+					memcpy(vert_info + v * 13 + 6, normals + v * 3, sizeof(float) * 3);
+				else
+					memcpy(vert_info + v * 13 + 6, null, sizeof(float) * 3);
+
+				//copy colors
+				if(colors != nullptr)
+					memcpy(vert_info + v * 13 + 9, colors + v * 3, sizeof(float) * 4);
+				else
+					memcpy(vert_info + v * 13 + 9, null_color, sizeof(float) * 4);
+			}
+
+			Mesh* new_mesh = new Mesh(res->UID, num_vertices, vert, num_indices, indices);
 			meshes.push_back(new_mesh);
 			res->manager_id = meshes.size() - 1;
 
@@ -377,7 +414,7 @@ bool MeshImporter::ImportMesh(aiMesh* mesh, GameObject* owner, const std::vector
 		}
 		else //valid mesh, add to the list
 		{
-			Mesh* new_mesh = new Mesh(num_vertices, vert, num_indices, indices, num_uv, uv, num_normals, normals);
+			Mesh* new_mesh = new Mesh(num_vertices, vert, num_indices, indices);
 			meshes.push_back(new_mesh);
 			res->manager_id = meshes.size() - 1;
 			res->UID = new_mesh->GetUID();
