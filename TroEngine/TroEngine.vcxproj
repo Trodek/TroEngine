@@ -98,6 +98,8 @@
     <ClCompile Include="Engine\Parson\parson.c" />
     <ClCompile Include="Engine\PerfTimer.cpp" />
     <ClCompile Include="Engine\Primitive.cpp" />
+    <ClCompile Include="Engine\Shader.cpp" />
+    <ClCompile Include="Engine\ShaderManager.cpp" />
     <ClCompile Include="Engine\Timer.cpp" />
     <ClCompile Include="Engine\Time\Clock.cpp" />
     <ClCompile Include="Engine\Transform.cpp" />
@@ -132,6 +134,8 @@
     <ClInclude Include="Engine\PlayPauseUI.h" />
     <ClInclude Include="Engine\ResourceManager.h" />
     <ClInclude Include="Engine\SceneImporter.h" />
+    <ClInclude Include="Engine\Shader.h" />
+    <ClInclude Include="Engine\ShaderManager.h" />
     <ClInclude Include="Engine\UID.h" />
     <ClInclude Include="Engine\KDTree.h" />
     <ClInclude Include="Engine\Hierarchy.h" />
