@@ -10,7 +10,7 @@ Mesh::Mesh(uint num_ver, float * ver, uint num_ind, uint * ind) :
 	//Load vertices to vram
 	id_vertices = App->renderer3D->GenBuffer();
 	App->renderer3D->BindArrayBuffer(id_vertices);
-	App->renderer3D->LoadArrayToVRAM(sizeof(float) * num_vertices * 3, ver, GL_STATIC_DRAW);
+	App->renderer3D->LoadArrayToVRAM(sizeof(float) * num_vertices * 13, ver, GL_STATIC_DRAW);
 	App->renderer3D->UnbindArraybuffer();
 
 	//Load indices to vram
@@ -36,7 +36,7 @@ Mesh::Mesh(uint uid, uint num_ver, float * ver, uint num_ind, uint * ind) :
 	//Load vertices to vram
 	id_vertices = App->renderer3D->GenBuffer();
 	App->renderer3D->BindArrayBuffer(id_vertices);
-	App->renderer3D->LoadArrayToVRAM(sizeof(float) * num_vertices * 3, ver, GL_STATIC_DRAW);
+	App->renderer3D->LoadArrayToVRAM(sizeof(float) * num_vertices * 13, ver, GL_STATIC_DRAW);
 	App->renderer3D->UnbindArraybuffer();
 
 	//Load indices to vram
