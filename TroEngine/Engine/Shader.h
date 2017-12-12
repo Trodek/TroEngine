@@ -34,7 +34,6 @@ public:
 	uint GetUID()const;
 
 private:
-
 	void CompileShader();
 
 	void LoadFromFile(const char* path);

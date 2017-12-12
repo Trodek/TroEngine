@@ -127,7 +127,7 @@ void ComponentMaterial::UpdateShaderProgram()
 		App->renderer3D->DeleteProgram(shader_program);
 		shader_program = 0;
 	}
-	else EDITOR_LOG("Shader Program created :)");
+	else EDITOR_LOG("Shader Program %d created :)", shader_program);
 }
 
 uint ComponentMaterial::GetProgram() const
@@ -137,6 +137,20 @@ uint ComponentMaterial::GetProgram() const
 
 void ComponentMaterial::UseShader() const
 {
+	bool a = glIsProgram(shader_program);
+
+	bool b = App->renderer3D->LinkProgram(shader_program);
+
+	glValidateProgram(shader_program);
+
+	GLenum error = glGetError();
+
+	//Check for error
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error at validate shader program: %s\n", gluErrorString(error));
+	}
+
 	App->renderer3D->UseShaderProgram(shader_program);
 }
 

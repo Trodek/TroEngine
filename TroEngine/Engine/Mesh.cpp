@@ -83,7 +83,7 @@ uint Mesh::GetUID() const
 
 void Mesh::Render(bool wireframe)
 {
-	App->renderer3D->EnableState(GL_VERTEX_ARRAY);
+	//App->renderer3D->EnableState(GL_VERTEX_ARRAY);
 
 	App->renderer3D->BindArrayBuffer(id_vertices);
 
@@ -128,7 +128,7 @@ void Mesh::Render(bool wireframe)
 	App->renderer3D->UnbindArraybuffer();
 	App->renderer3D->UnbindElementArrayBuffer();
 
-	App->renderer3D->DisableState(GL_VERTEX_ARRAY);	
+	//App->renderer3D->DisableState(GL_VERTEX_ARRAY);	
 }
 
 bool Mesh::TestSegmentToTriangles(const LineSegment & segment, float & distance, float3 & hit)

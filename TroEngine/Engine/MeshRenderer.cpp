@@ -26,26 +26,26 @@ void MeshRenderer::DebugDraw()
 {
 	if (mesh != nullptr)
 	{
-		float3 translation = GetMeshAABB().CenterPoint();
-		float3 scale = GetMeshAABB().Size();
-		Quat rot = Quat::identity;
-		float4x4 transform = float4x4::FromTRS(translation, rot, scale);
-
-		App->renderer3D->PushMatrix();
-		App->renderer3D->MultMatrix(transform.Transposed().ptr());
-
-		GLenum poly_mode = App->renderer3D->GetPolyMode();
-		App->renderer3D->PolygonModeWireframe();
-
-		App->renderer3D->SetLineWidth(2.5f);
-
-		App->mesh->cube->Render();
-
-		App->renderer3D->SetLineWidth(1.0f);
-
-		App->renderer3D->SetPolyMode(poly_mode);
-
-		App->renderer3D->PopMatrix();
+		//float3 translation = GetMeshAABB().CenterPoint();
+		//float3 scale = GetMeshAABB().Size();
+		//Quat rot = Quat::identity;
+		//float4x4 transform = float4x4::FromTRS(translation, rot, scale);
+		//
+		//App->renderer3D->PushMatrix();
+		//App->renderer3D->MultMatrix(transform.Transposed().ptr());
+		//
+		//GLenum poly_mode = App->renderer3D->GetPolyMode();
+		//App->renderer3D->PolygonModeWireframe();
+		//
+		//App->renderer3D->SetLineWidth(2.5f);
+		//
+		//App->mesh->cube->Render();
+		//
+		//App->renderer3D->SetLineWidth(1.0f);
+		//
+		//App->renderer3D->SetPolyMode(poly_mode);
+		//
+		//App->renderer3D->PopMatrix();
 	}
 }
 

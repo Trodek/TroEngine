@@ -553,6 +553,6 @@ void KDTree::DebugDraw() const
 	if (root_node != nullptr)
 	{
 		float3 initial_translation = float3::zero;
-		root_node->DrawPlane(100, 100, initial_translation);
+		//root_node->DrawPlane(100, 100, initial_translation);
 	}
 }

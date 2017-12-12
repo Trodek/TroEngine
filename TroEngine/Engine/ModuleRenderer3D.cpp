@@ -141,7 +141,7 @@ bool ModuleRenderer3D::Start()
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	glLoadIdentity();
+	//glLoadIdentity();
 
 	//glMatrixMode(GL_PROJECTION);
 	//glLoadMatrixf(App->camera->GetProjectionMatrix());
@@ -216,12 +216,17 @@ bool ModuleRenderer3D::CleanUp()
 void ModuleRenderer3D::OnResize(int width, int height)
 {
 	glViewport(0, 0, width, height);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error glviewport %s\n", gluErrorString(error));
+	}
 
 	//glMatrixMode(GL_PROJECTION);
 	//glLoadIdentity();
 
 	App->camera->Resize((float)width / (float)height);
-	glLoadMatrixf(App->camera->GetProjectionMatrix());
+	//glLoadMatrixf(App->camera->GetProjectionMatrix());
 
 	//glMatrixMode(GL_MODELVIEW);
 	//glLoadIdentity();
@@ -292,76 +297,151 @@ uint ModuleRenderer3D::GenBuffer() const
 void ModuleRenderer3D::BindArrayBuffer(uint id) const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, id);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error bind array buffer: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::BindElementArrayBuffer(uint id) const
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, id);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error bind buffer: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::RenderElement(uint num_indices) const
 {
 	glDrawElements(GL_TRIANGLES, num_indices, GL_UNSIGNED_INT, NULL);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error draw elements: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::UnbindArraybuffer() const
 {
 	glBindBuffer(GL_ARRAY_BUFFER, 0);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error unbind array buffer: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::UnbindElementArrayBuffer() const
 {
 	glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, 0);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error unbind buffer: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::EnableState(GLenum type) const
 {
 	glEnableClientState(type);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error enable state: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::DisableState(GLenum type) const
 {
 	glDisableClientState(type);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error disable state: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::SetVertexPointer() const
 {
 	glVertexPointer(3, GL_FLOAT, 0, NULL);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error set vertex pointer: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::SetNormalsPointer() const
 {
 	glNormalPointer(GL_FLOAT, 0, NULL);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error set normals pointer: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::SetCheckerTexture() const
 {
 	glBindTexture(GL_TEXTURE_2D, checker_id);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error set checker txture: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::BindTexure(uint id) const
 {
 	glBindTexture(GL_TEXTURE_2D, id);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error bind texture: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::UnbindTexture() const
 {
 	glBindTexture(GL_TEXTURE_2D, 0);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error unbind texture: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::SetTexCoordPointer()
 {
 	glTexCoordPointer(3, GL_FLOAT, 0, NULL);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error set texcoord pointer: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::LoadArrayToVRAM(uint size, float * values, GLenum type) const
 {
 	glBufferData(GL_ARRAY_BUFFER, size, values, type);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error load array to vram: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::LoadArrayToVRAM(uint size, uint * values, GLenum type) const
 {
 	glBufferData(GL_ARRAY_BUFFER, size, values, type);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error load array to vram: %s\n", gluErrorString(error));
+	}
 }
 
 uint ModuleRenderer3D::LoadTextureToVRAM(uint w, uint h, GLubyte * tex_data, GLint format) const
@@ -376,6 +456,12 @@ uint ModuleRenderer3D::LoadTextureToVRAM(uint w, uint h, GLubyte * tex_data, GLi
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_NEAREST);
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexImage2D(GL_TEXTURE_2D, 0, format, w, h, 0, format, GL_UNSIGNED_BYTE, tex_data);
+
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error load texture to vram: %s\n", gluErrorString(error));
+	}
 
 	return buff_id;
 }
@@ -503,23 +589,49 @@ uint ModuleRenderer3D::CreateFragmentShader(const char * source)
 
 void ModuleRenderer3D::DeleteShader(uint shader_id)
 {
-	if(shader_id != 0)
+	if (shader_id != 0)
+	{
 		glDeleteShader(shader_id);
+		GLenum error = glGetError();
+		if (error != GL_NO_ERROR)
+		{
+			EDITOR_LOG("Error deleting shader %s\n", gluErrorString(error));
+		}
+	}
 }
 
 void ModuleRenderer3D::EnableVertexAttributeArray(uint id)
 {
 	glEnableVertexAttribArray(id);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error enabling vertex attribute Pointer %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::DisableVertexAttributeArray(uint id)
 {
 	glDisableVertexAttribArray(id);
+	
+	//Check for error
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error disabling vertex attributePointer %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::SetVertexAttributePointer(uint id, uint element_size, uint elements_gap, uint infogap)
 {
 	glVertexAttribPointer(id, element_size, GL_FLOAT, GL_FALSE, elements_gap * sizeof(GLfloat), (GLvoid*)(infogap * sizeof(GLfloat)));
+	GLenum error = glGetError();
+
+	//Check for error
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error Setting vertex attributePointer %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::UseShaderProgram(uint id)
@@ -543,7 +655,7 @@ void ModuleRenderer3D::SetUniformMatrix(uint program, const char * name, float *
 	//Check for error
 	if (error != GL_NO_ERROR)
 	{
-		//EDITOR_LOG("Error Seting uniform matrix %s: %s\n",name, gluErrorString(error));
+		EDITOR_LOG("Error Seting uniform matrix %s: %s\n",name, gluErrorString(error));
 	}
 }
 
@@ -574,13 +686,26 @@ void ModuleRenderer3D::SetUniformForViewAndProjection(uint program, const char *
 
 uint ModuleRenderer3D::CreateShaderProgram()
 {
-	return glCreateProgram();
+	uint ret = glCreateProgram();
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error creating shader program %s\n", gluErrorString(error));
+	}
+	return ret;
 }
 
 void ModuleRenderer3D::AttachShaderToProgram(uint program_id, uint shader_id)
 {
-	if(program_id != 0 && shader_id != 0)
+	if (program_id != 0 && shader_id != 0)
+	{
 		glAttachShader(program_id, shader_id);
+		GLenum error = glGetError();
+		if (error != GL_NO_ERROR)
+		{
+			EDITOR_LOG("Error attaching shader %s\n", gluErrorString(error));
+		}
+	}
 }
 
 bool ModuleRenderer3D::LinkProgram(uint program_id)
@@ -592,8 +717,10 @@ bool ModuleRenderer3D::LinkProgram(uint program_id)
 		glLinkProgram(program_id);
 
 		GLint success;
+		GLint valid;
 		glGetProgramiv(program_id, GL_LINK_STATUS, &success);
-		if (!success) {
+		glGetProgramiv(program_id, GL_VALIDATE_STATUS, &valid);
+		if (!success || !valid) {
 			GLchar infoLog[512];
 			glGetProgramInfoLog(program_id, 512, NULL, infoLog);
 			EDITOR_LOG("Shader link error: %s", infoLog);
@@ -607,8 +734,16 @@ bool ModuleRenderer3D::LinkProgram(uint program_id)
 
 void ModuleRenderer3D::DeleteProgram(uint program_id)
 {
-	if(program_id != 0)
+	if (program_id != 0)
+	{
 		glDeleteProgram(program_id);
+
+		GLenum error = glGetError();
+		if (error != GL_NO_ERROR)
+		{
+			EDITOR_LOG("Error deleting shader program %s\n", gluErrorString(error));
+		}
+	}
 }
 
 void ModuleRenderer3D::ToggleDepthTestState()
