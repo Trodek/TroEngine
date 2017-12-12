@@ -11,6 +11,8 @@
 #include "imgui.h"
 #include "imgui_impl_sdl.h"
 
+#include "Globals.h"
+
 // SDL,GL3W
 #include "SDL\include\SDL.h"
 #include "SDL\include\SDL_syswm.h"
@@ -38,6 +40,12 @@ void ImGui_ImplSdlGL3_RenderDrawLists(ImDrawData* draw_data)
 	if (fb_width == 0 || fb_height == 0)
 		return;
 	draw_data->ScaleClipRects(io.DisplayFramebufferScale);
+
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Befor ImGUi draw error: %s\n", gluErrorString(error));
+	}
 
 	// Backup GL state
 	GLenum last_active_texture; glGetIntegerv(GL_ACTIVE_TEXTURE, (GLint*)&last_active_texture);
@@ -131,6 +139,12 @@ void ImGui_ImplSdlGL3_RenderDrawLists(ImDrawData* draw_data)
 	glPolygonMode(GL_FRONT_AND_BACK, last_polygon_mode[0]);
 	glViewport(last_viewport[0], last_viewport[1], (GLsizei)last_viewport[2], (GLsizei)last_viewport[3]);
 	glScissor(last_scissor_box[0], last_scissor_box[1], (GLsizei)last_scissor_box[2], (GLsizei)last_scissor_box[3]);
+
+	error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("After ImGUi draw error: %s\n", gluErrorString(error));
+	}
 }
 
 static const char* ImGui_ImplSdlGL3_GetClipboardText(void*)

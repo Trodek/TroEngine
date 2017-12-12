@@ -50,7 +50,6 @@ void Shader::UpdateShader()
 	App->renderer3D->DeleteShader(id);
 
 	CompileShader();
-	
 }
 
 void Shader::SaveToAssets()

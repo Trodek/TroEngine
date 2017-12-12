@@ -181,16 +181,7 @@ update_status ModuleRenderer3D::PostUpdate(float dt)
 	ToggleCullFaceState();
 
 	//Draw GUI
-	bool light_state = lighting;
-	if (lighting == true)		//Disable Lighting befor drawing gui
-	{
-		lighting = false;
-		ToggleLightingState();
-	}
 	App->gui->RenderGUI();
-
-	lighting = light_state;
-	ToggleLightingState();
 	
 
 	SDL_GL_SwapWindow(App->window->window);
@@ -275,9 +266,9 @@ void ModuleRenderer3D::ConfigGUI()
 		if (ImGui::Checkbox("Lighting", &lighting))
 			ToggleLightingState();
 
-		ImGui::SameLine();
-		if (ImGui::Checkbox("Texture 2D", &texture_2d))
-			ToggleTexture2DState();
+		//ImGui::SameLine();
+		//if (ImGui::Checkbox("Texture 2D", &texture_2d))
+		//	ToggleTexture2DState();
 
 		if (ImGui::Checkbox("Color Material", &color_material))
 			ToggleColorMaterialState();
@@ -448,6 +439,12 @@ uint ModuleRenderer3D::LoadTextureToVRAM(uint w, uint h, GLubyte * tex_data, GLi
 {
 	uint buff_id = 0;
 
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error load texture to vram e1: %s\n", gluErrorString(error));
+	}
+
 	glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
 	glGenTextures(1, &buff_id);
 	glBindTexture(GL_TEXTURE_2D, buff_id);
@@ -457,10 +454,10 @@ uint ModuleRenderer3D::LoadTextureToVRAM(uint w, uint h, GLubyte * tex_data, GLi
 	glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
 	glTexImage2D(GL_TEXTURE_2D, 0, format, w, h, 0, format, GL_UNSIGNED_BYTE, tex_data);
 
-	GLenum error = glGetError();
+	error = glGetError();
 	if (error != GL_NO_ERROR)
 	{
-		EDITOR_LOG("Error load texture to vram: %s\n", gluErrorString(error));
+		EDITOR_LOG("Error load texture to vram e2: %s\n", gluErrorString(error));
 	}
 
 	return buff_id;
@@ -490,6 +487,13 @@ void ModuleRenderer3D::SetPolyMode(GLenum mode)
 void ModuleRenderer3D::PolygonModePoints()
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_POINT);
+
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error polygon mode points: %s\n", gluErrorString(error));
+	}
+
 	wireframe = false;
 	points = true;
 	fill = false;
@@ -499,6 +503,13 @@ void ModuleRenderer3D::PolygonModePoints()
 void ModuleRenderer3D::PolygonModeWireframe()
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error polygon mode line: %s\n", gluErrorString(error));
+	}
+
 	wireframe = true;
 	points = false;
 	fill = false;
@@ -508,6 +519,13 @@ void ModuleRenderer3D::PolygonModeWireframe()
 void ModuleRenderer3D::PolygonModeFill()
 {
 	glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error polygon mode fill: %s\n", gluErrorString(error));
+	}
+
 	wireframe = false;
 	points = false;
 	fill = true;
@@ -752,6 +770,12 @@ void ModuleRenderer3D::ToggleDepthTestState()
 		glEnable(GL_DEPTH_TEST);
 	else
 		glDisable(GL_DEPTH_TEST);
+
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("ToggleDepthTestState error: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::ToggleCullFaceState()
@@ -760,6 +784,12 @@ void ModuleRenderer3D::ToggleCullFaceState()
 		glEnable(GL_CULL_FACE);
 	else
 		glDisable(GL_CULL_FACE);
+
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("ToggleCullFaceState error: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::ToggleLightingState()
@@ -768,6 +798,12 @@ void ModuleRenderer3D::ToggleLightingState()
 		glEnable(GL_LIGHTING);
 	else
 		glDisable(GL_LIGHTING);
+
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("ToggleLightingState error: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::ToggleTexture2DState()
@@ -776,6 +812,12 @@ void ModuleRenderer3D::ToggleTexture2DState()
 		glEnable(GL_TEXTURE_2D);
 	else
 		glDisable(GL_TEXTURE_2D);
+
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("ToggleTexture2DState error: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::ToggleColorMaterialState()
@@ -784,6 +826,12 @@ void ModuleRenderer3D::ToggleColorMaterialState()
 		glEnable(GL_COLOR_MATERIAL);
 	else
 		glDisable(GL_COLOR_MATERIAL);
+
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("ToggleColorMaterialState error: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::ToggleVSYNC()
@@ -797,5 +845,10 @@ void ModuleRenderer3D::ToggleVSYNC()
 	{
 		if (SDL_GL_SetSwapInterval(0) == 0)
 			EDITOR_LOG("VSYNC disabled");
+	}
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("ToggleVsyncState error: %s\n", gluErrorString(error));
 	}
 }

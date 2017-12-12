@@ -734,7 +734,7 @@ void MeshImporter::CubeMesh()
 	}
 
 	//create the mesh
-	cube = new Mesh(num_vertices, vertices, num_indices, indices);
+	cube = new Mesh(num_vertices, vert_info, num_indices, indices);
 	meshes.push_back(cube);
 
 }
@@ -832,7 +832,7 @@ void MeshImporter::PlaneMesh()
 	}
 
 	//create mesh
-	plane = new Mesh(num_vert, vertices, num_indices, indices);
+	plane = new Mesh(num_vert, vert_info, num_indices, indices);
 	meshes.push_back(plane);
 }
 
