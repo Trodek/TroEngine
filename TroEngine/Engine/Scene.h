@@ -7,6 +7,7 @@
 
 class KDTree;
 class JSONDoc;
+class Shader;
 
 class Scene
 {
@@ -43,6 +44,8 @@ public:
 	void TestToKDTree(const LineSegment& segment, std::vector<GameObject*>& vec_to_fill)const;
 	void TestToKDTree(const Frustum& frustum, std::vector<GameObject*>& vec_to_fill)const;
 
+	void OnShaderEdit(Shader* shader);
+
 	void DrawHierarchy() const;
 
 	void CreateTree() const;
@@ -55,6 +58,9 @@ private:
 	bool active;
 	uint new_go_id = 0;
 	KDTree* kd_tree = nullptr;
+
+	Shader* modified_shader = nullptr;
+	bool shader_edited = false;
 
 public:
 	std::vector<GameObject*> game_objects;

@@ -15,6 +15,7 @@
 #include "Transform.h"
 #include "PlayPauseUI.h"
 #include "Explorer.h"
+#include "ShaderEditor.h"
 
 ModuleGUI::ModuleGUI(bool start_enabled) : Module(start_enabled) 
 {
@@ -48,6 +49,8 @@ bool ModuleGUI::Start()
 	AddElement(new PlayPauseUI());
 	explorer = new Explorer();
 	AddElement(explorer);
+	shader_editor = new ShaderEditor();
+	AddElement(shader_editor);
 	return true;
 }
 
@@ -56,7 +59,6 @@ update_status ModuleGUI::PreUpdate(float dt)
 	ImGui_ImplSdlGL3_NewFrame(App->window->window);
 	ImGuizmo::BeginFrame();
 	ImGuizmo::Enable(true);
-
 
 	return UPDATE_CONTINUE;
 }

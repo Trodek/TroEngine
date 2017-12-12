@@ -54,8 +54,12 @@ Application::Application()
 	AddModule(json);
 	AddModule(scene_importer);
 	AddModule(mesh);
+
+	//add shaders befor materials to properly cleanup process 
+	//(delete the shader programs assosiated to the material will automatically detach all shaders) https://www.khronos.org/opengl/wiki/GLAPI/glDeleteProgram
+	AddModule(shader_manager); 
+	
 	AddModule(materials);
-	AddModule(shader_manager);
 
 	// Scenes
 	AddModule(scene_manager);

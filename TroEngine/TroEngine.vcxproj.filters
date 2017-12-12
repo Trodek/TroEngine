@@ -393,7 +393,12 @@
     <ClCompile Include="Engine\ShaderManager.cpp">
       <Filter>Source\Engine\Modules\ShaderManager</Filter>
     </ClCompile>
-    <ClCompile Include="Engine\Shader.cpp" />
+    <ClCompile Include="Engine\Shader.cpp">
+      <Filter>Source\Engine\Components\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ShaderEditor.cpp">
+      <Filter>Source\Editor\GUI</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Application.h">
@@ -803,6 +808,9 @@
     </ClInclude>
     <ClInclude Include="Engine\Shader.h">
       <Filter>Source\Engine\Components\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ShaderEditor.h">
+      <Filter>Source\Editor\GUI</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

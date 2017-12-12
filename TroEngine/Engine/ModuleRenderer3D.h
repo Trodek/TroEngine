@@ -61,6 +61,15 @@ public:
 
 	bool GetCullFace()const;
 
+	uint CreateVertexShader(char* source);
+	uint CreateFragmentShader(char* source);
+	void DeleteShader(uint shader_id);
+
+	uint CreateShaderProgram();
+	void AttachShaderToProgram(uint program_id, uint shader_id);
+	bool LinkProgram(uint program_id);
+	void DeleteProgram(uint program_id);
+
 private:
 	void ToggleDepthTestState();
 	void ToggleCullFaceState();

@@ -7,9 +7,12 @@
 #include "imgui.h"
 #include "JSONManager.h"
 #include "ResourceManager.h"
+#include "ShaderManager.h"
+#include "Shader.h"
 
 ComponentMaterial::ComponentMaterial(GameObject* owner) : Component(C_Material, owner)
 {
+
 }
 
 ComponentMaterial::ComponentMaterial(GameObject * owner, Material * mat) : Component(C_Material, owner), material(mat)
@@ -50,6 +53,73 @@ void ComponentMaterial::ApplyMaterial() const
 		App->renderer3D->BindTexure(material->GetMaterialID());
 }
 
+void ComponentMaterial::SetVertexShader(Shader * vertex_shader)
+{
+	if (vertex_shader != nullptr)
+		this->vertex_shader = vertex_shader;
+}
+
+void ComponentMaterial::SetVertexShader(uint shader_uid)
+{
+	if (shader_uid != 0)
+	{
+		Resource* res = App->resources->GetResource(shader_uid);
+		if (res != nullptr)
+		{
+			Shader* shader = App->shader_manager->GetShader(res->manager_id);
+			if (shader->GetType() == ST_VERTEX)
+				vertex_shader = shader;
+		}
+	}
+}
+
+void ComponentMaterial::SetFragmentShader(Shader * fragment_shader)
+{
+	if (fragment_shader != nullptr)
+		this->fragment_shader = fragment_shader;
+}
+
+void ComponentMaterial::SetFragmentShader(uint shader_uid)
+{
+	if (shader_uid != 0)
+	{
+		Resource* res = App->resources->GetResource(shader_uid);
+		if (res != nullptr)
+		{
+			Shader* shader = App->shader_manager->GetShader(res->manager_id);
+			if (shader->GetType() == ST_FRAGMENT)
+				fragment_shader = shader;
+		}
+	}
+}
+
+void ComponentMaterial::OnShaderEdit(Shader * shader)
+{
+	if (shader == vertex_shader || shader == fragment_shader) //the modified shader affects our program, update it
+	{
+		UpdateShaderProgram();
+	}
+}
+
+void ComponentMaterial::UpdateShaderProgram()
+{
+	if (shader_program != 0)
+	{
+		App->renderer3D->DeleteProgram(shader_program);
+		shader_program = 0;
+	}
+
+	shader_program = App->renderer3D->CreateShaderProgram();
+	App->renderer3D->AttachShaderToProgram(shader_program, vertex_shader->GetShaderID());
+	App->renderer3D->AttachShaderToProgram(shader_program, fragment_shader->GetShaderID());
+	if (App->renderer3D->LinkProgram(shader_program) == false)
+	{
+		EDITOR_LOG("Error while updating shader problem, check errors above.");
+		App->renderer3D->DeleteProgram(shader_program);
+		shader_program = 0;
+	}
+}
+
 void ComponentMaterial::DrawConfig()
 {
 	if (ImGui::CollapsingHeader("Material"))
@@ -86,4 +156,14 @@ void ComponentMaterial::Serialize(JSONDoc * doc)
 		doc->SetNumber("material", material->GetUID());
 	else
 		doc->SetNumber("material", 0);
+
+	if (vertex_shader != nullptr)
+		doc->SetNumber("vertex_shader", vertex_shader->GetUID());
+	else
+		doc->SetNumber("vertex_shader", 0);
+
+	if (fragment_shader != nullptr)
+		doc->SetNumber("fragment_shader", fragment_shader->GetUID());
+	else
+		doc->SetNumber("fragment_shader", 0);
 }

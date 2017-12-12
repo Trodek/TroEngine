@@ -99,6 +99,7 @@
     <ClCompile Include="Engine\PerfTimer.cpp" />
     <ClCompile Include="Engine\Primitive.cpp" />
     <ClCompile Include="Engine\Shader.cpp" />
+    <ClCompile Include="Engine\ShaderEditor.cpp" />
     <ClCompile Include="Engine\ShaderManager.cpp" />
     <ClCompile Include="Engine\Timer.cpp" />
     <ClCompile Include="Engine\Time\Clock.cpp" />
@@ -135,6 +136,7 @@
     <ClInclude Include="Engine\ResourceManager.h" />
     <ClInclude Include="Engine\SceneImporter.h" />
     <ClInclude Include="Engine\Shader.h" />
+    <ClInclude Include="Engine\ShaderEditor.h" />
     <ClInclude Include="Engine\ShaderManager.h" />
     <ClInclude Include="Engine\UID.h" />
     <ClInclude Include="Engine\KDTree.h" />

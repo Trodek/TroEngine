@@ -38,3 +38,8 @@ bool ShaderManager::CleanUp()
 
 	return ret;
 }
+
+Shader * ShaderManager::GetShader(uint index)
+{
+	return (index < shaders.size()) ? shaders[index] : nullptr;
+}

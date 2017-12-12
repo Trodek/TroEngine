@@ -463,6 +463,89 @@ bool ModuleRenderer3D::GetCullFace() const
 	return cull_face;
 }
 
+uint ModuleRenderer3D::CreateVertexShader(char * source)
+{
+	GLuint vertexShader;
+	vertexShader = glCreateShader(GL_VERTEX_SHADER);
+	glShaderSource(vertexShader, 1, &source, NULL);
+	glCompileShader(vertexShader);
+	GLint success;
+	GLchar infoLog[512];
+	glGetShaderiv(vertexShader, GL_COMPILE_STATUS, &success);
+	if (success == 0)
+	{
+		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
+		EDITOR_LOG("Shader compilation error: %s", infoLog);
+		glDeleteShader(vertexShader);
+		return 0;
+	}
+	return vertexShader;
+}
+
+uint ModuleRenderer3D::CreateFragmentShader(char * source)
+{
+	GLuint fragmentShader;
+	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
+	glShaderSource(fragmentShader, 1, &source, NULL);
+	glCompileShader(fragmentShader);
+	GLint success;
+	GLchar infoLog[512];
+	glGetShaderiv(fragmentShader, GL_COMPILE_STATUS, &success);
+	if (success == 0)
+	{
+		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
+		EDITOR_LOG("Shader compilation error: %s", infoLog);
+		glDeleteShader(fragmentShader);
+		return 0;
+	}
+	return fragmentShader;
+}
+
+void ModuleRenderer3D::DeleteShader(uint shader_id)
+{
+	if(shader_id != 0)
+		glDeleteShader(shader_id);
+}
+
+uint ModuleRenderer3D::CreateShaderProgram()
+{
+	return glCreateProgram();
+}
+
+void ModuleRenderer3D::AttachShaderToProgram(uint program_id, uint shader_id)
+{
+	if(program_id != 0 && shader_id != 0)
+		glAttachShader(program_id, shader_id);
+}
+
+bool ModuleRenderer3D::LinkProgram(uint program_id)
+{
+	bool ret = true;
+
+	if (program_id != 0)
+	{
+		glLinkProgram(program_id);
+
+		GLint success;
+		glGetProgramiv(program_id, GL_LINK_STATUS, &success);
+		if (!success) {
+			GLchar infoLog[512];
+			glGetProgramInfoLog(program_id, 512, NULL, infoLog);
+			EDITOR_LOG("Shader link error: %s", infoLog);
+			ret = false;
+		}
+	}
+	else ret = false;
+
+	return ret;
+}
+
+void ModuleRenderer3D::DeleteProgram(uint program_id)
+{
+	if(program_id != 0)
+		glDeleteProgram(program_id);
+}
+
 void ModuleRenderer3D::ToggleDepthTestState()
 {
 	if (depth_test)

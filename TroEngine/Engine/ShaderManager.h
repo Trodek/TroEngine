@@ -18,6 +18,7 @@ public:
 	bool Awake(JSONDoc* config);
 	bool CleanUp();
 
+	Shader* GetShader(uint index);
 
 private:
 	std::vector<Shader*> shaders;

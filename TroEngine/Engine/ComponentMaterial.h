@@ -5,6 +5,7 @@
 #include "Component.h"
 
 class Material;
+class Shader;
 
 class ComponentMaterial : public Component
 {
@@ -19,6 +20,14 @@ public:
 	void SetMaterial(uint mat_id);
 	void ApplyMaterial() const;
 
+	void SetVertexShader(Shader* vertex_shader);
+	void SetVertexShader(uint shader_uid);
+	void SetFragmentShader(Shader* fragment_shader);
+	void SetFragmentShader(uint shader_uid);
+
+	void OnShaderEdit(Shader* shader);
+	void UpdateShaderProgram();
+
 	void DrawConfig();
 
 	void UseChecker();
@@ -28,6 +37,11 @@ public:
 private:
 	Material* material = nullptr;
 	bool use_checker = false;
+
+	Shader* vertex_shader = nullptr;
+	Shader* fragment_shader = nullptr;
+
+	uint shader_program = 0;
 
 };
 

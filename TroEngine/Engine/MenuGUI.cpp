@@ -7,6 +7,7 @@
 #include "Inspector.h"
 #include "SceneImporter.h"
 #include "SceneManager.h"
+#include "ShaderEditor.h"
 
 MenuGUI::MenuGUI()
 {
@@ -64,6 +65,10 @@ void MenuGUI::CreateGUI()
 				PerformanceMenu();
 			}
 			if (ImGui::MenuItem("Inspector##menu", NULL, &App->gui->inspector->active))
+			{
+
+			}
+			if (ImGui::MenuItem("Shader Editor##menu", NULL, &App->gui->shader_editor->active))
 			{
 
 			}

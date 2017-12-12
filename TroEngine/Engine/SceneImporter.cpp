@@ -172,9 +172,14 @@ GameObject * SceneImporter::LoadPrefab(const char * path)
 			case Component::C_Material:
 			{
 				uint mat_uid = doc->GetNumber("material");
+				uint vertex_shader = doc->GetNumber("vertex_shader");
+				uint fragment_shader = doc->GetNumber("fragment_shader");
 
 				ComponentMaterial* m = (ComponentMaterial*)go->AddComponent(Component::C_Material);
 				m->SetMaterial(mat_uid);
+				m->SetVertexShader(vertex_shader);
+				m->SetFragmentShader(fragment_shader);
+
 				break;
 			}
 			case Component::Camera:

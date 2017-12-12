@@ -4,6 +4,8 @@
 #include "Globals.h"
 #include <string>
 
+class Shader;
+
 class Material
 {
 public:
