@@ -92,10 +92,13 @@ void Mesh::Render(bool wireframe)
 	App->renderer3D->EnableVertexAttributeArray(0);
 	//texture coords
 	App->renderer3D->SetVertexAttributePointer(1, 3, 13, 3);
+	App->renderer3D->EnableVertexAttributeArray(1);
 	//normals
 	App->renderer3D->SetVertexAttributePointer(2, 3, 13, 6);
+	App->renderer3D->EnableVertexAttributeArray(2);
 	//colors
 	App->renderer3D->SetVertexAttributePointer(3, 4, 13, 9);
+	App->renderer3D->EnableVertexAttributeArray(3);
 
 	App->renderer3D->BindElementArrayBuffer(id_indices);
 
@@ -118,6 +121,9 @@ void Mesh::Render(bool wireframe)
 	}
 
 	App->renderer3D->DisableVertexAttributeArray(0);
+	App->renderer3D->DisableVertexAttributeArray(1);
+	App->renderer3D->DisableVertexAttributeArray(2);
+	App->renderer3D->DisableVertexAttributeArray(3);
 
 	App->renderer3D->UnbindArraybuffer();
 	App->renderer3D->UnbindElementArrayBuffer();

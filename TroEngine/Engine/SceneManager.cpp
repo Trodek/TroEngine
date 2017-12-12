@@ -127,9 +127,9 @@ void SceneManager::AddScene(Scene * scene)
 void SceneManager::DrawScenes()
 {
 	//For now, render a generic grid
-	PPlane p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();
+	//PPlane p(0, 1, 0, 0);
+	//p.axis = true;
+	//p.Render();
 
 	//Draw all active scenes
 	for (std::list<Scene*>::iterator s = scenes.begin(); s != scenes.end(); ++s)

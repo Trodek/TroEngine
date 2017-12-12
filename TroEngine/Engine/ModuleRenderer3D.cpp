@@ -103,7 +103,7 @@ bool ModuleRenderer3D::Awake(JSONDoc* config)
 		texture_2d = true;
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
+		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 		error = glGetError();
 		if (error != GL_NO_ERROR)
 		{
@@ -143,11 +143,11 @@ update_status ModuleRenderer3D::PreUpdate(float dt)
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 	glLoadIdentity();
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadMatrixf(App->camera->GetProjectionMatrix());
-
-	glMatrixMode(GL_MODELVIEW);
-	glLoadMatrixf(App->camera->GetViewMatrix());
+	//glMatrixMode(GL_PROJECTION);
+	//glLoadMatrixf(App->camera->GetProjectionMatrix());
+	
+	//glMatrixMode(GL_MODELVIEW);
+	//glLoadMatrixf(App->camera->GetViewMatrix());
 
 	// light 0 on cam pos
 	lights[0].SetPos(App->camera->GetPos().x, App->camera->GetPos().y, App->camera->GetPos().z);
@@ -217,14 +217,14 @@ void ModuleRenderer3D::OnResize(int width, int height)
 {
 	glViewport(0, 0, width, height);
 
-	glMatrixMode(GL_PROJECTION);
-	glLoadIdentity();
+	//glMatrixMode(GL_PROJECTION);
+	//glLoadIdentity();
 
 	App->camera->Resize((float)width / (float)height);
 	glLoadMatrixf(App->camera->GetProjectionMatrix());
 
-	glMatrixMode(GL_MODELVIEW);
-	glLoadIdentity();
+	//glMatrixMode(GL_MODELVIEW);
+	//glLoadIdentity();
 }
 
 void ModuleRenderer3D::ConfigGUI()
@@ -525,12 +525,26 @@ void ModuleRenderer3D::SetVertexAttributePointer(uint id, uint element_size, uin
 void ModuleRenderer3D::UseShaderProgram(uint id)
 {
 	glUseProgram(id);
+	GLenum error = glGetError();
+
+	//Check for error
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error at use shader program: %s\n", gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::SetUniformMatrix(uint program, const char * name, float * data)
 {
 	GLint modelLoc = glGetUniformLocation(program, name);
 	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, data);
+	GLenum error = glGetError();
+
+	//Check for error
+	if (error != GL_NO_ERROR)
+	{
+		//EDITOR_LOG("Error Seting uniform matrix %s: %s\n",name, gluErrorString(error));
+	}
 }
 
 void ModuleRenderer3D::SetUniformForViewAndProjection(uint program, const char * view_name, const char * proj_name)
@@ -538,8 +552,24 @@ void ModuleRenderer3D::SetUniformForViewAndProjection(uint program, const char *
 	GLint modelLoc_view = glGetUniformLocation(program, view_name);
 	glUniformMatrix4fv(modelLoc_view, 1, GL_FALSE, App->camera->GetViewMatrix());
 
+	GLenum error = glGetError();
+
+	//Check for error
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error Seting uniform matrix %s %s\n", view_name, gluErrorString(error));
+	}
+
 	GLint modelLoc_proj = glGetUniformLocation(program, proj_name);
 	glUniformMatrix4fv(modelLoc_proj, 1, GL_FALSE, App->camera->GetProjectionMatrix());
+
+	error = glGetError();
+
+	//Check for error
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error Seting uniform matrix %s %s\n", proj_name, gluErrorString(error));
+	}
 }
 
 uint ModuleRenderer3D::CreateShaderProgram()

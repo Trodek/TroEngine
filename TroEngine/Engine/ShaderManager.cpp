@@ -72,12 +72,12 @@ void ShaderManager::CreateDefaultShaders()
 		out vec4 ourColor;\n \
 		out vec3 Normal;\n \
 		out vec2 TexCoord;\n\n \
-		uniform mat4 model;\n \
+		uniform mat4 Model;\n \
 		uniform mat4 view;\n \
 		uniform mat4 projection;\n\n \
 		void main()\n \
 		{ \n \
-			gl_Position = projection * view * model * vec4(position, 1.0f);\n \
+			gl_Position = projection * view * Model * vec4(position, 1.0f);\n \
 			ourColor = color;\n \
 			TexCoord = texCoord.xy;\n \
 		}";

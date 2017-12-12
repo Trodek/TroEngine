@@ -166,6 +166,7 @@ void GameObject::Draw()
 		if ((*c)->GetType() == Component::Type::C_Material)
 		{
 			ComponentMaterial* m = (ComponentMaterial*)(*c);
+			m->UseShader();
 			m->ApplyMaterial();
 			program = m->GetProgram();
 		}
@@ -177,11 +178,9 @@ void GameObject::Draw()
 		if ((*c)->GetType() == Component::Type::C_MeshRenderer)
 		{
 			Transform* trans = (Transform*)GetComponent(Component::Type::C_Transform);
-			App->renderer3D->SetUniformMatrix(program, "model", trans->GetTransform().Transposed().ptr());
+			App->renderer3D->SetUniformMatrix(program, "Model", trans->GetTransform().Transposed().ptr());
 
 			App->renderer3D->SetUniformForViewAndProjection(program, "view", "projection");
-
-			App->renderer3D->UseShaderProgram(program);
 
 			MeshRenderer* mr = (MeshRenderer*)(*c);
 			mr->Draw();
