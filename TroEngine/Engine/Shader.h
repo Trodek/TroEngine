@@ -15,8 +15,8 @@ enum ShaderType
 class Shader
 {
 public:
-	Shader();
-	Shader(Resource* res);
+	Shader(ShaderType type);
+	Shader(ShaderType type, Resource* res);
 	~Shader();
 
 	void CleanUp();
@@ -25,19 +25,29 @@ public:
 
 	void UpdateShader(); //called when the shader is modified
 
+	void SaveToAssets();
+
+	void SetShaderCode(const char* code);
+
 	uint GetShaderID();
 	ShaderType GetType()const;
 	uint GetUID()const;
 
 private:
+
+	void CompileShader();
+
+	void LoadFromFile(const char* path);
+
+private:
 	char* shader_code = nullptr;
-	char* compiled_code = nullptr;
-	uint id;
+	char* compiled_code = nullptr; // ask ric
+	uint id = 0;
 	bool compiles = false;
 
 	ShaderType type = ST_NULL;
 
-	uint UID;
+	uint UID = 0;
 };
 #endif // !__SHADER__
 

@@ -86,7 +86,17 @@ void Mesh::Render(bool wireframe)
 	App->renderer3D->EnableState(GL_VERTEX_ARRAY);
 
 	App->renderer3D->BindArrayBuffer(id_vertices);
-	App->renderer3D->SetVertexPointer();
+
+	//vertices
+	App->renderer3D->SetVertexAttributePointer(0, 3, 13, 0);
+	App->renderer3D->EnableVertexAttributeArray(0);
+	//texture coords
+	App->renderer3D->SetVertexAttributePointer(1, 3, 13, 3);
+	//normals
+	App->renderer3D->SetVertexAttributePointer(2, 3, 13, 6);
+	//colors
+	App->renderer3D->SetVertexAttributePointer(3, 4, 13, 9);
+
 	App->renderer3D->BindElementArrayBuffer(id_indices);
 
 	//Set Wireframe if needed
@@ -107,12 +117,12 @@ void Mesh::Render(bool wireframe)
 			App->renderer3D->PolygonModePoints();
 	}
 
+	App->renderer3D->DisableVertexAttributeArray(0);
+
 	App->renderer3D->UnbindArraybuffer();
 	App->renderer3D->UnbindElementArrayBuffer();
 
-	App->renderer3D->DisableState(GL_VERTEX_ARRAY);
-	App->renderer3D->DisableState(GL_TEXTURE_COORD_ARRAY);
-	
+	App->renderer3D->DisableState(GL_VERTEX_ARRAY);	
 }
 
 bool Mesh::TestSegmentToTriangles(const LineSegment & segment, float & distance, float3 & hit)

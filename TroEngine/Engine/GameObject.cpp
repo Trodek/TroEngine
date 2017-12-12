@@ -160,12 +160,14 @@ void GameObject::Draw()
 	//Just Components Transform, Material and MeshRenderer are needed for drawing
 
 	//Find if the GameObject has a Material
+	uint program = 0;
 	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
 	{
 		if ((*c)->GetType() == Component::Type::C_Material)
 		{
 			ComponentMaterial* m = (ComponentMaterial*)(*c);
 			m->ApplyMaterial();
+			program = m->GetProgram();
 		}
 	}
 
@@ -174,14 +176,16 @@ void GameObject::Draw()
 	{
 		if ((*c)->GetType() == Component::Type::C_MeshRenderer)
 		{
-			App->renderer3D->PushMatrix();
 			Transform* trans = (Transform*)GetComponent(Component::Type::C_Transform);
-			App->renderer3D->MultMatrix(trans->GetTransform().Transposed().ptr());
+			App->renderer3D->SetUniformMatrix(program, "model", trans->GetTransform().Transposed().ptr());
+
+			App->renderer3D->SetUniformForViewAndProjection(program, "view", "projection");
+
+			App->renderer3D->UseShaderProgram(program);
 
 			MeshRenderer* mr = (MeshRenderer*)(*c);
 			mr->Draw();
 
-			App->renderer3D->PopMatrix();
 			break;
 		}
 	}

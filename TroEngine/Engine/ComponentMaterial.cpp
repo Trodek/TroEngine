@@ -12,11 +12,20 @@
 
 ComponentMaterial::ComponentMaterial(GameObject* owner) : Component(C_Material, owner)
 {
+	//set default shaders
+	fragment_shader = App->shader_manager->GetFragmentDefaultShader();
+	vertex_shader = App->shader_manager->GetVertexDefaultShader();
 
+	UpdateShaderProgram();
 }
 
 ComponentMaterial::ComponentMaterial(GameObject * owner, Material * mat) : Component(C_Material, owner), material(mat)
 {
+	//set default shaders
+	fragment_shader = App->shader_manager->GetFragmentDefaultShader();
+	vertex_shader = App->shader_manager->GetVertexDefaultShader();
+
+	UpdateShaderProgram();
 }
 
 ComponentMaterial::~ComponentMaterial()
@@ -114,10 +123,21 @@ void ComponentMaterial::UpdateShaderProgram()
 	App->renderer3D->AttachShaderToProgram(shader_program, fragment_shader->GetShaderID());
 	if (App->renderer3D->LinkProgram(shader_program) == false)
 	{
-		EDITOR_LOG("Error while updating shader problem, check errors above.");
+		EDITOR_LOG("Error while updating shader program, check errors above.");
 		App->renderer3D->DeleteProgram(shader_program);
 		shader_program = 0;
 	}
+	else EDITOR_LOG("Shader Program created :)");
+}
+
+uint ComponentMaterial::GetProgram() const
+{
+	return shader_program;
+}
+
+void ComponentMaterial::UseShader() const
+{
+	App->renderer3D->UseShaderProgram(shader_program);
 }
 
 void ComponentMaterial::DrawConfig()

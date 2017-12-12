@@ -28,6 +28,10 @@ public:
 	void OnShaderEdit(Shader* shader);
 	void UpdateShaderProgram();
 
+	uint GetProgram()const;
+
+	void UseShader()const;
+
 	void DrawConfig();
 
 	void UseChecker();

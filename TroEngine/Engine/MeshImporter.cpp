@@ -249,7 +249,7 @@ bool MeshImporter::ImportMesh(const char * path, uint mesh_id, Resource * res)
 					memcpy(vert_info + v * 13 + 9, null_color, sizeof(float) * 4);
 			}
 
-			Mesh* new_mesh = new Mesh(res->UID, num_vertices, vert, num_indices, indices);
+			Mesh* new_mesh = new Mesh(res->UID, num_vertices, vert_info, num_indices, indices);
 			meshes.push_back(new_mesh);
 			res->manager_id = meshes.size() - 1;
 
@@ -456,7 +456,7 @@ bool MeshImporter::ImportMesh(aiMesh* mesh, GameObject* owner, const std::vector
 					memcpy(vert_info + v * 13 + 9, null_color, sizeof(float) * 4);
 			}
 
-			Mesh* new_mesh = new Mesh(num_vertices, vert, num_indices, indices);
+			Mesh* new_mesh = new Mesh(num_vertices, vert_info, num_indices, indices);
 			meshes.push_back(new_mesh);
 			res->manager_id = meshes.size() - 1;
 			res->UID = new_mesh->GetUID();
@@ -483,7 +483,7 @@ void MeshImporter::SaveToLibrary(Mesh * mesh, Resource* res)
 	// Save Mesh to file
 	// file structure has: 
 	// amount of indices and vertices. Each vertice has:
-	// indices / vertices / texture_coords data / colors
+	// indices / vertices / texture_coords / normals / colors
 
 	uint elements_num[2] = { mesh->GetIndicesNum(), mesh->GetVerticesNum() * 13};
 	uint total_size = sizeof(elements_num) + sizeof(uint)*mesh->GetIndicesNum() + sizeof(float)*(mesh->GetVerticesNum() * 13);
@@ -527,7 +527,7 @@ void MeshImporter::SaveToLibrary(Mesh * mesh, const char * path)
 	// Save Mesh to file
 	// file structure has: 
 	// amount of indices and vertices. Each vertice has:
-	// indices / vertices / texture_coords data / colors
+	// indices / vertices / texture_coords / normals / colors
 
 	uint elements_num[2] = { mesh->GetIndicesNum(), mesh->GetVerticesNum() * 13};
 	uint total_size = sizeof(elements_num) + sizeof(uint)*mesh->GetIndicesNum() + sizeof(float)*(mesh->GetVerticesNum() * 13);

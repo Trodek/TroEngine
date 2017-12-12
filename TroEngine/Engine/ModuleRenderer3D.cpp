@@ -463,7 +463,7 @@ bool ModuleRenderer3D::GetCullFace() const
 	return cull_face;
 }
 
-uint ModuleRenderer3D::CreateVertexShader(char * source)
+uint ModuleRenderer3D::CreateVertexShader(const char * source)
 {
 	GLuint vertexShader;
 	vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -475,14 +475,14 @@ uint ModuleRenderer3D::CreateVertexShader(char * source)
 	if (success == 0)
 	{
 		glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
-		EDITOR_LOG("Shader compilation error: %s", infoLog);
+		EDITOR_LOG("Shader compilation error:\n %s", infoLog);
 		glDeleteShader(vertexShader);
 		return 0;
 	}
 	return vertexShader;
 }
 
-uint ModuleRenderer3D::CreateFragmentShader(char * source)
+uint ModuleRenderer3D::CreateFragmentShader(const char * source)
 {
 	GLuint fragmentShader;
 	fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
@@ -494,7 +494,7 @@ uint ModuleRenderer3D::CreateFragmentShader(char * source)
 	if (success == 0)
 	{
 		glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
-		EDITOR_LOG("Shader compilation error: %s", infoLog);
+		EDITOR_LOG("Shader compilation error:\n %s", infoLog);
 		glDeleteShader(fragmentShader);
 		return 0;
 	}
@@ -505,6 +505,41 @@ void ModuleRenderer3D::DeleteShader(uint shader_id)
 {
 	if(shader_id != 0)
 		glDeleteShader(shader_id);
+}
+
+void ModuleRenderer3D::EnableVertexAttributeArray(uint id)
+{
+	glEnableVertexAttribArray(id);
+}
+
+void ModuleRenderer3D::DisableVertexAttributeArray(uint id)
+{
+	glDisableVertexAttribArray(id);
+}
+
+void ModuleRenderer3D::SetVertexAttributePointer(uint id, uint element_size, uint elements_gap, uint infogap)
+{
+	glVertexAttribPointer(id, element_size, GL_FLOAT, GL_FALSE, elements_gap * sizeof(GLfloat), (GLvoid*)(infogap * sizeof(GLfloat)));
+}
+
+void ModuleRenderer3D::UseShaderProgram(uint id)
+{
+	glUseProgram(id);
+}
+
+void ModuleRenderer3D::SetUniformMatrix(uint program, const char * name, float * data)
+{
+	GLint modelLoc = glGetUniformLocation(program, name);
+	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, data);
+}
+
+void ModuleRenderer3D::SetUniformForViewAndProjection(uint program, const char * view_name, const char * proj_name)
+{
+	GLint modelLoc_view = glGetUniformLocation(program, view_name);
+	glUniformMatrix4fv(modelLoc_view, 1, GL_FALSE, App->camera->GetViewMatrix());
+
+	GLint modelLoc_proj = glGetUniformLocation(program, proj_name);
+	glUniformMatrix4fv(modelLoc_proj, 1, GL_FALSE, App->camera->GetProjectionMatrix());
 }
 
 uint ModuleRenderer3D::CreateShaderProgram()

@@ -16,12 +16,20 @@ public:
 	uint AddShader(Shader* s);
 
 	bool Awake(JSONDoc* config);
+	bool Start();
 	bool CleanUp();
 
 	Shader* GetShader(uint index);
+	Shader* GetVertexDefaultShader()const;
+	Shader* GetFragmentDefaultShader()const;
+
+private:
+	void CreateDefaultShaders();
 
 private:
 	std::vector<Shader*> shaders;
+	Shader* vertex_default = nullptr;
+	Shader* fragment_default = nullptr;
 };
 
 

@@ -61,9 +61,17 @@ public:
 
 	bool GetCullFace()const;
 
-	uint CreateVertexShader(char* source);
-	uint CreateFragmentShader(char* source);
+	uint CreateVertexShader(const char* source);
+	uint CreateFragmentShader(const char* source);
 	void DeleteShader(uint shader_id);
+
+	void EnableVertexAttributeArray(uint id);
+	void DisableVertexAttributeArray(uint id);
+	void SetVertexAttributePointer(uint id, uint element_size, uint elements_gap, uint infogap);
+
+	void UseShaderProgram(uint id);
+	void SetUniformMatrix(uint program, const char* name, float* data);
+	void SetUniformForViewAndProjection(uint program, const char* view_name, const char* proj_name);
 
 	uint CreateShaderProgram();
 	void AttachShaderToProgram(uint program_id, uint shader_id);
