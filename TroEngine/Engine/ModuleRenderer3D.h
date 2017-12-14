@@ -61,6 +61,10 @@ public:
 
 	bool GetCullFace()const;
 
+	uint GenVertexArrayBuffer() const;
+	void BindVertexArrayBuffer(uint id) const;
+	void UnbindVertexArrayBuffer() const;
+
 	uint CreateVertexShader(const char* source);
 	uint CreateFragmentShader(const char* source);
 	void DeleteShader(uint shader_id);

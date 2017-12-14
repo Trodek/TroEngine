@@ -134,6 +134,10 @@ bool ModuleRenderer3D::Start()
 	}
 	checker_id = LoadTextureToVRAM(CHECKERS_WIDTH, CHECKERS_HEIGHT, &checkImage[0][0][0], GL_RGBA);
 
+	///TESTESTESTESTESTSETESTEST
+	uint test = GenVertexArrayBuffer();
+	BindVertexArrayBuffer(test);
+
 	return true;
 }
 
@@ -567,6 +571,35 @@ bool ModuleRenderer3D::GetCullFace() const
 	return cull_face;
 }
 
+//-------- Shaders modification ------------
+
+uint ModuleRenderer3D::GenVertexArrayBuffer() const
+{
+	uint ret = 0;
+	glGenVertexArrays(1, (GLuint*)&ret);
+	return ret;
+}
+
+void ModuleRenderer3D::BindVertexArrayBuffer(uint id) const
+{
+	glBindVertexArray(id);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error bind vertex array buffer: %s\n", gluErrorString(error));
+	}
+}
+
+void ModuleRenderer3D::UnbindVertexArrayBuffer() const
+{
+	glBindVertexArray(0);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error unbind array buffer: %s\n", gluErrorString(error));
+	}
+}
+
 uint ModuleRenderer3D::CreateVertexShader(const char * source)
 {
 	GLuint vertexShader;
@@ -642,7 +675,7 @@ void ModuleRenderer3D::DisableVertexAttributeArray(uint id)
 
 void ModuleRenderer3D::SetVertexAttributePointer(uint id, uint element_size, uint elements_gap, uint infogap)
 {
-	glVertexAttribPointer(id, element_size, GL_FLOAT, GL_FALSE, elements_gap * sizeof(GLfloat), (GLvoid*)(infogap * sizeof(GLfloat)));
+	glVertexAttribPointer(id, element_size, GL_FLOAT, GL_FALSE, elements_gap * sizeof(GLfloat), (void*)(infogap * sizeof(GLfloat)));
 	GLenum error = glGetError();
 
 	//Check for error
@@ -763,6 +796,8 @@ void ModuleRenderer3D::DeleteProgram(uint program_id)
 		}
 	}
 }
+
+// ------------------------------------------
 
 void ModuleRenderer3D::ToggleDepthTestState()
 {
