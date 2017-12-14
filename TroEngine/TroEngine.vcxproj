@@ -101,6 +101,7 @@
     <ClCompile Include="Engine\Shader.cpp" />
     <ClCompile Include="Engine\ShaderEditor.cpp" />
     <ClCompile Include="Engine\ShaderManager.cpp" />
+    <ClCompile Include="Engine\ShaderProgram.cpp" />
     <ClCompile Include="Engine\TextEditor.cpp" />
     <ClCompile Include="Engine\Timer.cpp" />
     <ClCompile Include="Engine\Time\Clock.cpp" />
@@ -132,6 +133,7 @@
     <ClInclude Include="Engine\Devil\include\il_wrap.h" />
     <ClInclude Include="Engine\Explorer.h" />
     <ClInclude Include="Engine\GameObject.h" />
+    <ClInclude Include="Engine\ShaderProgram.h" />
     <ClInclude Include="Engine\ImGuizmo.h" />
     <ClInclude Include="Engine\PlayPauseUI.h" />
     <ClInclude Include="Engine\ResourceManager.h" />

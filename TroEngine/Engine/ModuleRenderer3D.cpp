@@ -84,23 +84,10 @@ bool ModuleRenderer3D::Awake(JSONDoc* config)
 			ret = false;
 		}
 
-		//lights[0].ref = GL_LIGHT0;
-		//lights[0].ambient.Set(0.25f, 0.25f, 0.25f, 1.0f);
-		//lights[0].diffuse.Set(0.75f, 0.75f, 0.75f, 1.0f);
-		//lights[0].SetPos(0.0f, 0.0f, 2.5f);
-		//lights[0].Init();
-
 		glEnable(GL_DEPTH_TEST);
 		depth_test = true;
 		glEnable(GL_CULL_FACE);
 		cull_face = true;
-		//lights[0].Active(true);
-		//glEnable(GL_LIGHTING);
-		lighting = true;
-		//glEnable(GL_COLOR_MATERIAL);
-		color_material = true;
-		//glEnable(GL_TEXTURE_2D);
-		texture_2d = true;
 		glEnable(GL_BLEND);
 		glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
 		glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
@@ -145,13 +132,6 @@ bool ModuleRenderer3D::Start()
 update_status ModuleRenderer3D::PreUpdate(float dt)
 {
 	glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-	//glLoadIdentity();
-
-	//glMatrixMode(GL_PROJECTION);
-	//glLoadMatrixf(App->camera->GetProjectionMatrix());
-	
-	//glMatrixMode(GL_MODELVIEW);
-	//glLoadMatrixf(App->camera->GetViewMatrix());
 
 	// light 0 on cam pos
 	lights[0].SetPos(App->camera->GetPos().x, App->camera->GetPos().y, App->camera->GetPos().z);
@@ -217,14 +197,7 @@ void ModuleRenderer3D::OnResize(int width, int height)
 		EDITOR_LOG("Error glviewport %s\n", gluErrorString(error));
 	}
 
-	//glMatrixMode(GL_PROJECTION);
-	//glLoadIdentity();
-
 	App->camera->Resize((float)width / (float)height);
-	//glLoadMatrixf(App->camera->GetProjectionMatrix());
-
-	//glMatrixMode(GL_MODELVIEW);
-	//glLoadIdentity();
 }
 
 void ModuleRenderer3D::ConfigGUI()

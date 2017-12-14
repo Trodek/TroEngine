@@ -2,8 +2,12 @@
 #include <chrono>
 #include <string>
 #include <regex>
-
+#include "Application.h"
+#include "ModuleInput.h"
 #include "TextEditor.h"
+
+#undef max
+#undef min
 
 static const int cTextStart = 7;
 
@@ -375,7 +379,7 @@ void TextEditor::Render(const char* aTitle, const ImVec2& aSize, bool aBorder)
 	mWithinRender = true;
 
 	ImGuiIO& io = ImGui::GetIO();
-	auto xadv = (io.Fonts->Fonts[0]->IndexAdvanceX['X']);
+	auto xadv = (io.Fonts->Fonts[0]->IndexXAdvance['X']);
 	mCharAdvance = ImVec2(xadv, io.Fonts->Fonts[0]->FontSize + mLineSpacing);
 
 	ImGui::PushStyleColor(ImGuiCol_ChildWindowBg, ImGui::ColorConvertU32ToFloat4(mPalette[(int)PaletteIndex::Background]));
@@ -394,54 +398,156 @@ void TextEditor::Render(const char* aTitle, const ImVec2& aSize, bool aBorder)
 			ImGui::SetMouseCursor(ImGuiMouseCursor_TextInput);
 		//ImGui::CaptureKeyboardFromApp(true);
 
-		if (!IsReadOnly() && ImGui::IsKeyPressed('Z'))
-			if (ctrl && !shift && !alt)
-				Undo();
+		/*if (!IsReadOnly() && ImGui::IsKeyPressed('Z'))
+		if (ctrl && !shift && !alt)
+		Undo();
 		if (!IsReadOnly() && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_Backspace)))
-			if (!ctrl && !shift && alt)
-				Undo();
+		if (!ctrl && !shift && alt)
+		Undo();
 		if (!IsReadOnly() && ctrl && !shift && !alt && ImGui::IsKeyPressed('Y'))
-			Redo();
-
+		Redo();
 		if (!ctrl && !alt && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_UpArrow)))
-			MoveUp(1, shift);
+		MoveUp(1, shift);
 		else if (!ctrl && !alt && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_DownArrow)))
-			MoveDown(1, shift);
+		MoveDown(1, shift);
 		else if (!alt && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_LeftArrow)))
-			MoveLeft(1, shift, ctrl);
+		MoveLeft(1, shift, ctrl);
 		else if (!alt && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_RightArrow)))
-			MoveRight(1, shift, ctrl);
+		MoveRight(1, shift, ctrl);
 		else if (!alt && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_PageUp)))
-			MoveUp(GetPageSize() - 4, shift);
+		MoveUp(GetPageSize() - 4, shift);
 		else if (!alt && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_PageDown)))
-			MoveDown(GetPageSize() - 4, shift);
+		MoveDown(GetPageSize() - 4, shift);
 		else if (!alt && ctrl && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_Home)))
-			MoveTop(shift);
+		MoveTop(shift);
 		else if (ctrl && !alt && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_End)))
-			MoveBottom(shift);
+		MoveBottom(shift);
 		else if (!ctrl && !alt && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_Home)))
-			MoveHome(shift);
+		MoveHome(shift);
 		else if (!ctrl && !alt && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_End)))
-			MoveEnd(shift);
+		MoveEnd(shift);
 		else if (!IsReadOnly() && !ctrl && !shift && !alt && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_Delete)))
-			Delete();
+		Delete();
 		else if (!IsReadOnly() && !ctrl && !shift && !alt && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_Backspace)))
-			BackSpace();
+		BackSpace();
 		else if (!ctrl && !shift && !alt && ImGui::IsKeyPressed(45))
-			mOverwrite ^= true;
+		mOverwrite ^= true;
 		else if (ctrl && !shift && !alt && ImGui::IsKeyPressed(45))
-			Copy();
+		Copy();
 		else if (ctrl && !shift && !alt && ImGui::IsKeyPressed('C'))
-			Copy();
+		Copy();
 		else if (!IsReadOnly() && !ctrl && shift && !alt && ImGui::IsKeyPressed(45))
-			Paste();
+		Paste();
 		else if (!IsReadOnly() && ctrl && !shift && !alt && ImGui::IsKeyPressed('V'))
-			Paste();
+		Paste();
 		else if (ctrl && !shift && !alt && ImGui::IsKeyPressed('X'))
-			Cut();
+		Cut();
 		else if (!ctrl && shift && !alt && ImGui::IsKeyPressed(ImGui::GetKeyIndex(ImGuiKey_Delete)))
-			Cut();
+		Cut();*/
+		if (App->input->GetKey(SDL_SCANCODE_LCTRL) == KEY_REPEAT)
+		{
+			if (App->input->GetKey(SDL_SCANCODE_C) == KEY_DOWN)
+			{
+				Copy();
+			}
 
+			if (App->input->GetKey(SDL_SCANCODE_V) == KEY_DOWN)
+			{
+				Paste();
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_X) == KEY_DOWN)
+			{
+				Cut();
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_Z) == KEY_DOWN)
+			{
+				Undo();
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_Y) == KEY_DOWN)
+			{
+				Redo();
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_A) == KEY_DOWN)
+			{
+				SetSelection(Coordinates(), Coordinates(GetTotalLines(), 0));
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_HOME) == KEY_DOWN)
+			{
+				MoveTop(shift);
+			}
+
+			if (App->input->GetKey(SDL_SCANCODE_END) == KEY_DOWN)
+			{
+				MoveBottom(shift);
+			}
+		}
+		//Delete + Backspace
+		if (App->input->GetKey(SDL_SCANCODE_DELETE) == KEY_DOWN)
+		{
+			Delete();
+		}
+		if (App->input->GetKey(SDL_SCANCODE_BACKSPACE) == KEY_DOWN)
+		{
+			BackSpace();
+		}
+		//
+		//Arrows
+		if (App->input->GetKey(SDL_SCANCODE_RIGHT) == KEY_DOWN)
+		{
+			MoveRight();
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_LEFT) == KEY_DOWN)
+		{
+			MoveLeft();
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_UP) == KEY_DOWN)
+		{
+			MoveUp();
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_DOWN) == KEY_DOWN)
+		{
+			MoveDown();
+		}
+		//Enter
+		if (App->input->GetKey(SDL_SCANCODE_RETURN) == KEY_DOWN)
+		{
+			EnterCharacter('\n');
+		}
+		//
+		//Page,home,etc...
+		if (App->input->GetKey(SDL_SCANCODE_PAGEDOWN) == KEY_DOWN)
+		{
+			MoveDown(GetPageSize() - 4, shift);
+		}
+		if (App->input->GetKey(SDL_SCANCODE_PAGEUP) == KEY_DOWN)
+		{
+			MoveUp(GetPageSize() - 4, shift);
+		}
+
+		if (App->input->GetKey(SDL_SCANCODE_HOME) == KEY_DOWN)
+		{
+			MoveHome(shift);
+		}
+		if (App->input->GetKey(SDL_SCANCODE_END) == KEY_DOWN)
+		{
+			MoveEnd(shift);
+		}
+		//
+		if (App->input->GetKey(SDL_SCANCODE_TAB) == KEY_DOWN)
+		{
+			EnterCharacter(' ');
+			EnterCharacter(' ');
+			EnterCharacter(' ');
+			EnterCharacter(' ');
+		}
 		if (!IsReadOnly())
 		{
 			for (size_t i = 0; i < sizeof(io.InputCharacters) / sizeof(io.InputCharacters[0]); i++)
@@ -454,6 +560,24 @@ void TextEditor::Render(const char* aTitle, const ImVec2& aSize, bool aBorder)
 						if (c == '\r')
 							c = '\n';
 						EnterCharacter((char)c);
+						if (c == '[')
+						{
+							Coordinates coord = GetActualCursorCoordinates();
+							EnterCharacter(']');
+							mState.mCursorPosition = Coordinates(coord.mLine, coord.mColumn);
+						}
+						if (c == '{')
+						{
+							Coordinates coord = GetActualCursorCoordinates();
+							EnterCharacter('}');
+							mState.mCursorPosition = Coordinates(coord.mLine, coord.mColumn);
+						}
+						if (c == '"')
+						{
+							Coordinates coord = GetActualCursorCoordinates();
+							EnterCharacter('"');
+							mState.mCursorPosition = Coordinates(coord.mLine, coord.mColumn);
+						}
 					}
 				}
 			}
@@ -1736,7 +1860,7 @@ TextEditor::LanguageDefinition TextEditor::LanguageDefinition::GLSL()
 		static const char* const keywords[] = {
 			"auto", "break", "case", "char", "const", "continue", "default", "do", "double", "else", "enum", "extern", "float", "for", "goto", "if", "inline", "int", "long", "register", "restrict", "return", "short",
 			"signed", "sizeof", "static", "struct", "switch", "typedef", "union", "unsigned", "void", "volatile", "while", "_Alignas", "_Alignof", "_Atomic", "_Bool", "_Complex", "_Generic", "_Imaginary",
-			"_Noreturn", "_Static_assert", "_Thread_local"
+			"_Noreturn", "_Static_assert", "_Thread_local", "attribute", "uniform", "varying", "layout", "sampler2D", "out", "in", "inout"
 		};
 		for (auto& k : keywords)
 			langDef.mKeywords.insert(k);

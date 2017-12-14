@@ -28,6 +28,7 @@ public:
 	void SaveToAssets();
 
 	void SetShaderCode(const char* code);
+	const char* GetCodeText() const;
 
 	uint GetShaderID();
 	ShaderType GetType()const;

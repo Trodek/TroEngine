@@ -6,10 +6,58 @@
 #include "ModuleRenderer3D.h"
 #include "Scene.h"
 #include "SceneManager.h"
+#include "ShaderManager.h"
 
 Shader::Shader(ShaderType type) : type(type)
 {
 	shader_code = new char[2048];
+
+	switch (type)
+	{
+	case ST_VERTEX:
+	{
+		char vert_shader_template[512] =
+			"#version 330 core\n\
+		layout(location = 0) in vec3 position;\n\
+		layout(location = 1) in vec3 texCoord;\n\
+		layout(location = 2) in vec3 normals;\n\
+		layout(location = 3) in vec4 color;\n\n\
+		out vec4 ourColor;\n\
+		out vec3 Normal;\n\
+		out vec2 TexCoord;\n\
+		out vec3 pos;\n\n\
+		uniform mat4 Model;\n\
+		uniform mat4 view;\n\
+		uniform mat4 projection;\n\n\
+		void main()\n\
+		{ \n\n\
+		}";
+
+		SetShaderCode(vert_shader_template);
+
+	}
+		break;
+	case ST_FRAGMENT:
+	{
+		char frag_shader_template[512] =
+			"#version 330 core\n\
+		in vec4 ourColor;\n\
+		in vec3 Normal;\n\
+		in vec3 pos;\n\
+		in vec2 TexCoord;\n\n\
+		out vec4 color;\n\n\
+		uniform sampler2D ourTexture;\n\n\
+		void main()\n\
+		{\n\n\
+		}";
+
+		SetShaderCode(frag_shader_template);
+	}
+		break;
+	default:
+		break;
+	}
+
 
 	void* a = this;
 	void** a_ptr = &a;
@@ -54,13 +102,18 @@ void Shader::UpdateShader()
 
 void Shader::SaveToAssets()
 {
-
+	App->shader_manager->SaveToAssets(this);
 }
 
 void Shader::SetShaderCode(const char * code)
 {
 	strcpy_s(shader_code, 2048,code);
 	UpdateShader();
+}
+
+const char * Shader::GetCodeText() const
+{
+	return shader_code;
 }
 
 uint Shader::GetShaderID()

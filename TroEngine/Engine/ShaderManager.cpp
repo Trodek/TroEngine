@@ -60,6 +60,11 @@ Shader * ShaderManager::GetFragmentDefaultShader() const
 	return fragment_default;
 }
 
+void ShaderManager::SaveToAssets(Shader * shader)
+{
+
+}
+
 void ShaderManager::CreateDefaultShaders()
 {
 	//Default Vertex Shader

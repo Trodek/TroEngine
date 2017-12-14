@@ -405,6 +405,9 @@
     <ClCompile Include="Engine\TextEditor.cpp">
       <Filter>Source\Editor\GUI\TextEditor</Filter>
     </ClCompile>
+    <ClCompile Include="Engine\ShaderProgram.cpp">
+      <Filter>Source\Engine\Components\Shader</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Engine\Application.h">
@@ -820,6 +823,9 @@
     </ClInclude>
     <ClInclude Include="Engine\TextEditor.h">
       <Filter>Source\Editor\GUI\TextEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ShaderProgram.h">
+      <Filter>Source\Engine\Components\Shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

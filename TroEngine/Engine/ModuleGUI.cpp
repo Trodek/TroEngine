@@ -16,6 +16,7 @@
 #include "PlayPauseUI.h"
 #include "Explorer.h"
 #include "ShaderEditor.h"
+#include "Shader.h"
 
 ModuleGUI::ModuleGUI(bool start_enabled) : Module(start_enabled) 
 {
@@ -42,6 +43,7 @@ bool ModuleGUI::Awake(JSONDoc* config)
 
 bool ModuleGUI::Start()
 {
+	test = new Shader(ST_VERTEX);
 	AddElement(new MenuGUI());
 	inspector = new Inspector();
 	AddElement(inspector);
@@ -51,6 +53,7 @@ bool ModuleGUI::Start()
 	AddElement(explorer);
 	shader_editor = new ShaderEditor();
 	AddElement(shader_editor);
+	shader_editor->SetShader(test);
 	return true;
 }
 

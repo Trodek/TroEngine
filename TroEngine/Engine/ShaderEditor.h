@@ -2,6 +2,7 @@
 #define __SHADER_EDITOR__
 
 #include "GUIElement.h"
+#include "TextEditor.h"
 
 class Shader;
 
@@ -14,10 +15,15 @@ public:
 	update_status UpdateGUI(float dt);
 
 	void CreateShaderEditor();
+	void SetShader(Shader* shader);
 
 public:
 	bool active = false;
+
+private:
+	TextEditor editor;
 	Shader* curr_shader = nullptr;
+	bool shader_changed = false;
 };
 
 #endif

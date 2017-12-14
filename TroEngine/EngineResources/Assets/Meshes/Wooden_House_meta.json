@@ -1,0 +1,15 @@
+{
+    "resources": [
+        {
+            "name": "Wooden_House",
+            "extension": "fbx",
+            "rel_path": "Assets\\Meshes\\",
+            "lib_name": "mesh_2",
+            "lib_path": "Library\\Meshes\\",
+            "file_id": 0,
+            "type": 1,
+            "UID": 2804943641,
+            "flipped": false
+        }
+    ]
+}

@@ -1,0 +1,15 @@
+{
+    "resources": [
+        {
+            "name": "House_Texture",
+            "extension": "png",
+            "rel_path": "Assets\\Materials\\",
+            "lib_name": "texture_0",
+            "lib_path": "Library\\Materials\\",
+            "file_id": 0,
+            "type": 2,
+            "UID": 158961385,
+            "flipped": true
+        }
+    ]
+}

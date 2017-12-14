@@ -18,6 +18,8 @@ enum ResourceType
 	R_PREFAB,
 	R_SCENE,
 	R_META,
+	R_SHADER,
+	R_SHADER_PROGRAM,
 };
 
 class Resource
@@ -39,6 +41,18 @@ public:
 	uint manager_id; // index on the respective manager vector
 	uint UID = 0;
 	bool flipped = false;
+};
+
+class ShaderProgramResource : public Resource
+{
+public:
+	ShaderProgramResource();
+	ShaderProgramResource(JSONDoc* doc, int id);
+	~ShaderProgramResource();
+
+public:
+	uint vert_shader_uid = 0;
+	uint frag_shader_uid = 0;
 };
 
 class ResourceManager : public Module

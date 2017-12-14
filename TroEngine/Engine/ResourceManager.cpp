@@ -385,6 +385,12 @@ std::string ResourceManager::BuildLibraryPath(JSONDoc * doc, int id)
 	case R_SCENE:
 		path = "";
 		break;
+	case R_SHADER: //shaders doesn't exist on library
+		path = "";
+		break;
+	case R_SHADER_PROGRAM:
+		path += "shprog";
+		break;
 	default:
 		break;
 	}
@@ -529,6 +535,14 @@ ResourceType ResourceManager::GetTypeFromPath(const char * path) const
 	{
 		ret = R_TEXTURE;
 	}
+	else if (extension == "vert" || extension == "frag")
+	{
+		ret = R_SHADER;
+	}
+	else if (extension == "shprog")
+	{
+		ret = R_SHADER_PROGRAM;
+	}
 
 	return ret;
 }
@@ -539,4 +553,21 @@ ResourceType ResourceManager::GetTypeFromMeta(JSONDoc * doc, int id) const
 	ResourceType ret = static_cast<ResourceType>((int)doc->GetNumber("type"));
 	doc->MoveToRoot();
 	return ret;
+}
+
+ShaderProgramResource::ShaderProgramResource()
+{
+	type = R_SHADER_PROGRAM;
+}
+
+ShaderProgramResource::ShaderProgramResource(JSONDoc * doc, int id) : Resource(doc,id)
+{
+	doc->MoveToSectionFromArray("resources", id);
+	vert_shader_uid = doc->GetNumber("vert_shader");
+	frag_shader_uid = doc->GetNumber("frag_shader");
+	doc->MoveToRoot();
+}
+
+ShaderProgramResource::~ShaderProgramResource()
+{
 }

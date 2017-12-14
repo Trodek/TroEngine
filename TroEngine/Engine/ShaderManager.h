@@ -23,6 +23,8 @@ public:
 	Shader* GetVertexDefaultShader()const;
 	Shader* GetFragmentDefaultShader()const;
 
+	void SaveToAssets(Shader* shader);
+
 private:
 	void CreateDefaultShaders();
 
@@ -30,6 +32,8 @@ private:
 	std::vector<Shader*> shaders;
 	Shader* vertex_default = nullptr;
 	Shader* fragment_default = nullptr;
+
+	uint save_id = 0;
 };
 
 
