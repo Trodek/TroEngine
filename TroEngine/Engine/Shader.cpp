@@ -10,7 +10,7 @@
 
 Shader::Shader(ShaderType type) : type(type)
 {
-	shader_code = new char[2048];
+	shader_code = new char[3048];
 
 	switch (type)
 	{
@@ -72,7 +72,7 @@ Shader::Shader(ShaderType type) : type(type)
 
 Shader::Shader(ShaderType type, uint uid) : type(type), UID(uid)
 {
-	shader_code = new char[2048];
+	shader_code = new char[3048];
 }
 
 Shader::~Shader()
@@ -86,26 +86,55 @@ void Shader::CleanUp()
 void Shader::OnEdit()
 {
 
-	ImGui::InputTextMultiline("##shader_code", shader_code, 2048);
-
 }
 
 void Shader::UpdateShader()
 {
 	//shader code is changed, recompile it
-	App->renderer3D->DeleteShader(id);
-
-	CompileShader();
+	if (CompileShader())
+		App->shader_manager->OnShaderUpdate(this);
 }
 
 void Shader::SaveToAssets()
 {
-	
+	uint size = std::strlen(shader_code);
+	Resource* res = App->resources->GetResource(UID);
+	std::string path;
+	if (res != nullptr)
+	{
+		path = App->resources->BuildAssetPath(res);
+	}
+	else
+	{
+		char p[100];
+		sprintf_s(p, "Assets\\Shaders\\shader_%d", App->shader_manager->GetSaveID());
+		path = p;
+		switch (type)
+		{
+		case ST_NULL:
+			path = "";
+			break;
+		case ST_VERTEX:
+			path += ".vert";
+			break;
+		case ST_FRAGMENT:
+			path += ".frag";
+			break;
+		default:
+			path = "";
+			break;
+		}
+	}
+
+	FILE* file = fopen(path.c_str(),"wb");
+	fwrite(shader_code, sizeof(char), size, file);
+	fclose(file);
+
 }
 
 void Shader::SetShaderCode(const char * code)
 {
-	strcpy_s(shader_code, 2048,code);
+	strcpy_s(shader_code, 3048,code);
 	UpdateShader();
 }
 
@@ -129,8 +158,9 @@ uint Shader::GetUID() const
 	return UID;
 }
 
-void Shader::CompileShader()
+bool Shader::CompileShader()
 {
+	bool ret = false;
 	switch (type)
 	{
 	case ST_VERTEX:
@@ -142,15 +172,16 @@ void Shader::CompileShader()
 	}
 	if (id != 0)
 	{
-		App->scene_manager->GetCurrentScene()->OnShaderEdit(this);
 		EDITOR_LOG("Shader compilation Success :)");
+		ret = true;
 	}
+	return ret;
 }
 
 void Shader::LoadFromFile(const char * path)
 {
 	//Open file path and get size
-	FILE* file = fopen(path, "r");
+	FILE* file = fopen(path, "rb");
 	if (file != nullptr)
 	{
 		fseek(file, 0L, SEEK_END);
@@ -159,5 +190,6 @@ void Shader::LoadFromFile(const char * path)
 
 		fread(shader_code, sizeof(char), total_size, file);
 		fclose(file);
+		shader_code[total_size] = 0; //end of file, add 0 to string
 	}
 }

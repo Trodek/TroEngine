@@ -85,12 +85,6 @@ void ShaderEditor::CreateShaderEditor()
 			ImGui::PushFont(io.Fonts->Fonts[0]);
 			editor.Render("Render...");
 			ImGui::PopFont();
-
-			if (ImGui::Button("Save##shader"))
-			{
-				curr_shader->UpdateShader();
-				App->scene_manager->GetCurrentScene()->OnShaderEdit(curr_shader);
-			}
 		}
 
 		ImGui::End();

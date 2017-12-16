@@ -7,7 +7,6 @@
 #include "Component.h"
 
 class JSONDoc;
-class Shader;
 
 class GameObject
 {
@@ -58,8 +57,6 @@ public:
 	void TransformUpdate();
 
 	float4x4 GetTransform() const;
-
-	void OnShaderEdit(Shader* shader);
 
 	void DrawHierarchy();
 

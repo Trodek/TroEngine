@@ -60,17 +60,6 @@ bool Scene::PreUpdate()
 		if ((*go)->HasComponent(Component::C_MeshRenderer))
 			(*go)->draw = false;
 	}
-
-	if (shader_edited) //be sure the shaders are not touched while rendering
-	{
-		for (int i = 0; i < game_objects.size(); ++i)
-		{
-			game_objects[i]->OnShaderEdit(modified_shader);
-		}
-		shader_edited = false;
-		modified_shader = nullptr;
-	}
-
 	if (update_kd_tree)
 	{
 		update_kd_tree = false;
@@ -243,12 +232,6 @@ void Scene::TestToKDTree(const LineSegment & segment, std::vector<GameObject*>& 
 void Scene::TestToKDTree(const Frustum & frustum, std::vector<GameObject*>& vec_to_fill) const
 {
 	kd_tree->GetElementsToTest(frustum, vec_to_fill);
-}
-
-void Scene::OnShaderEdit(Shader * shader)
-{
-	modified_shader = shader;
-	shader_edited = true;
 }
 
 void Scene::DrawHierarchy() const

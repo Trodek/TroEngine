@@ -12,8 +12,6 @@ class Inspector;
 class Explorer;
 class ShaderEditor;
 
-class Shader;
-
 class ModuleGUI : public Module
 {
 public:
@@ -40,8 +38,6 @@ public:
 private:
 	std::list<GUIElement*> gui_elements;
 	ImGuizmo::OPERATION gizmo_op = ImGuizmo::OPERATION::TRANSLATE;
-
-	Shader* test;
 };
 
 #endif // !__MODULEGUI__

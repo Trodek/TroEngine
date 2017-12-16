@@ -62,48 +62,52 @@ void ComponentMaterial::ApplyMaterial() const
 void ComponentMaterial::SetVertexShader(Shader * vertex_shader) //FIX
 {
 	if (vertex_shader != nullptr)
-		shaders->SetVertexShader(vertex_shader);
+	{
+		//look for a program that uses vertex_shader and curr fragment shader
+		ShaderProgram* p = App->shader_manager->GetProgram(vertex_shader, shaders->GetFragmentShader());
+		
+		if (p == nullptr)//program doesn't exist, create it
+		{
+			p = new ShaderProgram(vertex_shader, shaders->GetFragmentShader());
+			App->shader_manager->AddShaderProgram(p);
+		}
+		shaders = p;
+	}
 }
 
 void ComponentMaterial::SetVertexShader(uint shader_uid)
 {
 	if (shader_uid != 0)
 	{
-		Resource* res = App->resources->GetResource(shader_uid);
-		if (res != nullptr)
-		{
-			Shader* shader = App->shader_manager->GetShader(res->manager_id);
-			if (shader->GetType() == ST_VERTEX)
-				shaders->SetVertexShader(shader);
-		}
+		Shader* s = App->shader_manager->GetShaderByUID(shader_uid);
+		if (s != nullptr && s->GetType() == ST_VERTEX)
+			SetVertexShader(s);
 	}
 }
 
 void ComponentMaterial::SetFragmentShader(Shader * fragment_shader) //FIX
 {
 	if (fragment_shader != nullptr)
-		shaders->SetFragmentShader(fragment_shader);
+	{
+		//look for a program that uses fragment_shader and curr vertex shader
+		ShaderProgram* p = App->shader_manager->GetProgram(shaders->GetVertexShader(), fragment_shader);
+
+		if (p == nullptr)//program doesn't exist, create it
+		{
+			p = new ShaderProgram(shaders->GetVertexShader(), fragment_shader);
+			App->shader_manager->AddShaderProgram(p);
+		}
+		shaders = p;
+	}
 }
 
 void ComponentMaterial::SetFragmentShader(uint shader_uid)
 {
 	if (shader_uid != 0)
 	{
-		Resource* res = App->resources->GetResource(shader_uid);
-		if (res != nullptr)
-		{
-			Shader* shader = App->shader_manager->GetShader(res->manager_id);
-			if (shader->GetType() == ST_FRAGMENT)
-				shaders->SetFragmentShader(shader);
-		}
-	}
-}
-
-void ComponentMaterial::OnShaderEdit(Shader * shader)
-{
-	if (shader == vertex_shader || shader == fragment_shader) //the modified shader affects our program, update it
-	{
-		UpdateShaderProgram();
+		Shader* s = App->shader_manager->GetShaderByUID(shader_uid);
+		if (s != nullptr && s->GetType() == ST_FRAGMENT)
+			SetFragmentShader(s);
 	}
 }
 
@@ -261,13 +265,13 @@ void ComponentMaterial::Serialize(JSONDoc * doc)
 	else
 		doc->SetNumber("material", 0);
 
-	if (vertex_shader != nullptr)
-		doc->SetNumber("vertex_shader", vertex_shader->GetUID());
+	if (shaders != nullptr)
+		doc->SetNumber("vertex_shader", shaders->GetVertexShader()->GetUID());
 	else
 		doc->SetNumber("vertex_shader", 0);
 
-	if (fragment_shader != nullptr)
-		doc->SetNumber("fragment_shader", fragment_shader->GetUID());
+	if (shaders != nullptr)
+		doc->SetNumber("fragment_shader", shaders->GetFragmentShader()->GetUID());
 	else
 		doc->SetNumber("fragment_shader", 0);
 }

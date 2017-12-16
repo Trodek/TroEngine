@@ -80,7 +80,7 @@ void ShaderProgram::UseProgram()
 
 void ShaderProgram::SaveToLibray() const
 {
-	ShaderProgramResource* res = (ShaderProgramResource*)App->resources->GetResource(UID);
+	Resource* res = App->resources->GetResource(UID);
 	std::string path = App->resources->BuildLibraryPath(res);
 
 	int prog_size = App->renderer3D->GetProgramSize(program_id);
@@ -120,4 +120,9 @@ void ShaderProgram::LinkShaderProgram()
 uint ShaderProgram::GetProgramID() const
 {
 	return program_id;
+}
+
+uint ShaderProgram::GetUID() const
+{
+	return UID;
 }

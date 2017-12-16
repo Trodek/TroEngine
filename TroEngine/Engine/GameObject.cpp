@@ -565,20 +565,6 @@ float4x4 GameObject::GetTransform() const
 	}
 }
 
-void GameObject::OnShaderEdit(Shader * shader)
-{
-	ComponentMaterial* cm = (ComponentMaterial*)GetComponent(Component::C_Material);
-
-	if (cm != nullptr)
-		cm->OnShaderEdit(shader);
-
-	//Ask childs to check shaders
-	for (int i = 0; i < childs.size(); ++i)
-	{
-		childs[i]->OnShaderEdit(shader);
-	}
-}
-
 void GameObject::DrawHierarchy()
 {
 	for (int i = 0; i < childs.size(); ++i)

@@ -67,6 +67,16 @@ Shader * ShaderManager::GetShader(uint index)
 	return (index < shaders.size()) ? shaders[index] : nullptr;
 }
 
+Shader * ShaderManager::GetShaderByUID(uint uid)
+{
+	for (int i = 0; i < shaders.size(); ++i)
+	{
+		if (shaders[i]->GetUID() == uid)
+			return shaders[i];
+	}
+	return nullptr;
+}
+
 Shader * ShaderManager::GetVertexDefaultShader() const
 {
 	return vertex_default;
@@ -80,6 +90,28 @@ Shader * ShaderManager::GetFragmentDefaultShader() const
 ShaderProgram * ShaderManager::GetDefaultShaderProgram() const
 {
 	return default_program;
+}
+
+ShaderProgram * ShaderManager::GetProgram(Shader * vert, Shader * frag) const
+{
+	for (int i = 0; i < shader_programs.size(); ++i)
+	{
+		if (shader_programs[i]->GetFragmentShader() == frag && shader_programs[i]->GetVertexShader() == vert)
+		{
+			return shader_programs[i];
+		}
+	}
+	return nullptr;
+}
+
+void ShaderManager::OnShaderUpdate(Shader * shader) const
+{
+	//update all programs that contain that shader
+	for (int i = 0; i < shader_programs.size(); ++i)
+	{
+		if (shader == shader_programs[i]->GetFragmentShader() || shader == shader_programs[i]->GetVertexShader())
+			shader_programs[i]->LinkShaderProgram();
+	}
 }
 
 void ShaderManager::SaveToAssets(ShaderProgram * shader)
@@ -129,6 +161,55 @@ void ShaderManager::CreateShader(Resource * res)
 	AddShader(shader);
 }
 
+void ShaderManager::CreateShaderFromFile(const char * path, Resource* r)
+{
+	Resource* res = nullptr;
+
+	if (r == nullptr) //no meta exist
+	{
+		res = new Resource();
+		res->extension = App->resources->GetExtensionFromPath(path);
+		res->rel_path = App->resources->GetRelativePathFromPath(path);
+		res->type = R_SHADER;
+
+		Shader* s = nullptr;
+		if (res->extension == "frag")
+		{
+			s = new Shader(ST_FRAGMENT);
+			res->sh_type = ST_FRAGMENT;
+		}
+		else if (res->extension == "vert")
+		{
+			s = new Shader(ST_VERTEX);
+			res->sh_type = ST_VERTEX;
+		}
+
+		s->LoadFromFile(path);
+
+		res->UID = s->GetUID();
+		AddShader(s);
+		res->manager_id = shaders.size() - 1;
+		res->name = App->resources->GetNameFromPath(path);
+
+		uint key = App->resources->CreateResource(path);
+
+		App->resources->resources[key].push_back(res);
+		s->UpdateShader();
+	}
+	else // meta exist
+	{
+		res = r;
+		Shader* s = new Shader(res->sh_type, res->UID);
+		s->LoadFromFile(path);
+		AddShader(s);
+		res->manager_id = shaders.size() - 1;
+		s->UpdateShader();
+	}
+
+	CheckSaveID(path);
+
+}
+
 void ShaderManager::CreateShaderProgram()
 {
 }
@@ -136,6 +217,12 @@ void ShaderManager::CreateShaderProgram()
 int ShaderManager::ShadersCount() const
 {
 	return shaders.size();
+}
+
+uint ShaderManager::GetSaveID()
+{
+	save_id++;
+	return save_id - 1;
 }
 
 void ShaderManager::CreateDefaultShaders()
@@ -187,4 +274,15 @@ void ShaderManager::CreateDefaultProgram()
 {
 	default_program = new ShaderProgram(vertex_default, fragment_default);
 	AddShaderProgram(default_program);
+}
+
+void ShaderManager::CheckSaveID(const char * file)
+{
+	std::string f = file;
+	uint cut = f.find_last_of("_");
+	std::string num = f.substr(cut + 1);
+
+	int id = atoi(num.c_str());
+	if (id > save_id)
+		save_id = id + 1;
 }

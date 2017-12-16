@@ -34,10 +34,10 @@ public:
 	ShaderType GetType()const;
 	uint GetUID()const;
 
-private:
-	void CompileShader();
-
 	void LoadFromFile(const char* path);
+
+private:
+	bool CompileShader();
 
 private:
 	char* shader_code = nullptr;

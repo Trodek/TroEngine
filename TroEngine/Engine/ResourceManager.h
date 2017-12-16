@@ -4,6 +4,7 @@
 #include "Module.h"
 #include <map>
 #include <vector>
+#include "Shader.h"
 
 class Mesh;
 class GameObject;
@@ -41,18 +42,7 @@ public:
 	uint manager_id; // index on the respective manager vector
 	uint UID = 0;
 	bool flipped = false;
-};
-
-class ShaderProgramResource : public Resource
-{
-public:
-	ShaderProgramResource();
-	ShaderProgramResource(JSONDoc* doc, int id);
-	~ShaderProgramResource();
-
-public:
-	uint vert_shader_uid = 0;
-	uint frag_shader_uid = 0;
+	ShaderType sh_type = ST_NULL; //for shaders, will be improved when resource marager is imporved :)
 };
 
 class ResourceManager : public Module

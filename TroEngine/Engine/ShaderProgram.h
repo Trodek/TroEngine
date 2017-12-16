@@ -27,6 +27,7 @@ public:
 	void LinkShaderProgram();
 
 	uint GetProgramID() const;
+	uint GetUID() const;
 
 private:
 	Shader* vertex_shader = nullptr;

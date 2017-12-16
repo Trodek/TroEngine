@@ -45,11 +45,6 @@ private:
 
 	ShaderProgram* shaders = nullptr;
 
-	Shader* vertex_shader = nullptr;
-	Shader* fragment_shader = nullptr;
-
-	uint shader_program = 0;
-
 	int selected_vert_shader = 0;
 	int selected_frag_shader = 0;
 
