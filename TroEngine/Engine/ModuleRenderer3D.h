@@ -69,6 +69,10 @@ public:
 	uint CreateFragmentShader(const char* source);
 	void DeleteShader(uint shader_id);
 
+	uint GetProgramBinary(uint program_id, uint buff_size, char* buff) const;
+	int GetProgramSize(uint program_id) const;
+	void LoadProgramFromBinary(uint program_id, uint buff_size, const char* buff);
+
 	void EnableVertexAttributeArray(uint id);
 	void DisableVertexAttributeArray(uint id);
 	void SetVertexAttributePointer(uint id, uint element_size, uint elements_gap, uint infogap);

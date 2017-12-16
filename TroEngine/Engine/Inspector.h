@@ -16,7 +16,7 @@ public:
 	void CreateInspector();
 	
 public:
-	bool active = false;
+	bool active = true;
 	GameObject* selected = nullptr;
 
 private:

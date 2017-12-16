@@ -70,11 +70,9 @@ Shader::Shader(ShaderType type) : type(type)
 	RELEASE_ARRAY(data);
 }
 
-Shader::Shader(ShaderType type, Resource * res) : type(type)
+Shader::Shader(ShaderType type, uint uid) : type(type), UID(uid)
 {
-	UID = res->UID;
 	shader_code = new char[2048];
-	LoadFromFile(App->resources->BuildAssetPath(res).c_str());
 }
 
 Shader::~Shader()
@@ -102,7 +100,7 @@ void Shader::UpdateShader()
 
 void Shader::SaveToAssets()
 {
-	App->shader_manager->SaveToAssets(this);
+	
 }
 
 void Shader::SetShaderCode(const char * code)

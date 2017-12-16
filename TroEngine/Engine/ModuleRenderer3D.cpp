@@ -624,6 +624,59 @@ void ModuleRenderer3D::DeleteShader(uint shader_id)
 	}
 }
 
+uint ModuleRenderer3D::GetProgramBinary(uint program_id, uint buff_size, char * buff) const
+{
+	uint ret = 0;
+
+	GLint formats = 0;
+	glGetIntegerv(GL_NUM_PROGRAM_BINARY_FORMATS, &formats);
+	GLint *binaryFormats = new GLint[formats];
+	glGetIntegerv(GL_PROGRAM_BINARY_FORMATS, binaryFormats);
+
+	glGetProgramBinary(program_id, buff_size, (GLsizei*)&ret, (GLenum*)binaryFormats, buff);
+
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error geting shader program binary %s\n", gluErrorString(error));
+	}
+
+	RELEASE_ARRAY(binaryFormats);
+
+	return ret;
+}
+
+int ModuleRenderer3D::GetProgramSize(uint program_id) const
+{
+	int ret = 0;
+
+	glGetProgramiv(program_id, GL_PROGRAM_BINARY_LENGTH, &ret);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error geting shader program size %s\n", gluErrorString(error));
+
+	}
+
+	return ret;
+}
+
+void ModuleRenderer3D::LoadProgramFromBinary(uint program_id, uint buff_size, const char * buff)
+{
+	GLint formats = 0;
+	glGetIntegerv(GL_NUM_PROGRAM_BINARY_FORMATS, &formats);
+	GLint *binaryFormats = new GLint[formats];
+	glGetIntegerv(GL_PROGRAM_BINARY_FORMATS, binaryFormats);
+
+	glProgramBinary(program_id, (GLenum)binaryFormats, buff, buff_size);
+	GLenum error = glGetError();
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error loading shader program binary %s\n", gluErrorString(error));
+
+	}
+}
+
 void ModuleRenderer3D::EnableVertexAttributeArray(uint id)
 {
 	glEnableVertexAttribArray(id);

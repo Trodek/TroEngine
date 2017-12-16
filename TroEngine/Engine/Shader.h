@@ -16,7 +16,7 @@ class Shader
 {
 public:
 	Shader(ShaderType type);
-	Shader(ShaderType type, Resource* res);
+	Shader(ShaderType type, uint uid);
 	~Shader();
 
 	void CleanUp();
@@ -41,7 +41,6 @@ private:
 
 private:
 	char* shader_code = nullptr;
-	char* compiled_code = nullptr; // ask ric
 	uint id = 0;
 	bool compiles = false;
 

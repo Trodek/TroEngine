@@ -9,23 +9,20 @@
 #include "ResourceManager.h"
 #include "ShaderManager.h"
 #include "Shader.h"
+#include "ShaderProgram.h"
+#include "ModuleGUI.h"
+#include "ShaderEditor.h"
 
 ComponentMaterial::ComponentMaterial(GameObject* owner) : Component(C_Material, owner)
 {
-	//set default shaders
-	fragment_shader = App->shader_manager->GetFragmentDefaultShader();
-	vertex_shader = App->shader_manager->GetVertexDefaultShader();
-
-	UpdateShaderProgram();
+	//Set default program
+	shaders = App->shader_manager->GetDefaultShaderProgram();
 }
 
 ComponentMaterial::ComponentMaterial(GameObject * owner, Material * mat) : Component(C_Material, owner), material(mat)
 {
-	//set default shaders
-	fragment_shader = App->shader_manager->GetFragmentDefaultShader();
-	vertex_shader = App->shader_manager->GetVertexDefaultShader();
-
-	UpdateShaderProgram();
+	//Set default program
+	shaders = App->shader_manager->GetDefaultShaderProgram();
 }
 
 ComponentMaterial::~ComponentMaterial()
@@ -62,10 +59,10 @@ void ComponentMaterial::ApplyMaterial() const
 		App->renderer3D->BindTexure(material->GetMaterialID());
 }
 
-void ComponentMaterial::SetVertexShader(Shader * vertex_shader)
+void ComponentMaterial::SetVertexShader(Shader * vertex_shader) //FIX
 {
 	if (vertex_shader != nullptr)
-		this->vertex_shader = vertex_shader;
+		shaders->SetVertexShader(vertex_shader);
 }
 
 void ComponentMaterial::SetVertexShader(uint shader_uid)
@@ -77,15 +74,15 @@ void ComponentMaterial::SetVertexShader(uint shader_uid)
 		{
 			Shader* shader = App->shader_manager->GetShader(res->manager_id);
 			if (shader->GetType() == ST_VERTEX)
-				vertex_shader = shader;
+				shaders->SetVertexShader(shader);
 		}
 	}
 }
 
-void ComponentMaterial::SetFragmentShader(Shader * fragment_shader)
+void ComponentMaterial::SetFragmentShader(Shader * fragment_shader) //FIX
 {
 	if (fragment_shader != nullptr)
-		this->fragment_shader = fragment_shader;
+		shaders->SetFragmentShader(fragment_shader);
 }
 
 void ComponentMaterial::SetFragmentShader(uint shader_uid)
@@ -97,7 +94,7 @@ void ComponentMaterial::SetFragmentShader(uint shader_uid)
 		{
 			Shader* shader = App->shader_manager->GetShader(res->manager_id);
 			if (shader->GetType() == ST_FRAGMENT)
-				fragment_shader = shader;
+				shaders->SetFragmentShader(shader);
 		}
 	}
 }
@@ -112,46 +109,17 @@ void ComponentMaterial::OnShaderEdit(Shader * shader)
 
 void ComponentMaterial::UpdateShaderProgram()
 {
-	if (shader_program != 0)
-	{
-		App->renderer3D->DeleteProgram(shader_program);
-		shader_program = 0;
-	}
-
-	shader_program = App->renderer3D->CreateShaderProgram();
-	App->renderer3D->AttachShaderToProgram(shader_program, vertex_shader->GetShaderID());
-	App->renderer3D->AttachShaderToProgram(shader_program, fragment_shader->GetShaderID());
-	if (App->renderer3D->LinkProgram(shader_program) == false)
-	{
-		EDITOR_LOG("Error while updating shader program, check errors above.");
-		App->renderer3D->DeleteProgram(shader_program);
-		shader_program = 0;
-	}
-	else EDITOR_LOG("Shader Program %d created :)", shader_program);
+	shaders->LinkShaderProgram();
 }
 
 uint ComponentMaterial::GetProgram() const
 {
-	return shader_program;
+	return shaders->GetProgramID();
 }
 
 void ComponentMaterial::UseShader() const
 {
-	bool a = glIsProgram(shader_program);
-
-	bool b = App->renderer3D->LinkProgram(shader_program);
-
-	glValidateProgram(shader_program);
-
-	GLenum error = glGetError();
-
-	//Check for error
-	if (error != GL_NO_ERROR)
-	{
-		EDITOR_LOG("Error at validate shader program: %s\n", gluErrorString(error));
-	}
-
-	App->renderer3D->UseShaderProgram(shader_program);
+	shaders->UseProgram();
 }
 
 void ComponentMaterial::DrawConfig()
@@ -170,7 +138,109 @@ void ComponentMaterial::DrawConfig()
 			ImGui::LabelText("Path##material", "%s", material->GetPath().c_str());
 		}
 		else
+		{
 			ImGui::Text("No material assigned");
+		}
+
+		ImGui::Separator();
+		ImGui::Text("Shaders##txt");
+
+		//vertex shaders
+		if (ImGui::Button("Vertex Shader"))
+			ImGui::OpenPopup("VertShaders##pop");
+
+		char txt[100];
+		sprintf(txt, "shader %d", selected_vert_shader);
+
+		ImGui::SameLine();
+		ImGui::Text(selected_vert_shader == -1 ? "<None>" : txt);
+		if (ImGui::BeginPopup("VertShaders##pop"))
+		{
+			ImGui::Text("Available Shaders");
+			ImGui::Separator();
+			for (int i = 0; i < App->shader_manager->ShadersCount(); ++i)
+			{
+				char name[50];
+				switch (App->shader_manager->GetShader(i)->GetType())
+				{
+				case ST_VERTEX:
+					sprintf(name, "vertex shader %d", i);
+					break;
+				case ST_FRAGMENT:
+					sprintf(name, "fragment shader %d", i);
+					break;
+				default:
+					break;
+				}
+				if (ImGui::Selectable(name))
+				{
+					selected_vert_shader = i;
+					SetVertexShader(App->shader_manager->GetShader(i));
+				}
+			}
+			ImGui::EndPopup();
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("New##vshader"))
+		{
+			Shader* shader = new Shader(ST_VERTEX);
+			App->shader_manager->AddShader(shader);
+			SetVertexShader(shader);
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Edit##vshader"))
+		{
+			App->gui->shader_editor->SetShader(shaders->GetVertexShader());
+			App->gui->shader_editor->active = true;
+		}
+
+		//fragment shader
+		if (ImGui::Button("Fragment Shader"))
+			ImGui::OpenPopup("FragShaders##pop");
+
+		sprintf(txt, "shader %d", selected_frag_shader);
+
+		ImGui::SameLine();
+		ImGui::Text(selected_frag_shader == -1 ? "<None>" : txt);
+		if (ImGui::BeginPopup("FragShaders##pop"))
+		{
+			ImGui::Text("Available Shaders");
+			ImGui::Separator();
+			for (int i = 0; i < App->shader_manager->ShadersCount(); ++i)
+			{
+				char name[50];
+				switch (App->shader_manager->GetShader(i)->GetType())
+				{
+				case ST_VERTEX:
+					sprintf(name, "vertex shader %d", i);
+					break;
+				case ST_FRAGMENT:
+					sprintf(name, "fragment shader %d", i);
+					break;
+				default:
+					break;
+				}
+				if (ImGui::Selectable(name))
+				{
+					selected_frag_shader = i;
+					SetFragmentShader(App->shader_manager->GetShader(i));
+				}
+			}
+			ImGui::EndPopup();
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("New##fshader"))
+		{
+			Shader* shader = new Shader(ST_FRAGMENT);
+			App->shader_manager->AddShader(shader);
+			SetFragmentShader(shader);
+		}
+		ImGui::SameLine();
+		if (ImGui::Button("Edit##fshader"))
+		{
+			App->gui->shader_editor->SetShader(shaders->GetFragmentShader());
+			App->gui->shader_editor->active = true;
+		}
 	}
 }
 

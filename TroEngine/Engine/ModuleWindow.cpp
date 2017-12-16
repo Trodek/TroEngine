@@ -48,8 +48,8 @@ bool ModuleWindow::Awake(JSONDoc* config)
 		SDL_GL_SetAttribute(SDL_GL_STENCIL_SIZE, 8);
 
 		//Use OpenGL 3.3
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 3);
-		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 3);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 4);
+		SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 5);
 
 		mode = config->GetString("window.window_mode");
 

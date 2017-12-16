@@ -3,9 +3,12 @@
 
 #include "Globals.h"
 #include "Module.h"
+#include "Shader.h"
 #include <vector>
 
 class Shader;
+class ShaderProgram;
+class Resource;
 
 class ShaderManager : public Module
 {
@@ -14,6 +17,7 @@ public:
 	~ShaderManager();
 
 	uint AddShader(Shader* s);
+	uint AddShaderProgram(ShaderProgram* sp);
 
 	bool Awake(JSONDoc* config);
 	bool Start();
@@ -22,16 +26,27 @@ public:
 	Shader* GetShader(uint index);
 	Shader* GetVertexDefaultShader()const;
 	Shader* GetFragmentDefaultShader()const;
+	ShaderProgram* GetDefaultShaderProgram()const;
 
-	void SaveToAssets(Shader* shader);
+	void SaveToAssets(ShaderProgram* shader);
+
+	void CreateShader(ShaderType type);
+	void CreateShader(Resource* res);
+	void CreateShaderProgram();
+
+	int ShadersCount()const;
+
 
 private:
 	void CreateDefaultShaders();
+	void CreateDefaultProgram();
 
 private:
 	std::vector<Shader*> shaders;
+	std::vector<ShaderProgram*> shader_programs;
 	Shader* vertex_default = nullptr;
 	Shader* fragment_default = nullptr;
+	ShaderProgram* default_program = nullptr;
 
 	uint save_id = 0;
 };

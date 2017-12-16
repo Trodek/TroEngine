@@ -1,6 +1,8 @@
 #include "ShaderManager.h"
 #include "Shader.h"
+#include "ShaderProgram.h"
 #include "Application.h"
+#include "ResourceManager.h"
 
 ShaderManager::ShaderManager()
 {
@@ -16,6 +18,12 @@ uint ShaderManager::AddShader(Shader * s)
 	return shaders.size() - 1;
 }
 
+uint ShaderManager::AddShaderProgram(ShaderProgram * sp)
+{
+	shader_programs.push_back(sp);
+	return shader_programs.size() - 1;
+}
+
 bool ShaderManager::Awake(JSONDoc * config)
 {
 	App->CreateFolder("Assets\\Shaders");
@@ -27,6 +35,8 @@ bool ShaderManager::Awake(JSONDoc * config)
 bool ShaderManager::Start()
 {
 	CreateDefaultShaders();
+
+	CreateDefaultProgram();
 	return true;
 }
 
@@ -40,6 +50,13 @@ bool ShaderManager::CleanUp()
 		RELEASE(*it);
 
 		it = shaders.erase(it);
+	}
+
+	for (std::vector<ShaderProgram*>::iterator it = shader_programs.begin(); it != shader_programs.end(); )
+	{
+		RELEASE(*it);
+
+		it = shader_programs.erase(it);
 	}
 
 	return ret;
@@ -60,9 +77,65 @@ Shader * ShaderManager::GetFragmentDefaultShader() const
 	return fragment_default;
 }
 
-void ShaderManager::SaveToAssets(Shader * shader)
+ShaderProgram * ShaderManager::GetDefaultShaderProgram() const
 {
+	return default_program;
+}
 
+void ShaderManager::SaveToAssets(ShaderProgram * shader)
+{
+	shader->SaveToLibray();
+}
+
+void ShaderManager::CreateShader(ShaderType type)
+{
+	Shader* shader = new Shader(type);
+
+	AddShader(shader);
+}
+
+void ShaderManager::CreateShader(Resource * res)
+{
+	ShaderType t = ST_NULL;
+	if (res->extension == "vert")
+		t = ST_VERTEX;
+	else if (res->extension == "frag")
+		t = ST_FRAGMENT;
+
+	uint uid = res->UID;
+
+	Shader* shader = nullptr;
+	if (uid != 0)
+		shader = new Shader(t, uid);
+	else
+	{
+		shader = new Shader(t);
+		res->UID = shader->GetUID();
+	}
+
+	std::string path = App->resources->BuildAssetPath(res);
+	FILE* f = fopen(path.c_str(), "r");
+	fseek(f, 0L, SEEK_END);
+	uint total_size = ftell(f);
+	rewind(f); //go back to file begining
+
+	char* code = new char[total_size];
+
+	fread(code, sizeof(char), total_size, f);
+	fclose(f);
+	shader->SetShaderCode(code);
+	RELEASE_ARRAY(code);
+
+	AddShader(shader);
+}
+
+void ShaderManager::CreateShaderProgram()
+{
+}
+
+int ShaderManager::ShadersCount() const
+{
+	return shaders.size();
 }
 
 void ShaderManager::CreateDefaultShaders()
@@ -108,4 +181,10 @@ void ShaderManager::CreateDefaultShaders()
 	fragment_default->SetShaderCode(frag_shader);
 	AddShader(fragment_default);
 
+}
+
+void ShaderManager::CreateDefaultProgram()
+{
+	default_program = new ShaderProgram(vertex_default, fragment_default);
+	AddShaderProgram(default_program);
 }

@@ -1,0 +1,26 @@
+{
+    "resources": [
+        {
+            "name": "Infernal_fx1",
+            "extension": "png",
+            "rel_path": "Assets\\Materials\\",
+            "lib_name": "texture_0",
+            "lib_path": "Library\\Materials\\",
+            "file_id": 0,
+            "type": 2,
+            "UID": 2678731467,
+            "flipped": true
+        },
+        {
+            "name": "Infernal2_Gray",
+            "extension": "png",
+            "rel_path": "Assets\\Materials\\",
+            "lib_name": "texture_1",
+            "lib_path": "Library\\Materials\\",
+            "file_id": 0,
+            "type": 2,
+            "UID": 1360794170,
+            "flipped": true
+        }
+    ]
+}
