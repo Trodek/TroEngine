@@ -17,6 +17,7 @@
 #include "MaterialManager.h"
 #include "SceneImporter.h"
 #include "ResourceManager.h"
+#include "ShaderManager.h"
 
 #include "Algorithm\Random\LCG.h"
 #include "imgui.h"
@@ -37,6 +38,7 @@ Application::Application()
 	materials = new MaterialManager();
 	scene_importer = new SceneImporter();
 	resources = new ResourceManager();
+	shader_manager = new ShaderManager();
 
 	// The order of calls is very important!
 	// Modules will Awake() Start() and Update() in this order
@@ -52,6 +54,11 @@ Application::Application()
 	AddModule(json);
 	AddModule(scene_importer);
 	AddModule(mesh);
+
+	//add shaders befor materials to properly cleanup process 
+	//(delete the shader programs assosiated to the material will automatically detach all shaders) https://www.khronos.org/opengl/wiki/GLAPI/glDeleteProgram
+	AddModule(shader_manager); 
+	
 	AddModule(materials);
 
 	// Scenes

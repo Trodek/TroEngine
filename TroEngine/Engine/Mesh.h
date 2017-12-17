@@ -4,11 +4,19 @@
 #include "Globals.h"
 #include "MathGeoLib.h"
 
+enum Primitive
+{
+	P_NULL,
+	P_BOX,
+	P_PLANE,
+	P_HDPLANE,
+};
+
 class Mesh
 {
 public:
-	Mesh(uint num_ver, float* ver, uint num_ind, uint* ind, uint num_uv = 0, float* uv = nullptr, uint num_norm = 0, float* norm = nullptr);
-	Mesh(uint uid, uint num_ver, float* ver, uint num_ind, uint* ind, uint num_uv = 0, float* uv = nullptr, uint num_norm = 0, float* norm = nullptr);
+	Mesh(uint num_ver, float* ver, uint num_ind, uint* ind);
+	Mesh(uint uid, uint num_ver, float* ver, uint num_ind, uint* ind);
 
 	uint GetIndicesID() const;
 	uint GetIndicesNum() const;
@@ -17,10 +25,6 @@ public:
 	uint GetVerticesID() const;
 	uint GetVerticesNum() const;
 	float* GetVertices() const;
-
-	uint GetUVNum();
-	uint GetUVID();
-	float* GetUV();
 
 	uint GetUID() const;
 
@@ -31,6 +35,9 @@ public:
 	void CleanUp();
 
 private:
+	void InitializeMesh();
+
+private:
 	uint id_indices = 0; // id in VRAM	
 	uint num_indices = 0;
 	uint* indices = nullptr;
@@ -39,15 +46,9 @@ private:
 	uint num_vertices = 0;
 	float* vertices = nullptr;
 
-	uint id_uv = 0; // id in VRAM
-	uint num_uv = 0;
-	float* uv = nullptr;
-
-	uint id_normals = 0; //id in VRAM
-	uint num_normals = 0;
-	float* normals;
-
 	uint UID = 0;
+
+	uint vao = 0;
 };
 
 

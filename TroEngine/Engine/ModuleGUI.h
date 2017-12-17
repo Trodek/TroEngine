@@ -10,6 +10,7 @@ class GUIElement;
 class ConsoleGUI;
 class Inspector;
 class Explorer;
+class ShaderEditor;
 
 class ModuleGUI : public Module
 {
@@ -32,6 +33,7 @@ public:
 	ConsoleGUI* console = nullptr;
 	Inspector* inspector = nullptr;
 	Explorer* explorer = nullptr;
+	ShaderEditor* shader_editor = nullptr;
 
 private:
 	std::list<GUIElement*> gui_elements;

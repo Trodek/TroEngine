@@ -133,6 +133,15 @@
     <Filter Include="Source\Engine\Modules\Resource Manager">
       <UniqueIdentifier>{cd42ae87-9dc9-41de-bdaa-9a2a914518e3}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source\Engine\Modules\ShaderManager">
+      <UniqueIdentifier>{96b1b2a8-7575-4994-921f-deba6a4d8295}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Engine\Components\Shader">
+      <UniqueIdentifier>{6b0c2a80-f908-4f1d-a1af-10426b851b51}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source\Editor\GUI\TextEditor">
+      <UniqueIdentifier>{acbb3d7d-df49-4de2-bff0-c75372521708}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Engine\Application.cpp">
@@ -383,6 +392,21 @@
     </ClCompile>
     <ClCompile Include="Engine\Explorer.cpp">
       <Filter>Source\Editor\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ShaderManager.cpp">
+      <Filter>Source\Engine\Modules\ShaderManager</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\Shader.cpp">
+      <Filter>Source\Engine\Components\Shader</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ShaderEditor.cpp">
+      <Filter>Source\Editor\GUI</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\TextEditor.cpp">
+      <Filter>Source\Editor\GUI\TextEditor</Filter>
+    </ClCompile>
+    <ClCompile Include="Engine\ShaderProgram.cpp">
+      <Filter>Source\Engine\Components\Shader</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -787,6 +811,21 @@
     </ClInclude>
     <ClInclude Include="Engine\Explorer.h">
       <Filter>Source\Editor\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ShaderManager.h">
+      <Filter>Source\Engine\Modules\ShaderManager</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\Shader.h">
+      <Filter>Source\Engine\Components\Shader</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ShaderEditor.h">
+      <Filter>Source\Editor\GUI</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\TextEditor.h">
+      <Filter>Source\Editor\GUI\TextEditor</Filter>
+    </ClInclude>
+    <ClInclude Include="Engine\ShaderProgram.h">
+      <Filter>Source\Engine\Components\Shader</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

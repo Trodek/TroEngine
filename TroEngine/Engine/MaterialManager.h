@@ -35,6 +35,9 @@ private:
 	std::vector<Material*> materials;
 
 	uint save_id = 0;
+
+public:
+	uint void_tex = 0;
 };
 
 #endif // !__MATERIALMANAGER__

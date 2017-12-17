@@ -9,6 +9,8 @@
 #include "MeshRenderer.h"
 #include "Camera.h"
 #include "ResourceManager.h"
+#include "Mesh.h"
+#include "MeshImporter.h"
 
 SceneImporter::SceneImporter(bool start_enabled) : Module(start_enabled)
 {
@@ -164,17 +166,49 @@ GameObject * SceneImporter::LoadPrefab(const char * path)
 			case Component::C_MeshRenderer:
 			{
 				uint mesh_uid = doc->GetNumber("mesh");
+				bool is_primitive = doc->GetBool("is_primitive");
+				uint p_type = 0;
+				if (is_primitive)
+					p_type = doc->GetNumber("p_type");
 
 				MeshRenderer* mr = (MeshRenderer*)go->AddComponent(Component::C_MeshRenderer);
-				mr->SetMesh(mesh_uid);
-				break; 
+
+				if (is_primitive)
+				{
+					mr->primitive = true;
+					Primitive p = static_cast<Primitive>((int)p_type);
+					switch (p)
+					{
+					case P_NULL:
+						break;
+					case P_BOX:
+						mr->SetMesh(App->mesh->cube);
+						break;
+					case P_PLANE:
+						mr->SetMesh(App->mesh->plane);
+						break;
+					case P_HDPLANE:
+						mr->SetMesh(App->mesh->hd_plane);
+						break;
+					default:
+						break;
+					}
+				}
+				else
+					mr->SetMesh(mesh_uid);
+				break;
 			}
 			case Component::C_Material:
 			{
 				uint mat_uid = doc->GetNumber("material");
+				uint vertex_shader = doc->GetNumber("vertex_shader");
+				uint fragment_shader = doc->GetNumber("fragment_shader");
 
 				ComponentMaterial* m = (ComponentMaterial*)go->AddComponent(Component::C_Material);
 				m->SetMaterial(mat_uid);
+				m->SetVertexShader(vertex_shader);
+				m->SetFragmentShader(fragment_shader);
+
 				break;
 			}
 			case Component::Camera:
@@ -267,17 +301,49 @@ void SceneImporter::LoadScene(const char * path, Scene * scene)
 			case Component::C_MeshRenderer:
 			{
 				uint mesh_uid = doc->GetNumber("mesh");
+				bool is_primitive = doc->GetBool("is_primitive");
+				uint p_type = 0;
+				if (is_primitive)
+					p_type = doc->GetNumber("p_type");
 
 				MeshRenderer* mr = (MeshRenderer*)go->AddComponent(Component::C_MeshRenderer);
-				mr->SetMesh(mesh_uid);
+				
+				if (is_primitive)
+				{
+					mr->primitive = true;
+					Primitive p = static_cast<Primitive>((int)p_type);
+					switch (p)
+					{
+					case P_NULL:
+						break;
+					case P_BOX:
+						mr->SetMesh(App->mesh->cube);
+						break;
+					case P_PLANE:
+						mr->SetMesh(App->mesh->plane);
+						break;
+					case P_HDPLANE:
+						mr->SetMesh(App->mesh->hd_plane);
+						break;
+					default:
+						break;
+					}
+				}
+				else
+					mr->SetMesh(mesh_uid);
+
 				break;
 			}
 			case Component::C_Material:
 			{
 				uint mat_uid = doc->GetNumber("material");
+				uint vert_shader = doc->GetNumber("vertex_shader");
+				uint frag_shader = doc->GetNumber("fragment_shader");
 
 				ComponentMaterial* m = (ComponentMaterial*)go->AddComponent(Component::C_Material);
 				m->SetMaterial(mat_uid);
+				m->SetVertexShader(vert_shader);
+				m->SetFragmentShader(frag_shader);
 				break;
 			}
 			case Component::Camera:
@@ -367,9 +433,13 @@ void SceneImporter::LoadSceneFromBuffer(Scene * scene)
 			case Component::C_Material:
 			{
 				uint mat_uid = buffer->GetNumber("material");
+				uint vert_shader = buffer->GetNumber("vertex_shader");
+				uint frag_shader = buffer->GetNumber("fragment_shader");
 
 				ComponentMaterial* m = (ComponentMaterial*)go->AddComponent(Component::C_Material);
 				m->SetMaterial(mat_uid);
+				m->SetVertexShader(vert_shader);
+				m->SetFragmentShader(frag_shader);
 				break;
 			}
 			case Component::Camera:

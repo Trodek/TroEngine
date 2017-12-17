@@ -5,6 +5,9 @@
 #include "Scene.h"
 #include "Inspector.h"
 #include "ModuleGUI.h"
+#include "GameObject.h"
+#include "MeshRenderer.h"
+#include "MeshImporter.h"
 
 Hierarchy::Hierarchy()
 {
@@ -47,6 +50,16 @@ void Hierarchy::CreateHierarchy()
 			{
 				App->scene_manager->GetCurrentScene()->CreateGameObject();
 			}
+			if (ImGui::MenuItem("Plane##p"))
+			{
+				GameObject* go = App->scene_manager->GetCurrentScene()->CreateGameObject();
+				MeshRenderer* mr = (MeshRenderer*) go->AddComponent(Component::C_MeshRenderer);
+				mr->SetMesh(App->mesh->hd_plane);
+				go->AddComponent(Component::C_Material);
+				mr->primitive = true;
+				mr->p_type = P_HDPLANE;
+			}
+
 			ImGui::EndPopup();
 		}
 

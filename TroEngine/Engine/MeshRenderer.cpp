@@ -7,6 +7,9 @@
 #include "ModuleRenderer3D.h"
 #include "JSONManager.h"
 #include "ResourceManager.h"
+#include "ShaderManager.h"
+#include "ShaderProgram.h"
+#include "MaterialManager.h"
 
 MeshRenderer::MeshRenderer(GameObject* owner) : Component(Component::Type::C_MeshRenderer, owner)
 {
@@ -31,21 +34,24 @@ void MeshRenderer::DebugDraw()
 		Quat rot = Quat::identity;
 		float4x4 transform = float4x4::FromTRS(translation, rot, scale);
 
-		App->renderer3D->PushMatrix();
-		App->renderer3D->MultMatrix(transform.Transposed().ptr());
+		App->shader_manager->GetDefaultShaderProgram()->UseProgram();
+
+		App->renderer3D->BindTexure(App->materials->void_tex);
+
+		App->renderer3D->SetUniformMatrix(App->shader_manager->GetDefaultShaderProgram()->GetProgramID(), "Model", transform.Transposed().ptr());
+		App->renderer3D->SetUniformForViewAndProjection(App->shader_manager->GetDefaultShaderProgram()->GetProgramID(), "view", "projection");
 
 		GLenum poly_mode = App->renderer3D->GetPolyMode();
 		App->renderer3D->PolygonModeWireframe();
-
+		
 		App->renderer3D->SetLineWidth(2.5f);
-
+		
 		App->mesh->cube->Render();
-
+		
 		App->renderer3D->SetLineWidth(1.0f);
-
+		
 		App->renderer3D->SetPolyMode(poly_mode);
-
-		App->renderer3D->PopMatrix();
+		
 	}
 }
 
@@ -63,7 +69,10 @@ void MeshRenderer::SetMesh(Mesh * mesh)
 void MeshRenderer::SetMesh(uint uid)
 {
 	Resource* res = App->resources->GetResource(uid);
-	mesh = App->mesh->GetMesh(res->manager_id);
+	if (res != nullptr)
+		mesh = App->mesh->GetMesh(res->manager_id);
+	else
+		mesh = App->mesh->GetMeshByUID(uid);
 }
 
 void MeshRenderer::DrawConfig()
@@ -116,6 +125,9 @@ void MeshRenderer::Serialize(JSONDoc * doc)
 		doc->SetNumber("mesh", mesh->GetUID());
 	else
 		doc->SetNumber("mesh", 0);
+	doc->SetBool("is_primitive", primitive);
+	if (primitive)
+		doc->SetNumber("p_type", p_type);
 }
 
 bool MeshRenderer::TestSegmentToMesh(LineSegment segment, float & distance, float3 & hit) const

@@ -57,6 +57,7 @@ bool MeshImporter::Start()
 
 	CubeMesh();
 	PlaneMesh();
+	HDPlaneMesh();
 
 	return ret;
 }
@@ -81,6 +82,16 @@ bool MeshImporter::CleanUp()
 Mesh * MeshImporter::GetMesh(uint id) const
 {
 	return (id < meshes.size()) ? meshes[id] : nullptr;
+}
+
+Mesh * MeshImporter::GetMeshByUID(uint uid) const
+{
+	for (int i = 0; i < meshes.size(); ++i)
+	{
+		if (meshes[i]->GetUID() == uid)
+			return meshes[i];
+	}
+	return nullptr;
 }
 
 bool MeshImporter::ImportFile(const char * path)
@@ -181,11 +192,6 @@ bool MeshImporter::ImportMesh(const char * path, uint mesh_id, Resource * res)
 			uv = new float[num_uv * 3];
 			memcpy(uv, mesh->mTextureCoords[0], sizeof(float)*num_uv * 3);
 		}
-		else
-		{
-			EDITOR_LOG("No Texture Coords found for mesh");
-			ret = false;
-		}
 
 		//Load mesh Normals
 		uint num_normals = 0;
@@ -198,6 +204,17 @@ bool MeshImporter::ImportMesh(const char * path, uint mesh_id, Resource * res)
 			memcpy(normals, mesh->mNormals, sizeof(float)*num_normals * 3);
 		}
 
+		//Load mesh Colors
+		uint colors_num = 0;
+		float* colors = nullptr;
+		if(mesh->HasVertexColors(0)) //assume mesh has only one vertex color channel
+		{
+			colors_num = mesh->mNumVertices;
+
+			colors = new float[colors_num * 4];
+			memcpy(colors, mesh->mColors[0], sizeof(float)*colors_num * 4);
+		}
+
 		if (ret == false) //invalild mesh, discart 
 		{
 			RELEASE_ARRAY(vert);
@@ -207,12 +224,43 @@ bool MeshImporter::ImportMesh(const char * path, uint mesh_id, Resource * res)
 				RELEASE_ARRAY(uv);
 			if (normals != nullptr)
 				RELEASE_ARRAY(normals);
+			if (colors != nullptr)
+				RELEASE_ARRAY(colors);
 
 			EDITOR_LOG("Error loading mesh");
 		}
 		else //valid mesh, add to the list
 		{
-			Mesh* new_mesh = new Mesh(res->UID, num_vertices, vert, num_indices, indices, num_uv, uv, num_normals, normals);
+			//create the buffer from loaded info
+			float* vert_info = new float[num_vertices * 13]; // vert pos, tex coords, normals, color
+
+			float null[3] = { 0.f,0.f,0.f };
+			float null_color[4] = { 1.f,1.f,1.f,1.f };
+			for (int v = 0; v < num_vertices; ++v)
+			{
+				//copy vertex pos
+				memcpy(vert_info + v * 13, vert + v * 3, sizeof(float) * 3);
+
+				//copy tex coord
+				if(uv != nullptr)
+					memcpy(vert_info + v * 13 + 3, uv + v * 3, sizeof(float) * 3);
+				else
+					memcpy(vert_info + v * 13 + 3, null, sizeof(float) * 3);
+
+				//copy normals
+				if (normals != nullptr)
+					memcpy(vert_info + v * 13 + 6, normals + v * 3, sizeof(float) * 3);
+				else
+					memcpy(vert_info + v * 13 + 6, null, sizeof(float) * 3);
+
+				//copy colors
+				if(colors != nullptr)
+					memcpy(vert_info + v * 13 + 9, colors + v * 3, sizeof(float) * 4);
+				else
+					memcpy(vert_info + v * 13 + 9, null_color, sizeof(float) * 4);
+			}
+
+			Mesh* new_mesh = new Mesh(res->UID, num_vertices, vert_info, num_indices, indices);
 			meshes.push_back(new_mesh);
 			res->manager_id = meshes.size() - 1;
 
@@ -363,6 +411,17 @@ bool MeshImporter::ImportMesh(aiMesh* mesh, GameObject* owner, const std::vector
 			memcpy(normals, mesh->mNormals, sizeof(float)*num_normals * 3);
 		}
 
+		//Load mesh Colors
+		uint colors_num = 0;
+		float* colors = nullptr;
+		if (mesh->HasVertexColors(0)) //assume mesh has only one vertex color channel
+		{
+			colors_num = mesh->mNumVertices;
+
+			colors = new float[colors_num * 4];
+			memcpy(colors, mesh->mColors[0], sizeof(float)*colors_num * 4);
+		}
+
 		if (ret == false) //invalild mesh, discart 
 		{
 			RELEASE_ARRAY(vert);
@@ -372,12 +431,43 @@ bool MeshImporter::ImportMesh(aiMesh* mesh, GameObject* owner, const std::vector
 				RELEASE_ARRAY(uv);
 			if (normals != nullptr)
 				RELEASE_ARRAY(normals);
+			if (colors != nullptr)
+				RELEASE_ARRAY(colors);
 
 			EDITOR_LOG("Error loading mesh");
 		}
 		else //valid mesh, add to the list
 		{
-			Mesh* new_mesh = new Mesh(num_vertices, vert, num_indices, indices, num_uv, uv, num_normals, normals);
+			//create the buffer from loaded info
+			float* vert_info = new float[num_vertices * 13]; // vert pos, tex coords, normals, color
+
+			float null[3] = { 0.f,0.f,0.f };
+			float null_color[4] = { 1.f,1.f,1.f,1.f };
+			for (int v = 0; v < num_vertices; ++v)
+			{
+				//copy vertex pos
+				memcpy(vert_info + v * 13, vert + v * 3, sizeof(float) * 3);
+
+				//copy tex coord
+				if (uv != nullptr)
+					memcpy(vert_info + v * 13 + 3, uv + v * 3, sizeof(float) * 3);
+				else
+					memcpy(vert_info + v * 13 + 3, null, sizeof(float) * 3);
+
+				//copy normals
+				if (normals != nullptr)
+					memcpy(vert_info + v * 13 + 6, normals + v * 3, sizeof(float) * 3);
+				else
+					memcpy(vert_info + v * 13 + 6, null, sizeof(float) * 3);
+
+				//copy colors
+				if (colors != nullptr)
+					memcpy(vert_info + v * 13 + 9, colors + v * 3, sizeof(float) * 4);
+				else
+					memcpy(vert_info + v * 13 + 9, null_color, sizeof(float) * 4);
+			}
+
+			Mesh* new_mesh = new Mesh(num_vertices, vert_info, num_indices, indices);
 			meshes.push_back(new_mesh);
 			res->manager_id = meshes.size() - 1;
 			res->UID = new_mesh->GetUID();
@@ -403,11 +493,11 @@ void MeshImporter::SaveToLibrary(Mesh * mesh, Resource* res)
 {
 	// Save Mesh to file
 	// file structure has: 
-	// amount of indices / vertices / texture_coords
-	// indices / vertices / texture_coords data
+	// amount of indices and vertices. Each vertice has:
+	// indices / vertices / texture_coords / normals / colors
 
-	uint elements_num[3] = { mesh->GetIndicesNum(), mesh->GetVerticesNum() * 3, mesh->GetUVNum() * 3 };
-	uint total_size = sizeof(elements_num) + sizeof(uint)*mesh->GetIndicesNum() + sizeof(float)*(mesh->GetVerticesNum() * 3 + mesh->GetUVNum() * 3);
+	uint elements_num[2] = { mesh->GetIndicesNum(), mesh->GetVerticesNum() * 13};
+	uint total_size = sizeof(elements_num) + sizeof(uint)*mesh->GetIndicesNum() + sizeof(float)*(mesh->GetVerticesNum() * 13);
 
 	char* data = new char[total_size];
 	char* cursor = data;
@@ -427,13 +517,8 @@ void MeshImporter::SaveToLibrary(Mesh * mesh, Resource* res)
 	memcpy(cursor, mesh->GetVertices(), size);
 	cursor += size;
 
-	//store texture_coords
-	size = sizeof(float)*elements_num[2];
-	memcpy(cursor, mesh->GetUV(), size);
-	cursor += size;
-
 	//Serialize data to file
-	char file[69];
+	char file[512];
 	sprintf_s(file, "Library\\Meshes\\mesh_%d.tromesh",save_id++);
 
 	res->lib_name = App->resources->GetNameFromPath(file);
@@ -450,8 +535,13 @@ void MeshImporter::SaveToLibrary(Mesh * mesh, Resource* res)
 
 void MeshImporter::SaveToLibrary(Mesh * mesh, const char * path)
 {
-	uint elements_num[3] = { mesh->GetIndicesNum(), mesh->GetVerticesNum() * 3, mesh->GetUVNum() * 3 };
-	uint total_size = sizeof(elements_num) + sizeof(uint)*mesh->GetIndicesNum() + sizeof(float)*(mesh->GetVerticesNum() * 3 + mesh->GetUVNum() * 3);
+	// Save Mesh to file
+	// file structure has: 
+	// amount of indices and vertices. Each vertice has:
+	// indices / vertices / texture_coords / normals / colors
+
+	uint elements_num[2] = { mesh->GetIndicesNum(), mesh->GetVerticesNum() * 13};
+	uint total_size = sizeof(elements_num) + sizeof(uint)*mesh->GetIndicesNum() + sizeof(float)*(mesh->GetVerticesNum() * 13);
 
 	char* data = new char[total_size];
 	char* cursor = data;
@@ -469,11 +559,6 @@ void MeshImporter::SaveToLibrary(Mesh * mesh, const char * path)
 	//store vertices
 	size = sizeof(float)*elements_num[1];
 	memcpy(cursor, mesh->GetVertices(), size);
-	cursor += size;
-
-	//store texture_coords
-	size = sizeof(float)*elements_num[2];
-	memcpy(cursor, mesh->GetUV(), size);
 	cursor += size;
 
 	//Serialize data to file
@@ -504,7 +589,7 @@ bool MeshImporter::LoadFile(const char * path, Resource* res)
 		fclose(file);
 
 		//Start reading num_elements for indices/vertices/texture_coords
-		uint elements_num[3];
+		uint elements_num[2];
 		uint size = sizeof(elements_num);
 		memcpy(elements_num, cursor, size);
 		cursor += size;
@@ -521,23 +606,17 @@ bool MeshImporter::LoadFile(const char * path, Resource* res)
 		memcpy(vert, cursor, size);
 		cursor += size;
 
-		//Read texture coords
-		float* tex_coords = new float[elements_num[2]];
-		size = sizeof(float)*elements_num[2];
-		memcpy(tex_coords, cursor, size);
-		cursor += size;
-
 		//Create a mesh with this info
 		if (res != nullptr)
 		{
-			Mesh* geo = new Mesh(res->UID, elements_num[1] / 3, vert, elements_num[0], ind, elements_num[2] / 3, tex_coords);
+			Mesh* geo = new Mesh(res->UID, elements_num[1] / 13, vert, elements_num[0], ind);
 			meshes.push_back(geo);
 			res->manager_id = meshes.size() - 1;
 			CheckSaveID(res->lib_name.c_str());
 		}
 		else
 		{
-			Mesh* geo = new Mesh(elements_num[1] / 3, vert, elements_num[0], ind, elements_num[2] / 3, tex_coords);
+			Mesh* geo = new Mesh(elements_num[1] / 3, vert, elements_num[0], ind);
 			meshes.push_back(geo);
 		}
 		RELEASE_ARRAY(data);
@@ -638,8 +717,35 @@ void MeshImporter::CubeMesh()
 	float* text_coords = new float[num_vertices * 3];
 	memcpy(text_coords, texture_coords, bytes);
 
+	//create the buffer from loaded info
+	float* vert_info = new float[num_vertices * 13]; // vert pos, tex coords, normals, color
+
+	float* normals = nullptr;
+	float null[3] = { 0.f,0.f,0.f };
+	float null_color[4] = { 1.f,1.f,1.f,1.f };
+	for (int v = 0; v < num_vertices; ++v)
+	{
+		//copy vertex pos
+		memcpy(vert_info + v * 13, vert + v * 3, sizeof(float) * 3);
+
+		//copy tex coord
+		if (text_coords != nullptr)
+			memcpy(vert_info + v * 13 + 3, text_coords + v * 3, sizeof(float) * 3);
+		else
+			memcpy(vert_info + v * 13 + 3, null, sizeof(float) * 3);
+
+		//copy normals
+		if (normals != nullptr)
+			memcpy(vert_info + v * 13 + 6, normals + v * 3, sizeof(float) * 3);
+		else
+			memcpy(vert_info + v * 13 + 6, null, sizeof(float) * 3);
+
+		//copy colors, no initial color so copy null_color
+		memcpy(vert_info + v * 13 + 9, null_color, sizeof(float) * 4);
+	}
+
 	//create the mesh
-	cube = new Mesh(num_vertices, vertices, num_indices, indices, num_vertices, text_coords);
+	cube = new Mesh(num_vertices, vert_info, num_indices, indices);
 	meshes.push_back(cube);
 
 }
@@ -709,9 +815,131 @@ void MeshImporter::PlaneMesh()
 		memcpy(uv + i * 3, uvs[i].ptr(), sizeof(float) * 3);
 	}
 
+	//create the buffer from loaded info
+	float* vert_info = new float[num_vert * 13]; // vert pos, tex coords, normals, color
+
+	float* normals = nullptr;
+	float null[3] = { 0.f,0.f,0.f };
+	float null_color[4] = { 1.f,1.f,1.f,1.f };
+	for (int v = 0; v < num_vert; ++v)
+	{
+		//copy vertex pos
+		memcpy(vert_info + v * 13, vertices + v * 3, sizeof(float) * 3);
+
+		//copy tex coord
+		if (uv != nullptr)
+			memcpy(vert_info + v * 13 + 3, uv + v * 3, sizeof(float) * 3);
+		else
+			memcpy(vert_info + v * 13 + 3, null, sizeof(float) * 3);
+
+		//copy normals
+		if (normals != nullptr)
+			memcpy(vert_info + v * 13 + 6, normals + v * 3, sizeof(float) * 3);
+		else
+			memcpy(vert_info + v * 13 + 6, null, sizeof(float) * 3);
+
+		//copy colors, no initial color so copy null_color
+		memcpy(vert_info + v * 13 + 9, null_color, sizeof(float) * 4);
+	}
+
 	//create mesh
-	plane = new Mesh(num_vert, vertices, num_indices, indices, num_vert, uv);
+	plane = new Mesh(num_vert, vert_info, num_indices, indices);
 	meshes.push_back(plane);
+}
+
+void MeshImporter::HDPlaneMesh()
+{
+	float length = 10.f;
+	float width = 10.f;
+	int resX = 50; // 2 minimum
+	int resZ = 50;
+
+	//vertices
+	uint num_vert = resX*resZ;
+	float3 ver[50*50];
+	for (int z = 0; z < resZ; z++)
+	{
+		// [ -length / 2, length / 2 ]
+		float zPos = ((float)z / (resZ - 1) - .5f) * length;
+		for (int x = 0; x < resX; x++)
+		{
+			// [ -width / 2, width / 2 ]
+			float xPos = ((float)x / (resX - 1) - .5f) * width;
+			ver[x + z * resX] = float3(xPos, 0.f, zPos);
+		}
+	}
+
+	float* vertices = new float[num_vert * 3];
+	for (int i = 0; i < num_vert; ++i)
+	{
+		memcpy(vertices + i * 3, ver[i].ptr(), sizeof(float) * 3);
+	}
+
+	//indices
+	uint num_indices = (resX - 1) * (resZ - 1) * 6;
+	uint ind[49*49*6];
+	int t = 0;
+	for (int face = 0; face < num_indices / 6; ++face)
+	{
+		int i = face % (resX - 1) + (face / (resZ - 1) * resX);
+
+		ind[t++] = i + resX;
+		ind[t++] = i + 1;
+		ind[t++] = i;
+
+		ind[t++] = i + resX;
+		ind[t++] = i + resX + 1;
+		ind[t++] = i + 1;
+	}
+	uint* indices = new uint[num_indices];
+	memcpy(indices, ind, sizeof(uint)*num_indices);
+
+	//uv
+	float3 uvs[50*50];
+	for (int v = 0; v < resZ; v++)
+	{
+		for (int u = 0; u < resX; u++)
+		{
+			uvs[u + v * resX] = float3((float)u / (resX - 1), (float)v / (resZ - 1), 0.f);
+		}
+	}
+
+	float* uv = new float[num_vert * 3];
+	for (int i = 0; i < num_vert; ++i)
+	{
+		memcpy(uv + i * 3, uvs[i].ptr(), sizeof(float) * 3);
+	}
+
+	//create the buffer from loaded info
+	float* vert_info = new float[num_vert * 13]; // vert pos, tex coords, normals, color
+
+	float* normals = nullptr;
+	float null[3] = { 0.f,1.f,0.f };
+	float null_color[4] = { 1.f,1.f,1.f,1.f };
+	for (int v = 0; v < num_vert; ++v)
+	{
+		//copy vertex pos
+		memcpy(vert_info + v * 13, vertices + v * 3, sizeof(float) * 3);
+
+		//copy tex coord
+		if (uv != nullptr)
+			memcpy(vert_info + v * 13 + 3, uv + v * 3, sizeof(float) * 3);
+		else
+			memcpy(vert_info + v * 13 + 3, null, sizeof(float) * 3);
+
+		//copy normals
+		if (normals != nullptr)
+			memcpy(vert_info + v * 13 + 6, normals + v * 3, sizeof(float) * 3);
+		else
+			memcpy(vert_info + v * 13 + 6, null, sizeof(float) * 3);
+
+		//copy colors, no initial color so copy null_color
+		memcpy(vert_info + v * 13 + 9, null_color, sizeof(float) * 4);
+	}
+
+	//create mesh
+	hd_plane = new Mesh(num_vert, vert_info, num_indices, indices);
+	meshes.push_back(hd_plane);
 }
 
 void MeshImporter::CheckSaveID(const char * file)

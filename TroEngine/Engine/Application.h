@@ -23,6 +23,7 @@ class MeshImporter;
 class MaterialManager;
 class SceneImporter;
 class ResourceManager;
+class ShaderManager;
 
 class Application
 {
@@ -39,6 +40,7 @@ public:
 	MaterialManager* materials;
 	SceneImporter* scene_importer;
 	ResourceManager* resources;
+	ShaderManager* shader_manager;
 
 	bool debug_mode = false;
 

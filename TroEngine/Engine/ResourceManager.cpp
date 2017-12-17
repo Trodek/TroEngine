@@ -8,6 +8,7 @@
 #include "SceneManager.h"
 #include "Scene.h"
 #include "UID.h"
+#include "ShaderManager.h"
 
 Resource::Resource()
 {
@@ -25,6 +26,7 @@ Resource::Resource(JSONDoc * doc, int id)
 	type = static_cast<ResourceType>((int)doc->GetNumber("type"));
 	UID = doc->GetNumber("UID");
 	flipped = doc->GetBool("flipped");
+	sh_type = static_cast<ShaderType>((int)doc->GetNumber("sh_type"));
 	doc->MoveToRoot();
 }
 
@@ -134,6 +136,10 @@ void ResourceManager::Load(const char * path)
 			LoadMeta(path);
 			create_meta = false;
 			break;
+		case R_SHADER:
+			App->CopyFileTo(path, "Assets\\Shaders", &copy_path);
+			App->shader_manager->CreateShaderFromFile(copy_path.c_str());
+			break;
 		default:
 			break;
 		}
@@ -180,6 +186,9 @@ Resource * ResourceManager::LoadMeta(const char * path)
 				case R_SCENE:
 					break;
 				case R_META:
+					break;
+				case R_SHADER:
+					App->shader_manager->CreateShaderFromFile(assets_path.c_str(),res);
 					break;
 				default:
 					break;
@@ -255,6 +264,7 @@ void ResourceManager::CreateMeta(const char * path)
 		meta->SetNumber("type", resources[key][i]->type);
 		meta->SetNumber("UID", resources[key][i]->UID);
 		meta->SetBool("flipped", resources[key][i]->flipped);
+		meta->SetNumber("sh_type", resources[key][i]->sh_type);
 
 		meta->MoveToRoot();
 	}
@@ -384,6 +394,12 @@ std::string ResourceManager::BuildLibraryPath(JSONDoc * doc, int id)
 		break;
 	case R_SCENE:
 		path = "";
+		break;
+	case R_SHADER: //shaders doesn't exist on library
+		path = "";
+		break;
+	case R_SHADER_PROGRAM:
+		path += "shprog";
 		break;
 	default:
 		break;
@@ -528,6 +544,14 @@ ResourceType ResourceManager::GetTypeFromPath(const char * path) const
 	else if (extension == "png" || extension == "tga") // textures
 	{
 		ret = R_TEXTURE;
+	}
+	else if (extension == "vert" || extension == "frag")
+	{
+		ret = R_SHADER;
+	}
+	else if (extension == "shprog")
+	{
+		ret = R_SHADER_PROGRAM;
 	}
 
 	return ret;

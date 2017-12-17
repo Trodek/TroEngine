@@ -4,13 +4,13 @@
 #include "ModuleRenderer3D.h"
 #include "UID.h"
 
-Mesh::Mesh(uint num_ver, float * ver, uint num_ind, uint * ind, uint num_uv, float* uv, uint num_norm, float* norm) :
-	 num_indices(num_ind), indices(ind), num_vertices(num_ver), vertices(ver), num_uv(num_uv), uv(uv), num_normals(num_norm), normals(norm)
+Mesh::Mesh(uint num_ver, float * ver, uint num_ind, uint * ind) :
+	 num_indices(num_ind), indices(ind), num_vertices(num_ver), vertices(ver)
 {
 	//Load vertices to vram
 	id_vertices = App->renderer3D->GenBuffer();
 	App->renderer3D->BindArrayBuffer(id_vertices);
-	App->renderer3D->LoadArrayToVRAM(sizeof(float) * num_vertices * 3, ver, GL_STATIC_DRAW);
+	App->renderer3D->LoadArrayToVRAM(sizeof(float) * num_vertices * 13, ver, GL_STATIC_DRAW);
 	App->renderer3D->UnbindArraybuffer();
 
 	//Load indices to vram
@@ -18,25 +18,6 @@ Mesh::Mesh(uint num_ver, float * ver, uint num_ind, uint * ind, uint num_uv, flo
 	App->renderer3D->BindArrayBuffer(id_indices);
 	App->renderer3D->LoadArrayToVRAM(sizeof(uint) * num_indices, ind, GL_STATIC_DRAW);
 	App->renderer3D->UnbindArraybuffer();
-
-
-	//Load uv to vram
-	if (uv != nullptr)
-	{
-		id_uv = App->renderer3D->GenBuffer();
-		App->renderer3D->BindArrayBuffer(id_uv);
-		App->renderer3D->LoadArrayToVRAM(sizeof(float) * num_uv * 3, uv, GL_STATIC_DRAW);
-		App->renderer3D->UnbindArraybuffer();
-	}
-
-	//Load normals to vram
-	if (norm != nullptr)
-	{
-		id_normals = App->renderer3D->GenBuffer();
-		App->renderer3D->BindArrayBuffer(id_normals);
-		App->renderer3D->LoadArrayToVRAM(sizeof(float) * num_normals * 3, normals, GL_STATIC_DRAW);
-		App->renderer3D->UnbindArraybuffer();
-	}
 
 	void* a = this;
 	void** a_ptr = &a;
@@ -47,15 +28,17 @@ Mesh::Mesh(uint num_ver, float * ver, uint num_ind, uint * ind, uint num_uv, flo
 	uint* uid = md5(data, size);
 	UID = *uid;
 	RELEASE_ARRAY(data);
+
+	InitializeMesh();
 }
 
-Mesh::Mesh(uint uid, uint num_ver, float * ver, uint num_ind, uint * ind, uint num_uv, float * uv, uint num_norm, float * norm) :
-	num_indices(num_ind), indices(ind), num_vertices(num_ver), vertices(ver), num_uv(num_uv), uv(uv), num_normals(num_norm), normals(norm), UID(uid)
+Mesh::Mesh(uint uid, uint num_ver, float * ver, uint num_ind, uint * ind) :
+	num_indices(num_ind), indices(ind), num_vertices(num_ver), vertices(ver), UID(uid)
 {
 	//Load vertices to vram
 	id_vertices = App->renderer3D->GenBuffer();
 	App->renderer3D->BindArrayBuffer(id_vertices);
-	App->renderer3D->LoadArrayToVRAM(sizeof(float) * num_vertices * 3, ver, GL_STATIC_DRAW);
+	App->renderer3D->LoadArrayToVRAM(sizeof(float) * num_vertices * 13, ver, GL_STATIC_DRAW);
 	App->renderer3D->UnbindArraybuffer();
 
 	//Load indices to vram
@@ -64,24 +47,7 @@ Mesh::Mesh(uint uid, uint num_ver, float * ver, uint num_ind, uint * ind, uint n
 	App->renderer3D->LoadArrayToVRAM(sizeof(uint) * num_indices, ind, GL_STATIC_DRAW);
 	App->renderer3D->UnbindArraybuffer();
 
-
-	//Load uv to vram
-	if (uv != nullptr)
-	{
-		id_uv = App->renderer3D->GenBuffer();
-		App->renderer3D->BindArrayBuffer(id_uv);
-		App->renderer3D->LoadArrayToVRAM(sizeof(float) * num_uv * 3, uv, GL_STATIC_DRAW);
-		App->renderer3D->UnbindArraybuffer();
-	}
-
-	//Load normals to vram
-	if (norm != nullptr)
-	{
-		id_normals = App->renderer3D->GenBuffer();
-		App->renderer3D->BindArrayBuffer(id_normals);
-		App->renderer3D->LoadArrayToVRAM(sizeof(float) * num_normals * 3, normals, GL_STATIC_DRAW);
-		App->renderer3D->UnbindArraybuffer();
-	}
+	InitializeMesh();
 }
 
 uint Mesh::GetIndicesID() const
@@ -114,21 +80,6 @@ float * Mesh::GetVertices() const
 	return vertices;
 }
 
-uint Mesh::GetUVNum()
-{
-	return num_uv;
-}
-
-uint Mesh::GetUVID()
-{
-	return id_uv;
-}
-
-float * Mesh::GetUV()
-{
-	return uv;
-}
-
 uint Mesh::GetUID() const
 {
 	return UID;
@@ -136,28 +87,9 @@ uint Mesh::GetUID() const
 
 void Mesh::Render(bool wireframe)
 {
-	App->renderer3D->EnableState(GL_VERTEX_ARRAY);
-
-	App->renderer3D->BindArrayBuffer(id_vertices);
-	App->renderer3D->SetVertexPointer();
-	App->renderer3D->BindElementArrayBuffer(id_indices);
-
-	//Apply UV if exist
-	if (num_uv != 0)
-	{
-		App->renderer3D->EnableState(GL_TEXTURE_COORD_ARRAY);
-		App->renderer3D->BindArrayBuffer(id_uv);
-		App->renderer3D->SetTexCoordPointer();
-	}
-
-	//Apply Normals if exist
-	if (num_normals != 0)
-	{
-		App->renderer3D->EnableState(GL_NORMAL_ARRAY);
-		App->renderer3D->BindArrayBuffer(id_normals);
-		App->renderer3D->SetNormalsPointer();
-	}
-
+	//use this mesh vertex array object
+	App->renderer3D->BindVertexArrayBuffer(vao);
+	
 	//Set Wireframe if needed
 	GLenum curr_mode = App->renderer3D->GetPolyMode();
 	if (wireframe && curr_mode != GL_LINE)
@@ -175,13 +107,8 @@ void Mesh::Render(bool wireframe)
 		else if (curr_mode == GL_POINT)
 			App->renderer3D->PolygonModePoints();
 	}
-
-	App->renderer3D->UnbindArraybuffer();
-	App->renderer3D->UnbindElementArrayBuffer();
-
-	App->renderer3D->DisableState(GL_VERTEX_ARRAY);
-	App->renderer3D->DisableState(GL_TEXTURE_COORD_ARRAY);
 	
+	App->renderer3D->UnbindVertexArrayBuffer();
 }
 
 bool Mesh::TestSegmentToTriangles(const LineSegment & segment, float & distance, float3 & hit)
@@ -216,6 +143,31 @@ void Mesh::CleanUp()
 {
 	RELEASE_ARRAY(vertices);
 	RELEASE_ARRAY(indices);
-	RELEASE_ARRAY(uv);
-	RELEASE_ARRAY(normals);
+}
+
+void Mesh::InitializeMesh()
+{
+	vao = App->renderer3D->GenVertexArrayBuffer();
+
+	App->renderer3D->BindVertexArrayBuffer(vao);
+
+	App->renderer3D->BindArrayBuffer(id_vertices);
+
+	//vertices
+	App->renderer3D->SetVertexAttributePointer(0, 3, 13, 0);
+	App->renderer3D->EnableVertexAttributeArray(0);
+	//texture coords
+	App->renderer3D->SetVertexAttributePointer(1, 3, 13, 3);
+	App->renderer3D->EnableVertexAttributeArray(1);
+	//normals
+	App->renderer3D->SetVertexAttributePointer(2, 3, 13, 6);
+	App->renderer3D->EnableVertexAttributeArray(2);
+	//colors
+	App->renderer3D->SetVertexAttributePointer(3, 4, 13, 9);
+	App->renderer3D->EnableVertexAttributeArray(3);
+
+	App->renderer3D->BindElementArrayBuffer(id_indices);
+
+	App->renderer3D->UnbindVertexArrayBuffer();
+
 }

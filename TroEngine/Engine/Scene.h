@@ -43,6 +43,7 @@ public:
 	void TestToKDTree(const LineSegment& segment, std::vector<GameObject*>& vec_to_fill)const;
 	void TestToKDTree(const Frustum& frustum, std::vector<GameObject*>& vec_to_fill)const;
 
+
 	void DrawHierarchy() const;
 
 	void CreateTree() const;

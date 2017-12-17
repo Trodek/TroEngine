@@ -15,6 +15,7 @@
 #include "Transform.h"
 #include "PlayPauseUI.h"
 #include "Explorer.h"
+#include "ShaderEditor.h"
 
 ModuleGUI::ModuleGUI(bool start_enabled) : Module(start_enabled) 
 {
@@ -31,7 +32,7 @@ bool ModuleGUI::Awake(JSONDoc* config)
 {
 	bool ret = false;
 
-	if (ImGui_ImplSdlGL2_Init(App->window->window))
+	if (ImGui_ImplSdlGL3_Init(App->window->window))
 		ret = true;
 	
 	SetGUIColors();
@@ -48,15 +49,16 @@ bool ModuleGUI::Start()
 	AddElement(new PlayPauseUI());
 	explorer = new Explorer();
 	AddElement(explorer);
+	shader_editor = new ShaderEditor();
+	AddElement(shader_editor);
 	return true;
 }
 
 update_status ModuleGUI::PreUpdate(float dt)
 {
-	ImGui_ImplSdlGL2_NewFrame(App->window->window);
+	ImGui_ImplSdlGL3_NewFrame(App->window->window);
 	ImGuizmo::BeginFrame();
 	ImGuizmo::Enable(true);
-
 
 	return UPDATE_CONTINUE;
 }
@@ -122,13 +124,15 @@ update_status ModuleGUI::Update(float dt)
 		ret = (*ele)->UpdateGUI(dt);
 	}
 
-	if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
-		gizmo_op = ImGuizmo::OPERATION::TRANSLATE;
-	if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
-		gizmo_op = ImGuizmo::OPERATION::ROTATE;
-	if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
-		gizmo_op = ImGuizmo::OPERATION::SCALE;
-
+	if (!ImGuizmo::IsUsing())
+	{
+		if (App->input->GetKey(SDL_SCANCODE_1) == KEY_DOWN)
+			gizmo_op = ImGuizmo::OPERATION::TRANSLATE;
+		if (App->input->GetKey(SDL_SCANCODE_2) == KEY_DOWN)
+			gizmo_op = ImGuizmo::OPERATION::ROTATE;
+		if (App->input->GetKey(SDL_SCANCODE_3) == KEY_DOWN)
+			gizmo_op = ImGuizmo::OPERATION::SCALE;
+	}
 	
 
 	return ret;
@@ -155,7 +159,7 @@ bool ModuleGUI::CleanUp()
 	}
 
 	//close ImGui
-	ImGui_ImplSdlGL2_Shutdown();
+	ImGui_ImplSdlGL3_Shutdown();
 
 	return true;
 }

@@ -61,6 +61,33 @@ public:
 
 	bool GetCullFace()const;
 
+	uint GenVertexArrayBuffer() const;
+	void BindVertexArrayBuffer(uint id) const;
+	void UnbindVertexArrayBuffer() const;
+
+	uint CreateVertexShader(const char* source);
+	uint CreateFragmentShader(const char* source);
+	void DeleteShader(uint shader_id);
+
+	uint GetProgramBinary(uint program_id, uint buff_size, char* buff) const;
+	int GetProgramSize(uint program_id) const;
+	void LoadProgramFromBinary(uint program_id, uint buff_size, const char* buff);
+
+	void EnableVertexAttributeArray(uint id);
+	void DisableVertexAttributeArray(uint id);
+	void SetVertexAttributePointer(uint id, uint element_size, uint elements_gap, uint infogap);
+
+	void UseShaderProgram(uint id);
+	void SetUniformMatrix(uint program, const char* name, float* data);
+	void SetUniformForViewAndProjection(uint program, const char* view_name, const char* proj_name);
+
+	void SetUniformFloat(uint program, const char* name, float data);
+
+	uint CreateShaderProgram();
+	void AttachShaderToProgram(uint program_id, uint shader_id);
+	bool LinkProgram(uint program_id);
+	void DeleteProgram(uint program_id);
+
 private:
 	void ToggleDepthTestState();
 	void ToggleCullFaceState();

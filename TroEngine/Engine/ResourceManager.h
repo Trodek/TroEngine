@@ -4,6 +4,7 @@
 #include "Module.h"
 #include <map>
 #include <vector>
+#include "Shader.h"
 
 class Mesh;
 class GameObject;
@@ -18,6 +19,8 @@ enum ResourceType
 	R_PREFAB,
 	R_SCENE,
 	R_META,
+	R_SHADER,
+	R_SHADER_PROGRAM,
 };
 
 class Resource
@@ -39,6 +42,7 @@ public:
 	uint manager_id; // index on the respective manager vector
 	uint UID = 0;
 	bool flipped = false;
+	ShaderType sh_type = ST_NULL; //for shaders, will be improved when resource marager is imporved :)
 };
 
 class ResourceManager : public Module

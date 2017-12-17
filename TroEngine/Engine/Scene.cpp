@@ -60,7 +60,6 @@ bool Scene::PreUpdate()
 		if ((*go)->HasComponent(Component::C_MeshRenderer))
 			(*go)->draw = false;
 	}
-
 	if (update_kd_tree)
 	{
 		update_kd_tree = false;

@@ -160,28 +160,36 @@ void GameObject::Draw()
 	//Just Components Transform, Material and MeshRenderer are needed for drawing
 
 	//Find if the GameObject has a Material
+	uint program = 0;
 	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
 	{
 		if ((*c)->GetType() == Component::Type::C_Material)
 		{
 			ComponentMaterial* m = (ComponentMaterial*)(*c);
+			m->UseShader();
 			m->ApplyMaterial();
+			program = m->GetProgram();
 		}
 	}
+
+	
 
 	//Draw MeshRenderer
 	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
 	{
 		if ((*c)->GetType() == Component::Type::C_MeshRenderer)
 		{
-			App->renderer3D->PushMatrix();
 			Transform* trans = (Transform*)GetComponent(Component::Type::C_Transform);
-			App->renderer3D->MultMatrix(trans->GetTransform().Transposed().ptr());
+			App->renderer3D->SetUniformMatrix(program, "Model", trans->GetTransform().Transposed().ptr());
+
+			App->renderer3D->SetUniformForViewAndProjection(program, "view", "projection");
+
+			// send game time to shader program
+			App->renderer3D->SetUniformFloat(program, "gameTime", App->scene_manager->ReadGameTimer());
 
 			MeshRenderer* mr = (MeshRenderer*)(*c);
 			mr->Draw();
 
-			App->renderer3D->PopMatrix();
 			break;
 		}
 	}
@@ -214,14 +222,8 @@ void GameObject::DebugDraw()
 
 void GameObject::DrawConfig()
 {
-	char new_name[50];
-	strcpy_s(new_name, name.c_str());
-
-	if (ImGui::InputText(new_name, new_name, 50))
-	{
-		name = new_name;
-	}
-
+	ImGui::Text(name.c_str());
+	
 	ImGui::Checkbox("Active##go", &active);
 	ImGui::SameLine();
 	if (ImGui::Checkbox("Static##go", &is_static))

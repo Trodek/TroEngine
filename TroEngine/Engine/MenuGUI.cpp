@@ -7,6 +7,7 @@
 #include "Inspector.h"
 #include "SceneImporter.h"
 #include "SceneManager.h"
+#include "ShaderEditor.h"
 
 MenuGUI::MenuGUI()
 {
@@ -67,6 +68,10 @@ void MenuGUI::CreateGUI()
 			{
 
 			}
+			if (ImGui::MenuItem("Shader Editor##menu", NULL, &App->gui->shader_editor->active))
+			{
+
+			}
 			
 			ImGui::EndMenu();
 		}
@@ -95,7 +100,7 @@ void MenuGUI::AboutPanel()
 		ImGui::Text("Engine mantained by Iban Mas Ortega (Trodek)");
 		ImGui::Text("Libraries Used:");
 		ImGui::BulletText("SDL2.0");
-		ImGui::BulletText("OpenGL 2.1");
+		ImGui::BulletText("OpenGL 3.3");
 		ImGui::BulletText("MathGeoLib");
 		ImGui::BulletText("ImGui 1.52");
 		ImGui::BulletText("Parson");

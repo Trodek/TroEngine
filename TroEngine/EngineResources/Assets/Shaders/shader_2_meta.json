@@ -1,0 +1,16 @@
+{
+    "resources": [
+        {
+            "name": "shader_2",
+            "extension": "vert",
+            "rel_path": "Assets\\Shaders\\",
+            "lib_name": "",
+            "lib_path": "",
+            "file_id": 0,
+            "type": 6,
+            "UID": 2155617336,
+            "flipped": false,
+            "sh_type": 1
+        }
+    ]
+}
