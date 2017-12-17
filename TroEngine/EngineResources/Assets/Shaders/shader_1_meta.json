@@ -1,0 +1,16 @@
+{
+    "resources": [
+        {
+            "name": "shader_1",
+            "extension": "frag",
+            "rel_path": "Assets\\Shaders\\",
+            "lib_name": "",
+            "lib_path": "",
+            "file_id": 0,
+            "type": 6,
+            "UID": 2279749411,
+            "flipped": false,
+            "sh_type": 2
+        }
+    ]
+}
