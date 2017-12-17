@@ -10,7 +10,7 @@
 <meta charset="utf-8">
 <meta name="description" content="">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Minifolio - Bootstrap Responsive Resume, Personal Portfolio Template</title>
+<title>TroEngine - Simple 3D Engine</title>
 <link rel="stylesheet" href="css/bootstrap.min.css">
 <link rel="stylesheet" href="css/jquery.fancybox.css">
 <link rel="stylesheet" href="css/main.css">
@@ -25,14 +25,7 @@
   <header id="header"> 
     <!-- navigation section  -->
     <div class="header-content clearfix"> <a class="logo" href="#"><img src="images/logo.png" alt="Mafolio"></a>
-      <nav class="navigation" role="navigation">
-        <ul class="primary-nav">
-          <li><a href="about.html">About Me</a></li>
-          <li><a href="contact.html">Contact</a></li>
-          <li><a href="#">External link</a></li>
-        </ul>
-      </nav>
-      <a href="#" class="nav-toggle">Menu<span></span></a> </div>
+    </div>
     <!-- navigation section  --> 
   </header>
   
@@ -40,9 +33,11 @@
   <div class="container">
     <div class="col-md-10 col-md-offset-1">
       <div class="banner-text text-center">
-        <h1>Hey, I’m John</h1>
-        <p>Looking for a strategist and experienced designer,<br>
-          Scroll to see my work.</p>
+        <h1>Hey, I’m TroEngine</h1>
+        <p>A simple 3D engine based on OpenGL 4.5<br>
+          made by <a href="https://github.com/Trodek">Iban Mas Ortega (Trodek)</a></p>
+		<a href="https://github.com/Trodek/TroEngine" class="btn btn-large">GitHub</a> 
+		<a href="https://github.com/Trodek/TroEngine/releases" class="btn btn-large">Download</a>
         <!-- banner text --> 
       </div>
     </div>
@@ -53,83 +48,91 @@
 <section id="descripton" class="section descripton">
   <div class="container">
     <div class="col-md-10 col-md-offset-1 text-center">
-      <p>Donec sed odio dui. Nulla vitae elit libero, a pharetra augue. Nullam id dolor id nibh ultricies vehicula ut id elit. Integer posuere erat a ante venenatis dapibus posuere velit aliquet. Duis mollis, est non commodo luctus, nisi erat porttitor ligula, eget lacinia odio sem nec elit. Aenean lacinia bibendum nulla sed consectetur. Cras mattis consectetur purus sit amet avida at eget metus.</p>
+      <p>TroEngine is made for the subject 3D Engines of the degree Design and Development of Videogames at UPC with learning proposes. The Software is under the MIT License. Feel free to play with it.</p>
     </div>
   </div>
 </section>
 <!-- description text section --> 
-<!-- portfolio section -->
+<!-- core systems section -->
 <section id="works" class="works section no-padding">
+ <center><h2> Core Systems </h2></center>
   <div class="container-fluid">
     <div class="row no-gutter">
-      <div class="col-lg-3 col-md-6 col-sm-6 work"> <a href="images/work-1.jpg" class="work-box"> <img src="images/work-1.jpg" alt="">
+      <div class="col-lg-3 col-md-6 col-sm-6 work"> <a href="http://assimp.sourceforge.net/" class="work-box"> <img src="images/work-1.jpg" alt="">
         <div class="overlay">
           <div class="overlay-caption">
-            <h5>Project Name</h5>
-            <p>Logo Design</p>
+            <h5>Mesh Importer</h5>
+            <p>Import 3D meshes from FBX files</p>
+			<p>using Assimp library.</p>
           </div>
         </div>
         <!-- overlay --> 
         </a> </div>
-      <div class="col-lg-3 col-md-6 col-sm-6 work"> <a href="images/work-2.jpg" class="work-box"> <img src="images/work-2.jpg" alt="">
+      <div class="col-lg-3 col-md-6 col-sm-6 work"> <a href="http://openil.sourceforge.net/" class="work-box"> <img src="images/work-2.jpg" alt="">
         <div class="overlay">
           <div class="overlay-caption">
-            <h5>Project Name</h5>
-            <p>Website Design</p>
+            <h5>Materials</h5>
+            <p>Load Textures for your meshes</p>
+			<p>using Devil library.</p>
           </div>
         </div>
         <!-- overlay --> 
         </a> </div>
-      <div class="col-lg-3 col-md-6 col-sm-6 work"> <a href="images/work-3.jpg" class="work-box"> <img src="images/work-3.jpg" alt="">
+      <div class="col-lg-3 col-md-6 col-sm-6 work"> <a href="#" class="work-box"> <img src="images/work-3.jpg" alt="">
         <div class="overlay">
           <div class="overlay-caption">
-            <h5>Project Name</h5>
-            <p>Branding</p>
+            <h5>Game Objects</h5>
+            <p>Organize your game assets</p>
+			<p>using the Game Objects hierarchy.</p>
           </div>
         </div>
         <!-- overlay --> 
         </a> </div>
-      <div class="col-lg-3 col-md-6 col-sm-6 work"> <a href="images/work-4.jpg" class="work-box"> <img src="images/work-4.jpg" alt="">
+      <div class="col-lg-3 col-md-6 col-sm-6 work"> <a href="#" class="work-box"> <img src="images/work-4.jpg" alt="">
         <div class="overlay">
           <div class="overlay-caption">
-            <h5>Project Name</h5>
-            <p>Graphic Design</p>
+            <h5>Components</h5>
+            <p>Add Components to the Game Objects</p>
+			<p>and edit them at the inspector.</p>
           </div>
         </div>
         <!-- overlay --> 
         </a> </div>
-      <div class="col-lg-3 col-md-6 col-sm-6 work"> <a href="images/work-5.jpg" class="work-box"> <img src="images/work-5.jpg" alt="">
+      <div class="col-lg-3 col-md-6 col-sm-6 work"> <a href="https://www.libsdl.org/" class="work-box"> <img src="images/work-5.jpg" alt="">
         <div class="overlay">
           <div class="overlay-caption">
-            <h5>Project Name</h5>
-            <p>Website Design</p>
+            <h5>SDL Implementation</h5>
+            <p>Created using SDL library.</p>
           </div>
         </div>
         <!-- overlay --> 
         </a> </div>
-      <div class="col-lg-3 col-md-6 col-sm-6 work"> <a href="images/work-6.jpg" class="work-box"> <img src="images/work-6.jpg" alt="">
+      <div class="col-lg-3 col-md-6 col-sm-6 work"> <a href="https://github.com/kgabis/parson" class="work-box"> <img src="images/work-6.jpg" alt="">
         <div class="overlay">
           <div class="overlay-caption">
-            <h5>Project Name</h5>
-            <p>Logo Design</p>
+            <h5>JSON Files</h5>
+            <p>Save your scenes and objets to JSON</p>
+			<p>using Parson library.</p>
           </div>
         </div>
         <!-- overlay --> 
         </a> </div>
-      <div class="col-lg-3 col-md-6 col-sm-6 work"> <a href="images/work-7.jpg" class="work-box"> <img src="images/work-7.jpg" alt="">
+      <div class="col-lg-3 col-md-6 col-sm-6 work"> <a href="#" class="work-box"> <img src="images/work-7.jpg" alt="">
         <div class="overlay">
           <div class="overlay-caption">
-            <h5>Project Name</h5>
-            <p>Branding</p>
+            <h5>Scene Manager</h5>
+            <p>Create your awesome scenes,</p>
+			<p>save them and load them.</p>
           </div>
         </div>
         <!-- overlay --> 
         </a> </div>
-      <div class="col-lg-3 col-md-6 col-sm-6 work"> <a href="images/work-8.jpg" class="work-box"> <img src="images/work-8.jpg" alt="">
+      <div class="col-lg-3 col-md-6 col-sm-6 work"> <a href="https://github.com/ocornut/imgui" class="work-box"> <img src="images/work-8.jpg" alt="">
         <div class="overlay">
           <div class="overlay-caption">
-            <h5>Project Name</h5>
-            <p>Website Design</p>
+            <h5>Performance GUI</h5>
+            <p>In engine GUI with Performance</p>
+			<p>window using ImGui.</p>
           </div>
         </div>
         <!-- overlay --> 
@@ -137,17 +140,50 @@
     </div>
   </div>
 </section>
-<!-- portfolio section --> 
-<!-- hire me section -->
-<section id="hireme" class="section hireme">
+<!-- core systems section --> 
+<!-- Shaders section -->
+<section id="shaders" class="section hireme">
   <div class="container">
     <div class="col-md-8 col-md-offset-2 text-center">
-      <h3>Need something specific?</h3>
-      <p>We are currently crafting new products but would love to hear from you.</p>
-      <a href="contact.html" class="btn btn-large">Hire me</a> </div>
+      <h3>Shaders Pipeline</h3>
+      <p>TroEngine uses shaders for rendering.</p>
+	  <p>The shaders can be written in engine directly using the Shader Editor and GLSL.</p>
+	  <img src="images/work-8.jpg" alt="">
+	  <p> </p>
+	  <p>The engine supports vertex and fragment shaders.</p>
+	  <p>Vertex shaders allow the user to modify each vertex of a meshes.</p>
+	  <img src="images/shader_water.gif" alt="">
+	  <p> </p>
+	  <p>Fragment shaders allow the user to modify the color and transparency of each pixel rendered.</p>
+	  <img src="images/shader_example.gif" alt="">
+	  <p> </p>
+	  <p>Shaders pipeline also allow us to improve the rendering process with vertex array objects.</p>
+	  <p>The vertex array objects store the attributes needed for render each mesh. After that, we can render the mesh calling it's vertex array object.</p>
+	  </div>
   </div>
 </section>
-<!-- hire me section --> 
+<!-- Shaders section --> 
+<!-- demo section -->
+<section id="demo" class="section hireme">
+  <div class="container">
+    <div class="col-md-8 col-md-offset-2 text-center">
+      <h3>TroEngine Demo</h3>
+  </div>
+</section>
+<!-- demo section --> 
+<!-- me section -->
+<section id="me" class="section hireme">
+  <div class="container">
+    <div class="col-md-8 col-md-offset-2 text-center">
+      <h3>Team</h3>
+	  <!-- image -->
+	  <h4>Iban Mas Ortega</h4>
+	  <p> </p>
+      <p>Iban Mas Ortega is a student of Design and Development of Videogames at <a href="https://www.citm.upc.edu/">CITM UPC</a>.</p>
+	  <p>He is the creator of TroEngine. Yeah, all the engine. You can contact him at one of the social networks provided below.</p>
+  </div>
+</section>
+<!-- me section --> 
 <!-- footer -->
 <footer class="section footer">
   <div class="footer-bottom">
@@ -155,16 +191,13 @@
       <div class="col-md-12">
         <p>
         <ul class="footer-share">
-          <li><a href="#"><i class="fa fa-facebook"></i></a></li>
-          <li><a href="#"><i class="fa fa-twitter"></i></a></li>
-          <li><a href="#"><i class="fa fa-linkedin"></i></a></li>
-          <li><a href="#"><i class="fa fa-google-plus"></i></a></li>
-          <li><a href="#"><i class="fa fa-pinterest-p"></i></a></li>
-          <li><a href="#"><i class="fa fa-vimeo"></i></a></li>
+          <li><a href="https://twitter.com/TrodekGD"><i class="fa fa-twitter"></i></a></li>
+          <li><a href="https://www.linkedin.com/in/iban-mas-21990010a/"><i class="fa fa-linkedin"></i></a></li>
+		  <li><a href="https://github.com/Trodek"><i class="fa fa-github"></i></a></li>
         </ul>
         </p>
-        <p>© 2015 All rights reserved. All Rights Reserved<br>
-          Made with <i class="fa fa-heart pulse"></i> by <a href="http://www.designstub.com/">Designstub</a></p>
+        <p><br>
+          Made with <i class="fa fa-heart pulse"></i> by Trodek</a></p>
       </div>
     </div>
   </div>
