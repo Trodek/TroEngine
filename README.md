@@ -3,13 +3,12 @@
 [![Build status](https://ci.appveyor.com/api/projects/status/m3lluga340u8kfuk?svg=true)](https://ci.appveyor.com/project/Trodek/troengine)
 [![Build status](https://ci.appveyor.com/api/projects/status/m3lluga340u8kfuk/branch/master?svg=true)](https://ci.appveyor.com/project/Trodek/troengine/branch/master)
 
-Basic 3D Engine based on OpenGL 2.1
+Basic 3D Engine based on OpenGL 4.5
 
 ## Current State:
-Currently the engine is a base to buid more complex systems. This means that the engine is capable
-of loading FBX files and PNG texture images, create gameobjects structure and save scenes.
-If the FBX file contains the path of the texture it will be loaded automatically. 
-That way, the engine may be able to load other texture formats.
+Engine core systems are working correctly.
+Implemented Shaders pipleline and shader editor to edit them.
+
 
 ## Usage
 To use the engine, drag and drop your files inside, the rest is handled for you.
@@ -34,7 +33,14 @@ Elements can be picked with the mouse and moved with gizmos (still work in progr
 
 To save the current scene theres an option at File->Save Scene. The scenes can be loaded using drag n drop.
 
-GameObjects can be saved as prefabs, but can't be loaded at the moment. Wierd things can happen if you try it.
+GameObjects can be saved as prefabs, but can't be loaded at the moment.
+
+Shaders can be changed and created at the material component inside the inspector. To edit them, click the edit button
+on inspector.
+
+A scene with a water wave created with shaders is available at Assets\Scenes. To use it, first load the scene, then do your work.
+
+Shaders can be loaded on the engine using drag and drop. Vertex shaders extension must be .vert and fragment ones .frag.
 
 ## GitHub
 The engine is mantained by Trodek.
