@@ -56,6 +56,8 @@ void Hierarchy::CreateHierarchy()
 				MeshRenderer* mr = (MeshRenderer*) go->AddComponent(Component::C_MeshRenderer);
 				mr->SetMesh(App->mesh->hd_plane);
 				go->AddComponent(Component::C_Material);
+				mr->primitive = true;
+				mr->p_type = P_HDPLANE;
 			}
 
 			ImGui::EndPopup();

@@ -119,6 +119,9 @@ void MeshRenderer::Serialize(JSONDoc * doc)
 		doc->SetNumber("mesh", mesh->GetUID());
 	else
 		doc->SetNumber("mesh", 0);
+	doc->SetBool("is_primitive", primitive);
+	if (primitive)
+		doc->SetNumber("p_type", p_type);
 }
 
 bool MeshRenderer::TestSegmentToMesh(LineSegment segment, float & distance, float3 & hit) const

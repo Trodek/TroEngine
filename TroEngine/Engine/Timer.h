@@ -15,6 +15,7 @@ public:
 	void Start();
 	Uint32 Read() const;
 	float ReadSec() const;
+	float GetStartTimeSec() const;
 	void SubstractTimeFromStart(float sec);
 	void Stop();
 	void PauseOn();

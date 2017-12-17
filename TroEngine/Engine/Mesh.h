@@ -4,6 +4,14 @@
 #include "Globals.h"
 #include "MathGeoLib.h"
 
+enum Primitive
+{
+	P_NULL,
+	P_BOX,
+	P_PLANE,
+	P_HDPLANE,
+};
+
 class Mesh
 {
 public:

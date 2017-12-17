@@ -208,7 +208,7 @@ bool JSONDoc::GetBool(const std::string& keyword) const
 
 double JSONDoc::GetNumber(const std::string& keyword) const
 {
-	return json_object_dotget_number(object, keyword.c_str());;
+	return json_object_dotget_number(object, keyword.c_str());
 }
 
 std::string JSONDoc::GetPath() const

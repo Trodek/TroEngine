@@ -13,12 +13,14 @@ out float maxHeight;
 uniform mat4 Model;
 uniform mat4 view;
 uniform mat4 projection;
+uniform float gameTime;
 
 void main()
 { 
-    float height = 0.5f;
+    float height = 0.25f;
     float factor = 0.5f;
-    float mult = sin(position.x/factor);    
+    float move_speed = 5.0f;
+    float mult = sin((position.x/factor)+(gameTime*move_speed));    
     vec3 pos = position;
     pos.y=mult*height;
     gl_Position = projection * view * Model * vec4(pos, 1.0f);

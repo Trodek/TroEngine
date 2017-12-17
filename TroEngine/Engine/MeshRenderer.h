@@ -5,8 +5,7 @@
 #include "Component.h"
 #include <list>
 #include "MathGeoLib.h"
-
-class Mesh;
+#include "Mesh.h"
 
 class MeshRenderer : public Component
 {
@@ -39,6 +38,10 @@ private:
 	Mesh* mesh = nullptr;
 	bool wireframe = false;
 	AABB bounding_box;
+
+public:
+	bool primitive = false;
+	Primitive p_type = P_NULL;
 
 };
 

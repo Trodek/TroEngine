@@ -1,0 +1,48 @@
+{
+    "GameObjects": [
+        {
+            "UID": 2814204572,
+            "name": "GameObject 1",
+            "active": true,
+            "is_static": false,
+            "parent": 0,
+            "new_child_id": 0
+        }
+    ],
+    "Components": [
+        {
+            "type": 1,
+            "owner": 2814204572,
+            "position": [
+                0,
+                0,
+                0
+            ],
+            "scale": [
+                1,
+                1,
+                1
+            ],
+            "rotation": [
+                0,
+                0,
+                0,
+                1
+            ]
+        },
+        {
+            "type": 2,
+            "owner": 2814204572,
+            "mesh": 1093114616,
+            "is_primitive": true,
+            "p_type": 3
+        },
+        {
+            "type": 3,
+            "owner": 2814204572,
+            "material": 0,
+            "vertex_shader": 2155617336,
+            "fragment_shader": 2279749411
+        }
+    ]
+}

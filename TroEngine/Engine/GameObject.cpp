@@ -172,6 +172,8 @@ void GameObject::Draw()
 		}
 	}
 
+	
+
 	//Draw MeshRenderer
 	for (std::vector<Component*>::iterator c = components.begin(); c != components.end(); ++c)
 	{
@@ -181,6 +183,9 @@ void GameObject::Draw()
 			App->renderer3D->SetUniformMatrix(program, "Model", trans->GetTransform().Transposed().ptr());
 
 			App->renderer3D->SetUniformForViewAndProjection(program, "view", "projection");
+
+			// send game time to shader program
+			App->renderer3D->SetUniformFloat(program, "gameTime", App->scene_manager->ReadGameTimer());
 
 			MeshRenderer* mr = (MeshRenderer*)(*c);
 			mr->Draw();
