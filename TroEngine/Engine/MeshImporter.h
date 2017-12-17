@@ -40,6 +40,7 @@ private:
 
 	void CubeMesh();
 	void PlaneMesh();
+	void HDPlaneMesh(); //plane with 2500 vertex for testing
 
 	void CheckSaveID(const char* file);
 
@@ -51,6 +52,7 @@ private:
 public:
 	Mesh* cube = nullptr;
 	Mesh* plane = nullptr;
+	Mesh* hd_plane = nullptr;
 };
 
 #endif // !__MESHIMPORTER__
