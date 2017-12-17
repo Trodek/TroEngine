@@ -222,14 +222,8 @@ void GameObject::DebugDraw()
 
 void GameObject::DrawConfig()
 {
-	char new_name[50];
-	strcpy_s(new_name, name.c_str());
-
-	if (ImGui::InputText(new_name, new_name, 50))
-	{
-		name = new_name;
-	}
-
+	ImGui::Text(name.c_str());
+	
 	ImGui::Checkbox("Active##go", &active);
 	ImGui::SameLine();
 	if (ImGui::Checkbox("Static##go", &is_static))
