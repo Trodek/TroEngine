@@ -28,6 +28,8 @@ Mesh::Mesh(uint num_ver, float * ver, uint num_ind, uint * ind) :
 	uint* uid = md5(data, size);
 	UID = *uid;
 	RELEASE_ARRAY(data);
+
+	InitializeMesh();
 }
 
 Mesh::Mesh(uint uid, uint num_ver, float * ver, uint num_ind, uint * ind) :
@@ -44,6 +46,8 @@ Mesh::Mesh(uint uid, uint num_ver, float * ver, uint num_ind, uint * ind) :
 	App->renderer3D->BindArrayBuffer(id_indices);
 	App->renderer3D->LoadArrayToVRAM(sizeof(uint) * num_indices, ind, GL_STATIC_DRAW);
 	App->renderer3D->UnbindArraybuffer();
+
+	InitializeMesh();
 }
 
 uint Mesh::GetIndicesID() const
@@ -83,25 +87,9 @@ uint Mesh::GetUID() const
 
 void Mesh::Render(bool wireframe)
 {
-	//App->renderer3D->EnableState(GL_VERTEX_ARRAY);
-
-	App->renderer3D->BindArrayBuffer(id_vertices);
-
-	//vertices
-	App->renderer3D->SetVertexAttributePointer(0, 3, 13, 0);
-	App->renderer3D->EnableVertexAttributeArray(0);
-	//texture coords
-	App->renderer3D->SetVertexAttributePointer(1, 3, 13, 3);
-	App->renderer3D->EnableVertexAttributeArray(1);
-	//normals
-	App->renderer3D->SetVertexAttributePointer(2, 3, 13, 6);
-	App->renderer3D->EnableVertexAttributeArray(2);
-	//colors
-	App->renderer3D->SetVertexAttributePointer(3, 4, 13, 9);
-	App->renderer3D->EnableVertexAttributeArray(3);
-
-	App->renderer3D->BindElementArrayBuffer(id_indices);
-
+	//use this mesh vertex array object
+	App->renderer3D->BindVertexArrayBuffer(vao);
+	
 	//Set Wireframe if needed
 	GLenum curr_mode = App->renderer3D->GetPolyMode();
 	if (wireframe && curr_mode != GL_LINE)
@@ -119,16 +107,8 @@ void Mesh::Render(bool wireframe)
 		else if (curr_mode == GL_POINT)
 			App->renderer3D->PolygonModePoints();
 	}
-
-	App->renderer3D->DisableVertexAttributeArray(0);
-	App->renderer3D->DisableVertexAttributeArray(1);
-	App->renderer3D->DisableVertexAttributeArray(2);
-	App->renderer3D->DisableVertexAttributeArray(3);
-
-	App->renderer3D->UnbindArraybuffer();
-	App->renderer3D->UnbindElementArrayBuffer();
-
-	//App->renderer3D->DisableState(GL_VERTEX_ARRAY);	
+	
+	App->renderer3D->UnbindVertexArrayBuffer();
 }
 
 bool Mesh::TestSegmentToTriangles(const LineSegment & segment, float & distance, float3 & hit)
@@ -163,4 +143,31 @@ void Mesh::CleanUp()
 {
 	RELEASE_ARRAY(vertices);
 	RELEASE_ARRAY(indices);
+}
+
+void Mesh::InitializeMesh()
+{
+	vao = App->renderer3D->GenVertexArrayBuffer();
+
+	App->renderer3D->BindVertexArrayBuffer(vao);
+
+	App->renderer3D->BindArrayBuffer(id_vertices);
+
+	//vertices
+	App->renderer3D->SetVertexAttributePointer(0, 3, 13, 0);
+	App->renderer3D->EnableVertexAttributeArray(0);
+	//texture coords
+	App->renderer3D->SetVertexAttributePointer(1, 3, 13, 3);
+	App->renderer3D->EnableVertexAttributeArray(1);
+	//normals
+	App->renderer3D->SetVertexAttributePointer(2, 3, 13, 6);
+	App->renderer3D->EnableVertexAttributeArray(2);
+	//colors
+	App->renderer3D->SetVertexAttributePointer(3, 4, 13, 9);
+	App->renderer3D->EnableVertexAttributeArray(3);
+
+	App->renderer3D->BindElementArrayBuffer(id_indices);
+
+	App->renderer3D->UnbindVertexArrayBuffer();
+
 }

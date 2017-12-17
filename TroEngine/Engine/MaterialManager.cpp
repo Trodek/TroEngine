@@ -45,6 +45,11 @@ bool MaterialManager::Start()
 {
 	bool ret = true;
 
+	//generate a white texture to render
+	GLubyte data[] = { 255,255,255,255 };
+
+	void_tex = App->renderer3D->LoadTextureToVRAM(1, 1, data, GL_RGBA);
+
 	return ret;
 }
 

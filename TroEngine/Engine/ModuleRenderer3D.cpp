@@ -121,10 +121,6 @@ bool ModuleRenderer3D::Start()
 	}
 	checker_id = LoadTextureToVRAM(CHECKERS_WIDTH, CHECKERS_HEIGHT, &checkImage[0][0][0], GL_RGBA);
 
-	///TESTESTESTESTESTSETESTEST
-	uint test = GenVertexArrayBuffer();
-	BindVertexArrayBuffer(test);
-
 	return true;
 }
 

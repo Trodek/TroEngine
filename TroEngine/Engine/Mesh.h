@@ -35,6 +35,9 @@ public:
 	void CleanUp();
 
 private:
+	void InitializeMesh();
+
+private:
 	uint id_indices = 0; // id in VRAM	
 	uint num_indices = 0;
 	uint* indices = nullptr;
@@ -44,6 +47,8 @@ private:
 	float* vertices = nullptr;
 
 	uint UID = 0;
+
+	uint vao = 0;
 };
 
 

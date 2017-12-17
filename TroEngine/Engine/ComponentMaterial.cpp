@@ -147,7 +147,7 @@ void ComponentMaterial::DrawConfig()
 		}
 
 		ImGui::Separator();
-		ImGui::Text("Shaders##txt");
+		ImGui::Text("Shaders");
 
 		//vertex shaders
 		if (ImGui::Button("Vertex Shader"))
