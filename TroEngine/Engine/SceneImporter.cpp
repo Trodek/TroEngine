@@ -280,9 +280,13 @@ void SceneImporter::LoadScene(const char * path, Scene * scene)
 			case Component::C_Material:
 			{
 				uint mat_uid = doc->GetNumber("material");
+				uint vert_shader = buffer->GetNumber("vertex_shader");
+				uint frag_shader = buffer->GetNumber("fragment_shader");
 
 				ComponentMaterial* m = (ComponentMaterial*)go->AddComponent(Component::C_Material);
 				m->SetMaterial(mat_uid);
+				m->SetVertexShader(vert_shader);
+				m->SetFragmentShader(frag_shader);
 				break;
 			}
 			case Component::Camera:
@@ -372,9 +376,13 @@ void SceneImporter::LoadSceneFromBuffer(Scene * scene)
 			case Component::C_Material:
 			{
 				uint mat_uid = buffer->GetNumber("material");
+				uint vert_shader = buffer->GetNumber("vertex_shader");
+				uint frag_shader = buffer->GetNumber("fragment_shader");
 
 				ComponentMaterial* m = (ComponentMaterial*)go->AddComponent(Component::C_Material);
 				m->SetMaterial(mat_uid);
+				m->SetVertexShader(vert_shader);
+				m->SetFragmentShader(frag_shader);
 				break;
 			}
 			case Component::Camera:

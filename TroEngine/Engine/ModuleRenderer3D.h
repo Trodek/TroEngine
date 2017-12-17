@@ -81,6 +81,8 @@ public:
 	void SetUniformMatrix(uint program, const char* name, float* data);
 	void SetUniformForViewAndProjection(uint program, const char* view_name, const char* proj_name);
 
+	void SetUniformFloat(uint program, const char* name, float data);
+
 	uint CreateShaderProgram();
 	void AttachShaderToProgram(uint program_id, uint shader_id);
 	bool LinkProgram(uint program_id);

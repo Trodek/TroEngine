@@ -24,6 +24,7 @@ public:
 	bool CleanUp();
 
 	Mesh* GetMesh(uint id) const;
+	Mesh* GetMeshByUID(uint uid)const;
 
 	bool ImportFile(const char* path);
 	bool ImportMesh(const char* path, uint mesh_id, Resource* res);

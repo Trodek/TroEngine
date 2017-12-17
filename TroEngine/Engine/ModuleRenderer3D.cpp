@@ -726,38 +726,55 @@ void ModuleRenderer3D::UseShaderProgram(uint id)
 void ModuleRenderer3D::SetUniformMatrix(uint program, const char * name, float * data)
 {
 	GLint modelLoc = glGetUniformLocation(program, name);
-	glUniformMatrix4fv(modelLoc, 1, GL_FALSE, data);
+	if (modelLoc != -1)
+		glUniformMatrix4fv(modelLoc, 1, GL_FALSE, data);
 	GLenum error = glGetError();
 
 	//Check for error
 	if (error != GL_NO_ERROR)
 	{
-		EDITOR_LOG("Error Seting uniform matrix %s: %s\n",name, gluErrorString(error));
+		EDITOR_LOG("Error Setting uniform matrix %s: %s\n",name, gluErrorString(error));
 	}
 }
 
 void ModuleRenderer3D::SetUniformForViewAndProjection(uint program, const char * view_name, const char * proj_name)
 {
 	GLint modelLoc_view = glGetUniformLocation(program, view_name);
-	glUniformMatrix4fv(modelLoc_view, 1, GL_FALSE, App->camera->GetViewMatrix());
+	if (modelLoc_view != -1)
+		glUniformMatrix4fv(modelLoc_view, 1, GL_FALSE, App->camera->GetViewMatrix());
 
 	GLenum error = glGetError();
 
 	//Check for error
 	if (error != GL_NO_ERROR)
 	{
-		EDITOR_LOG("Error Seting uniform matrix %s %s\n", view_name, gluErrorString(error));
+		EDITOR_LOG("Error Setting uniform matrix %s %s\n", view_name, gluErrorString(error));
 	}
 
 	GLint modelLoc_proj = glGetUniformLocation(program, proj_name);
-	glUniformMatrix4fv(modelLoc_proj, 1, GL_FALSE, App->camera->GetProjectionMatrix());
+	if (modelLoc_proj != -1)
+		glUniformMatrix4fv(modelLoc_proj, 1, GL_FALSE, App->camera->GetProjectionMatrix());
 
 	error = glGetError();
 
 	//Check for error
 	if (error != GL_NO_ERROR)
 	{
-		EDITOR_LOG("Error Seting uniform matrix %s %s\n", proj_name, gluErrorString(error));
+		EDITOR_LOG("Error Setting uniform matrix %s %s\n", proj_name, gluErrorString(error));
+	}
+}
+
+void ModuleRenderer3D::SetUniformFloat(uint program, const char * name, float data)
+{
+	GLint modelLoc = glGetUniformLocation(program, name);
+	if(modelLoc != -1)
+		glUniform1f(modelLoc, data);
+	GLenum error = glGetError();
+
+	//Check for error
+	if (error != GL_NO_ERROR)
+	{
+		EDITOR_LOG("Error Setting uniform float %s: %s\n", name, gluErrorString(error));
 	}
 }
 

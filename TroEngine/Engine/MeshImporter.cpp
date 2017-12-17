@@ -84,6 +84,16 @@ Mesh * MeshImporter::GetMesh(uint id) const
 	return (id < meshes.size()) ? meshes[id] : nullptr;
 }
 
+Mesh * MeshImporter::GetMeshByUID(uint uid) const
+{
+	for (int i = 0; i < meshes.size(); ++i)
+	{
+		if (meshes[i]->GetUID() == uid)
+			return meshes[i];
+	}
+	return nullptr;
+}
+
 bool MeshImporter::ImportFile(const char * path)
 {
 	bool ret = true;

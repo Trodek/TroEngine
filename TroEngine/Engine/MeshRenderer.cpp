@@ -63,7 +63,10 @@ void MeshRenderer::SetMesh(Mesh * mesh)
 void MeshRenderer::SetMesh(uint uid)
 {
 	Resource* res = App->resources->GetResource(uid);
-	mesh = App->mesh->GetMesh(res->manager_id);
+	if (res != nullptr)
+		mesh = App->mesh->GetMesh(res->manager_id);
+	else
+		mesh = App->mesh->GetMeshByUID(uid);
 }
 
 void MeshRenderer::DrawConfig()
